@@ -12,16 +12,16 @@ Personal finance tools are very segmented and can be difficult to navigate. We w
 - Develop a system to view stock information and alert users of changes
 
 ## The Team
-[Hugh Bromund](https://www.linkedin.com/in/hughbromund/)
+[Hugh Bromund](https://github.com/hughbromund)
 
-[Peyton Williams](https://www.linkedin.com/in/peytondowwilliams/)
+[Peyton Williams](https://github.com/peytondwilliams)
 
-[Aditya Naik](https://www.linkedin.com/in/aditya-naik-905162172/)
+[Aditya Naik](https://github.com/adityan9900)
 
-[Daniel Joseph](https://www.linkedin.com/in/daniel-joseph-1aab41144/)
+[Daniel Joseph](https://github.com/dadeej)
 
-[Nathan Ashta](https://www.linkedin.com/in/nathanashta/)
+[Nathan Ashta](https://github.com/nathanashta)
 
-[Niyati Sriram](https://www.linkedin.com/in/niyatisriram/)
+[Niyati Sriram](https://github.com/niyativs)
 
 ### CS307 - Team 8
