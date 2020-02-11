@@ -13,7 +13,7 @@ export default class NavigationBar extends Component {
     render() {
         return (
             <div>
-            <Navbar expand="lg" variant="dark" class="navbar-default">
+            <Navbar fixed="top" expand="lg" variant="dark" class="navbar-default">
                 <Navbar.Brand href="#home">
                     <img
                         src={require('../assets/img/logo-white.png')}

@@ -18,7 +18,13 @@ function App() {
         crossorigin="anonymous"
       />
       <NavigationBar></NavigationBar>
-      <h1 className={classes.header}> FINEX </h1>
+      <h1 className={classes.header}> Welcome to FINEX </h1>
+      <h1 className={classes.header}> Welcome to FINEX </h1>
+      <h1 className={classes.header}> Welcome to FINEX </h1>
+      <h1 className={classes.header}> Welcome to FINEX </h1>
+      <h1 className={classes.header}> Welcome to FINEX </h1>
+      <h1 className={classes.header}> Welcome to FINEX </h1>
+      
     </div>
     
   );
