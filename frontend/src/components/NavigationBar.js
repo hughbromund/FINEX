@@ -9,6 +9,14 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 
+/*
+ * Code Snippets Taken From:
+ *
+ * https://react-bootstrap.github.io/components/alerts
+ * https://stackoverflow.com/questions/41111954/react-bootstrap-nav-bar-styling/43381613
+ * 
+ */
+
 export default class NavigationBar extends Component {
     render() {
         return (
