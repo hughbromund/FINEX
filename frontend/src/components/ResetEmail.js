@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 
 export default class ResetEmail extends Component {
   constructor(props) {
@@ -52,18 +55,23 @@ export default class ResetEmail extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>Reset Email</label>
-          <br />
-          <input
-            value={this.state.email}
-            onChange={this.handleEmailChange}
-          ></input>
-          <br />
-          <button type="submit">Submit</button>
-          <br />
-          <label>{this.state.error}</label>
-        </form>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group>
+            <Form.Label>Reset Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              value={this.state.email}
+              onChange={this.handleEmailChange}
+            ></Form.Control>
+          </Form.Group>
+          <Button variant="dark" type="submit">
+            Submit
+          </Button>
+          <Form.Group>
+            <Alert>{this.state.error}</Alert>
+          </Form.Group>
+        </Form>
       </div>
     );
   }
