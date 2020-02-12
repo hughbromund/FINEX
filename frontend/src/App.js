@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./App.module.css";
 import NavigationBar from "./components/NavigationBar"
+import RegistrationPage from "./components/RegistrationPage"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
         crossorigin="anonymous"
       />
       <NavigationBar></NavigationBar>
-      <h1 className={classes.header}> FINEX </h1>
+      <div className={classes.bodyDiv}>
+        <RegistrationPage></RegistrationPage>
+      </div>
     </div>
   );
 }

@@ -10,7 +10,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 
 /*
- * Code Snippets Taken From:
+ * Code Snippets borrowed From:
  *
  * https://react-bootstrap.github.io/components/alerts
  * https://stackoverflow.com/questions/41111954/react-bootstrap-nav-bar-styling/43381613
