@@ -9,7 +9,8 @@ export default class ResetEmail extends Component {
 
     this.state = {
       email: "",
-      error: ""
+      error: "",
+      hidden: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -28,13 +29,15 @@ export default class ResetEmail extends Component {
     event.preventDefault();
     const url = "http://httpbin.org/post";
     if (!this.validateEmail(this.state.email)) {
-      this.setState({
-        error: "You have entered an invalid email!"
-      });
       return;
     }
     this.setState({
-      error: "Success!"
+      hidden: false,
+      error:
+        "Success! Check " +
+        this.state.email +
+        " for password reset information!",
+      email: ""
     });
     fetch(url, {
       method: "POST",
@@ -65,11 +68,15 @@ export default class ResetEmail extends Component {
               onChange={this.handleEmailChange}
             ></Form.Control>
           </Form.Group>
-          <Button variant="dark" type="submit">
-            Submit
-          </Button>
           <Form.Group>
-            <Alert>{this.state.error}</Alert>
+            <Button variant="dark" type="submit">
+              Submit
+            </Button>
+          </Form.Group>
+          <Form.Group>
+            <Alert variant="dark" hidden={this.state.hidden}>
+              {this.state.error}
+            </Alert>
           </Form.Group>
         </Form>
       </div>
