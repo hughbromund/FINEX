@@ -15,3 +15,6 @@ frontend/yarn-error.log*
 frontend/.changelog
 frontend/.npm/
 frontend/yarn.lock
+
+# Backend
+backend/node_modules/
