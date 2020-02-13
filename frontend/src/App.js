@@ -3,6 +3,8 @@ import classes from "./App.module.css";
 import NavigationBar from "./components/NavigationBar"
 import RegistrationPage from "./components/RegistrationPage"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ResetEmail from "./components/ResetEmail";
+
 
 function App() {
   return (
@@ -18,6 +20,9 @@ function App() {
       <div className={classes.bodyDiv}>
         <RegistrationPage></RegistrationPage>
       </div>
+      <h1 className={classes.header}> FINEX </h1>
+      <ResetEmail />
+
     </div>
   );
 }
