@@ -84,8 +84,8 @@ class LineAndScatterChartGrid extends React.Component {
           <Series
             yAccessor={d => d.close}
             interpolation={interpolation}
-            stroke="#ff7f0e" // This is where we can essentially change the color
-            fill="#ff7f0e"
+            stroke="#ff0000" // This is where we can essentially change the color
+            fill="#ff0000"
           />
           <OHLCTooltip origin={[-40, 0]} />
         </Chart>
