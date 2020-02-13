@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import "./NavigationBar.css";
+import classes from "./NavigationBar.module.css";
 
 
 import Navbar from 'react-bootstrap/Navbar'
@@ -10,7 +10,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 
 /*
- * Code Snippets Taken From:
+ * Code Snippets borrowed From:
  *
  * https://react-bootstrap.github.io/components/alerts
  * https://stackoverflow.com/questions/41111954/react-bootstrap-nav-bar-styling/43381613
@@ -21,7 +21,7 @@ export default class NavigationBar extends Component {
     render() {
         return (
             <div>
-            <Navbar fixed="top" expand="lg" variant="dark" class="navbar-default">
+            <Navbar fixed="top" expand="lg" variant="dark" className= {classes.navbar} >
                 <Navbar.Brand href="#home">
                     <img
                         src={require('../assets/img/logo-white.png')}
