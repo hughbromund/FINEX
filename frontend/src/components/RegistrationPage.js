@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import './RegistrationPage.module.css'
+
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card'
@@ -19,9 +21,8 @@ export default class RegistrationPage extends Component {
     render() {
         return (
             <div>
-                <h1>Welcome to FINEX, Let's get an account setup for you</h1>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
-                    <Image src={require('../assets/img/logo-black.png')} style = {{ width: '50rem'}}fluid />
+                    <Image src={require('../assets/img/logo-black.png')} style = {{ width: '40rem'}}fluid />
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
                         <Form style={{ width: '50rem'}}>

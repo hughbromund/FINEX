@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import "./NavigationBar.css";
+import classes from "./NavigationBar.module.css";
 
 
 import Navbar from 'react-bootstrap/Navbar'
@@ -21,7 +21,7 @@ export default class NavigationBar extends Component {
     render() {
         return (
             <div>
-            <Navbar fixed="top" expand="lg" variant="dark" class="navbar-default">
+            <Navbar fixed="top" expand="lg" variant="dark" className= {classes.navbar} >
                 <Navbar.Brand href="#home">
                     <img
                         src={require('../assets/img/logo-white.png')}
