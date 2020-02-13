@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
+import styles from "./ResetEmail.module.css";
 
 export default class ResetEmail extends Component {
   constructor(props) {
@@ -57,10 +58,10 @@ export default class ResetEmail extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.container}>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
-            <Form.Label>Reset Email</Form.Label>
+            <Form.Label className={styles.label}>Reset Email</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
