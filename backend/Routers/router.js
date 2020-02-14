@@ -10,5 +10,6 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.get('/hi', stockController.getHello);
+router.get('/api/stock/auto/:input', stockController.get_auto_complete);
 
 module.exports = router;

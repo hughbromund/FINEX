@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const filepath = '../stock_list/nasdaq_list.csv'
+const filepath = '../backend/stock_list/nasdaq_list.csv'
 
 //parses nasdaq file into array
 //source: https://stackoverflow.com/questions/49616609/javascript-node-js-search-and-return-lines-that-contain-a-string-in-a-file
@@ -23,7 +23,7 @@ const nasdaq_list = (fs.readFileSync(filepath))
 
 
 //returns first 5 stocks with matching symbols/names. exact match symbol comes first
-function auto_complete(search_term) {
+function get_matching_stocks(search_term) {
     const search_lower = search_term.toLowerCase();
 
     //filters all stocks which contain the searched term
@@ -46,4 +46,8 @@ function auto_complete(search_term) {
     lines = lines.splice(0, Math.min(5, lines.length)); 
     
     return lines;
+}
+
+exports.auto_complete = async function (search_term) {
+    return get_matching_stocks(search_term);
 }
