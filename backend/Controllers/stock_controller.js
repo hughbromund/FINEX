@@ -1,4 +1,5 @@
-var stockService = require('../Services/stock_service')    
+var stockService = require('../Services/stock_service')  
+var auto_complete_service = require('../Services/auto_complete.js')  
 
 exports.getHello = async function (req, res, next) {
     // Validate request parameters
@@ -13,4 +14,10 @@ exports.getHello = async function (req, res, next) {
         return res.status(400).json({ status: 400, message: e.message });
     }
      */
+}
+
+exports.get_auto_complete = async function (req, res, next) {
+    var stocks = await auto_complete_service.auto_complete(req.params.input); //TODO
+    return res.json(stocks);
+
 }
