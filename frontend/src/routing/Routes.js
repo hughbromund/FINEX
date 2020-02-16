@@ -7,19 +7,30 @@ import {
   Link
 } from "react-router-dom";
 
-import history from "./history";
-import Temp1 from "./Temp1";
-import Temp2 from "./Temp2"
+import history from "./History";
+
+/* Pages */
+import ResetEmail from "../components/ResetEmail";
+import RegistrationPage from "../components/RegistrationPage";
+import SearchStock from "../components/StockSearch/StockSearch";
+
+/* Paths */
+import {RESET_PASS_PATH as RESET_PASS_PATH} from "../constants/Constants";
+import {SEARCH_STOCK_PATH as SEARCH_STOCK_PATH} from "../constants/Constants";
+import {REGISTRATION_PATH as REGISTRATION_PATH} from "../constants/Constants";
 
 function Routes() {
   return (
     <Router history={history}>
     <Switch>
         <Route exact path="/">
-        <Temp1 />
+          <RegistrationPage />
         </Route>
-        <Route path="/temp2">
-        <Temp2 />
+        <Route path={RESET_PASS_PATH}>
+          <ResetEmail />
+        </Route>
+        <Route path={SEARCH_STOCK_PATH}>
+          <SearchStock />
         </Route>
     </Switch>
     </Router>
