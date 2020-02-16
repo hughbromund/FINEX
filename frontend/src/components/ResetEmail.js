@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
+import styles from "./ResetEmail.module.css";
 
 export default class ResetEmail extends Component {
   constructor(props) {
@@ -6,7 +10,8 @@ export default class ResetEmail extends Component {
 
     this.state = {
       email: "",
-      error: ""
+      error: "",
+      hidden: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -25,13 +30,15 @@ export default class ResetEmail extends Component {
     event.preventDefault();
     const url = "http://httpbin.org/post";
     if (!this.validateEmail(this.state.email)) {
-      this.setState({
-        error: "You have entered an invalid email!"
-      });
       return;
     }
     this.setState({
-      error: "Success!"
+      hidden: false,
+      error:
+        "Success! Check " +
+        this.state.email +
+        " for password reset information!",
+      email: ""
     });
     fetch(url, {
       method: "POST",
@@ -51,19 +58,28 @@ export default class ResetEmail extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>Reset Email</label>
-          <br />
-          <input
-            value={this.state.email}
-            onChange={this.handleEmailChange}
-          ></input>
-          <br />
-          <button type="submit">Submit</button>
-          <br />
-          <label>{this.state.error}</label>
-        </form>
+      <div className={styles.container}>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group>
+            <Form.Label className={styles.label}>Reset Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              value={this.state.email}
+              onChange={this.handleEmailChange}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <Button variant="dark" type="submit">
+              Submit
+            </Button>
+          </Form.Group>
+          <Form.Group>
+            <Alert variant="dark" hidden={this.state.hidden}>
+              {this.state.error}
+            </Alert>
+          </Form.Group>
+        </Form>
       </div>
     );
   }
