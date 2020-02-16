@@ -1,4 +1,5 @@
-.navbar, 
+.navbar,
 .navbar-default {
-    background-color: black;
+  background-color: black;
+  margin-bottom: 1000px;
 }
