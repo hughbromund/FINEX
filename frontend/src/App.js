@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./App.module.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import StockSearch from './components/StockSearch/StockSearch';
 
 function App() {
   return (
-    <div className={classes.all}>
-      <h1 className={classes.header}> FINEX </h1>
-    </div>
+    <StockSearch />
   );
 }
 
