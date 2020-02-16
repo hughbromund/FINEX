@@ -1,7 +1,10 @@
 /**
  * All Node.js functions to edit and communicate with MongoDB database
  * @author: Niyati
- * 
+ * https://www.w3schools.com/nodejs/nodejs_mongodb_find.asp
+ * http://www.java2s.com/Tutorials/Javascript/Node.js_Tutorial/0100__Node.js_Functions.htm
+ * https://flaviocopes.com/node-mongodb/
+ * https://stackoverflow.com/questions/24094129/mongodb-update-push-array
  */
 
 //Connect to MongoDB Database via MongoClient and define global variables
