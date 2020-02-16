@@ -10,6 +10,8 @@ import Button from "react-bootstrap/Button";
 
 import history from "../routing/History";
 import { YOUR_STOCKS_PATH } from "../constants/Constants";
+import { REGISTRATION_PATH } from "../constants/Constants";
+import { SEARCH_STOCK_PATH } from "../constants/Constants";
 
 /*
  * Code Snippets borrowed From:
@@ -46,7 +48,9 @@ export default class NavigationBar extends Component {
                 >
                   YOUR STOCKS
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
+                <NavDropdown.Item 
+                    onClick={() => history.push(SEARCH_STOCK_PATH)}
+                >
                   FIND A STOCK
                 </NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">
@@ -72,7 +76,7 @@ export default class NavigationBar extends Component {
             </Nav>
             <Form inline>
               <Navbar.Text>
-                SIGNED IN AS: <a href="#login">Hugh Bromund</a>
+                SIGNED IN AS: <a onClick={() => history.push(REGISTRATION_PATH)} >Hugh Bromund</a>
               </Navbar.Text>
             </Form>
           </Navbar.Collapse>
