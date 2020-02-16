@@ -1,11 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import {
-  Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { Router, Switch, Route, Link } from "react-router-dom";
 
 import history from "./History";
 
@@ -15,14 +10,14 @@ import RegistrationPage from "../components/RegistrationPage";
 import SearchStock from "../components/StockSearch/StockSearch";
 
 /* Paths */
-import {RESET_PASS_PATH as RESET_PASS_PATH} from "../constants/Constants";
-import {SEARCH_STOCK_PATH as SEARCH_STOCK_PATH} from "../constants/Constants";
-import {REGISTRATION_PATH as REGISTRATION_PATH} from "../constants/Constants";
+import { RESET_PASS_PATH } from "../constants/Constants";
+import { SEARCH_STOCK_PATH } from "../constants/Constants";
+import { REGISTRATION_PATH } from "../constants/Constants";
 
 function Routes() {
   return (
     <Router history={history}>
-    <Switch>
+      <Switch>
         <Route exact path="/">
           <RegistrationPage />
         </Route>
@@ -32,7 +27,7 @@ function Routes() {
         <Route path={SEARCH_STOCK_PATH}>
           <SearchStock />
         </Route>
-    </Switch>
+      </Switch>
     </Router>
   );
 }
