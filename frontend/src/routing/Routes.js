@@ -20,7 +20,7 @@ function Routes() {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path="/">
+        <Route path={REGISTRATION_PATH}>
           <RegistrationPage />
         </Route>
         <Route path={RESET_PASS_PATH}>
