@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown'
 import FormControl from 'react-bootstrap/FormControl'
 import classes from './StockSearch.module.css'
+import Jumbotron from 'react-bootstrap/Jumbotron'
+import Button from 'react-bootstrap/Button';
+
 
 class StockSearch extends Component {
 
@@ -58,10 +61,21 @@ class StockSearch extends Component {
 
         return (
             <div className={classes.wrapper}>
-                <Dropdown>
-                    <Dropdown.Toggle as={CustomToggle} id="toggle"></Dropdown.Toggle>
-                    {this.getCurrList()}
-                </Dropdown>
+                <div className={classes.innerDiv}>
+                    <Jumbotron className={classes.jumbo}>
+                            <h1>Welcome to FINEX's Stock Search Page!</h1>
+                            <p>
+                                Below, you may search for a stock by symbol or name. Clicking on the stock will bring you to its own, 
+                                dedicated screen where you can learn more about its recent trends.
+                            </p>
+                    </Jumbotron>
+                </div>
+                <div className={classes.innerDiv}>
+                    <Dropdown>
+                        <Dropdown.Toggle as={CustomToggle} id="toggle"></Dropdown.Toggle>
+                        {this.getCurrList()}
+                    </Dropdown>
+                </div>
             </div>
         );
 
