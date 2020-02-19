@@ -5,6 +5,7 @@ import RegistrationPage from "./components/RegistrationPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ResetEmail from "./components/ResetEmail";
 import Routes from "./routing/Routes";
+import HomePage from "./components/HomePage";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <div className={classes.navContainer}>
         <NavigationBar />
       </div>
-      <Routes />
+      <HomePage />
     </div>
   );
 }
