@@ -38,7 +38,7 @@ function insert_new_user(username, password, email, name) {
   var new_user = { username: username, password: password, email: email, name: name };
   users.insertOne(new_user, (err, result) => {
     if (err) throw err;
-    console.log("New user inserted");
+    console.log("New user inserted\n");
   });
 }
 
@@ -57,7 +57,7 @@ function insert_new_transaction(username, cost, type, name) {
   var new_transaction = { username: username, cost: cost, type: type, name: name };
   transactions.insertOne(new_transaction, (err, result) => {
     if (err) throw err;
-    console.log("New transaction inserted");
+    console.log("New transaction inserted\n");
   });
   var transaction_id
   transactions.findOne( { username: username, cost: cost, type: type, name: name }, 
@@ -65,6 +65,7 @@ function insert_new_transaction(username, cost, type, name) {
     if (err) throw err;
   });
   users.update( { username: username }, { $push: { transaction_ids: transaction_id }});
+  console.log("user updated\n");
 }
 
 /**
@@ -76,6 +77,7 @@ function find_user(username) {
   var user
   users.findOne( { username: username }, (err, user) => {
     if (err) throw err;
+    console.log("found user\n");
     return user;
   });
 }
@@ -90,6 +92,7 @@ function get_transactions(username) {
   users.find( { username: username }, { projection: { _id: 0, username: 0, stocks: 0,
      password: 0, email: 0, good_color: 0, bad_color: 0, name: 0 } }, (err, list) => {
        if (err) throw err;
+       console.log("found transactions\n")
        return list;
   });
 }
@@ -105,7 +108,10 @@ function check_password(username, password) {
   users.findOne( { username: username }, { projection: { _id: 0, username: 0, stocks: 0, 
     email: 0, good_color: 0, bad_color: 0, name: 0, transaction_ids: 0 } }, (err, pass) => {
       if (err) throw err;
-      if (pass == password) return true;
+      if (pass == password) {
+        console.log("password matches\n");
+        return true;
+      }
       return false;
   });
 }
@@ -118,6 +124,7 @@ function check_password(username, password) {
  */
 function add_stock(username, stock_id) {
   users.update( { username: username }, { $push: { stocks: stock_id } } );
+  console.log("stock added\n");
 }
 
 /**
@@ -129,6 +136,7 @@ function add_stock(username, stock_id) {
  */
 function change_password(username, new_password) {
   users.update( { username: username }, { $set: { password: new_password } } );
+  console.log("password updated\n");
 }
 
 /**
@@ -141,6 +149,7 @@ function get_stocks(username) {
   users.find( { username: username }, { projection: { _id: 0, username: 0, transaction_ids: 0,
      password: 0, email: 0, good_color: 0, bad_color: 0, name: 0 } }, (err, list) => {
        if (err) throw err;
+       console.log("stocks returned");
        return list;
   });
 }
@@ -154,6 +163,7 @@ function get_stocks(username) {
  */
 function set_colors(username, good, bad) {
   users.update( { username: username }, { $set: { good_color: good, bad_color: bad } } );
+  console.log("colors updated\n");
 }
 
 
