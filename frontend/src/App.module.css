@@ -1,0 +1,14 @@
+
+.all {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+  font-weight: bold;
+  font-size: 100pt;
+}
+.bodyDiv {
+  padding-top: 75px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
