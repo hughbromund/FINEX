@@ -4,30 +4,52 @@ import FormControl from 'react-bootstrap/FormControl'
 import classes from './StockSearch.module.css'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button';
+import { STOCK_LIST_API } from '../../constants/Constants';
 
 
 class StockSearch extends Component {
 
     state = {
-        stockList: ["GOOG", "APPL", "IBM", "BUX", "STONKS", "STOCKS", "TEST1", "TEST2"],
+        stockList: [[]],
         inputValue: ""
     }
 
-    setValue = (newVal) => {
+    componentDidMount = () => {
+        this.callListAPI()
+            .catch(err => console.log(err));
+    }
+
+    /*
+    * Makes a call to backend requesting stock list based on
+    * input provided.
+    */
+    callListAPI = async (currInputVal) => {
+        console.log("http://localhost:5000" + STOCK_LIST_API + currInputVal)
+        const response = await fetch("http://localhost:5000" + STOCK_LIST_API + currInputVal);
+        const body = await response.json();
+        this.setState({stockList:body});
+      
+        if (response.status !== 200) {
+            throw Error(body.message) 
+        }
+        return body;
+    }
+
+    updateValue = (newVal) => {
         this.setState({inputValue:newVal});
+        this.callListAPI(newVal)
+            .catch(err => console.log(err));
     }
 
     //Might not be a required method
     getCurrList = () => {
         let currList = [];
         for (let i = 0; i < this.state.stockList.length; i++) {
-            if (this.state.stockList[i].startsWith(this.state.inputValue)) {
-                currList.push(
-                    <Dropdown.Item eventKey={i} onSelect={eventKey => {this.setValue(this.state.stockList[eventKey])}}>
-                        {this.state.stockList[i]}
-                    </Dropdown.Item>
-                )
-            }
+            currList.push(
+                <Dropdown.Item key={i} eventKey={i} onSelect={eventKey => {this.updateValue(this.state.stockList[eventKey])}}>
+                    {this.state.stockList[i][1]}
+                </Dropdown.Item>
+            )
         }
         if (currList.length == 0) {
             return;
@@ -53,7 +75,7 @@ class StockSearch extends Component {
                         e.preventDefault();
                         onClick(e);
                     }}
-                    onChange={e => this.setValue(e.target.value)}
+                    onChange={e => this.updateValue(e.target.value)}
                 />
                 {children}
             </div> 
@@ -76,6 +98,7 @@ class StockSearch extends Component {
                         {this.getCurrList()}
                     </Dropdown>
                 </div>
+                {this.state.stockList}
             </div>
         );
 
