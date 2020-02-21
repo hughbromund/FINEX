@@ -63,6 +63,7 @@ export default class ResetEmail extends Component {
           <Form.Group>
             <Form.Label className={styles.label}>Reset Email</Form.Label>
             <Form.Control
+              data-testid="email"
               type="email"
               placeholder="Enter email"
               value={this.state.email}
@@ -70,7 +71,7 @@ export default class ResetEmail extends Component {
             ></Form.Control>
           </Form.Group>
           <Form.Group>
-            <Button variant="dark" type="submit">
+            <Button data-testid="submit" variant="dark" type="submit">
               Submit
             </Button>
           </Form.Group>
