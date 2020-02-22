@@ -24,9 +24,23 @@ MongoClient.connect(uri, function(err, client) {
    // perform actions on the collection object
 
     console.log("reached");
-    users.insertOne({ username: username, password: password, email: email, name: name }, (err, result) => {
-    console.log("New user inserted\n");
+    insert_new_user(nsriram, purdue2022, nsriram@purdue.edu, Niyati);
   });
 
    client.close();
 });
+
+/**
+ * Insert a new user into the database
+ * @param {*} username 
+ * @param {*} password 
+ * @param {*} email 
+ * @param {*} name 
+ * Return value: void
+ */
+function insert_new_user(username, password, email, name) {
+  var new_user = { username: username, password: password, email: email, name: name };
+  users.insertOne(new_user, (err, result) => {
+    console.log("New user inserted\n");
+  });
+}
