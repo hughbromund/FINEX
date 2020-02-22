@@ -1,3 +1,4 @@
+
 /**
  * All Node.js functions to edit and communicate with MongoDB database
  * @author: Niyati
@@ -5,15 +6,64 @@
  * http://www.java2s.com/Tutorials/Javascript/Node.js_Tutorial/0100__Node.js_Functions.htm
  * https://flaviocopes.com/node-mongodb/
  * https://stackoverflow.com/questions/24094129/mongodb-update-push-array
+ * https://codeforgeek.com/mongodb-atlas-node-js/
+ * https://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html
+ * 
+ * TODO:
+ * fix issue with commands executing out of order
+ * make global connection string
+ * make sure commands can be accessed throughout backend folder
+ * 
  */
 
 
-const url = "mongodb+srv://niyatisriram:4A!B:mUj2_X8xZE@data-krx7s.mongodb.net/test?retryWrites=true&w=majority";
+/**
+ * IMPORTANT NOTE
+ * The below code is to connect to the database needs to be written every time
+ * database actions need to be performed. Write commands under 
+ * "perform actions" comment.
+ */
+
+// replace the uri string with your connection string
+// password is user password for the cluster, not mongodb account
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://niyatisriram:YdE0qAyr4mnz5s1f@data-krx7s.mongodb.net/test?retryWrites=true&w=majority";
+
+MongoClient.connect(uri, function(err, client) {
+   if(err) {
+        console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+   }
+   else console.log('Connected...');
+
+   const database = client.db("FINEX"); 
+   const users = database.collection("Users");
+   const transactions = database.collection("Transactions");
+   // perform actions on the collection object
+
+    /**console.log("reached");
+    insert_new_user("nsriram", "purdue2022", "nsriram@purdue.edu", "Niyati");
+    insert_new_transaction("nsriram", "50", "expense", "groceries");
+    var Newuser = find_user("nsriram");
+    console.log("user found\n");
+    console.log(Newuser); */
+    client.close();
+  });
 
 
-
-
-//encrypt password
+/**
+ * Insert a new user into the database
+ * @param {*} username 
+ * @param {*} password 
+ * @param {*} email 
+ * @param {*} name 
+ * Return value: void
+ */
+function insert_new_user(username, password, email, name) {
+  var new_user = { username: username, password: password, email: email, name: name };
+  users.insertOne(new_user, (err, result) => {
+    console.log("New user inserted\n");
+  });
+}
 
 /**
  * Insert a new transaction into the database 
@@ -29,13 +79,13 @@ function insert_new_transaction(username, cost, type, name) {
   transactions.insertOne(new_transaction, (err, result) => {
     console.log("New transaction inserted\n");
   });
-  var transaction_id
   transactions.findOne( { username: username, cost: cost, type: type, name: name }, 
   { projection: { username: 0, cost: 0, type: 0, name: 0 } }, (err, transaction_id) => {
     console.log("user found\n");
-  });
-  users.update( { username: username }, { $push: { transaction_ids: transaction_id }});
-  console.log("user updated\n");
+    var transaction = transaction_id;
+    users.updateOne( { username: username }, { $push: { transaction_ids: transaction }}).catch(() => {});
+    console.log("user updated\n");
+  }); 
 }
 
 /**
@@ -44,7 +94,6 @@ function insert_new_transaction(username, cost, type, name) {
  * Return value: user object
  */
 function find_user(username) {
-  var user
   users.findOne( { username: username }, (err, user) => {
     console.log("found user\n");
     return user;
@@ -57,10 +106,10 @@ function find_user(username) {
  * Return value: array of transaction IDs
  */
 function get_transactions(username) {
-  var list
   users.find( { username: username }, { projection: { _id: 0, username: 0, stocks: 0,
      password: 0, email: 0, good_color: 0, bad_color: 0, name: 0 } }, (err, list) => {
-       console.log("found transactions\n")
+       console.log("found transactions\n");
+       console.log(list);
        return list;
   });
 }
@@ -72,7 +121,6 @@ function get_transactions(username) {
  * Return value: boolean
  */
 function check_password(username, password) {
-  var pass
   users.findOne( { username: username }, { projection: { _id: 0, username: 0, stocks: 0, 
     email: 0, good_color: 0, bad_color: 0, name: 0, transaction_ids: 0 } }, (err, pass) => {
       if (pass == password) {
@@ -90,7 +138,7 @@ function check_password(username, password) {
  * Return value: void
  */
 function add_stock(username, stock_id) {
-  users.update( { username: username }, { $push: { stocks: stock_id } } );
+  users.updateOne( { username: username }, { $push: { stocks: stock_id } } ).catch(() => {});
   console.log("stock added\n");
 }
 
@@ -102,7 +150,7 @@ function add_stock(username, stock_id) {
  * Return value: void
  */
 function change_password(username, new_password) {
-  users.update( { username: username }, { $set: { password: new_password } } );
+  users.updateOne( { username: username }, { $set: { password: new_password } } ).catch(() => {});
   console.log("password updated\n");
 }
 
@@ -112,7 +160,6 @@ function change_password(username, new_password) {
  * Return value: array of stock IDs
  */
 function get_stocks(username) {
-  var list
   users.find( { username: username }, { projection: { _id: 0, username: 0, transaction_ids: 0,
      password: 0, email: 0, good_color: 0, bad_color: 0, name: 0 } }, (err, list) => {
        console.log("stocks returned");
@@ -128,14 +175,6 @@ function get_stocks(username) {
  * Return value: void
  */
 function set_colors(username, good, bad) {
-  users.update( { username: username }, { $set: { good_color: good, bad_color: bad } } );
+  users.updateOne( { username: username }, { $set: { good_color: good, bad_color: bad } } ).catch(() => {});
   console.log("colors updated\n");
 }
-
-
-
-
-
-
-
-
