@@ -1,0 +1,40 @@
+.wrapper {
+    background-color: white;
+    background-image: url("../assets/img/not-found.jpg");
+    background-size: contain;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    padding-top: 200px;
+    padding-left: 100px;
+    padding-right: 100px;
+    color: white;
+    font-size: 50pt;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.searchBar {
+    padding-top: 200px;
+    padding-left: 100px;
+    padding-right: 100px;
+    color: white;
+    font-size: 50pt;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
