@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classes from "./NotFound.module.css";
-import image from "../assets/img/not-found.jpg";
+import SearchBar from './SearchBar/SearchBar';
 
 class NotFound extends Component {
 
@@ -12,8 +12,11 @@ class NotFound extends Component {
                     <div className={classes.message}>
                         Sorry, we were unable to find that page.
                     </div>
+                    <div className={classes.searchBarText}>
+                        In the mean time, feel free to search for a stock you're interested in...
+                    </div>
                     <div className={classes.searchBar}>
-                        Yeet lol
+                        <SearchBar />
                     </div>
                 </div>
             </div>
