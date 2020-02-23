@@ -7,7 +7,11 @@ import Button from 'react-bootstrap/Button';
 import { STOCK_LIST_API } from '../../constants/Constants';
 import SearchBar from '../SearchBar/SearchBar';
 
-
+/**
+ * This page is a page where the user may search for a stock.
+ * Clicking on the provided button will navigate to the stock's
+ * summary page.
+ */
 class StockSearch extends Component {
 
     render() {

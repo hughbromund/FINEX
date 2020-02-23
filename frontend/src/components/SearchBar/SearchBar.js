@@ -8,25 +8,32 @@ import { STOCK_LIST_API } from '../../constants/Constants';
 import history from '../../routing/History';
 import { YOUR_STOCKS_PATH } from '../../constants/Constants';
 
+/**
+ * The SearchBar component creates a search bar for stocks,
+ * both names an symbols, to be used elsewhere on the site.
+ * The search bar pulls the stocks to be shown in a dropdown
+ * from the backend API.
+ */
 class SearchBar extends Component {
 
+    // Stateful component stores list of stocks to display as well as current input value
     state = {
         stockList: [[]],
         inputValue: ""
     }
 
-    /*
-    * Gets stock list from API on component mount.
-    */
+    /**
+     * Gets stock list from API on component mount.
+     */
     componentDidMount = () => {
         this.callListAPI()
             .catch(err => console.log(err));
     }
 
-    /*
-    * Makes a call to backend requesting stock list based on
-    * input provided.
-    */
+    /**
+     * Makes a call to backend requesting stock list based on
+     * input provided.
+     */
     callListAPI = async (currInputVal) => {
         console.log("http://localhost:5000" + STOCK_LIST_API + currInputVal)
         const response = await fetch("http://localhost:5000" + STOCK_LIST_API + currInputVal);
@@ -39,12 +46,20 @@ class SearchBar extends Component {
         return body;
     }
 
+    /**
+     * The update value function makes an API request when the user types in a
+     * different input into the search bar.
+     */
     updateValue = (newVal) => {
         this.setState({inputValue:newVal});
         this.callListAPI(newVal)
             .catch(err => console.log(err));
     }
 
+    /**
+     * Gets the current list to be displayed and creates a menu
+     * displaying the aforementioned items.
+     */
     getCurrList = () => {
         let currList = [];
         for (let i = 0; i < this.state.stockList.length; i++) {
@@ -66,6 +81,7 @@ class SearchBar extends Component {
 
     render() {
 
+        // Custom toggle created using a form as the trigger
         const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
             <div>
                 <FormControl 

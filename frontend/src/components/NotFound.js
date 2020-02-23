@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import classes from "./NotFound.module.css";
 import SearchBar from './SearchBar/SearchBar';
 
+/**
+ * This class displays the page navigated to by a user entering
+ * an invalid URL or path. It displays a quick message and a search
+ * bar.
+ */
 class NotFound extends Component {
 
     render() {
