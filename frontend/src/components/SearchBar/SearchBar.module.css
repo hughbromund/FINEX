@@ -1,0 +1,16 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+
+    font-family: "Montserrat", sans-serif;
+}
+
+.bar {
+    width: 40rem;
+    padding-right: 1rem;
+    border-color: white;
+}
+
+.searchButton {
+    width: 9rem;
+}
