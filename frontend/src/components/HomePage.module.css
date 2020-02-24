@@ -1,5 +1,4 @@
 .container {
-  margin-top: 75px;
   height: 100vh;
   background-image: linear-gradient(black, black),
     url("../assets/img/home-background.jpg");
