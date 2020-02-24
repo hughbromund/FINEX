@@ -48,7 +48,7 @@ exports.login = async function (req, res, next) {
 }
 
 
-router.get('/', (req, res, next) => {
+exports.user = async function (req, res, next) {
     console.log('===== user!!======')
     console.log(req.user)
     if (req.user) {
@@ -56,7 +56,8 @@ router.get('/', (req, res, next) => {
     } else {
         res.json({ user: null })
     }
-})
+
+}
 
 exports.logout = async function (req, res, next) {
     if (req.user) {
