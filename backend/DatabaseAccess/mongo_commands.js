@@ -8,9 +8,11 @@
  * https://stackoverflow.com/questions/24094129/mongodb-update-push-array
  * https://codeforgeek.com/mongodb-atlas-node-js/
  * https://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html
+ * https://developer.ibm.com/technologies/node-js/tutorials/learn-nodejs-mongodb/
  * 
  * TODO:
- * fix issue with commands executing out of order
+ * test concurrency
+ * see if there are any other relevant methods to add
  * make global connection string
  * make sure commands can be accessed throughout backend folder
  * 
@@ -19,9 +21,11 @@
 
 /**
  * IMPORTANT NOTE
- * The below code is to connect to the database needs to be written every time
- * database actions need to be performed. Write commands under 
- * "perform actions" comment.
+ * The below code is for database connection and needs 
+ * to be written every time database actions need to be
+ * performed. Write commands under "perform actions" comment. 
+ * Ideally, only one mongo call should be performed per 
+ * connection because of the asynchronous nature of MongoDB.
  */
 
 // replace the uri string with your connection string
@@ -38,14 +42,9 @@ MongoClient.connect(uri, function(err, client) {
    const database = client.db("FINEX"); 
    const users = database.collection("Users");
    const transactions = database.collection("Transactions");
+   
    // perform actions on the collection object
 
-    /**console.log("reached");
-    insert_new_user("nsriram", "purdue2022", "nsriram@purdue.edu", "Niyati");
-    insert_new_transaction("nsriram", "50", "expense", "groceries");
-    var Newuser = find_user("nsriram");
-    console.log("user found\n");
-    console.log(Newuser); */
     client.close();
   });
 
@@ -67,7 +66,6 @@ function insert_new_user(username, password, email, name) {
 
 /**
  * Insert a new transaction into the database 
- * Add new transaction's default ID to the user's transaction ID array
  * @param {*} username 
  * @param {*} cost 
  * @param {*} type 
@@ -78,15 +76,35 @@ function insert_new_transaction(username, cost, type, name) {
   var new_transaction = { username: username, cost: cost, type: type, name: name };
   transactions.insertOne(new_transaction, (err, result) => {
     console.log("New transaction inserted\n");
+    return new_transaction;
   });
+}
+
+/**
+ * Get transaction id given all other transaction indices
+ * @param {*} username 
+ * @param {*} cost 
+ * @param {*} type 
+ * @param {*} name 
+ * Return value: int
+ */
+function get_transaction_id(username, cost, type, name) {
   transactions.findOne( { username: username, cost: cost, type: type, name: name }, 
   { projection: { username: 0, cost: 0, type: 0, name: 0 } }, (err, transaction_id) => {
-    console.log("user found\n");
-    var transaction = transaction_id;
-    users.updateOne( { username: username }, { $push: { transaction_ids: transaction }}).catch(() => {});
-    console.log("user updated\n");
-  }); 
+    console.log("transaction found\n");
+    return transaction_id;
+  });
 }
+
+/**
+ * Add transaction ID to user's transaction array
+ * @param {*} transaction_id 
+ */
+function add_transaction_to_user(transaction_id) {
+  users.updateOne( { username: username }, { $push: { transaction_ids: transaction }}).catch(() => {});
+  console.log("user updated\n")
+}
+
 
 /**
  * Find a particular user
