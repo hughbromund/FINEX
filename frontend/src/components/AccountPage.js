@@ -6,6 +6,9 @@ import Card from 'react-bootstrap/Card'
 import CardColumns from 'react-bootstrap/CardColumns'
 
 export default class AccountPage extends Component {
+
+    // Changing these Variables will change the entire page
+    
     firstName = "Hugh";
     lastName = "Bromund"
     username = "hbromund"
