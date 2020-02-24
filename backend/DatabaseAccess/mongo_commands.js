@@ -8,10 +8,11 @@
  * https://stackoverflow.com/questions/24094129/mongodb-update-push-array
  * https://codeforgeek.com/mongodb-atlas-node-js/
  * https://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html
+ * https://developer.ibm.com/technologies/node-js/tutorials/learn-nodejs-mongodb/
  * 
  * TODO:
- * fix issue with commands executing out of order
- * POTENTIAL FIX: https://developer.ibm.com/technologies/node-js/tutorials/learn-nodejs-mongodb/
+ * test concurrency
+ * see if there are any other relevant methods to add
  * make global connection string
  * make sure commands can be accessed throughout backend folder
  * 
@@ -20,9 +21,11 @@
 
 /**
  * IMPORTANT NOTE
- * The below code is to connect to the database needs to be written every time
- * database actions need to be performed. Write commands under 
- * "perform actions" comment.
+ * The below code is for database connection and needs 
+ * to be written every time database actions need to be
+ * performed. Write commands under "perform actions" comment. 
+ * Ideally, only one mongo call should be performed per 
+ * connection because of the asynchronous nature of MongoDB.
  */
 
 // replace the uri string with your connection string
@@ -39,14 +42,9 @@ MongoClient.connect(uri, function(err, client) {
    const database = client.db("FINEX"); 
    const users = database.collection("Users");
    const transactions = database.collection("Transactions");
+   
    // perform actions on the collection object
 
-    /**console.log("reached");
-    insert_new_user("nsriram", "purdue2022", "nsriram@purdue.edu", "Niyati");
-    insert_new_transaction("nsriram", "50", "expense", "groceries");
-    var Newuser = find_user("nsriram");
-    console.log("user found\n");
-    console.log(Newuser); */
     client.close();
   });
 
