@@ -1,0 +1,34 @@
+import React, { Component } from "react";
+import classes from "./HomePage.module.css";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+export default class HomePage extends Component {
+  render() {
+    return (
+      <div className={classes.container}>
+        <Container>
+          <Row noGutters={true}>
+            <Col className={classes.mycol}>
+              <div className={classes.cont}>
+                <img
+                  className={classes.logo}
+                  src={require("../assets/img/logo-white.png")}
+                ></img>
+                <h2 className={classes.text}>
+                  Let's make your money work for you.
+                </h2>
+                <br />
+                <Button variant="success" size="lg">
+                  Get started!
+                </Button>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    );
+  }
+}

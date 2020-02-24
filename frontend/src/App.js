@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ResetEmail from "./components/ResetEmail";
 import Routes from "./routing/Routes";
 import AccountPage from "./components/AccountPage";
+import HomePage from "./components/HomePage";
 
 function App() {
   return (
