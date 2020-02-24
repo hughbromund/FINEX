@@ -4,8 +4,16 @@ exports.HelloWorld = async function () {
     return {"Hello": "World"};
 }
 
-exports.get_stock = async function (code) {
+//This has "realtime" data on a 1 minute interval
+exports.get_stock_intraday = async function (code) {
     return alpha.data.intraday(code).then(data => {
+        return data
+    });
+}
+
+//This returns data for each day going back as long as we want
+exports.get_stock_daily = async function (code) {
+    return alpha.data.daily(code).then(data => {
         return data
     });
 }
