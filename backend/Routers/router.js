@@ -16,7 +16,10 @@ router.get('/hi', cors(), stockController.getHello);
 //autofill search list endpoint
 router.get('/api/stock/auto/:input', cors(), stockController.get_auto_complete);
 
-//retrieve stock data endpoint
-router.get('/api/stock/data/:code', cors(), stockController.get_stock);
+//retrieve stock intraday data endpoint
+router.get('/api/stock/intraday/:code', cors(), stockController.get_stock_intraday);
+
+//retrieve stock daily data endpoint
+router.get('/api/stock/daily/:code', cors(), stockController.get_stock_daily);
 
 module.exports = router;
