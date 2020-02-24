@@ -42,7 +42,6 @@ export default class RegistrationPage extends Component {
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
                         <Form style={{ width: '50rem'}}>
-
                             <Form.Group controlId="validationCustomUsername">
                                 <Form.Label>Username</Form.Label>
                                 <InputGroup>

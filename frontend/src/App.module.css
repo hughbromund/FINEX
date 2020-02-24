@@ -1,6 +1,5 @@
-
 .all {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .header {
@@ -11,4 +10,8 @@
   padding-top: 75px;
   padding-right: 10px;
   padding-left: 10px;
+}
+
+.navContainer {
+  /* margin-bottom: 100px; */
 }
