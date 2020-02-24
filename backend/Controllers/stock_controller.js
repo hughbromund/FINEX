@@ -5,7 +5,7 @@ exports.getHello = async function (req, res, next) {
     // Validate request parameters
     
     var result = await stockService.HelloWorld();
-    return res.json(result);
+    res.json(result);
     /*
     try {
         var users = await UserService.getUsers({}, page, limit)
@@ -19,9 +19,9 @@ exports.getHello = async function (req, res, next) {
 // function to validate, get, and return alpha vantage stock info
 exports.get_stock = async function (req, res, next) {
     try {
-        let stock = await stockService.get_stock(req.params.code)
-        return res.json(stock);
-        //return res.status(200).json({ status: 200, data: stock, message: "Stock Retrieved" });
+        let stock = await stockService.get_stock(req.params.code);
+        //res.json(stock);
+        return res.status(200).json({ status: 200, data: stock, message: "Stock Retrieved" });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }
