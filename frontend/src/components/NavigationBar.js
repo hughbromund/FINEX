@@ -12,6 +12,8 @@ import history from "../routing/History";
 import { YOUR_STOCKS_PATH } from "../constants/Constants";
 import { REGISTRATION_PATH } from "../constants/Constants";
 import { SEARCH_STOCK_PATH } from "../constants/Constants";
+import { HOME_PATH } from "../constants/Constants"
+import { ACCOUNT_PATH } from "../constants/Constants"
 
 /*
  * Code Snippets borrowed From:
@@ -31,7 +33,7 @@ export default class NavigationBar extends Component {
           variant="dark"
           className={classes.navbar}
         >
-          <Navbar.Brand href="#home">
+          <Navbar.Brand onClick={() => history.push(HOME_PATH)}>
             <img
               src={require("../assets/img/logo-white.png")}
               className="d-inline-block align-top"
@@ -76,7 +78,7 @@ export default class NavigationBar extends Component {
             </Nav>
             <Form inline>
               <Navbar.Text>
-                SIGNED IN AS: <a onClick={() => history.push(REGISTRATION_PATH)} >Hugh Bromund</a>
+                SIGNED IN AS: <a onClick={() => history.push(ACCOUNT_PATH)} >Hugh Bromund</a>
               </Navbar.Text>
             </Form>
           </Navbar.Collapse>
