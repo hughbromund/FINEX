@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import './RegistrationPage.module.css'
+// import './RegistrationPage.module.css'
 
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -21,7 +21,7 @@ import Container from 'react-bootstrap/Container';
  * 
  */
 
-export default class RegistrationPage extends Component {
+export default class LoginPage extends Component {
     render() {
         return (
             <div>
@@ -31,11 +31,9 @@ export default class RegistrationPage extends Component {
                 <div style={{display: 'flex', justifyContent: 'center'}}>
                 <Jumbotron style={{ width: '50rem'}}>
                     <Container>
-                        <h1>Create a New Account</h1>
+                        <h1>Welcome Back</h1>
                         <p>
-                        Welcome to <b>FINEX</b>, <i>let's get your money working for you. </i> <br></br>
-                        We just need a little information from you.
-                        Please fill out the fields bellow to create a new <b>FINEX</b> account.
+                        Welcome back to <b>FINEX</b>, <i>let's get your money working for you. </i> <br></br>
                         </p>
                     </Container>
                 </Jumbotron>
@@ -51,44 +49,18 @@ export default class RegistrationPage extends Component {
                                     aria-describedby="inputGroupPrepend"
                                     required
                                     />
-                                    <Form.Control.Feedback type="invalid">
-                                    Please choose a username.
-                                    </Form.Control.Feedback>
                                 </InputGroup>
-                                <Form.Text className="text-muted">
-                                Make it memorable. 
-                                </Form.Text>
-                            </Form.Group>
-
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Email Address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
-                                <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                                </Form.Text>
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" placeholder="Password" />
-                                <Form.Text className="text-muted">
-                                Make it secure. 
-                                </Form.Text>
                             </Form.Group>
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Confirm Password</Form.Label>
-                                <Form.Control type="password" placeholder="Confirm Password" />
-                                <Form.Text className="text-muted">
-                                One more time. 
-                                </Form.Text>
-                            </Form.Group>
-
-
                             <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Keep me Logged In" />
                             </Form.Group>
                             <Button variant="success" type="submit">
-                                Sign Up
+                                Log In
                             </Button>
                         </Form>
                 </div>
