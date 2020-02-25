@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 
 import history from "../routing/History";
 import { REGISTRATION_PATH } from "../constants/Constants";
+import { LOGIN_PATH } from "../constants/Constants"
 
 export default class HomePage extends Component {
   render() {
@@ -26,6 +27,14 @@ export default class HomePage extends Component {
                 <br />
                 <Button variant="success" size="lg" onClick={() => history.push(REGISTRATION_PATH)}>
                   Get started!
+                </Button>
+                <br />
+                <br />
+                <p className={classes.text}>
+                  Already have an account, Sign in bellow.
+                </p>
+                <Button variant="success" size="lg" onClick={() => history.push(LOGIN_PATH)}>
+                  Log In
                 </Button>
               </div>
             </Col>
