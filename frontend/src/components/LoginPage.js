@@ -9,6 +9,9 @@ import Image from 'react-bootstrap/Image'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Container from 'react-bootstrap/Container';
+import history from "../routing/History";
+
+import { ACCOUNT_PATH } from "../constants/Constants"
 
 
 /*
@@ -22,6 +25,46 @@ import Container from 'react-bootstrap/Container';
  */
 
 export default class LoginPage extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            username: "",
+            password: ""
+        }
+        this.handleLogin = this.handleLogin.bind(this);
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    }
+
+    handleLogin(event) {
+        event.preventDefault()
+        // console.log("Logging In");
+        // console.log(JSON.stringify(this.state));
+        fetch('http://localhost:5000/auth/login', {
+            method: 'POST',
+            // mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state)
+          })
+          .then(response => {
+            history.push(ACCOUNT_PATH)
+          }).catch(err => {
+              console.log(err);
+          })
+    }
+
+    handleUsernameChange(event) {
+        // console.log(event.target.value)
+        this.setState({username: event.target.value});
+    }
+    handlePasswordChange(event) {
+        this.setState({password: event.target.value})
+    }
+
     render() {
         return (
             <div>
@@ -39,7 +82,7 @@ export default class LoginPage extends Component {
                 </Jumbotron>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
-                        <Form style={{ width: '50rem'}}>
+                        <Form style={{ width: '50rem'}} onSubmit={this.handleLogin}>
                             <Form.Group controlId="validationCustomUsername">
                                 <Form.Label>Username</Form.Label>
                                 <InputGroup>
@@ -48,18 +91,26 @@ export default class LoginPage extends Component {
                                     placeholder="Username"
                                     aria-describedby="inputGroupPrepend"
                                     required
+                                    value={this.state.username}
+                                    onChange={this.handleUsernameChange}
                                     />
                                 </InputGroup>
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
+                                <Form.Control 
+                                type="password" 
+                                placeholder="Password" 
+                                required
+                                value={this.state.password}
+                                onChange={this.handlePasswordChange}
+                                />
                             </Form.Group>
                             <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Keep me Logged In" />
                             </Form.Group>
-                            <Button variant="success" type="submit">
+                            <Button data-testid="submit" variant="success" type="submit">
                                 Log In
                             </Button>
                         </Form>
