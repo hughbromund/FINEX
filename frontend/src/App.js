@@ -15,7 +15,9 @@ function App() {
       <div className={classes.navContainer}>
         <NavigationBar />
       </div>
-      <HomePage />
+      <div className={classes.bodyDiv}>
+        <Routes />
+      </div>
     </div>
   );
 }

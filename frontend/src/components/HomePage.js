@@ -5,6 +5,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import history from "../routing/History";
+import { REGISTRATION_PATH } from "../constants/Constants";
+
 export default class HomePage extends Component {
   render() {
     return (
@@ -21,7 +24,7 @@ export default class HomePage extends Component {
                   Let's make your money work for you.
                 </h2>
                 <br />
-                <Button variant="success" size="lg">
+                <Button variant="success" size="lg" onClick={() => history.push(REGISTRATION_PATH)}>
                   Get started!
                 </Button>
               </div>
