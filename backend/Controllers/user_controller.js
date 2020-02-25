@@ -5,7 +5,7 @@ const User = require('../database/models/user');
 
 exports.signup = async function (req, res, next) {
     console.log('user signup');
-
+    console.log(req.body)
     const { username, password } = req.body
     // ADD VALIDATION
     User.findOne({ username: username }, (err, user) => {
@@ -44,7 +44,7 @@ exports.login = async function (req, res, next) {
     var userInfo = {
         username: req.user.username
     };
-    res.send(userInfo);
+    res.send(userInfo); 
 }
 
 
