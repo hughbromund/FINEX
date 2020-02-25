@@ -15,7 +15,7 @@ function App() {
       <div className={classes.navContainer}>
         <NavigationBar />
       </div>
-      <AccountPage />
+      <HomePage />
     </div>
   );
 }
