@@ -51,7 +51,14 @@ export default class LoginPage extends Component {
             body: JSON.stringify(this.state)
           })
           .then(response => {
-            history.push(ACCOUNT_PATH)
+              // console.log(response.status)
+              if (response.status == 200) {
+                  // Success on Login
+                history.push(ACCOUNT_PATH)
+              } else {
+                  // Failure to login
+                  console.log("Invalid Account")
+              }
           }).catch(err => {
               console.log(err);
           })

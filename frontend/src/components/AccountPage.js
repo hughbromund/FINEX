@@ -8,13 +8,28 @@ import CardColumns from 'react-bootstrap/CardColumns'
 export default class AccountPage extends Component {
 
     // Changing these Variables will change the entire page
-    
-    firstName = "Hugh";
-    lastName = "Bromund"
-    username = "hbromund"
-    email = "hugh@finex.com"
-    password = "*********"
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            firstName : "Loading",
+            lastName : "Loading",
+            username : "Loading",
+            email : "Loading",
+            password : "Loading"
+        }
+    }
+    
+    componentDidMount() {
+        fetch('https://localhost:5000/auth/username')
+        .then(response => {
+            console.log(response)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
     render() {
         return (
@@ -29,7 +44,7 @@ export default class AccountPage extends Component {
                         </Card.Header>
                         <Card.Body>
                             <Card.Title>
-                            Welcome Back, <b>{this.firstName} {this.lastName}</b>
+                            Welcome Back, <b>{this.state.firstName} {this.state.lastName}</b>
                             </Card.Title>
                             <Card.Subtitle>
                                 Manage your Info, Privacy, and Security settings to make <b>FINEX</b> yours. 
@@ -44,13 +59,13 @@ export default class AccountPage extends Component {
                         </Card.Header>
                         <Card.Body>
                             <div>
-                                Username: <b>{this.username}</b>
+                                Username: <b>{this.state.username}</b>
                             </div>
                             <div>
-                                Email: <b>{this.email}</b>
+                                Email: <b>{this.state.email}</b>
                             </div>
                             <div>
-                                Password: <b>{this.password}</b>
+                                Password: <b>{this.state.password}</b>
                             </div>
                         </Card.Body>
                     </Card>
