@@ -1,0 +1,27 @@
+{
+  "name": "finex",
+  "version": "1.0.0",
+  "description": "<img src=\"https://i.imgur.com/CyybBmS.png\" height=100><br>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "frontend": "cd frontend && npm run start",
+    "backend": "cd backend && nodemon index.js",
+    "start": "concurrently \"npm run frontend\" \"npm run backend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hughbromund/FINEX.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hughbromund/FINEX/issues"
+  },
+  "homepage": "https://github.com/hughbromund/FINEX#readme",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  }
+}
