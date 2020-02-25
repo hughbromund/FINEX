@@ -32,6 +32,24 @@ router.get('/api/stock/daily/:code', cors(), stockController.get_stock_daily);
 //router.post('/logout', user_controller.logout);
 //router.get('/', user_controller.user);
 
+
+//STUBS
+
+//register account stub
+router.post('/auth_stub/register', cors(), authController.register_stub);
+
+//login account stub
+router.post('/auth_stub/login', cors(), authController.login_stub);
+
+//logout account stub
+//router.post('/auth_stub/logout', cors(), authController.logout_stub);
+
+//get username of logged in account stub
+//router.get('/auth_stub/username', cors(), authController.user_stub);
+
+
+//AUTHENTICATION
+
 //register account
 router.post('/auth/register', cors(), authController.register);
 

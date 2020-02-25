@@ -1,34 +1,36 @@
 var databaseAccess = require('../DatabaseAccess/mongo_commands')  
 
 // controller that will call the database access functions to login
-// THIS IS A STUB FOR RIGHT NOW
+// THIS IS A STUB
 
-/**
-exports.login = async function (req, res, next) {
-    if (req.params.username === "username" && req.params.password == "password") {
+
+exports.login_stub = async function (req, res, next) {
+    const { username, password} = req.body
+  
+    if (username && password) {
         res.status(200).json({status: "Login Success!"})
-    } else {
+    }
+    else {
         res.status(400).json({status: "Login Failed"})
     }
 }
-*/
+
 
 // controller that will call the reguster database access functions
-// THIS IS A STUB FOR RIGHT NOW
+// THIS IS A STUB
 
-/** 
-exports.register = async function (req, res, next) {
-    if (req.params.username === "exist") {
-        res.status(400).json({status: "Registration Failed"})
-    } else {
+exports.register_stub = async function (req, res, next) {
+    const { username, password, email, name } = req.body
+    if (username && password && email && name) {
         res.status(200).json(
-            {"username" : req.params.username, 
-            "password" : req.params.password,
-            "email" : req.params.email
+            {status: username
         })
+        
+    } else {
+        res.status(400).json({status: "Registration Failed"})
     }
 }
-*/
+
 
 //from https://github.com/b-bly/simple-mern-passport
 
@@ -43,9 +45,12 @@ exports.register = async function (req, res, next) {
     User.findOne({ username: username }, (err, user) => {
         if (err) {
             console.log('User.js post error: ', err)
+            res.status(400).json({
+                status: "Sorry, an error occured"
+            })
         } else if (user) {
             res.status(400).json({
-                error: `Sorry, already a user with the username: ${username}`
+                status: `Sorry, already a user with the username: ${username}`
             })
         }
         else {
@@ -63,7 +68,7 @@ exports.register = async function (req, res, next) {
     })
 }
 
-
+//additional code for logging?
 /*
 exports.login = async function (req, res, next) {{
         console.log('routes/user.js, login, req.body: ');
@@ -96,9 +101,9 @@ exports.user = async function (req, res, next) {
 exports.logout = async function (req, res, next) {
     if (req.user) {
         req.logout()
-        res.status(200).send({ msg: 'logging out' })
+        res.status(200).send({ status: 'logging out' })
     } else {
-        res.status(400).send({ msg: 'no user to log out' })
+        res.status(400).send({ status: 'no user to log out' })
     }
 }
 
