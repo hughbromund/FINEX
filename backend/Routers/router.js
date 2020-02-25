@@ -4,7 +4,7 @@ var router = express.Router();
 const cors = require('cors');
 
 var stockController = require('../Controllers/stock_controller');
-var authController = require('../Controllers/user_controller');
+var authController = require('../Controllers/auth_controller');
 
 const passport = require('../passport');
 
@@ -36,7 +36,7 @@ router.get('/api/stock/daily/:code', cors(), stockController.get_stock_daily);
 router.post('/auth/register', cors(), authController.register);
 
 //login account
-router.post('/auth/login', passport.authenticate('local'), cors(), authController.login);
+router.post('/auth/login', cors(), passport.authenticate('local'), authController.login);
 
 //logout account
 router.post('/auth/logout', cors(), authController.logout);
