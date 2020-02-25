@@ -10,6 +10,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
 
+import history from "../routing/History";
+import { ACCOUNT_PATH } from "../constants/Constants";
+
 /*
  * Code Snippets borrowed From:
  *
@@ -37,7 +40,6 @@ export default class RegistrationPage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(JSON.stringify(this.state));
     const url = "http://localhost:5000/auth/register";
     fetch(url, {
       method: "POST",
@@ -47,7 +49,7 @@ export default class RegistrationPage extends Component {
         "content-type": "application/json"
       }
     })
-      .then(res => console.log(res))
+      .then(() => history.push(ACCOUNT_PATH))
       .catch(err => console.log(err));
   }
 
