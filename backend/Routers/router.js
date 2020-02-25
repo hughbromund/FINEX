@@ -4,6 +4,7 @@ var router = express.Router();
 const cors = require('cors');
 
 var stockController = require('../Controllers/stock_controller')
+var authController = require('../Controllers/auth_controller')
 
 router.use(function timeLog(req, res, next) {
   console.log('Time: ', Date.now());
@@ -21,5 +22,11 @@ router.get('/api/stock/intraday/:code', cors(), stockController.get_stock_intrad
 
 //retrieve stock daily data endpoint
 router.get('/api/stock/daily/:code', cors(), stockController.get_stock_daily);
+
+//stub for login
+router.get('/auth/login/:username/:password', cors(), authController.login);
+
+//stub for registration
+router.get('/auth/register/:email/:username/:password', cors(), authController.register);
 
 module.exports = router;
