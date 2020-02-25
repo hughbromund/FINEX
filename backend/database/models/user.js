@@ -13,7 +13,7 @@ const userSchema = new Schema({
 	email: { type: String, unique: false, required: false },
 	name: { type: String, unique: false, required: false }
 
-})
+}, { collection: "Users"})
 
 // Define schema methods
 userSchema.methods = {
