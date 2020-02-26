@@ -9,6 +9,7 @@ import history from "../routing/History";
 
 import { HOME_PATH } from "../constants/Constants"
 import { LOGOUT_URL } from "../constants/Constants"
+import { USER_INFO_URL } from "../constants/Constants"
 
 
 /*
@@ -24,24 +25,28 @@ export default class AccountPage extends Component {
         super(props)
 
         this.state = {
-            firstName : "Loading",
-            lastName : "Loading",
-            username : "Loading",
-            email : "Loading",
-            password : "Loading"
+            name: "",
+            username : "",
+            email : "",
+            password : ""
         }
     }
 
     callUserInfo = async () => {
-        var response = await fetch('http://localhost:5000/auth/username',{
+        var response = await fetch(USER_INFO_URL,{
             method: "GET",
             withCredentials : true,
             // credentials: 'same-origin'
         })
-        // console.log(response)
+        console.log(response)
         var body = await response.json()
-        // console.log(body.user.username)
-        this.setState({username : body.user.username})
+        console.log(body)
+        this.setState(
+            {
+                username : body.username,
+                email: body.email,
+                name: body.name
+            })
         // this.state.user = body.user.username
     }
     
@@ -86,7 +91,7 @@ export default class AccountPage extends Component {
                         </Card.Header>
                         <Card.Body>
                             <Card.Title>
-                            Welcome Back, <b>{this.state.firstName} {this.state.lastName}</b>
+                            Welcome Back, <b>{this.state.name}</b>
                             </Card.Title>
                             <Card.Subtitle>
                                 Manage your Info, Privacy, and Security settings to make <b>FINEX</b> yours. 
