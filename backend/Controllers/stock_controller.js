@@ -42,3 +42,7 @@ exports.get_auto_complete = async function (req, res, next) {
     var stocks = await auto_complete_service.auto_complete(req.params.input);
     return res.json(stocks);
 }
+exports.get_auto_complete_empty = async function (req, res, next) {
+    var stocks = await auto_complete_service.auto_complete("");
+    return res.json(stocks);
+}
