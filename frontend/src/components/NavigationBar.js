@@ -47,6 +47,8 @@ export default class NavigationBar extends Component {
       // console.log(body.user.username)
       this.setState({username : body.username})
       this.setState({loggedIn:true})
+    } else {
+      this.setState({loggedIn:false})
     }
 }
 
