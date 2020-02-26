@@ -50,10 +50,10 @@ Returns: Returns 400 and failure "msg" if user not logged in and a JSON object w
 Status: Working
 Bugs: ??
 
-`/auth/username`
+`/auth/user`
 GET
 This represents obtaining user info endpoint
 Requirements: None
-Returns: Returns 400 and null "user" JSON if user not logged in and a JSON object with correct "user" otherwise
+Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in and a JSON object with correct "username", "name", and "email" otherwise
 Status: Working
 Bugs: ??
