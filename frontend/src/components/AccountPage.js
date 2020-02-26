@@ -4,6 +4,10 @@ import classes from "./AccountPage.module.css"
 import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
 import CardColumns from 'react-bootstrap/CardColumns'
+import Button from 'react-bootstrap/Button'
+import history from "../routing/History";
+
+import { HOME_PATH } from "../constants/Constants"
 
 export default class AccountPage extends Component {
 
@@ -37,6 +41,27 @@ export default class AccountPage extends Component {
     componentDidMount() {
         this.callUserInfo().catch(err => {
             console.log(err)
+        })
+    }
+
+    handleLogout(event) {
+        event.preventDefault()
+        fetch("http://localhost:5000/auth/logout", {
+            method: 'POST',
+            // mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials : true,
+        }).then(response => {
+            // console.log(response)
+            if (response.status == 200) {
+                history.push(HOME_PATH)
+            } else {
+                console.log("Unable to Log Out")
+            }
+        }).catch(err => {
+            console.log(err)    
         })
     }
 
@@ -78,6 +103,9 @@ export default class AccountPage extends Component {
                             </div>
                         </Card.Body>
                     </Card>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <Button variant="danger" onClick={this.handleLogout}>Logout</Button>
                 </div>
             </div>
         )
