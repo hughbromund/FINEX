@@ -24,9 +24,10 @@ const nasdaq_list = (fs.readFileSync(filepath))
 //returns first 5 stocks with matching symbols/names. exact match symbol comes first
 exports.auto_complete = async function (search_term) {
     if (search_term == "") {
-        return nasdaq_list.splice(0, 5);
+        let lines = [...nasdaq_list];
+        return lines.splice(0, 5);
     }
-    
+    console.log(nasdaq_list.length);
     const search_lower = search_term.toLowerCase();
 
     //filters all stocks which contain the searched term
