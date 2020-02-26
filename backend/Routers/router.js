@@ -61,6 +61,6 @@ router.post('/auth/login', cors(), passport.authenticate('local'), authControlle
 router.post('/auth/logout', cors(), authController.logout);
 
 //get username of logged in account
-router.get('/auth/username', cors(), authController.user);
+router.get('/auth/user', cors(), authController.user);
 
 module.exports = router;

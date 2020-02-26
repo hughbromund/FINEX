@@ -91,12 +91,32 @@ exports.user = async function (req, res, next) {
     console.log('===== user!!======')
     console.log(req.user)
     if (req.user) {
-        res.status(200).json({ user: req.user })
-    } else {
-        res.status(400).json({ user: null })
-    }
+        User.findOne({ username: req.user.username }, (err, user) => {
+            console.log(user);
 
+            if (err) {
+                console.log('User.js post error: ', err)
+                res.status(400).json({
+                    status: "Sorry, an error occured"
+                })
+            } 
+            else if (user) {
+                res.status(200).json({ 
+                    username: user.username,
+                    name: user.name,
+                    email: user.email
+                })
+            } 
+            else {
+                res.status(400).json({ user: null })
+            }  
+        })
+    }
+    else {
+        res.status(400).json({ status: "no user logged in"})
+    }
 }
+
 
 exports.logout = async function (req, res, next) {
     if (req.user) {
