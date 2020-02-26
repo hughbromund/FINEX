@@ -8,7 +8,14 @@ import Button from 'react-bootstrap/Button'
 import history from "../routing/History";
 
 import { HOME_PATH } from "../constants/Constants"
+import { LOGOUT_URL } from "../constants/Constants"
 
+
+/*
+ * Code Snippets borrowed From:
+ *
+ * https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
+ */
 export default class AccountPage extends Component {
 
     // Changing these Variables will change the entire page
@@ -46,7 +53,8 @@ export default class AccountPage extends Component {
 
     handleLogout(event) {
         event.preventDefault()
-        fetch("http://localhost:5000/auth/logout", {
+        // console.log(LOGOUT_URL)
+        fetch(LOGOUT_URL, {
             method: 'POST',
             // mode: 'no-cors',
             headers: {

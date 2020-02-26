@@ -7,5 +7,13 @@ export const RESET_PASS_PATH = '/reset'
 export const ACCOUNT_PATH = '/account'
 export const LOGIN_PATH = '/login'
 
+/* Base URL for Backend */
+export const BASE = 'http://localhost:5000'
+
+/* Paths to Call Backend */
+export const LOGIN_URL = BASE + "/auth/login"
+export const LOGOUT_URL = BASE + "/auth/logout"
+export const REGISTER_URL = BASE + "/auth/register"
+
 /* Paths for API calls */
 export const STOCK_LIST_API = '/api/stock/auto/'

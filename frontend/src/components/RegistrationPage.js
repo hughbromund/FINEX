@@ -12,6 +12,7 @@ import Container from "react-bootstrap/Container";
 
 import history from "../routing/History";
 import { ACCOUNT_PATH } from "../constants/Constants";
+import { REGISTER_URL } from "../constants/Constants";
 
 /*
  * Code Snippets borrowed From:
@@ -40,7 +41,7 @@ export default class RegistrationPage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const url = "http://localhost:5000/auth/register";
+    const url = REGISTER_URL;
     fetch(url, {
       method: "POST",
       //   mode: "no-cors",
