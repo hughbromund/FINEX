@@ -14,8 +14,9 @@ import Container from 'react-bootstrap/Container';
 import history from "../routing/History";
 
 import { ACCOUNT_PATH } from "../constants/Constants"
+import { LOGIN_URL } from "../constants/Constants"
 
-const axios = require('axios').default;
+// const axios = require('axios').default;
 /*
  * Code Snippets borrowed From:
  *
@@ -45,7 +46,7 @@ export default class LoginPage extends Component {
         // console.log("Logging In");
         // console.log(JSON.stringify(this.state));
 
-        fetch('http://localhost:5000/auth/login', {
+        fetch(LOGIN_URL, {
             method: 'POST',
             // mode: 'no-cors',
             headers: {
