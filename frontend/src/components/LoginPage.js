@@ -52,14 +52,15 @@ export default class LoginPage extends Component {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(this.state), 
-            withCredentials : true
+            withCredentials : true,
+            // credentials: 'same-origin'
           })
           .then(response => {
               // console.log(response.status)
               if (response.status == 200) {
                   // Success on Login
-                // history.push(ACCOUNT_PATH)
-                console.log(response)
+                // console.log(response)
+                history.push(ACCOUNT_PATH)
               } else {
                   // Failure to login
                 console.log("Invalid Account")

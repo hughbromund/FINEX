@@ -20,16 +20,22 @@ export default class AccountPage extends Component {
             password : "Loading"
         }
     }
+
+    callUserInfo = async () => {
+        var response = await fetch('http://localhost:5000/auth/username',{
+            method: "GET",
+            withCredentials : true,
+            // credentials: 'same-origin'
+        })
+        // console.log(response)
+        var body = await response.json()
+        // console.log(body.user.username)
+        this.setState({username : body.user.username})
+        // this.state.user = body.user.username
+    }
     
     componentDidMount() {
-        fetch('http://localhost:5000/auth/username',{
-            method: "GET",
-            withCredentials : true
-        })
-        .then(response => {
-            console.log(response)
-        })
-        .catch(err => {
+        this.callUserInfo().catch(err => {
             console.log(err)
         })
     }
