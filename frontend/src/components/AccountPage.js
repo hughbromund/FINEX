@@ -22,7 +22,10 @@ export default class AccountPage extends Component {
     }
     
     componentDidMount() {
-        fetch('https://localhost:5000/auth/username')
+        fetch('http://localhost:5000/auth/username',{
+            method: "GET",
+            withCredentials : true
+        })
         .then(response => {
             console.log(response)
         })

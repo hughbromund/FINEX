@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+// import axios from 'axios'
+
 
 // import './RegistrationPage.module.css'
 
@@ -13,7 +15,7 @@ import history from "../routing/History";
 
 import { ACCOUNT_PATH } from "../constants/Constants"
 
-
+const axios = require('axios').default;
 /*
  * Code Snippets borrowed From:
  *
@@ -42,26 +44,30 @@ export default class LoginPage extends Component {
         event.preventDefault()
         // console.log("Logging In");
         // console.log(JSON.stringify(this.state));
+
         fetch('http://localhost:5000/auth/login', {
             method: 'POST',
             // mode: 'no-cors',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(this.state), 
+            withCredentials : true
           })
           .then(response => {
               // console.log(response.status)
               if (response.status == 200) {
                   // Success on Login
-                history.push(ACCOUNT_PATH)
+                // history.push(ACCOUNT_PATH)
+                console.log(response)
               } else {
                   // Failure to login
-                  console.log("Invalid Account")
+                console.log("Invalid Account")
               }
           }).catch(err => {
               console.log(err);
           })
+          
     }
 
     handleUsernameChange(event) {
