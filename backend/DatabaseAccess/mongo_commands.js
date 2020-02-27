@@ -196,3 +196,15 @@ function set_colors(username, good, bad) {
   users.updateOne( { username: username }, { $set: { good_color: good, bad_color: bad } } ).catch(() => {});
   console.log("colors updated\n");
 }
+
+/**
+ * Updates user email ID
+ * Email must be unique
+ * @param {*} username 
+ * @param {*} new_email 
+ * Return value: void
+ */
+function change_email(username, new_email) {
+  users.updateOne( { username: username }, { $set: { email: new_email } } ).catch(() => {});
+  console.log("email updated\n");
+}
