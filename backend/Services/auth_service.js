@@ -1,6 +1,8 @@
-//var databaseAccess = require('../DatabaseAccess/mongo_commands')
+//from https://github.com/b-bly/simple-mern-passport
 
-var auth_service = require('../Services/auth_service.js')  
+const User = require('../database/models/user');
+
+//var databaseAccess = require('../DatabaseAccess/mongo_commands')  
 
 // controller that will call the database access functions to login
 // THIS IS A STUB
@@ -32,11 +34,6 @@ exports.register_stub = async function (req, res, next) {
         res.status(400).json({status: "Registration Failed"})
     }
 }
-
-
-//from https://github.com/b-bly/simple-mern-passport
-
-const User = require('../database/models/user');
 
 
 exports.register = async function (req, res, next) {
@@ -80,74 +77,40 @@ exports.login = async function (req, res, next) {{
 */
 
 
-exports.login = async function (req, res, next) {
-    let result = await auth_service.login(req);
-    res.status(result.code).send({
-        username: result.username
-    }); 
-}
+exports.login = async function (req) {
+    //console.log('logged in', req.user);
+    return {
+        username: req.user.username,
+        code: 200
+    }
 
-
-exports.user = async function (req, res, next) {
-    //let user = await auth_service.user(req)
     /*
-    if (user.code == 200) {
-        res.status(user.code).json({
-            username: result.username,
-            name: user.name,
-            email: user.email
-        })
-    }
-    else {
-        res.status(user.code).json({
-            status: user.status
-        })
-    }
+    var userInfo = {
+        username: req.user.username
+    };
+    res.status(200).send(userInfo); 
     */
-
-    
-    //console.log('===== user!!======')
-    //console.log(req.user)
-    if (req.user) {
-        User.findOne({ username: req.user.username }, (err, user) => {
-            console.log(user);
-
-            if (err) {
-                console.log('User.js post error: ', err)
-                res.status(400).json({
-                    status: "Sorry, an error occured"
-                })
-            } 
-            else if (user) {
-                res.status(200).json({ 
-                    username: user.username,
-                    name: user.name,
-                    email: user.email
-                })
-            } 
-            else {
-                res.status(400).json({ user: null })
-            }  
-        })
-    }
-    else {
-        res.status(400).json({ status: "no user logged in"})
-    }
-    
 }
+
+
+exports.user = async function (err, user) {
+    //cannot get working at the moment
+}
+
 
 exports.logout = async function (req, res, next) {
-    let status = await auth_service.logout(req, res, next);
-    res.status(status.code).json({status: status.status});
-
-
-    /*
     if (req.user) {
         req.logout()
-        res.status(200).send({ status: 'logging out' })
-    } else {
-        res.status(400).send({ status: 'no user to log out' })
+        return { 
+            status: 'logging out',
+            code: 200
+        }
+    } 
+    else {
+        return { 
+            status: 'no user to log out',
+            code: 400
+        }
     }
-    */
 }
 
