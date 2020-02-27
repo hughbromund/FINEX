@@ -33,9 +33,11 @@ export default class Chart extends React.Component {
     //   this.setState({ data });
     // });
 
-    var myData = await getData("MSFT");
+    console.log(this.props.symbol)
+
+    var myData = await getData(this.props.symbol);
     console.log(myData);
-    this.setState({ data: myData, ticker: "", header: "" });
+    this.setState({ data: myData, ticker: this.props.symbol, header: "" });
   }
   render() {
     if (this.state == null) {
@@ -45,23 +47,6 @@ export default class Chart extends React.Component {
       <div>
         <h1>{this.state.visible}</h1>
         <StockChart type="svg" data={this.state.data} />
-        <Form style={{ width: "50rem" }} onSubmit={this.handleSubmit}>
-          <Form.Group controlId="validationCustomUsername">
-            <Form.Label>Ticker</Form.Label>
-            <InputGroup>
-              <Form.Control
-                type="text"
-                placeholder="Ticker"
-                required
-                value={this.state.ticker}
-                onChange={this.handleTickerChange}
-              />
-            </InputGroup>
-          </Form.Group>
-          <Button data-testid="submit" variant="success" type="submit">
-            Submit
-          </Button>
-        </Form>
       </div>
     );
   }

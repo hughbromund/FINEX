@@ -14,7 +14,7 @@ import history from '../routing/History';
 class StockInfo extends Component {
 
     state = {
-        stockSymbol: "Stock Name",
+        stockSymbol: null,
         open: "Loading...",
         close: "Loading...",
         high: "Loading...",
@@ -42,6 +42,8 @@ class StockInfo extends Component {
 
         searchedSymbol = searchedSymbol.toUpperCase();
         this.setState({stockSymbol:searchedSymbol});
+
+        this.render();
     }
 
     /**
@@ -99,11 +101,19 @@ class StockInfo extends Component {
         return [year, month, day].join('-');
     }
 
+    renderChart = () => {
+        if (this.state == null) {
+            return;
+        } else {
+            return <Chart symbol={this.state.stockSymbol} />;
+        }
+    }
+
     render() {
         return (
             <div className={classes.wrapper}>
                 <div className={classes.title}>{this.state.stockSymbol}</div>
-                <Chart />
+                { this.state.stockSymbol != null ? <Chart symbol={this.state.stockSymbol} /> : null }
                 <div className={classes.infoTitle} >Daily Summary ({this.getCurrentDate()}):</div>
                 <div className={classes.infoBox}>
                     <div className={classes.headerColumn}>
