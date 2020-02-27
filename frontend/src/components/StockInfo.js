@@ -15,11 +15,12 @@ class StockInfo extends Component {
 
     state = {
         stockSymbol: "Stock Name",
-        open: "N/A",
-        close: "N/A",
-        high: "N/A",
-        low: "N/A",
-        volume: "N/A",
+        open: "Loading...",
+        close: "Loading...",
+        high: "Loading...",
+        low: "Loading...",
+        volume: "Loading...",
+        test: null
     };
 
     /**
@@ -31,11 +32,16 @@ class StockInfo extends Component {
         let pathLength = (YOUR_STOCKS_PATH + '/').length;
         let searchedSymbol = currPath.slice(pathLength);
 
-        this.setState({stockSymbol:searchedSymbol});
-
         // TODO: call backend based on path on load
         this.callDataAPI(searchedSymbol)
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err)
+                history.push("/stocknotfound")
+            }
+        );
+
+        searchedSymbol = searchedSymbol.toUpperCase();
+        this.setState({stockSymbol:searchedSymbol});
     }
 
     /**
@@ -45,26 +51,32 @@ class StockInfo extends Component {
     callDataAPI = async (symbol) => {
         console.log(STOCK_DAILY_URL + symbol)
         const response = await fetch(STOCK_DAILY_URL + symbol);
+
         const body = await response.json();
 
-        let tmpOpen = parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["1. open"]);
-        let tmpHigh = parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["2. high"]);
-        let tmpLow = parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["3. low"]);
-        let tmpClose = parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["4. close"]);
-        let tmpVol = body.data["Time Series (Daily)"][this.getCurrentDate()]["5. volume"];
+        console.log(body);
 
-        tmpOpen = Math.round(tmpOpen * 100) / 100.0;
+        let tmpOpen = "No Data";
+        let tmpHigh = "No Data";
+        let tmpLow = "No Data";
+        let tmpClose = "No Data";
+        let tmpVol = "No Data";
+
+        if (body.data["Time Series (Daily)"] != undefined && body.data["Time Series (Daily)"][this.getCurrentDate()] != undefined) {
+            tmpOpen = '$' + parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["1. open"]).toFixed(2);
+            tmpHigh = '$' + parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["2. high"]).toFixed(2);
+            tmpLow = '$' + parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["3. low"]).toFixed(2);
+            tmpClose = '$' + parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["4. close"]).toFixed(2);
+            tmpVol = body.data["Time Series (Daily)"][this.getCurrentDate()]["5. volume"];
+        }
 
         // TODO: change state
-        this.setState({open:tmpOpen.toFixed(2)});
-        this.setState({high:tmpHigh.toFixed(2)});
-        this.setState({low:tmpLow.toFixed(2)});
-        this.setState({close:tmpClose.toFixed(2)});
+        this.setState({open:tmpOpen});
+        this.setState({high:tmpHigh});
+        this.setState({low:tmpLow});
+        this.setState({close:tmpClose});
         this.setState({volume:tmpVol});
       
-        if (response.status !== 200) {
-            history.push("/stocknotfound");
-        }
         return body;
     }
 
@@ -92,7 +104,7 @@ class StockInfo extends Component {
             <div className={classes.wrapper}>
                 <div className={classes.title}>{this.state.stockSymbol}</div>
                 <Chart />
-                <div className={classes.infoTitle} >Daily Summary:</div>
+                <div className={classes.infoTitle} >Daily Summary ({this.getCurrentDate()}):</div>
                 <div className={classes.infoBox}>
                     <div className={classes.headerColumn}>
                         <p>Open:</p>
