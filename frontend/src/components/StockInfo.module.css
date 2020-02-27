@@ -1,0 +1,40 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 30pt;
+    font-weight: bold;
+    padding-left: 65px;
+}
+
+.infoTitle {
+    font-size: 20pt;
+    font-weight: bold;
+    padding-left: 80px;
+}
+
+.infoBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-top: 20px;
+    font-size: 16pt;
+    padding-left: 80px;
+}
+
+.headerColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    font-weight: bold;
+    width: 18vw;
+}
+
+.dataColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    width: 15vw;
+}
