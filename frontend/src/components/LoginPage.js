@@ -11,6 +11,7 @@ import Image from 'react-bootstrap/Image'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Container from 'react-bootstrap/Container';
+import Alert from 'react-bootstrap/Alert'
 import history from "../routing/History";
 
 import { ACCOUNT_PATH } from "../constants/Constants"
@@ -35,7 +36,8 @@ export default class LoginPage extends Component {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            loginError: true
         }
         this.handleLogin = this.handleLogin.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -57,7 +59,10 @@ export default class LoginPage extends Component {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(this.state), 
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password
+            }), 
             withCredentials : true,
             // credentials: 'same-origin'
           })
@@ -70,6 +75,7 @@ export default class LoginPage extends Component {
               } else {
                   // Failure to login
                 console.log("Invalid Account")
+                this.setState({loginError:false})
               }
           }).catch(err => {
               console.log(err);
@@ -111,6 +117,14 @@ export default class LoginPage extends Component {
                         </p>
                     </Container>
                 </Jumbotron>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                <Alert style={{ width: '50rem'}} variant="danger" hidden={this.state.loginError}>
+                    <Alert.Heading>No Account Found!</Alert.Heading>
+                    <p>
+                    Looks like your username or password are incorrect. Try checking your spelling and logging in again.
+                    </p>
+                </Alert>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
                         <Form style={{ width: '50rem'}} onSubmit={this.handleLogin}>
