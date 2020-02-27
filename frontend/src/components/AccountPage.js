@@ -6,10 +6,12 @@ import Card from 'react-bootstrap/Card'
 import CardColumns from 'react-bootstrap/CardColumns'
 import Button from 'react-bootstrap/Button'
 import history from "../routing/History";
+import Badge from 'react-bootstrap/Badge'
 
-import { HOME_PATH } from "../constants/Constants"
+import { HOME_PATH, LOGIN_PATH } from "../constants/Constants"
 import { LOGOUT_URL } from "../constants/Constants"
 import { USER_INFO_URL } from "../constants/Constants"
+import { RESET_PASS_PATH } from "../constants/Constants"
 
 
 /*
@@ -38,9 +40,9 @@ export default class AccountPage extends Component {
             withCredentials : true,
             // credentials: 'same-origin'
         })
-        console.log(response)
+        // console.log(response)
         var body = await response.json()
-        console.log(body)
+        // console.log(body)
         this.setState(
             {
                 username : body.username,
@@ -50,11 +52,6 @@ export default class AccountPage extends Component {
         // this.state.user = body.user.username
     }
     
-    componentDidMount() {
-        this.callUserInfo().catch(err => {
-            console.log(err)
-        })
-    }
 
     handleLogout(event) {
         event.preventDefault()
@@ -78,6 +75,23 @@ export default class AccountPage extends Component {
         })
     }
 
+    componentDidMount = async() => {
+        // console.log("TEST")
+        var response = await fetch(USER_INFO_URL,{
+            method: "GET",
+            withCredentials : true,
+            // credentials: 'same-origin'
+        })
+        // console.log(response)
+        if (response.status != 200) {
+            history.push(LOGIN_PATH);
+        } else {
+            this.callUserInfo().catch(err => {
+                console.log(err)
+            })
+        }
+    }
+
     render() {
         return (
             <div>
@@ -85,7 +99,7 @@ export default class AccountPage extends Component {
                     <Image src={require('../assets/img/slothlogo.png')} style = {{ width: '10rem'}}fluid roundedCircle />
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center'}} className={classes.carddiv}>
-                    <Card text="white" style={{ width: '50rem'}} className={classes.card}>
+                    <Card style={{ width: '50rem'}}>
                         <Card.Header>
                             Your Account
                         </Card.Header>
@@ -100,7 +114,7 @@ export default class AccountPage extends Component {
                     </Card>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center'}} className={classes.carddiv}>
-                    <Card text="white" style={{ width: '50rem'}} className={classes.card}>
+                    <Card style={{ width: '50rem'}}>
                         <Card.Header>
                             Personal Information
                         </Card.Header>
@@ -109,7 +123,8 @@ export default class AccountPage extends Component {
                                 Username: <b>{this.state.username}</b>
                             </div>
                             <div>
-                                Email: <b>{this.state.email}</b>
+                                Email: <b>{this.state.email}</b>&nbsp;&nbsp;
+                                <Badge variant="success" onClick={() => history.push(RESET_PASS_PATH)}>Update Email</Badge>
                             </div>
                             <div>
                                 Password: <b>{this.state.password}</b>
