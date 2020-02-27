@@ -9,6 +9,7 @@ import Image from "react-bootstrap/Image";
 import InputGroup from "react-bootstrap/InputGroup";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
+import Alert from 'react-bootstrap/Alert'
 
 import history from "../routing/History";
 import { ACCOUNT_PATH } from "../constants/Constants";
@@ -32,7 +33,8 @@ export default class RegistrationPage extends Component {
       username: "",
       password: "",
       email: "",
-      name: ""
+      name: "",
+      registerError: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -47,13 +49,23 @@ export default class RegistrationPage extends Component {
     fetch(url, {
       method: "POST",
       //   mode: "no-cors",
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(
+        {
+          username: this.state.username,
+          password : this.state.password,
+          email : this.state.email,
+          name : this.state.name
+        }),
       headers: {
         "content-type": "application/json"
       }
     })
-      .then(() => {
-        history.push(LOGIN_PATH)
+      .then(response => {
+        if (response.status == 200) {
+          history.push(LOGIN_PATH)
+        } else {
+          this.setState({registerError : false})
+        }
       })
       .catch(err => console.log(err));
   }
@@ -96,6 +108,17 @@ export default class RegistrationPage extends Component {
               </p>
             </Container>
           </Jumbotron>
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <Alert style={{ width: '50rem'}} variant="danger" hidden={this.state.registerError}>
+              <Alert.Heading>Unable to create account!</Alert.Heading>
+              <p>
+              The username you selected is already in use. Usernames must be unique.
+              </p>
+              <p>
+              Did you mean to Log In?
+              </p>
+          </Alert>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Form style={{ width: "50rem" }} onSubmit={this.handleSubmit}>
