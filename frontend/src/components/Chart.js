@@ -6,10 +6,14 @@ import { getData } from "./ChartUtils/ChartUtils";
 import StockChart from "./ChartUtils/StockChart";
 
 export default class Chart extends React.Component {
-  componentDidMount() {
-    getData().then(data => {
-      this.setState({ data });
-    });
+  async componentDidMount() {
+    // getData().then(data => {
+    //   this.setState({ data });
+    // });
+
+    var myData = await getData();
+    console.log(myData);
+    this.setState({ data: myData });
   }
   render() {
     if (this.state == null) {
