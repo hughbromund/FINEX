@@ -15,6 +15,4 @@ export const LOGIN_URL = BASE + "/auth/login"
 export const LOGOUT_URL = BASE + "/auth/logout"
 export const REGISTER_URL = BASE + "/auth/register"
 export const USER_INFO_URL = BASE + "/auth/user"
-
-/* Paths for API calls */
-export const STOCK_LIST_API = '/api/stock/auto/'
+export const STOCK_LIST_URL = BASE + '/api/stock/auto/'

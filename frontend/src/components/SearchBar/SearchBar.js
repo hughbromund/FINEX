@@ -4,7 +4,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl'
 import classes from './SearchBar.module.css'
-import { STOCK_LIST_API } from '../../constants/Constants';
+import { STOCK_LIST_URL } from '../../constants/Constants';
 import history from '../../routing/History';
 import { YOUR_STOCKS_PATH } from '../../constants/Constants';
 
@@ -26,7 +26,7 @@ class SearchBar extends Component {
      * Gets stock list from API on component mount.
      */
     componentDidMount = () => {
-        this.callListAPI()
+        this.callListAPI(this.state.inputValue)
             .catch(err => console.log(err));
     }
 
@@ -35,8 +35,8 @@ class SearchBar extends Component {
      * input provided.
      */
     callListAPI = async (currInputVal) => {
-        console.log("http://localhost:5000" + STOCK_LIST_API + currInputVal)
-        const response = await fetch("http://localhost:5000" + STOCK_LIST_API + currInputVal);
+        console.log(STOCK_LIST_URL + currInputVal)
+        const response = await fetch(STOCK_LIST_URL + currInputVal);
         const body = await response.json();
         this.setState({stockList:body});
       
@@ -64,7 +64,7 @@ class SearchBar extends Component {
         let currList = [];
         for (let i = 0; i < this.state.stockList.length; i++) {
             currList.push(
-                <Dropdown.Item key={i} eventKey={i} onSelect={eventKey => {this.updateValue(this.state.stockList[eventKey][1])}}>
+                <Dropdown.Item key={i} eventKey={i} onSelect={eventKey => {this.updateValue(this.state.stockList[eventKey][0])}}>
                     {this.state.stockList[i][1]}
                 </Dropdown.Item>
             )
@@ -106,7 +106,7 @@ class SearchBar extends Component {
                     <Dropdown.Toggle as={CustomToggle} id="toggle"></Dropdown.Toggle>
                     {this.getCurrList()}
                 </Dropdown>
-                <Button variant="success" className={classes.searchButton} onClick={() => history.push(YOUR_STOCKS_PATH)}> 
+                <Button variant="success" className={classes.searchButton} onClick={() => history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)}> 
                     Search 
                 </Button>
             </div>
