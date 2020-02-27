@@ -27,7 +27,8 @@ export async function getData(ticker) {
   //   .then(data => tsvParse(data, parseData(parseDate)));
   // return promiseMSFT;
 
-  var response = await fetch("http://localhost:5000/api/stock/daily/MSFT", {
+  const url = "http://localhost:5000/api/stock/daily/" + ticker;
+  var response = await fetch(url, {
     method: "GET",
     withCredentials: true
   });
@@ -46,7 +47,7 @@ export async function getData(ticker) {
       low: data[key]["3. low"],
       date: parseDate(key),
       close: data[key]["4. close"],
-      volume: "5. volume"
+      volume: data[key]["5. volume"]
     };
     j++;
   }
