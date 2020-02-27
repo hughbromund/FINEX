@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classes from './StockInfo.module.css';
 import Chart from './Chart';
-import { YOUR_STOCKS_PATH } from '../constants/Constants';
+import { YOUR_STOCKS_PATH, STOCK_DAILY_URL } from '../constants/Constants';
 import history from '../routing/History';
 
 /**
@@ -9,19 +9,17 @@ import history from '../routing/History';
  * 
  * Code snippets from:
  * https://reacttraining.com/react-router/web/guides/quick-start
+ * https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
  */
 class StockInfo extends Component {
 
     state = {
-        stockName: "Stock Name",
+        stockSymbol: "Stock Name",
         open: "N/A",
         close: "N/A",
         high: "N/A",
         low: "N/A",
-        divYield: "N/A",
-        prevClose: "N/A",
-        yearHigh: "N/A",
-        yearLow: "N/A"
+        volume: "N/A",
     };
 
     /**
@@ -33,30 +31,68 @@ class StockInfo extends Component {
         let pathLength = (YOUR_STOCKS_PATH + '/').length;
         let searchedSymbol = currPath.slice(pathLength);
 
-        // TODO: call backend based on path on load
+        this.setState({stockSymbol:searchedSymbol});
 
-        // TODO: change to more permanent solution
-        if (searchedSymbol === "nostock") {
-            history.push("/stocknotfound");
-        } else {
-            searchedSymbol = searchedSymbol.toUpperCase();
-            this.setState({stockName:searchedSymbol});
-        }
+        // TODO: call backend based on path on load
+        this.callDataAPI(searchedSymbol)
+            .catch(err => console.log(err));
     }
 
     /**
-     * Makes a call to backend requesting stock list based on
+     * Makes a call to backend requesting stock data based on
      * input provided.
      */
-    callListAPI = async () => {
-        // TODO: Get data from backend
+    callDataAPI = async (symbol) => {
+        console.log(STOCK_DAILY_URL + symbol)
+        const response = await fetch(STOCK_DAILY_URL + symbol);
+        const body = await response.json();
+
+        let tmpOpen = parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["1. open"]);
+        let tmpHigh = parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["2. high"]);
+        let tmpLow = parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["3. low"]);
+        let tmpClose = parseFloat(body.data["Time Series (Daily)"][this.getCurrentDate()]["4. close"]);
+        let tmpVol = body.data["Time Series (Daily)"][this.getCurrentDate()]["5. volume"];
+
+        tmpOpen = Math.round(tmpOpen * 100) / 100.0;
+
+        // TODO: change state
+        this.setState({open:tmpOpen.toFixed(2)});
+        this.setState({high:tmpHigh.toFixed(2)});
+        this.setState({low:tmpLow.toFixed(2)});
+        this.setState({close:tmpClose.toFixed(2)});
+        this.setState({volume:tmpVol});
+      
+        if (response.status !== 200) {
+            history.push("/stocknotfound");
+        }
+        return body;
+    }
+
+    /**
+     * Returns current date in the format yyyy-mm-dd.
+     */
+    getCurrentDate = () => {
+        let  d = new Date();
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        let year = d.getFullYear();
+
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        return [year, month, day].join('-');
     }
 
     render() {
         return (
             <div className={classes.wrapper}>
-                <div className={classes.title}>{this.state.stockName}</div>
+                <div className={classes.title}>{this.state.stockSymbol}</div>
                 <Chart />
+                <div className={classes.infoTitle} >Daily Summary:</div>
                 <div className={classes.infoBox}>
                     <div className={classes.headerColumn}>
                         <p>Open:</p>
@@ -65,22 +101,16 @@ class StockInfo extends Component {
                         <p>Low:</p>
                     </div>
                     <div className={classes.dataColumn}>
-                        <p>1330.23</p>
-                        <p>1231.43</p>
-                        <p>120.23</p>
-                        <p>123.3123</p>
+                        <p>{this.state.open}</p>
+                        <p>{this.state.close}</p>
+                        <p>{this.state.high}</p>
+                        <p>{this.state.low}</p>
                     </div>
                     <div className={classes.headerColumn}>
-                        <p>Div Yield:</p>
-                        <p>Prev. Close:</p>
-                        <p>52-wk High:</p>
-                        <p>52-wk Low:</p>
+                        <p>Volume:</p>
                     </div>
                     <div className={classes.dataColumn}>
-                        <p>1482.31</p>
-                        <p>1423.23</p>
-                        <p>3214.23</p>
-                        <p>2313.32</p>
+                        <p>{this.state.volume}</p>
                     </div>
                 </div>
             </div>

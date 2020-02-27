@@ -9,11 +9,17 @@
     padding-left: 65px;
 }
 
+.infoTitle {
+    font-size: 20pt;
+    font-weight: bold;
+    padding-left: 80px;
+}
+
 .infoBox {
     display: flex;
     flex-direction: row;
     justify-content: left;
-    margin-top: 50px;
+    margin-top: 20px;
     font-size: 16pt;
     padding-left: 80px;
 }
@@ -23,7 +29,7 @@
     flex-direction: column;
     justify-content: left;
     font-weight: bold;
-    width: 15vw;
+    width: 18vw;
 }
 
 .dataColumn {

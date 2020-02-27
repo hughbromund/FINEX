@@ -15,4 +15,6 @@ export const LOGIN_URL = BASE + "/auth/login"
 export const LOGOUT_URL = BASE + "/auth/logout"
 export const REGISTER_URL = BASE + "/auth/register"
 export const USER_INFO_URL = BASE + "/auth/user"
-export const STOCK_LIST_URL = BASE + '/api/stock/auto/'
+export const STOCK_LIST_URL = BASE + "/api/stock/auto/"
+export const STOCK_INTRADAY_URL = BASE + "/api/stock/intraday/"
+export const STOCK_DAILY_URL = BASE + "/api/stock/daily/"
