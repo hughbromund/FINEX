@@ -4,7 +4,7 @@ import "./RegistrationPage.module.css";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Card from "react-bootstrap/Card";
+// import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
 import InputGroup from "react-bootstrap/InputGroup";
 import Jumbotron from "react-bootstrap/Jumbotron";
@@ -13,6 +13,7 @@ import Container from "react-bootstrap/Container";
 import history from "../routing/History";
 import { ACCOUNT_PATH } from "../constants/Constants";
 import { REGISTER_URL } from "../constants/Constants";
+import { LOGIN_PATH } from "../constants/Constants";
 
 /*
  * Code Snippets borrowed From:
@@ -31,12 +32,13 @@ export default class RegistrationPage extends Component {
       username: "",
       password: "",
       email: "",
-      name: "name"
+      name: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
   }
 
   handleSubmit(event) {
@@ -50,7 +52,9 @@ export default class RegistrationPage extends Component {
         "content-type": "application/json"
       }
     })
-      .then(() => history.push(ACCOUNT_PATH))
+      .then(() => {
+        history.push(LOGIN_PATH)
+      })
       .catch(err => console.log(err));
   }
 
@@ -64,6 +68,10 @@ export default class RegistrationPage extends Component {
 
   handleUsernameChange(event) {
     this.setState({ username: event.target.value });
+  }
+
+  handleNameChange(event) {
+    this.setState({ name: event.target.value })
   }
 
   render() {
@@ -91,6 +99,23 @@ export default class RegistrationPage extends Component {
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Form style={{ width: "50rem" }} onSubmit={this.handleSubmit}>
+          <Form.Group>
+              <Form.Label>Name</Form.Label>
+              <InputGroup>
+                <Form.Control
+                  type="text"
+                  placeholder="Your Name"
+                  aria-describedby="inputGroupPrepend"
+                  onChange={this.handleNameChange}
+                  value={this.state.name}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please enter your name.
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+
             <Form.Group controlId="validationCustomUsername">
               <Form.Label>Username</Form.Label>
               <InputGroup>
@@ -113,7 +138,7 @@ export default class RegistrationPage extends Component {
               <Form.Label>Email Address</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter email"
+                placeholder="Your Email"
                 onChange={this.handleEmailChange}
                 value={this.state.email}
               />
@@ -132,12 +157,6 @@ export default class RegistrationPage extends Component {
               />
               <Form.Text className="text-muted">Make it secure.</Form.Text>
             </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control type="password" placeholder="Confirm Password" />
-              <Form.Text className="text-muted">One more time.</Form.Text>
-            </Form.Group>
-
             <Form.Group controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Keep me Logged In" />
             </Form.Group>

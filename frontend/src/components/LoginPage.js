@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import Card from 'react-bootstrap/Card'
+// import Card from 'react-bootstrap/Card'
 import Image from 'react-bootstrap/Image'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Jumbotron from 'react-bootstrap/Jumbotron'

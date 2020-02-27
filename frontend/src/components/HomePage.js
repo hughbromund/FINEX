@@ -31,7 +31,7 @@ export default class HomePage extends Component {
                 <br />
                 <br />
                 <p className={classes.text}>
-                  Already have an account, Sign in bellow.
+                  Already have an account, Log in bellow.
                 </p>
                 <Button variant="success" size="lg" onClick={() => history.push(LOGIN_PATH)}>
                   Log In

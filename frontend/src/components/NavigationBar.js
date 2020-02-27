@@ -32,6 +32,7 @@ export default class NavigationBar extends Component {
 
     this.state = {
       username : "",
+      name: "",
       loggedIn : false
     }
   }
@@ -45,7 +46,7 @@ export default class NavigationBar extends Component {
     if (response.status == 200) {
       var body = await response.json()
       // console.log(body.user.username)
-      this.setState({username : body.username})
+      this.setState({username : body.username, name: body.name})
       this.setState({loggedIn:true})
     } else {
       this.setState({loggedIn:false})
@@ -64,7 +65,7 @@ export default class NavigationBar extends Component {
     let optional;
     if (loggedIn) {
       optional = <Navbar.Text>
-      SIGNED IN AS: <a onClick={() => history.push(ACCOUNT_PATH)} >{this.state.username}</a>
+      SIGNED IN AS: <a onClick={() => history.push(ACCOUNT_PATH)} >{this.state.name}</a>
       </Navbar.Text>
     } else {
       optional = <div>
@@ -105,10 +106,6 @@ export default class NavigationBar extends Component {
                 </NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">
                   MARKET TRENDS
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link href="#link">FINANCE</Nav.Link>
