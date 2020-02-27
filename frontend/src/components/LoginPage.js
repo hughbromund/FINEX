@@ -15,6 +15,7 @@ import history from "../routing/History";
 
 import { ACCOUNT_PATH } from "../constants/Constants"
 import { LOGIN_URL } from "../constants/Constants"
+import { USER_INFO_URL } from "../constants/Constants"
 
 // const axios = require('axios').default;
 /*
@@ -45,6 +46,10 @@ export default class LoginPage extends Component {
         event.preventDefault()
         // console.log("Logging In");
         // console.log(JSON.stringify(this.state));
+
+
+
+
 
         fetch(LOGIN_URL, {
             method: 'POST',
@@ -78,6 +83,17 @@ export default class LoginPage extends Component {
     }
     handlePasswordChange(event) {
         this.setState({password: event.target.value})
+    }
+
+    componentDidMount = async() => {
+        var response = await fetch(USER_INFO_URL,{
+            method: "GET",
+            withCredentials : true,
+            // credentials: 'same-origin'
+        })
+        if (response.status == 200) {
+            history.push(ACCOUNT_PATH);
+        }
     }
 
     render() {
