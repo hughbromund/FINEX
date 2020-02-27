@@ -35,7 +35,9 @@ export default class Chart extends React.Component {
 
     console.log(this.props.symbol)
 
-    var myData = await getData(this.props.symbol);
+    var myData = await getData(this.props.symbol).catch(err => {
+      console.log("Stock not found for chart.")
+    })
     console.log(myData);
     this.setState({ data: myData, ticker: this.props.symbol, header: "" });
   }

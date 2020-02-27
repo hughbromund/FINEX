@@ -20,7 +20,7 @@ class StockInfo extends Component {
         high: "Loading...",
         low: "Loading...",
         volume: "Loading...",
-        test: null
+        isValid: true
     };
 
     /**
@@ -37,13 +37,11 @@ class StockInfo extends Component {
             .catch(err => {
                 console.log(err)
                 history.push("/stocknotfound")
+                this.setState({isValid:false});
             }
         );
-
         searchedSymbol = searchedSymbol.toUpperCase();
         this.setState({stockSymbol:searchedSymbol});
-
-        this.render();
     }
 
     /**
@@ -113,7 +111,7 @@ class StockInfo extends Component {
         return (
             <div className={classes.wrapper}>
                 <div className={classes.title}>{this.state.stockSymbol}</div>
-                { this.state.stockSymbol != null ? <Chart symbol={this.state.stockSymbol} /> : null }
+                { (this.state.stockSymbol != null && this.state.isValid == true) ? <Chart symbol={this.state.stockSymbol} /> : null }
                 <div className={classes.infoTitle} >Daily Summary ({this.getCurrentDate()}):</div>
                 <div className={classes.infoBox}>
                     <div className={classes.headerColumn}>
