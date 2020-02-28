@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import styles from "./ResetEmail.module.css";
 
+import {UPDATE_EMAIL_URL} from "../constants/Constants"
+
 export default class ResetEmail extends Component {
   constructor(props) {
     super(props);
@@ -28,21 +30,21 @@ export default class ResetEmail extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const url = "http://httpbin.org/post";
+    // const url = "http://httpbin.org/post";
     if (!this.validateEmail(this.state.email)) {
       return;
     }
     this.setState({
       hidden: false,
       error:
-        "Success! Check " +
+        "Success! Your account email is now " +
         this.state.email +
-        " for password reset information!",
+        ".",
       email: ""
     });
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify(this.state.email),
+    fetch(UPDATE_EMAIL_URL, {
+      method: "PUT",
+      body: JSON.stringify({email: this.state.email}),
       headers: {
         "content-type": "application/json"
       }
@@ -58,8 +60,8 @@ export default class ResetEmail extends Component {
 
   render() {
     return (
-      <div className={styles.container}>
-        <Form onSubmit={this.handleSubmit}>
+      <div className={styles.container} style={{display: 'flex', justifyContent: 'center'}}>
+        <Form onSubmit={this.handleSubmit} style={{ width: '50rem'}}>
           <Form.Group>
             <Form.Label className={styles.label}>Reset Email</Form.Label>
             <Form.Control
