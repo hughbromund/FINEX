@@ -13,6 +13,9 @@ import { YOUR_STOCKS_PATH } from '../../constants/Constants';
  * both names an symbols, to be used elsewhere on the site.
  * The search bar pulls the stocks to be shown in a dropdown
  * from the backend API.
+ * 
+ * Code Snippets From:
+ * https://www.freecodecamp.org/forum/t/react-redux-adding-a-handler-for-enter-key-events/241151
  */
 class SearchBar extends Component {
 
@@ -79,6 +82,15 @@ class SearchBar extends Component {
         );
     }
 
+    /**
+     * Method detects an enter button press and searches for a stock.
+     */
+    keyPressed(e) {
+        if (e.key === "Enter") {
+            history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)
+        }
+      }
+
     render() {
 
         // Custom toggle created using a form as the trigger
@@ -101,12 +113,20 @@ class SearchBar extends Component {
         ));
 
         return (
-            <div className={classes.wrapper}>
+            <div className={classes.wrapper}
+            onKeyPress={event => {
+                            if (event.key === "Enter") {
+                                history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)
+                            }
+                        }} >
                 <Dropdown className={classes.bar}>
                     <Dropdown.Toggle as={CustomToggle} id="toggle"></Dropdown.Toggle>
                     {this.getCurrList()}
                 </Dropdown>
-                <Button variant="success" className={classes.searchButton} onClick={() => history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)}> 
+                <Button
+                        variant="success" 
+                        className={classes.searchButton} 
+                        onClick={() => history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)}> 
                     Search 
                 </Button>
             </div>
