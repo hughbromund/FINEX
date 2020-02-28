@@ -1,6 +1,8 @@
-//var databaseAccess = require('../DatabaseAccess/mongo_commands')
+//from https://github.com/b-bly/simple-mern-passport
 
-var auth_service = require('../Services/auth_service.js')  
+const User = require('../database/models/user');
+
+//var databaseAccess = require('../DatabaseAccess/mongo_commands')  
 
 // controller that will call the database access functions to login
 // THIS IS A STUB
@@ -33,13 +35,11 @@ exports.register_stub = async function (req, res, next) {
     }
 }
 
-
-//from https://github.com/b-bly/simple-mern-passport
-
-const User = require('../database/models/user');
-
-
+//currently not used or functioning
 exports.register = async function (req, res, next) {
+    
+
+
     console.log('user signup');
     console.log(req.body)
     const { username, password, email, name } = req.body
@@ -80,55 +80,40 @@ exports.login = async function (req, res, next) {{
 */
 
 
-exports.login = async function (req, res, next) {
-    let result = await auth_service.login(req);
-    res.status(result.code).send({
-        username: result.username
-    }); 
+exports.login = async function (req) {
+    //console.log('logged in', req.user);
+    return {
+        username: req.user.username,
+        code: 200
+    }
+
+    /*
+    var userInfo = {
+        username: req.user.username
+    };
+    res.status(200).send(userInfo); 
+    */
 }
 
 
-exports.user = async function (req, res, next) {
-    //console.log("this is the return")
-    //console.log(user);
-    
-    if (req.user) {
-        try {
-            let user = await auth_service.user(req)
-            res.status(200).json({
-                username: user.username,
-                name: user.name,
-                email: user.email
-            })
-        }
-        catch (e) {
-            console.log(e)
-            res.status(400).json({
-                status: "an error occured"
-            })
-        }
-    }
-    else {
-        res.status(400).json({
-            status: "user not logged in!"
-        })
-    }
+exports.user = async function (req) {
+    return await User.findOne({ username: req.user.username }, (err, user) => {}).exec()
 }
+
 
 exports.logout = async function (req, res, next) {
-    let status = await auth_service.logout(req, res, next);
-    res.status(status.code).json({status: status.status});
-}
-
-exports.update_email = async function (req, res, next) {
-    const { email } = req.body;
-    //console.log(req.user.username)
     if (req.user) {
-        await User.updateOne({username: req.user.username}, {email: email})
-        res.status(200).json({status: "email updated"})
-    }
+        req.logout()
+        return { 
+            status: 'logging out',
+            code: 200
+        }
+    } 
     else {
-        res.status(400).json({status: "not logged in!"})
+        return { 
+            status: 'no user to log out',
+            code: 400
+        }
     }
 }
 
