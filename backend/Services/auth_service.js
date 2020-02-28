@@ -35,8 +35,11 @@ exports.register_stub = async function (req, res, next) {
     }
 }
 
-
+//currently not used or functioning
 exports.register = async function (req, res, next) {
+    
+
+
     console.log('user signup');
     console.log(req.body)
     const { username, password, email, name } = req.body
@@ -93,8 +96,8 @@ exports.login = async function (req) {
 }
 
 
-exports.user = async function (err, user) {
-    //cannot get working at the moment
+exports.user = async function (req) {
+    return await User.findOne({ username: req.user.username }, (err, user) => {}).exec()
 }
 
 

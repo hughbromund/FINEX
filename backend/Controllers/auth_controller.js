@@ -89,65 +89,46 @@ exports.login = async function (req, res, next) {
 
 
 exports.user = async function (req, res, next) {
-    //let user = await auth_service.user(req)
-    /*
-    if (user.code == 200) {
-        res.status(user.code).json({
-            username: result.username,
-            name: user.name,
-            email: user.email
-        })
-    }
-    else {
-        res.status(user.code).json({
-            status: user.status
-        })
-    }
-    */
-
+    //console.log("this is the return")
+    //console.log(user);
     
-    //console.log('===== user!!======')
-    //console.log(req.user)
     if (req.user) {
-        User.findOne({ username: req.user.username }, (err, user) => {
-            console.log(user);
-
-            if (err) {
-                console.log('User.js post error: ', err)
-                res.status(400).json({
-                    status: "Sorry, an error occured"
-                })
-            } 
-            else if (user) {
-                res.status(200).json({ 
-                    username: user.username,
-                    name: user.name,
-                    email: user.email
-                })
-            } 
-            else {
-                res.status(400).json({ user: null })
-            }  
-        })
+        try {
+            let user = await auth_service.user(req)
+            res.status(200).json({
+                username: user.username,
+                name: user.name,
+                email: user.email
+            })
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({
+                status: "an error occured"
+            })
+        }
     }
     else {
-        res.status(400).json({ status: "no user logged in"})
+        res.status(400).json({
+            status: "user not logged in!"
+        })
     }
-    
 }
 
 exports.logout = async function (req, res, next) {
     let status = await auth_service.logout(req, res, next);
     res.status(status.code).json({status: status.status});
+}
 
-
-    /*
+exports.update_email = async function (req, res, next) {
+    const { email } = req.body;
+    //console.log(req.user.username)
     if (req.user) {
-        req.logout()
-        res.status(200).send({ status: 'logging out' })
-    } else {
-        res.status(400).send({ status: 'no user to log out' })
+        await User.updateOne({username: req.user.username}, {email: email})
+        res.status(200).json({status: "email updated"})
     }
-    */
+    else {
+        res.status(400).json({status: "not logged in!"})
+    }
 }
 

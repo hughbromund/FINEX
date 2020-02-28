@@ -63,4 +63,7 @@ router.post('/auth/logout', cors(), authController.logout);
 //get username of logged in account
 router.get('/auth/user', cors(), authController.user);
 
+//update email
+router.put('/auth/update_email', cors(), authController.update_email);
+
 module.exports = router;

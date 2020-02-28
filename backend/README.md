@@ -57,3 +57,11 @@ Requirements: None
 Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in and a JSON object with correct "username", "name", and "email" otherwise
 Status: Working
 Bugs: ??
+
+`/auth/update_email`
+PUT
+This represents updating user email endpoint
+Requirements: None
+Returns: Returns 400 and "status": "not logged in!" JSON if user not logged in and a JSON object with "status": "email updated" otherwise
+Status: Working
+Bugs: ??
