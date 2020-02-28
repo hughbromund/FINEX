@@ -104,7 +104,7 @@ export default class RegistrationPage extends Component {
                 Welcome to <b>FINEX</b>,{" "}
                 <i>let's get your money working for you. </i> <br></br>
                 We just need a little information from you. Please fill out the
-                fields bellow to create a new <b>FINEX</b> account.
+                fields below to create a new <b>FINEX</b> account.
               </p>
             </Container>
           </Jumbotron>
