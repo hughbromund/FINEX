@@ -1,0 +1,21 @@
+.wrapper {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form {
+    font-family: 'Montserrat', sans-serif;
+    width: 50rem;
+}
+
+.jumbo {
+    width: 50rem;
+}
+
+.innerDiv {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}

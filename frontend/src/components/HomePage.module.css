@@ -1,0 +1,23 @@
+.container {
+  height: 100vh;
+  background-image: linear-gradient(black, black),
+    url("../assets/img/home-background.jpg");
+  background-blend-mode: saturation;
+}
+
+.logo {
+  display: inline-block;
+  height: 200px;
+}
+
+.cont {
+  text-align: center;
+}
+
+.mycol {
+  margin-top: 200px;
+}
+
+.text {
+  color: white;
+}
