@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import PasswordStrength from "../components/PasswordStrength"
+
 import "./RegistrationPage.module.css";
 
 import Button from "react-bootstrap/Button";
@@ -41,6 +43,7 @@ export default class RegistrationPage extends Component {
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.checkPassword = this.checkPassword.bind(this);
   }
 
   handleSubmit(event) {
@@ -84,6 +87,15 @@ export default class RegistrationPage extends Component {
 
   handleNameChange(event) {
     this.setState({ name: event.target.value })
+  }
+
+  checkPassword() {
+    console.log(this.state.password.length)
+    if (this.state.password.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   render() {
@@ -178,6 +190,7 @@ export default class RegistrationPage extends Component {
                 onChange={this.handlePasswordChange}
                 value={this.state.password}
               />
+              <PasswordStrength password={this.state.password} hidden={this.checkPassword()}></PasswordStrength>
               <Form.Text className="text-muted">Make it secure.</Form.Text>
             </Form.Group>
             <Form.Group controlId="formBasicCheckbox">

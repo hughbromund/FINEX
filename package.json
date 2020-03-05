@@ -23,5 +23,8 @@
   "homepage": "https://github.com/hughbromund/FINEX#readme",
   "devDependencies": {
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "zxcvbn": "^4.4.2"
   }
 }
