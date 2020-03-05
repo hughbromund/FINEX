@@ -1,5 +1,5 @@
 var stockService = require('../Services/stock_service')  
-var auto_complete_service = require('../Services/AutoComplete.js/index.js')  
+var auto_complete_service = require('../Services/AutoCompleteService.js')  
 
 exports.getHello = async function (req, res, next) {
     // Validate request parameters
