@@ -69,6 +69,7 @@ router.post('/auth/logout', cors(), authController.logout);
 router.get('/auth/user', cors(), authController.user);
 
 //update email
-router.put('/auth/update_email', cors(), authController.update_email);
+router.put('/auth/updateEmail', cors(), authController.updateEmail);
+router.put('/auth/updateName', cors(), authController.updateName);
 
 module.exports = router;
