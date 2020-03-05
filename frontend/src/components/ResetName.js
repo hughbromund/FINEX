@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import styles from "./ResetEmail.module.css";
 
-import {UPDATE_EMAIL_URL} from "../constants/Constants"
+import {UPDATE_NAME_URL} from "../constants/Constants"
 
 export default class ResetEmail extends Component {
   constructor(props) {
@@ -33,37 +33,45 @@ export default class ResetEmail extends Component {
         return;
     }
 
-    fetch(UPDATE_EMAIL_URL, {
+    fetch(UPDATE_NAME_URL, {
       method: "PUT",
       body: JSON.stringify({name: this.state.name}),
       headers: {
         "content-type": "application/json"
       }
     })
-      .then(res => res.json)
       .then(res => {
-          console.log("Success")
-          this.setState({
-            hidden: false,
-            error:
-              "Success! Your account name is now " +
-              this.state.name +
-              ".",
-            name: ""
-          });
+          if (res.status == 200) {
+            console.log("Success")
+            this.setState({
+                hidden: false,
+                error:
+                "Success! Your account name is now " +
+                this.state.name +
+                ".",
+                name: ""
+            });
+        } else {
+            console.log("Failure")
+            this.setState(
+                {
+                  error: "An Error Occurred while trying to update your name. ",
+                  hidden: false
+                });
+        }
         })
       .catch(err => {
           console.log(err)
           this.setState(
             {
-              error: "An Error Occurred while trying to update your name.",
+              error: "An Error Occurred while trying to update your name. ",
               hidden: false
             })
         });
   }
 
   validateName() {
-      console.log(this.state.name.length)
+      // console.log(this.state.name.length)
       if (this.state.name.length === 0) {
           return false;
       } else {

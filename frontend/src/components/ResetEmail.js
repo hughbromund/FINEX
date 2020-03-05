@@ -41,17 +41,26 @@ export default class ResetEmail extends Component {
         "content-type": "application/json"
       }
     })
-      .then(res => res.json)
       .then(res => {
-        console.log("Success")
-        this.setState({
-          hidden: false,
-          error:
-            "Success! Your account email is now " +
-            this.state.email +
-            ".",
-          email: ""
-        });
+        if (res.status == 200) {
+          console.log("Success")
+          this.setState({
+            hidden: false,
+            error:
+              "Success! Your account email is now " +
+              this.state.email +
+              ".",
+            email: ""
+          });
+        } else {
+          console.log("Failure")
+          this.setState({
+            hidden: false,
+            error:
+              "An Error Occurred while trying to update your Email.",
+            email: ""
+          });
+        }
       })
       .catch(err => {
         console.log(err)
