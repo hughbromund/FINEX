@@ -12,6 +12,7 @@ import { HOME_PATH, LOGIN_PATH, RESET_NAME_PATH } from "../constants/Constants"
 import { LOGOUT_URL } from "../constants/Constants"
 import { USER_INFO_URL } from "../constants/Constants"
 import { RESET_EMAIL_PATH } from "../constants/Constants"
+import { RESET_USERNAME_PATH } from "../constants/Constants"
 
 
 /*
@@ -121,7 +122,8 @@ export default class AccountPage extends Component {
                         </Card.Header>
                         <Card.Body>
                             <div>
-                                Username: <b>{this.state.username}</b>
+                                Username: <b>{this.state.username}</b>&nbsp;&nbsp;
+                                <Badge variant="success" onClick={() => history.push(RESET_USERNAME_PATH)}>Update Username</Badge>
                             </div>
                             <div>
                                 Email: <b>{this.state.email}</b>&nbsp;&nbsp;

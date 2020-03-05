@@ -7,6 +7,7 @@ export const RESET_EMAIL_PATH = '/resetemail'
 export const ACCOUNT_PATH = '/account'
 export const LOGIN_PATH = '/login'
 export const RESET_NAME_PATH = '/resetname'
+export const RESET_USERNAME_PATH = '/resetusername'
 
 /* Base URL for Backend */
 export const BASE = 'http://localhost:5000'
