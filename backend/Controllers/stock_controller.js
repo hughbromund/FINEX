@@ -1,5 +1,5 @@
 var stockService = require('../Services/stock_service')  
-var auto_complete_service = require('../Services/auto_complete.js')  
+var auto_complete_service = require('../Services/AutoCompleteService.js')  
 
 exports.getHello = async function (req, res, next) {
     // Validate request parameters
@@ -39,10 +39,10 @@ exports.get_stock_daily = async function (req, res, next) {
 //autocompletes the search bar.
 //TODO - add error catch
 exports.get_auto_complete = async function (req, res, next) {
-    var stocks = await auto_complete_service.auto_complete(req.params.input);
+    var stocks = await auto_complete_service.stockAutoComplete(req.params.input);
     return res.json(stocks);
 }
 exports.get_auto_complete_empty = async function (req, res, next) {
-    var stocks = await auto_complete_service.auto_complete("");
+    var stocks = await auto_complete_service.stockAutoComplete("");
     return res.json(stocks);
 }

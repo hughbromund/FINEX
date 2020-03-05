@@ -26,6 +26,14 @@ Returns: JSON object containing quotes on 1 day interval or 400 if not found
 Status: Working
 Bugs: None
 
+`/api/crypto/auto/:input`
+GET
+This represents the autofill endpoint
+Requirements: some input from search box
+Returns: empty list if can't find anything or list of cryptos
+Status: Working
+Bugs: None
+
 `/auth/login`
 POST
 This represents the login endpoint

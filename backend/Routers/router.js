@@ -4,6 +4,7 @@ var router = express.Router();
 const cors = require('cors');
 
 var stockController = require('../Controllers/stock_controller');
+var cryptoController = require('../Controllers/CryptoController');
 var authController = require('../Controllers/auth_controller');
 
 const passport = require('../passport');
@@ -20,6 +21,10 @@ router.get('/hi', cors(), stockController.getHello);
 //autofill search list endpoint
 router.get('/api/stock/auto/:input', cors(), stockController.get_auto_complete);
 router.get('/api/stock/auto/', cors(), stockController.get_auto_complete_empty);
+
+router.get('/api/crypto/auto/:input', cors(), cryptoController.getAutoComplete);
+router.get('/api/crypto/auto/', cors(), cryptoController.getAutoCompleteEmpty);
+
 
 //retrieve stock intraday data endpoint
 router.get('/api/stock/intraday/:code', cors(), stockController.get_stock_intraday);
