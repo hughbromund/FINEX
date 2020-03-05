@@ -3,9 +3,10 @@ export const HOME_PATH = '/';
 export const YOUR_STOCKS_PATH = '/stocks'
 export const SEARCH_STOCK_PATH = '/searchstock'
 export const REGISTRATION_PATH = '/registration'
-export const RESET_PASS_PATH = '/reset'
+export const RESET_EMAIL_PATH = '/resetemail'
 export const ACCOUNT_PATH = '/account'
 export const LOGIN_PATH = '/login'
+export const RESET_NAME_PATH = '/resetname'
 
 /* Base URL for Backend */
 export const BASE = 'http://localhost:5000'

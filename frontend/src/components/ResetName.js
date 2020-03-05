@@ -11,61 +11,68 @@ export default class ResetEmail extends Component {
     super(props);
 
     this.state = {
-      email: "",
+      name: "",
       error: "",
       hidden: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.validateEmail = this.validateEmail.bind(this);
-  }
-
-  validateEmail(email) {
-    if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      return true;
-    }
-
-    return false;
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.validateName = this.validateName.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
     // const url = "http://httpbin.org/post";
-    if (!this.validateEmail(this.state.email)) {
-      return;
+    
+    if (!this.validateName()) {
+        this.setState({
+            hidden: false,
+            error: "Error. Name must not be empty.",
+            name: ""
+          });
+        return;
     }
+
     fetch(UPDATE_EMAIL_URL, {
       method: "PUT",
-      body: JSON.stringify({email: this.state.email}),
+      body: JSON.stringify({name: this.state.name}),
       headers: {
         "content-type": "application/json"
       }
     })
       .then(res => res.json)
       .then(res => {
-        console.log("Success")
-        this.setState({
-          hidden: false,
-          error:
-            "Success! Your account email is now " +
-            this.state.email +
-            ".",
-          email: ""
-        });
-      })
+          console.log("Success")
+          this.setState({
+            hidden: false,
+            error:
+              "Success! Your account name is now " +
+              this.state.name +
+              ".",
+            name: ""
+          });
+        })
       .catch(err => {
-        console.log(err)
-        this.setState({
-          hidden: false,
-          error:
-            "An Error Occurred while trying to update your Email.",
-          email: ""
+          console.log(err)
+          this.setState(
+            {
+              error: "An Error Occurred while trying to update your name.",
+              hidden: false
+            })
         });
-      });
   }
 
-  handleEmailChange(event) {
-    this.setState({ email: event.target.value });
+  validateName() {
+      console.log(this.state.name.length)
+      if (this.state.name.length === 0) {
+          return false;
+      } else {
+          return true;
+      }
+  }
+
+  handleNameChange(event) {
+    this.setState({ name: event.target.value });
   }
 
   render() {
@@ -73,14 +80,12 @@ export default class ResetEmail extends Component {
       <div className={styles.container} style={{display: 'flex', justifyContent: 'center'}}>
         <Form onSubmit={this.handleSubmit} style={{ width: '50rem'}}>
           <Form.Group>
-            <Form.Label className={styles.label}>Reset Email</Form.Label>
+            <Form.Label className={styles.label}>Reset Name</Form.Label>
             <Form.Control
               required
-              data-testid="email"
-              type="email"
-              placeholder="Enter email"
-              value={this.state.email}
-              onChange={this.handleEmailChange}
+              placeholder="Enter Name"
+              value={this.state.name}
+              onChange={this.handleNameChange}
             ></Form.Control>
           </Form.Group>
           <Form.Group>
