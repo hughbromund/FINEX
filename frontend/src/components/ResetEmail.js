@@ -34,14 +34,6 @@ export default class ResetEmail extends Component {
     if (!this.validateEmail(this.state.email)) {
       return;
     }
-    this.setState({
-      hidden: false,
-      error:
-        "Success! Your account email is now " +
-        this.state.email +
-        ".",
-      email: ""
-    });
     fetch(UPDATE_EMAIL_URL, {
       method: "PUT",
       body: JSON.stringify({email: this.state.email}),
@@ -49,9 +41,36 @@ export default class ResetEmail extends Component {
         "content-type": "application/json"
       }
     })
-      .then(res => res.json)
-      .then(res => console.log("Success"))
-      .catch(err => console.log(err));
+      .then(res => {
+        if (res.status == 200) {
+          console.log("Success")
+          this.setState({
+            hidden: false,
+            error:
+              "Success! Your account email is now " +
+              this.state.email +
+              ".",
+            email: ""
+          });
+        } else {
+          console.log("Failure")
+          this.setState({
+            hidden: false,
+            error:
+              "An Error Occurred while trying to update your Email.",
+            email: ""
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        this.setState({
+          hidden: false,
+          error:
+            "An Error Occurred while trying to update your Email.",
+          email: ""
+        });
+      });
   }
 
   handleEmailChange(event) {
@@ -65,6 +84,7 @@ export default class ResetEmail extends Component {
           <Form.Group>
             <Form.Label className={styles.label}>Reset Email</Form.Label>
             <Form.Control
+              required
               data-testid="email"
               type="email"
               placeholder="Enter email"
