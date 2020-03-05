@@ -117,3 +117,10 @@ exports.logout = async function (req, res, next) {
     }
 }
 
+exports.updateEmail = async function (req) {
+    return await User.updateOne({username: req.user.username}, {email: req.body.email}, (err, user) => {}).exec();
+}
+
+exports.updateName = async function (req) {
+    return await User.updateOne({username: req.user.username}, {name: req.body.name}, (err, user) => {}).exec();
+}
