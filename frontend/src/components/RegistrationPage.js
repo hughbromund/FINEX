@@ -36,7 +36,7 @@ export default class RegistrationPage extends Component {
       password: "",
       email: "",
       name: "",
-      registerError: true
+      registerError: true,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -90,7 +90,7 @@ export default class RegistrationPage extends Component {
   }
 
   checkPassword() {
-    console.log(this.state.password.length)
+    // console.log(this.state.password.length)
     if (this.state.password.length == 0) {
       return true;
     } else {
@@ -190,7 +190,9 @@ export default class RegistrationPage extends Component {
                 onChange={this.handlePasswordChange}
                 value={this.state.password}
               />
-              <PasswordStrength password={this.state.password} hidden={this.checkPassword()}></PasswordStrength>
+              <div hidden={this.checkPassword()}> 
+                <PasswordStrength password={this.state.password}></PasswordStrength>
+              </div>
               <Form.Text className="text-muted">Make it secure.</Form.Text>
             </Form.Group>
             <Form.Group controlId="formBasicCheckbox">

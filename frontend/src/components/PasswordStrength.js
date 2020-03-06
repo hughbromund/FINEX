@@ -28,6 +28,22 @@ export default class PasswordStrength extends Component {
             return 'Weak';
         }
       }
+    getVarient = (result) => {
+        switch (result) {
+            case 0:
+              return 'danger';
+            case 1:
+              return 'danger';
+            case 2:
+              return 'warning';
+            case 3:
+              return 'success';
+            case 4:
+              return 'success';
+            default:
+              return 'danger';
+          }
+    }
 
     render() {
         const { password } = this.props;
@@ -35,7 +51,14 @@ export default class PasswordStrength extends Component {
         const score = zxcvbn(password).score;
         return (
             <div>
-                <ProgressBar max="4" now={score} label={this.createPasswordLabel(score)}></ProgressBar>
+                <ProgressBar 
+                    variant={this.getVarient(score)}
+                    max="4" 
+                    min="-1"
+                    now={score} 
+                    label={this.createPasswordLabel(score)}>
+
+                    </ProgressBar>
                 <b>Password Strength: </b> {this.createPasswordLabel(score)}
             </div>
         )
