@@ -12,6 +12,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
 import Alert from 'react-bootstrap/Alert'
+import Collapse from 'react-bootstrap/Collapse'
 
 import history from "../routing/History";
 import { ACCOUNT_PATH } from "../constants/Constants";
@@ -92,9 +93,9 @@ export default class RegistrationPage extends Component {
   checkPassword() {
     // console.log(this.state.password.length)
     if (this.state.password.length == 0) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
 
@@ -190,9 +191,12 @@ export default class RegistrationPage extends Component {
                 onChange={this.handlePasswordChange}
                 value={this.state.password}
               />
-              <div hidden={this.checkPassword()}> 
-                <PasswordStrength password={this.state.password}></PasswordStrength>
-              </div>
+              <Collapse in={this.checkPassword()}>
+                <div>
+                  <PasswordStrength password={this.state.password}></PasswordStrength>
+                </div>
+              </Collapse>
+              
               <Form.Text className="text-muted">Make it secure.</Form.Text>
             </Form.Group>
             <Form.Group controlId="formBasicCheckbox">

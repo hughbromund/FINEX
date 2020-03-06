@@ -15,6 +15,7 @@ import { SEARCH_STOCK_PATH } from "../constants/Constants";
 import { HOME_PATH } from "../constants/Constants"
 import { ACCOUNT_PATH } from "../constants/Constants"
 import { USER_INFO_URL } from "../constants/Constants"
+import { FINANCE_DASHBOARD } from "../constants/Constants"
 // import { LOGIN_PATH } from "../constants/Constants"
 
 /*
@@ -108,7 +109,10 @@ export default class NavigationBar extends Component {
                   MARKET TRENDS
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="#link">FINANCE</Nav.Link>
+              <Nav.Link 
+              onClick={() => history.push(FINANCE_DASHBOARD)}>
+                FINANCE
+              </Nav.Link>
               <NavDropdown title="BUDGETING" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">
                   ADD A NEW ITEM
