@@ -1,16 +1,41 @@
 .wrapper {
     display: flex;
     flex-direction: row;
-
     font-family: "Montserrat", sans-serif;
+    width: 50rem;
 }
 
 .bar {
-    width: 40rem;
+    width: 30rem;
     padding-right: 1rem;
     border-color: white;
+    padding-left: 1rem;
 }
 
 .searchButton {
     width: 9rem;
+    background-color: #34c759;
+}
+
+.searchButton:hover {
+    background-color: #34c7599f;
+    border: none;
+}
+
+.toggle {
+    width: 9rem;
+}
+
+.toggleButton {
+    background-color: #34c759;
+    border: none;
+    outline: none !important;
+    outline-offset: none !important;
+}
+
+.toggleButton:hover {
+    background-color: #34c7599f;
+    border: none;
+    outline: none !important;
+    outline-offset: none !important;
 }

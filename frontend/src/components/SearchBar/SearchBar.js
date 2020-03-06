@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import Dropdown from 'react-bootstrap/Dropdown'
-import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button';
+import ToggleButton from 'react-bootstrap/ToggleButton'
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import FormControl from 'react-bootstrap/FormControl'
 import classes from './SearchBar.module.css'
 import { STOCK_LIST_URL } from '../../constants/Constants';
+import { CRYPTO_LIST_URL } from '../../constants/Constants';
 import history from '../../routing/History';
 import { YOUR_STOCKS_PATH } from '../../constants/Constants';
 
@@ -22,24 +25,46 @@ class SearchBar extends Component {
     // Stateful component stores list of stocks to display as well as current input value
     state = {
         stockList: [[]],
-        inputValue: ""
+        inputValue: "",
+        selected: "Stocks"
     }
 
     /**
      * Gets stock list from API on component mount.
      */
     componentDidMount = () => {
-        this.callListAPI(this.state.inputValue)
-            .catch(err => console.log(err));
+        if (this.state.selected === "Stocks") {
+            this.callStockListAPI(this.state.inputValue)
+                .catch(err => console.log(err));
+        } else {
+            this.callCryptoListAPI(this.state.inputValue)
+                .catch(err => console.log(err));
+        }
     }
 
     /**
      * Makes a call to backend requesting stock list based on
      * input provided.
      */
-    callListAPI = async (currInputVal) => {
+    callStockListAPI = async (currInputVal) => {
         console.log(STOCK_LIST_URL + currInputVal)
         const response = await fetch(STOCK_LIST_URL + currInputVal);
+        const body = await response.json();
+        this.setState({stockList:body});
+      
+        if (response.status !== 200) {
+            throw Error(body.message) 
+        }
+        return body;
+    }
+
+    /**
+     * Makes a call to backend requesting cryptocurrency list based on
+     * input provided.
+     */
+    callCryptoListAPI = async (currInputVal) => {
+        console.log(CRYPTO_LIST_URL + currInputVal)
+        const response = await fetch(CRYPTO_LIST_URL + currInputVal);
         const body = await response.json();
         this.setState({stockList:body});
       
@@ -55,8 +80,13 @@ class SearchBar extends Component {
      */
     updateValue = (newVal) => {
         this.setState({inputValue:newVal});
-        this.callListAPI(newVal)
-            .catch(err => console.log(err));
+        if (this.state.selected === "Stocks") {
+            this.callStockListAPI(newVal)
+                .catch(err => console.log(err));
+        } else {
+            this.callCryptoListAPI(newVal)
+                .catch(err => console.log(err));
+        }
     }
 
     /**
@@ -64,6 +94,11 @@ class SearchBar extends Component {
      * displaying the aforementioned items.
      */
     getCurrList = () => {
+
+        if (this.state.inputValue === "") {
+            return;
+        }
+
         let currList = [];
         for (let i = 0; i < this.state.stockList.length; i++) {
             currList.push(
@@ -90,6 +125,26 @@ class SearchBar extends Component {
             history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)
         }
       }
+
+    /**
+     * Handles styling changes and state update on click of
+     * stocks toggle button.
+     */
+    handleStocksToggle = () => {
+        this.setState({selected:"Stocks"})
+        this.callStockListAPI(this.state.inputValue)
+        .catch(err => console.log(err));
+    }
+
+    /**
+     * Handles styling changes and state update on click of
+     * stocks toggle button.
+     */
+    handleCryptoToggle = () => {
+        this.setState({selected:"Crypto"})
+        this.callCryptoListAPI(this.state.inputValue)
+            .catch(err => console.log(err));
+    }
 
     render() {
 
@@ -119,7 +174,24 @@ class SearchBar extends Component {
                                 history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)
                             }
                         }} >
-                <Dropdown className={classes.bar}>
+                <ButtonToolbar>
+                    <ToggleButtonGroup name="radio" toggle className={classes.toggle} defaultValue={this.state.selected}>
+                            <ToggleButton variant="success" 
+                                onClick={this.handleStocksToggle} 
+                                value="Stocks" 
+                                className={classes.toggleButton} 
+                                type="radio" 
+                                name="radio" 
+                                defaultChecked> Stocks</ToggleButton>
+                            <ToggleButton variant="success" 
+                                onClick={this.handleCryptoToggle} 
+                                value="Crypto" 
+                                className={classes.toggleButton} 
+                                type="radio" 
+                                name="radio"> Crypto </ToggleButton>                    
+                            </ToggleButtonGroup>
+                </ButtonToolbar>
+                <Dropdown defaultShow={true} className={classes.bar}>
                     <Dropdown.Toggle as={CustomToggle} id="toggle"></Dropdown.Toggle>
                     {this.getCurrList()}
                 </Dropdown>
