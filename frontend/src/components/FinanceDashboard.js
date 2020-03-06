@@ -4,6 +4,7 @@ import classes from "./FinanceDashboard.module.css"
 
 import TransactionToast from "./TransactionToast"
 import MonthProgress from "./MonthProgress"
+import CategoryProgress from "./CategoryProgress"
 
 // import Jumbotron from 'react-bootstrap/Jumbotron'
 import Navbar from 'react-bootstrap/Navbar'
@@ -68,7 +69,7 @@ export default class FinanceDashboard extends Component {
                                 </Toast>
                             </Row>
                             <Row>
-                                <MonthProgress onTrack={false} month="3" year="2020" day="10"></MonthProgress>
+                                <MonthProgress onTrack={false}></MonthProgress>
                             </Row>
                             <Row>
                                 <Toast>
@@ -78,7 +79,18 @@ export default class FinanceDashboard extends Component {
                                 </Toast>
                             </Row>
                             <Row>
-                                
+                                <CategoryProgress 
+                                category="Shopping" 
+                                currentSpending={30} 
+                                budgetedSpending={150}>
+                                </CategoryProgress>
+                            </Row>
+                            <Row>
+                                <CategoryProgress 
+                                category="Utilities" 
+                                currentSpending={40} 
+                                budgetedSpending={300}>
+                                </CategoryProgress>
                             </Row>
                         </Col>
                     </Row>

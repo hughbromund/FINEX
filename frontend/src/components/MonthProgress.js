@@ -6,20 +6,25 @@ export default class MonthProgress extends Component {
 
     constructor(props) {
         super(props)
-        console.log(props)
+
+        var today = new Date();
+
+        // console.log(props)
         this.state = 
         {
-            month : props.month,
-            day : props.day,
-            year : props.year,
+            month : today.getMonth(),
+            day : today.getDay(),
+            year : today.getFullYear(),
             onTrack : props.onTrack
         }
+        // console.log(this.state)
 
         this.getDaysInMonth = this.getDaysInMonth.bind(this)
         this.getVarient = this.getVarient.bind(this)
     }
 
     getDaysInMonth() {
+        // console.log(new Date(this.state.year, this.state.month, 0).getDate())
         return new Date(this.state.year, this.state.month, 0).getDate();
     }
 
@@ -50,7 +55,7 @@ export default class MonthProgress extends Component {
                     Your Budget is Looking Good! <br />
                 </div>
                 <div>
-                    There are <b>{this.getDaysInMonth() - this.props.day}</b> days left this Month!
+                    There are <b>{this.getDaysInMonth() - this.state.day}</b> days left this Month!
                 </div>
 
             </div>
