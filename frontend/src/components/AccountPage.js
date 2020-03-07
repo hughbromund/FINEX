@@ -8,10 +8,11 @@ import Button from 'react-bootstrap/Button'
 import history from "../routing/History";
 import Badge from 'react-bootstrap/Badge'
 
-import { HOME_PATH, LOGIN_PATH } from "../constants/Constants"
+import { HOME_PATH, LOGIN_PATH, RESET_NAME_PATH } from "../constants/Constants"
 import { LOGOUT_URL } from "../constants/Constants"
 import { USER_INFO_URL } from "../constants/Constants"
-import { RESET_PASS_PATH } from "../constants/Constants"
+import { RESET_EMAIL_PATH } from "../constants/Constants"
+import { RESET_USERNAME_PATH } from "../constants/Constants"
 
 
 /*
@@ -105,7 +106,8 @@ export default class AccountPage extends Component {
                         </Card.Header>
                         <Card.Body>
                             <Card.Title>
-                            Welcome Back, <b>{this.state.name}</b>
+                            Welcome Back, <b>{this.state.name}</b>&nbsp;&nbsp;
+                            <Badge variant="success" onClick={() => history.push(RESET_NAME_PATH)}>Update Name</Badge>
                             </Card.Title>
                             <Card.Subtitle>
                                 Manage your Info, Privacy, and Security settings to make <b>FINEX</b> yours. 
@@ -121,10 +123,12 @@ export default class AccountPage extends Component {
                         <Card.Body>
                             <div>
                                 Username: <b>{this.state.username}</b>
+                                &nbsp;&nbsp;
+                                <Badge variant="success" onClick={() => history.push(RESET_USERNAME_PATH)}>Update Username</Badge>
                             </div>
                             <div>
                                 Email: <b>{this.state.email}</b>&nbsp;&nbsp;
-                                <Badge variant="success" onClick={() => history.push(RESET_PASS_PATH)}>Update Email</Badge>
+                                <Badge variant="success" onClick={() => history.push(RESET_EMAIL_PATH)}>Update Email</Badge>
                             </div>
                             <div>
                                 Password: <b>{this.state.password}</b>

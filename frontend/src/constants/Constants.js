@@ -3,9 +3,11 @@ export const HOME_PATH = '/';
 export const YOUR_STOCKS_PATH = '/stocks'
 export const SEARCH_STOCK_PATH = '/searchstock'
 export const REGISTRATION_PATH = '/registration'
-export const RESET_PASS_PATH = '/reset'
+export const RESET_EMAIL_PATH = '/resetemail'
 export const ACCOUNT_PATH = '/account'
 export const LOGIN_PATH = '/login'
+export const RESET_NAME_PATH = '/resetname'
+export const RESET_USERNAME_PATH = '/resetusername'
 
 /* Base URL for Backend */
 export const BASE = 'http://localhost:5000'
@@ -20,3 +22,6 @@ export const STOCK_INTRADAY_URL = BASE + "/api/stock/intraday/"
 export const STOCK_DAILY_URL = BASE + "/api/stock/daily/"
 export const UPDATE_EMAIL_URL = BASE + "/auth/update_email"
 export const CRYPTO_LIST_URL = BASE + "/api/crypto/auto/"
+export const UPDATE_EMAIL_URL = BASE + "/auth/updateEmail"
+export const UPDATE_NAME_URL = BASE + "/auth/updateName"
+export const UPDATE_USERNAME_URL = BASE + "/auth"

@@ -120,15 +120,46 @@ exports.logout = async function (req, res, next) {
     res.status(status.code).json({status: status.status});
 }
 
-exports.update_email = async function (req, res, next) {
+exports.updateEmail = async function (req, res, next) {
     const { email } = req.body;
     //console.log(req.user.username)
-    if (req.user) {
-        await User.updateOne({username: req.user.username}, {email: email})
-        res.status(200).json({status: "email updated"})
+    if ( email == null ) {
+        res.status(400).json({status: "new email not passed!"})
+    }
+    else if (req.user) {
+        try {
+            let result = await auth_service.updateEmail(req);
+            //console.log(result)
+            res.status(200).json({status: "email updated"})
+        }
+        catch(e) {
+            res.status(400).json({status: "an error occurred"})
+        }
+        
     }
     else {
         res.status(400).json({status: "not logged in!"})
     }
+}
+
+exports.updateName = async function (req, res, next) {
+    const { name } = req.body;
+    if ( name == null ) {
+        res.status(400).json({status: "new name not passed!"})
+    }
+    else if (req.user) {
+        try {
+            let result = await auth_service.updateName(req);
+            //console.log(result)
+            res.status(200).json({status: "name updated"})
+        }
+        catch(e) {
+            res.status(400).json({status: "an error occurred"})
+        }
+    }
+    else {
+        res.status(400).json({status: "not logged in!"})
+    }
+
 }
 
