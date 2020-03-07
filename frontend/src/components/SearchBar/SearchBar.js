@@ -26,8 +26,18 @@ class SearchBar extends Component {
     state = {
         stockList: [[]],
         inputValue: "",
-        selected: "Stocks"
+        selected: "Stocks",
+        showDropdown: true,
+        auto: true,
+        alsoItem: false
     }
+
+    constructor(props) {
+        super(props);
+    
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+      }
 
     /**
      * Gets stock list from API on component mount.
@@ -39,6 +49,27 @@ class SearchBar extends Component {
         } else {
             this.callCryptoListAPI(this.state.inputValue)
                 .catch(err => console.log(err));
+        }
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    /**
+     * Set the wrapper ref
+     */
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
+
+    /**
+     * Alert if clicked on outside of element
+     */
+    handleClickOutside(event) {
+        if (this.wrapperRef && this.wrapperRef.contains(event.target)) {
+            this.setState({alsoItem:true})
         }
     }
 
@@ -78,14 +109,19 @@ class SearchBar extends Component {
      * The update value function makes an API request when the user types in a
      * different input into the search bar.
      */
-    updateValue = (newVal) => {
-        this.setState({inputValue:newVal});
+    updateValue = (newVal, stopShowing) => {
+        this.setState({inputValue:newVal})
         if (this.state.selected === "Stocks") {
             this.callStockListAPI(newVal)
                 .catch(err => console.log(err));
         } else {
             this.callCryptoListAPI(newVal)
                 .catch(err => console.log(err));
+        }
+
+        if (stopShowing) {
+            this.setState({showDropdown:false})
+            this.setState({alsoItem:false})
         }
     }
 
@@ -102,7 +138,10 @@ class SearchBar extends Component {
         let currList = [];
         for (let i = 0; i < this.state.stockList.length; i++) {
             currList.push(
-                <Dropdown.Item key={i} eventKey={i} onSelect={eventKey => {this.updateValue(this.state.stockList[eventKey][0])}}>
+                <Dropdown.Item show={this.state.showDropdown + ""} key={i} eventKey={i} onSelect={eventKey => {
+                        this.setState({alsoItem:true})
+                        this.updateValue(this.state.stockList[eventKey][0], true)
+                    }}>
                     {this.state.stockList[i][1]}
                 </Dropdown.Item>
             )
@@ -111,7 +150,7 @@ class SearchBar extends Component {
             return;
         }
         return (
-            <Dropdown.Menu>
+            <Dropdown.Menu ref={this.setWrapperRef} show={this.state.showDropdown}>
                 {currList}
             </Dropdown.Menu>
         );
@@ -133,7 +172,7 @@ class SearchBar extends Component {
     handleStocksToggle = () => {
         this.setState({selected:"Stocks"})
         this.callStockListAPI(this.state.inputValue)
-        .catch(err => console.log(err));
+            .catch(err => console.log(err));
     }
 
     /**
@@ -146,22 +185,33 @@ class SearchBar extends Component {
             .catch(err => console.log(err));
     }
 
+    handleFocus = () => {
+        this.setState({showDropdown:true})
+        this.setState({auto:true})
+    }
+
+    handleUnfocus = () => {
+        if (!this.state.alsoItem) {
+            this.setState({showDropdown:false})
+        }
+        this.setState({auto:false})
+        this.setState({alsoItem: false})
+    }
+
     render() {
 
         // Custom toggle created using a form as the trigger
         const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
             <div>
                 <FormControl 
-                    autoFocus
                     placeholder={'Search for a stock...'}
                     value={this.state.inputValue}
                     ref={ref}
                     className={classes.form}
-                    onClick={e => {
-                        e.preventDefault();
-                        onClick(e);
-                    }}
-                    onChange={e => this.updateValue(e.target.value)}
+                    onChange={e => this.updateValue(e.target.value, false)}
+                    onClick={e => {this.handleFocus()}}
+                    onBlur={e => this.handleUnfocus()}
+                    autoFocus={this.state.auto}
                 />
                 {children}
             </div> 
@@ -191,7 +241,7 @@ class SearchBar extends Component {
                                 name="radio"> Crypto </ToggleButton>                    
                             </ToggleButtonGroup>
                 </ButtonToolbar>
-                <Dropdown defaultShow={true} className={classes.bar}>
+                <Dropdown className={classes.bar} show={this.state.showDropdown}>
                     <Dropdown.Toggle as={CustomToggle} id="toggle"></Dropdown.Toggle>
                     {this.getCurrList()}
                 </Dropdown>
@@ -199,8 +249,10 @@ class SearchBar extends Component {
                         variant="success" 
                         className={classes.searchButton} 
                         onClick={() => history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)}> 
-                    Search 
+                    Search
                 </Button>
+                <p>{this.state.auto}</p>
+                <p>{this.state.showDropdown}</p>
             </div>
         );
     }
