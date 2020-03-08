@@ -20,7 +20,7 @@ exports.getHello = async function (req, res, next) {
 exports.getStockIntraday = async function (req, res, next) {
     try {
         let stock = await stockService.getStockIntraday(req.params.code);
-        return res.status(200).json({ status: 200, data: stock, message: "Stock Retrieved" });
+        return res.status(200).json(stock.data);
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }
@@ -30,7 +30,7 @@ exports.getStockIntraday = async function (req, res, next) {
 exports.getStockDaily = async function (req, res, next) {
     try {
         let stock = await stockService.getStockDaily(req.params.code);
-        return res.status(200).json({ status: 200, data: stock, message: "Stock Retrieved" });
+        return res.status(200).json(stock.data);
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }
