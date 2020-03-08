@@ -8,7 +8,7 @@ const User = require('../database/models/user');
 // THIS IS A STUB
 
 
-exports.login_stub = async function (req, res, next) {
+exports.loginStub = async function (req, res, next) {
     const { username, password} = req.body
   
     if (username && password) {
@@ -23,7 +23,7 @@ exports.login_stub = async function (req, res, next) {
 // controller that will call the reguster database access functions
 // THIS IS A STUB
 
-exports.register_stub = async function (req, res, next) {
+exports.registerStub = async function (req, res, next) {
     const { username, password, email, name } = req.body
     if (username && password && email && name) {
         res.status(200).json(

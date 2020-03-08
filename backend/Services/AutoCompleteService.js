@@ -8,7 +8,7 @@ const cryptoFile = '../backend/lists/digital_currency_list.csv'
 
 //parses nasdaq file into array
 //source: https://stackoverflow.com/questions/49616609/javascript-node-js-search-and-return-lines-that-contain-a-string-in-a-file
-const nasdaq_list = (fs.readFileSync(nasdaqFile))
+const nasdaqList = (fs.readFileSync(nasdaqFile))
     .toString()
     .replace(/['"\r]+/g, '')
     .split('\n')
@@ -41,14 +41,14 @@ const cryptoList = (fs.readFileSync(cryptoFile))
 //returns first 5 stocks with matching symbols/names. exact match symbol comes first
 exports.stockAutoComplete = async function (search_term) {
     if (search_term == "") {
-        let lines = [...nasdaq_list];
+        let lines = [...nasdaqList];
         return lines.splice(0, 5);
     }
-    console.log(nasdaq_list.length);
+    console.log(nasdaqList.length);
     const search_lower = search_term.toLowerCase();
 
     //filters all stocks which contain the searched term
-    let lines = nasdaq_list.filter(function (e) {
+    let lines = nasdaqList.filter(function (e) {
         return e[0].toLowerCase().includes(search_lower) || 
         e[1].toLowerCase().includes(search_lower);
     });
