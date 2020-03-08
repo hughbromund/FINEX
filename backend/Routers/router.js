@@ -20,18 +20,18 @@ router.use(function timeLog(req, res, next) {
 router.get('/hi', cors(), stockController.getHello);
 
 //autofill search list endpoint
-router.get('/api/stock/auto/:input', cors(), stockController.get_auto_complete);
-router.get('/api/stock/auto/', cors(), stockController.get_auto_complete_empty);
+router.get('/api/stock/auto/:input', cors(), stockController.getAutoComplete);
+router.get('/api/stock/auto/', cors(), stockController.getAutoCompleteEmpty);
 
 router.get('/api/crypto/auto/:input', cors(), cryptoController.getAutoComplete);
 router.get('/api/crypto/auto/', cors(), cryptoController.getAutoCompleteEmpty);
 
 
 //retrieve stock intraday data endpoint
-router.get('/api/stock/intraday/:code', cors(), stockController.get_stock_intraday);
+router.get('/api/stock/intraday/:code', cors(), stockController.getStockIntraday);
 
 //retrieve stock daily data endpoint
-router.get('/api/stock/daily/:code', cors(), stockController.get_stock_daily);
+router.get('/api/stock/daily/:code', cors(), stockController.getStockDaily);
 
 
 //router.post('/', user_controller.signup);
@@ -43,10 +43,10 @@ router.get('/api/stock/daily/:code', cors(), stockController.get_stock_daily);
 //STUBS
 
 //register account stub
-router.post('/auth_stub/register', cors(), authController.register_stub);
+router.post('/auth_stub/register', cors(), authController.registerStub);
 
 //login account stub
-router.post('/auth_stub/login', cors(), authController.login_stub);
+router.post('/auth_stub/login', cors(), authController.loginStub);
 
 //logout account stub
 //router.post('/auth_stub/logout', cors(), authController.logout_stub);
