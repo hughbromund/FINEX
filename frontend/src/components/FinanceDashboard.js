@@ -85,7 +85,7 @@ export default class FinanceDashboard extends Component {
                 variant="dark"
                 className={classes.navbar}>
                     <Container>
-                        <Navbar.Brand>Your Finance Dashboard</Navbar.Brand>
+                        <Navbar.Brand><b>Your Finance Dashboard</b></Navbar.Brand>
                     </Container>
                 </Navbar>
                 <Container fluid>
