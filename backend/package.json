@@ -9,7 +9,7 @@
   "author": "Peyton, Nathan, Aditya, Niyati, Hugh, Daniel",
   "license": "MIT",
   "dependencies": {
-    "alphavantage": "^1.2.6",
+    "alphavantage": "^2.0.1",
     "async-waterfall": "^0.1.5",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
