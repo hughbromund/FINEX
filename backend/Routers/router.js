@@ -6,7 +6,7 @@ const cors = require('cors');
 var stockController = require('../Controllers/stock_controller');
 var cryptoController = require('../Controllers/CryptoController');
 var authController = require('../Controllers/auth_controller');
-var FinanceController = require('../Controllers/financeController');
+var financeController = require('../Controllers/financeController');
 
 const passport = require('../passport');
 
@@ -76,8 +76,8 @@ router.put('/auth/updateName', cors(), authController.updateName);
 
 //FINANCE
 
-router.get('/finance/budget', cors(), FinanceController.budgetStub);
-router.get('/finance/transaction', cors(), FinanceController.transactionStub);
-router.get('/finance/total', cors(), FinanceController.totalStub);
+router.get('/finance/budget', cors(), financeController.budgetStub);
+router.get('/finance/transaction', cors(), financeController.transactionStub);
+router.get('/finance/total', cors(), financeController.totalStub);
 
 module.exports = router;
