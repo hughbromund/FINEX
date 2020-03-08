@@ -81,3 +81,27 @@ Requirements: None
 Returns: Returns 400 and "status": "not logged in!" JSON if user not logged in and a JSON object with "status": "name updated" otherwise
 Status: Working
 Bugs: ??
+
+`/finance/budget`
+GET
+This represents obtaining current budget
+Requirements: None
+Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a JSON list with budget categories, with budgeted amount and spent amount
+Status: STUB
+Bugs: ??
+
+`/finance/transaction`
+GET
+This represents obtaining current transactions
+Requirements: None
+Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a JSON list of the user's transactions otherwise
+Status: STUB
+Bugs: ??
+
+`/finance/budget`
+GET
+This represents obtaining totals
+Requirements: None
+Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a "budgeted" amount and "spent" amount
+Status: STUB
+Bugs: ??
