@@ -5,6 +5,10 @@ import classes from "./FinanceDashboard.module.css"
 import TransactionToast from "./TransactionToast"
 import MonthProgress from "./MonthProgress"
 import CategoryProgress from "./CategoryProgress"
+import history from "../routing/History";
+
+import { GET_TRANSACTION_LIST } from "../constants/Constants"
+import { LOGIN_PATH } from "../constants/Constants"
 
 // import Jumbotron from 'react-bootstrap/Jumbotron'
 import Navbar from 'react-bootstrap/Navbar'
@@ -19,12 +23,50 @@ export default class FinanceDashboard extends Component {
     constructor(props) {
         super(props)
         this.generateTransactions = this.generateTransactions.bind(this)
+        this.getTransactions = this.getTransactions.bind(this)
+    }
+
+    componentDidMount() {
+        this.getTransactions()
+    }
+
+
+    getTransactions = async() => {
+        var response = await fetch(GET_TRANSACTION_LIST,{
+            method: "GET",
+            withCredentials : true,
+            // credentials: 'same-origin'
+        }).catch(err => {
+            console.error(err)
+        })
+
+        var body = await response.json()
+        // console.log(body)
+
+
+        this.setState(
+            {
+                "transactions" : body
+            })
+
+        var transactionToasts = this.generateTransactions()
+        console.log(transactionToasts)
+        this.setState(
+        {
+            "transactionToasts" : transactionToasts
+        })
+        console.log(this.state)
     }
 
     generateTransactions() {
+        // console.log(response)
+        //this.getTransactions()
+
+        console.log(this.state.transactions)
+
         const inputs = []
-        for (let i = 0; i < 10; i++) {
-            inputs.push(<div key={i}><TransactionToast amount={i} classification="shopping"></TransactionToast></div>)
+        for (let i = 0; i < this.state.transactions.length; i++) {
+            inputs.push(<div key={i}><TransactionToast amount={this.state.transactions[i].cost} classification={this.state.transactions[i].category}></TransactionToast></div>)
         }
         // console.log(inputs)
         return inputs
@@ -58,7 +100,7 @@ export default class FinanceDashboard extends Component {
                                     <Button variant="success">Add a Transaction</Button>
                                 </Card.Body>
                             </Card>
-                            {this.generateTransactions()}
+                           {this.state.transactionToasts}
                         </Col>
                         <Col>
                             <Card style={{flex: 1}}>
@@ -74,7 +116,7 @@ export default class FinanceDashboard extends Component {
                                     <Button variant="success">Add an Income</Button>
                                 </Card.Body>
                             </Card>
-                            {this.generateTransactions()}
+                            
                         </Col>
                         <Col>
                             <Row>
