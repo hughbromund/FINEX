@@ -3,9 +3,9 @@ var request = require('request');
 var router = express.Router();
 const cors = require('cors');
 
-var stockController = require('../Controllers/stock_controller');
+var stockController = require('../Controllers/StockController');
 var cryptoController = require('../Controllers/CryptoController');
-var authController = require('../Controllers/auth_controller');
+var authController = require('../Controllers/AuthController');
 var financeController = require('../Controllers/financeController');
 
 const passport = require('../passport');

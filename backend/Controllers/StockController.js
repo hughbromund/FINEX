@@ -1,4 +1,4 @@
-var stockService = require('../Services/stock_service')  
+var stockService = require('../Services/StockService')  
 var auto_complete_service = require('../Services/AutoCompleteService.js')  
 
 exports.getHello = async function (req, res, next) {
