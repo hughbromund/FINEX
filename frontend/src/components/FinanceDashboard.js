@@ -22,6 +22,10 @@ import Button from 'react-bootstrap/Button'
 export default class FinanceDashboard extends Component {
     constructor(props) {
         super(props)
+        this.state = 
+        {
+            "transactionToasts" : ""
+        }
         this.generateTransactions = this.generateTransactions.bind(this)
         this.getTransactions = this.getTransactions.bind(this)
     }
@@ -66,7 +70,7 @@ export default class FinanceDashboard extends Component {
 
         const inputs = []
         for (let i = 0; i < this.state.transactions.length; i++) {
-            inputs.push(<div key={i}><TransactionToast amount={this.state.transactions[i].cost} classification={this.state.transactions[i].category}></TransactionToast></div>)
+            inputs.push(<div key={i}><TransactionToast amount={this.state.transactions[i].cost} classification={this.state.transactions[i].type}></TransactionToast></div>)
         }
         // console.log(inputs)
         return inputs
