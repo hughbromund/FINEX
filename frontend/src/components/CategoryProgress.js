@@ -24,7 +24,7 @@ export default class CategoryProgress extends Component {
             currentSpending : props.currentSpending,
             budgetedSpending : props.budgetedSpending,
             month : today.getMonth(),
-            day : today.getDay(),
+            day : today.getDate(),
             year : today.getFullYear(),
         }
 
@@ -72,6 +72,7 @@ export default class CategoryProgress extends Component {
                 <ProgressBar 
                 now={this.state.currentSpending} 
                 max={this.state.budgetedSpending}
+                label={"$" + this.state.currentSpending}
                 variant={this.getVarient()}>
                 </ProgressBar>
                 <div hidden={this.onTrack()}>

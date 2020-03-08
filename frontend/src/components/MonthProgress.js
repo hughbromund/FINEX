@@ -9,11 +9,11 @@ export default class MonthProgress extends Component {
 
         var today = new Date();
 
-        // console.log(props)
+        // console.log(today)
         this.state = 
         {
             month : today.getMonth(),
-            day : today.getDay(),
+            day : today.getDate(),
             year : today.getFullYear(),
             onTrack : props.onTrack
         }
@@ -45,11 +45,12 @@ export default class MonthProgress extends Component {
             <div>
                 <ProgressBar 
                     variant={this.getVarient()} 
-                    now={this.state.day} 
+                    now={this.state.day}
                     max={this.getDaysInMonth()}>
                 </ProgressBar>
                 <div hidden={this.state.onTrack}>
                     You are not on track for this Month! <br />
+                    Try spending less or revise your budget to get back on track!
                 </div>
                 <div hidden={!this.state.onTrack}>
                     Your Budget is Looking Good! <br />

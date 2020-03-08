@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Toast from 'react-bootstrap/Toast'
+import Card from 'react-bootstrap/Card'
 
 export default class TransactionToast extends Component {
     render() {
@@ -9,15 +10,15 @@ export default class TransactionToast extends Component {
         const classification = this.props.classification
         return (
             <div>
-                <Toast>
-                    <Toast.Header closeButton={false}>
+                <Card style={{flex: 1}}>
+                    <Card.Header>
                         <b>Transaction</b>
-                    </Toast.Header>
-                    <Toast.Body>
+                    </Card.Header>
+                    <Card.Body>
                         Total Cost: ${amount} <br />
-                        Classification: {classification}
-                    </Toast.Body>
-                </Toast>
+                        Category: {classification}
+                    </Card.Body>
+                </Card>
             </div>
         )
     }
