@@ -2,6 +2,10 @@
 
 Note: ":" represents a variable
 
+## Stocks
+
+### Stock Endpoints
+
 `/api/stock/auto/:input`
 GET
 This represents the autofill endpoint
@@ -26,6 +30,23 @@ Returns: JSON object containing quotes on 1 day interval or 400 if not found
 Status: Working
 Bugs: None
 
+### JSON format
+
+{
+    "2020-03-06T21:00:00.000Z": {
+        "open": "162.2100",
+        "high": "162.3100",
+        "low": "159.2400",
+        "close": "161.5800",
+        "volume": "1149463"
+    },
+    ....
+}
+
+## Crypto
+
+### Stock Endpoints
+
 `/api/crypto/auto/:input`
 GET
 This represents the autofill endpoint
@@ -33,6 +54,10 @@ Requirements: some input from search box
 Returns: empty list if can't find anything or list of cryptos
 Status: Working
 Bugs: None
+
+## Auth
+
+### Auth Endpoints
 
 `/auth/login`
 POST
@@ -81,6 +106,10 @@ Requirements: None
 Returns: Returns 400 and "status": "not logged in!" JSON if user not logged in and a JSON object with "status": "name updated" otherwise
 Status: Working
 Bugs: ??
+
+## Finance
+
+### Finance Endpoints
 
 `/finance/budget`
 GET
