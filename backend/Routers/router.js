@@ -77,7 +77,8 @@ router.put('/auth/updateName', cors(), authController.updateName);
 //FINANCE
 
 router.get('/finance/budget', cors(), financeController.budgetStub);
-router.get('/finance/transaction', cors(), financeController.transactionStub);
+router.get('/finance/income', cors(), financeController.incomeStub);
+router.get('/finance/expense', cors(), financeController.expenseStub);
 router.get('/finance/total', cors(), financeController.totalStub);
 
 module.exports = router;

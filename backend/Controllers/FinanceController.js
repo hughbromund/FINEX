@@ -16,13 +16,25 @@ exports.budgetStub = async function (req, res, next) {
     }
 }
 
-exports.transactionStub = async function (req, res, next) {
+exports.expenseStub = async function (req, res, next) {
     if (req.user) {
         res.status(200).json([
             {username: req.user.username, cost: "3000", type: "food", category: "expense", name: "cornucopia"},
             {username: req.user.username, cost: "1", type: "savings", category: "expense", name: "poor boy"},
-            {username: req.user.username, cost: "999999", type: "housing", category: "expense", name: "cupertino"},
+            {username: req.user.username, cost: "999999", type: "housing", category: "expense", name: "cupertino"}
+        ])
+    }
+    else {
+        res.status(400).json({status: "not logged in!"})
+    }
+}
+
+exports.incomeStub = async function (req, res, next) {
+    if (req.user) {
+        res.status(200).json([
             {username: req.user.username, cost: "3000", type: "other", category: "income", name: "salary"},
+            {username: req.user.username, cost: "782", type: "other", category: "income", name: "salary"},
+            {username: req.user.username, cost: "99991", type: "other", category: "income", name: "salary"}
         ])
     }
     else {

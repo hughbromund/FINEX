@@ -90,15 +90,23 @@ Returns: Returns 400 and "status": "no user logged in" JSON if user not logged i
 Status: STUB
 Bugs: ??
 
-`/finance/transaction`
+`/finance/income`
 GET
-This represents obtaining current transactions
+This represents obtaining current incomes
 Requirements: None
-Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a JSON list of the user's transactions otherwise
+Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a JSON list of the user's incomes otherwise
 Status: STUB
 Bugs: ??
 
-`/finance/budget`
+`/finance/expense`
+GET
+This represents obtaining current expenses
+Requirements: None
+Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a JSON list of the user's expenses otherwise
+Status: STUB
+Bugs: ??
+
+`/finance/total`
 GET
 This represents obtaining totals
 Requirements: None
