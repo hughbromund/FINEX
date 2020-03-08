@@ -1,7 +1,7 @@
 //from https://github.com/b-bly/simple-mern-passport/
 
 const passport = require('passport')
-const LocalStrategy = require('./LocalStrategy')
+const LocalStrategy = require('./local_Strategy')
 const User = require('../database/models/user')
 
 // called on login, saves the id to session req.session.passport.user = {id:'..'}
