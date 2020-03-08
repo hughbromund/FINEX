@@ -6,6 +6,7 @@ const cors = require('cors');
 var stockController = require('../Controllers/stock_controller');
 var cryptoController = require('../Controllers/CryptoController');
 var authController = require('../Controllers/auth_controller');
+var financeController = require('../Controllers/financeController');
 
 const passport = require('../passport');
 
@@ -71,5 +72,12 @@ router.get('/auth/user', cors(), authController.user);
 //update email
 router.put('/auth/updateEmail', cors(), authController.updateEmail);
 router.put('/auth/updateName', cors(), authController.updateName);
+
+
+//FINANCE
+
+router.get('/finance/budget', cors(), financeController.budgetStub);
+router.get('/finance/transaction', cors(), financeController.transactionStub);
+router.get('/finance/total', cors(), financeController.totalStub);
 
 module.exports = router;
