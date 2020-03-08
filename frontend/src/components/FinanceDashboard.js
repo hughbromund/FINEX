@@ -44,6 +44,12 @@ export default class FinanceDashboard extends Component {
             console.error(err)
         })
 
+        if (response.status == 400) {
+            // User not logged in 
+            history.push(LOGIN_PATH)
+            return
+        }
+
         var body = await response.json()
         // console.log(body)
 
@@ -54,19 +60,19 @@ export default class FinanceDashboard extends Component {
             })
 
         var transactionToasts = this.generateTransactions()
-        console.log(transactionToasts)
+        // console.log(transactionToasts)
         this.setState(
         {
             "transactionToasts" : transactionToasts
         })
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     generateTransactions() {
         // console.log(response)
         //this.getTransactions()
 
-        console.log(this.state.transactions)
+        // console.log(this.state.transactions)
 
         const inputs = []
         for (let i = 0; i < this.state.transactions.length; i++) {
