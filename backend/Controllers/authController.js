@@ -1,6 +1,6 @@
 //var databaseAccess = require('../DatabaseAccess/mongo_commands')
 
-var auth_service = require('../Services/AuthService.js')  
+var auth_service = require('../Services/AuthService.js/index.js.js')  
 
 // controller that will call the database access functions to login
 // THIS IS A STUB
