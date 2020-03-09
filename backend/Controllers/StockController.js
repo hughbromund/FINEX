@@ -42,6 +42,8 @@ exports.getAutoComplete = async function (req, res, next) {
     var stocks = await autoCompleteService.stockAutoComplete(req.params.input);
     return res.json(stocks);
 }
+
+//handles case where nothing is entered in the search bar
 exports.getAutoCompleteEmpty = async function (req, res, next) {
     var stocks = await autoCompleteService.stockAutoComplete("");
     return res.json(stocks);
