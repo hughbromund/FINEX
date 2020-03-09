@@ -2,26 +2,20 @@
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const bcrypt = require('bcryptjs');
 mongoose.promise = Promise
 
 // Define userSchema
-const userSchema = new Schema({
+const transactionSchema = new Schema({
 
 	username: { type: String, unique: true, required: true },
-	password: { type: String, unique: false, required: true },
-	email: { type: String, unique: true, required: true },
-	name: { type: String, unique: false, required: true },
-	stocks: { type: String, unique: false, required: false},
-	transaction_ids: { type: String, unique: false, required: false},
-	color_preferences: [ { good_color: String}, { bad_color: String }],
-	dark_mode: { type: Boolean },
-	budget_information: [ { amount: String }, { category: String }],
-}, { collection: "Users"})
+    cost: { type: String, unique: false, required: true},
+    type: { type: String, unique: false, required: true},
+    name: { type: String, unique: false, required: true}
+}, { collection: "Transactions"})
 
 // Define schema methods
-userSchema.methods = {
-	checkPassword: function (inputPassword) {
+transactionSchema.methods = {
+	addTransaction: function (inputPassword) {
 		return bcrypt.compareSync(inputPassword, this.password)
 	},
 	hashPassword: plainTextPassword => {
