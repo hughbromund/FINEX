@@ -1,11 +1,11 @@
 //var databaseAccess = require('../DatabaseAccess/mongo_commands')
 
-var transaction_service = require('../Services/TransactionService.js')  
+var transactionService = require('../Services/TransactionService.js')  
 
 
 //from https://github.com/b-bly/simple-mern-passport
 
-const Transactions = require('../database/models/Transactions');
+const transactions = require('../database/models/transactions');
 
 
 /* exports.insertTransaction = async function (req, res, next) {
@@ -39,8 +39,8 @@ const Transactions = require('../database/models/Transactions');
 } */
 
 exports.insertTransaction = async function (req, res, next) {
-    let result = await transaction_service.insertTransaction(req);
+    let result = await transactionService.insertTransaction(req);
     res.status(result.code).send({
-        transaction: result.transaction
+        transactions: result.transaction
     }); 
 }
