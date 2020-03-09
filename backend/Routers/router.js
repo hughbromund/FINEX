@@ -19,10 +19,11 @@ router.use(function timeLog(req, res, next) {
 //test endpoint
 router.get('/hi', cors(), stockController.getHello);
 
-//autofill search list endpoint
+//autofill stock search list endpoint
 router.get('/api/stock/auto/:input', cors(), stockController.getAutoComplete);
 router.get('/api/stock/auto/', cors(), stockController.getAutoCompleteEmpty);
 
+//autofill crypto search list endpoint
 router.get('/api/crypto/auto/:input', cors(), cryptoController.getAutoComplete);
 router.get('/api/crypto/auto/', cors(), cryptoController.getAutoCompleteEmpty);
 
@@ -33,12 +34,11 @@ router.get('/api/stock/intraday/:code', cors(), stockController.getStockIntraday
 //retrieve stock daily data endpoint
 router.get('/api/stock/daily/:code', cors(), stockController.getStockDaily);
 
+//retrieve crypto daily data endpoint
+router.get('/api/crypto/daily/:code', cors(), cryptoController.getCryptoDaily);
 
-//router.post('/', user_controller.signup);
-//router.post('/login', passport.authenticate('local'), user_controller.login);
-//router.post('/logout', user_controller.logout);
-//router.get('/', user_controller.user);
-
+//retrieve crypto daily data endpoint
+router.get('/api/crypto/weekly/:code', cors(), cryptoController.getCryptoWeekly);
 
 //STUBS
 
