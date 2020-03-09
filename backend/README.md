@@ -4,9 +4,7 @@ Note: ":" represents a variable
 
 ## Stocks
 
-### Stock Endpoints
-
-`/api/stock/auto/:input`  
+### /api/stock/auto/:input  
 GET  
 This represents the autofill endpoint  
 Requirements: some input from search box  
@@ -14,7 +12,15 @@ Returns: empty list if can't find anything or list of stocks
 Status: Working  
 Bugs: might be error on empty input  
 
-`/api/stock/intraday/:code`  
+JSON Format:  
+[
+    [
+    "CODE",
+    "COMPANY NAME"
+    ]
+]
+
+### /api/stock/intraday/:code  
 GET  
 This represents the basic endpoint to get intraday data  
 Requirements: some stock code  
@@ -22,16 +28,7 @@ Returns: JSON object containing quotes on 1 min interval or 400 if not found
 Status: Working  
 Bugs: None  
 
-`/api/stock/daily/:code`  
-GET  
-This represents the basic endpoint to get daily data  
-Requirements: some stock code  
-Returns: JSON object containing quotes on 1 day interval or 400 if not found  
-Status: Working  
-Bugs: None  
-
-### JSON format
-
+JSON Format:  
 {  
     "2020-03-06T21:00:00.000Z": {  
         "open": "162.2100",  
@@ -39,13 +36,29 @@ Bugs: None
         "low": "159.2400",  
         "close": "161.5800",  
         "volume": "1149463"  
-    }   
-    ....  
-}
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
+
+### /api/stock/daily/:code  
+GET  
+This represents the basic endpoint to get daily data  
+Requirements: some stock code  
+Returns: JSON object containing quotes on 1 day interval or 400 if not found  
+Status: Working  
+Bugs: None   
+
+JSON Format:  
+{  
+    "2020-03-06T21:00:00.000Z": {  
+        "open": "162.2100",  
+        "high": "162.3100",  
+        "low": "159.2400",  
+        "close": "161.5800",  
+        "volume": "1149463"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
 
 ## Crypto
-
-### Stock Endpoints
 
 `/api/crypto/auto/:input`  
 GET  
@@ -57,9 +70,7 @@ Bugs: None
 
 ## Auth
 
-### Auth Endpoints
-
-`/auth/login`  
+### /auth/login  
 POST  
 This represents the login endpoint  
 Requirements: "username" and "password" in JSON. Username must be "username" and password must be "password" to succeed in JSON  
@@ -67,7 +78,7 @@ Returns: returns 200 and JSON object with success message on success or 400 and 
 Status: Working  
 Bugs: ??  
 
-`/auth/register`  
+### /auth/register  
 POST  
 This represents the registration endpoint  
 Requirements: "username", "password", "email", and "name" in JSON. Always works unless username is "exist"  
@@ -75,7 +86,7 @@ Returns: Returns 400 and failure message if username is "exist" and a JSON objec
 Status: Working  
 Bugs: ??  
 
-`/auth/logout`  
+### /auth/logout  
 POST  
 This represents the logout endpoint  
 Requirements: None  
@@ -83,7 +94,7 @@ Returns: Returns 400 and failure "msg" if user not logged in and a JSON object w
 Status: Working  
 Bugs: ??  
 
-`/auth/user`  
+### /auth/user  
 GET  
 This represents obtaining user info endpoint  
 Requirements: None  
@@ -91,7 +102,7 @@ Returns: Returns 400 and "status": "no user logged in" JSON if user not logged i
 Status: Working  
 Bugs: ??  
 
-`/auth/updateEmail`  
+### /auth/updateEmail  
 PUT  
 This represents updating user email endpoint  
 Requirements: None  
@@ -99,7 +110,7 @@ Returns: Returns 400 and "status": "not logged in!" JSON if user not logged in a
 Status: Working  
 Bugs: ??  
 
-`/auth/updateName`
+### /auth/updateName  
 PUT  
 This represents updating user name endpoint  
 Requirements: None  
@@ -109,9 +120,7 @@ Bugs: ??
 
 ## Finance
 
-### Finance Endpoints
-
-`/finance/budget`  
+### /finance/budget  
 GET  
 This represents obtaining current budget  
 Requirements: None  
@@ -119,7 +128,7 @@ Returns: Returns 400 and "status": "no user logged in" JSON if user not logged i
 Status: STUB  
 Bugs: ??  
 
-`/finance/income`  
+### /finance/income  
 GET  
 This represents obtaining current incomes  
 Requirements: None  
@@ -127,7 +136,7 @@ Returns: Returns 400 and "status": "no user logged in" JSON if user not logged i
 Status: STUB  
 Bugs: ??  
 
-`/finance/expense`  
+### /finance/expense  
 GET  
 This represents obtaining current expenses  
 Requirements: None  
@@ -135,7 +144,7 @@ Returns: Returns 400 and "status": "no user logged in" JSON if user not logged i
 Status: STUB  
 Bugs: ??  
 
-`/finance/total`  
+### /finance/total  
 GET  
 This represents obtaining totals  
 Requirements: None  
