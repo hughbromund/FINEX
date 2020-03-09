@@ -8,10 +8,10 @@ mongoose.promise = Promise
 // Define userSchema
 const userSchema = new Schema({
 
-	username: { type: String, unique: true, required: true },
-	password: { type: String, unique: false, required: true },
-	email: { type: String, unique: true, required: true },
-	name: { type: String, unique: false, required: true },
+	username: { type: String, unique: true, required: false },
+	password: { type: String, unique: false, required: false },
+	email: { type: String, unique: true, required: false },
+	name: { type: String, unique: false, required: false },
 	stocks: { type: String, unique: false, required: false},
 	transaction_ids: { type: String, unique: false, required: false},
 	color_preferences: [ { good_color: String}, { bad_color: String }],
