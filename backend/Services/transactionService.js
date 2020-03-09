@@ -1,7 +1,7 @@
 //from https://github.com/b-bly/simple-mern-passport
 
 const User = require('../database/models/user');
-const Transactions = require('../database/models/transactions');
+const Transactions = require('../database/models/Transactions');
 
 //var databaseAccess = require('../DatabaseAccess/mongo_commands')  
 
