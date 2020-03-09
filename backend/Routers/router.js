@@ -41,6 +41,9 @@ router.get('/api/stock/daily/:code', cors(), stockController.get_stock_daily);
 
 //STUBS
 
+//new transaction stub, todo testing
+router.post('/transaction_stub/new', cors(), transaction_controller.insertTransaction);
+
 //register account stub
 router.post('/auth_stub/register', cors(), authController.register_stub);
 
