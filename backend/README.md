@@ -68,6 +68,14 @@ Returns: empty list if can't find anything or list of cryptos
 Status: Working  
 Bugs: None  
 
+JSON Format:  
+[
+    [
+    "CODE",
+    "CRYPTO NAME"
+    ]
+]
+
 ## Auth
 
 ### /auth/login  
