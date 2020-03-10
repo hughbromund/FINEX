@@ -51,7 +51,7 @@ export default class FinanceDashboard extends Component {
         }
 
         var body = await response.json()
-        // console.log(body)
+        console.log(body)
 
 
         this.setState(
@@ -76,7 +76,10 @@ export default class FinanceDashboard extends Component {
 
         const inputs = []
         for (let i = 0; i < this.state.transactions.length; i++) {
-            inputs.push(<div key={i}><TransactionToast amount={this.state.transactions[i].cost} classification={this.state.transactions[i].type}></TransactionToast></div>)
+            inputs.push(<div key={i}><TransactionToast 
+                amount={this.state.transactions[i].cost} 
+                classification={this.state.transactions[i].type}
+                name={this.state.transactions[i].name}></TransactionToast></div>)
         }
         // console.log(inputs)
         return inputs

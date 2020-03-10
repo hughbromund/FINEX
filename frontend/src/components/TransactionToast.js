@@ -8,6 +8,7 @@ export default class TransactionToast extends Component {
         // console.log(this.props)
         const amount = this.props.amount
         const classification = this.props.classification
+        const name = this.props.name
         return (
             <div>
                 <Card style={{flex: 1}}>
@@ -15,8 +16,9 @@ export default class TransactionToast extends Component {
                         <b>Transaction</b>
                     </Card.Header>
                     <Card.Body>
-                        Total Cost: ${amount} <br />
-                        Category: {classification}
+                        <b>Name:</b>  {name} <br />
+                        <b>Total Cost:</b> ${amount} <br />
+                        <b>Category:</b> {classification}
                     </Card.Body>
                 </Card>
             </div>
