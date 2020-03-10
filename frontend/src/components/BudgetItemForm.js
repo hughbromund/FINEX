@@ -49,16 +49,12 @@ export default class BudgetItemForm extends Component {
       <div className={classes.wrapper}>
         <div className={classes.innerDiv}>
           <Jumbotron className={classes.jumbo}>
-            <h1>Welcome to FINEX's Stock Search Page!</h1>
-            <p>
-              Below, you may search for a stock by symbol or name. Clicking on
-              the stock will bring you to its own, dedicated screen where you
-              can learn more about its recent trends.
-            </p>
+            <h1>Welcome to FINEX's Add Budget Form!</h1>
+            <p>Below, you may input a new item to your budget!</p>
           </Jumbotron>
         </div>
         <div className={classes.innerDiv}>
-          <Form style={{ width: "50rem" }} onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit}>
             <Form.Group>
               <Form.Label>Cost</Form.Label>
 
