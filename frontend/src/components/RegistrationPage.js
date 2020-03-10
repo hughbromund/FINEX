@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import PasswordStrength from "../components/PasswordStrength"
+import PasswordStrength from "../components/PasswordStrength";
 
 import "./RegistrationPage.module.css";
 
@@ -11,7 +11,7 @@ import Image from "react-bootstrap/Image";
 import InputGroup from "react-bootstrap/InputGroup";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
-import Alert from 'react-bootstrap/Alert'
+import Alert from "react-bootstrap/Alert";
 
 import history from "../routing/History";
 import { ACCOUNT_PATH } from "../constants/Constants";
@@ -36,7 +36,7 @@ export default class RegistrationPage extends Component {
       password: "",
       email: "",
       name: "",
-      registerError: true,
+      registerError: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -52,22 +52,21 @@ export default class RegistrationPage extends Component {
     fetch(url, {
       method: "POST",
       //   mode: "no-cors",
-      body: JSON.stringify(
-        {
-          username: this.state.username,
-          password : this.state.password,
-          email : this.state.email,
-          name : this.state.name
-        }),
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+        email: this.state.email,
+        name: this.state.name
+      }),
       headers: {
         "content-type": "application/json"
       }
     })
       .then(response => {
         if (response.status == 200) {
-          history.push(LOGIN_PATH)
+          history.push(LOGIN_PATH);
         } else {
-          this.setState({registerError : false})
+          this.setState({ registerError: false });
         }
       })
       .catch(err => console.log(err));
@@ -86,7 +85,7 @@ export default class RegistrationPage extends Component {
   }
 
   handleNameChange(event) {
-    this.setState({ name: event.target.value })
+    this.setState({ name: event.target.value });
   }
 
   checkPassword() {
@@ -121,20 +120,23 @@ export default class RegistrationPage extends Component {
             </Container>
           </Jumbotron>
         </div>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-          <Alert style={{ width: '50rem'}} variant="danger" hidden={this.state.registerError}>
-              <Alert.Heading>Unable to create account!</Alert.Heading>
-              <p>
-              The username you selected is already in use. Usernames must be unique.
-              </p>
-              <p>
-              Did you mean to Log In?
-              </p>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Alert
+            style={{ width: "50rem" }}
+            variant="danger"
+            hidden={this.state.registerError}
+          >
+            <Alert.Heading>Unable to create account!</Alert.Heading>
+            <p>
+              The username you selected is already in use. Usernames must be
+              unique.
+            </p>
+            <p>Did you mean to Log In?</p>
           </Alert>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Form style={{ width: "50rem" }} onSubmit={this.handleSubmit}>
-          <Form.Group>
+            <Form.Group>
               <Form.Label>Name</Form.Label>
               <InputGroup>
                 <Form.Control
@@ -190,8 +192,10 @@ export default class RegistrationPage extends Component {
                 onChange={this.handlePasswordChange}
                 value={this.state.password}
               />
-              <div hidden={this.checkPassword()}> 
-                <PasswordStrength password={this.state.password}></PasswordStrength>
+              <div hidden={this.checkPassword()}>
+                <PasswordStrength
+                  password={this.state.password}
+                ></PasswordStrength>
               </div>
               <Form.Text className="text-muted">Make it secure.</Form.Text>
             </Form.Group>

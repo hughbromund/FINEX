@@ -35,19 +35,19 @@ export async function getData(ticker) {
   console.log(response);
   var body = await response.json();
   console.log(body);
-  var data = body["data"]["Time Series (Daily)"];
+  var data = body;
   console.log(data);
   // this.state.user = body.user.username
   var out = [];
   var j = 0;
   for (var key in data) {
     out[j] = {
-      open: data[key]["1. open"],
-      high: data[key]["2. high"],
-      low: data[key]["3. low"],
+      open: data[key]["open"],
+      high: data[key]["high"],
+      low: data[key]["low"],
       date: parseDate(key),
-      close: data[key]["4. close"],
-      volume: data[key]["5. volume"]
+      close: data[key]["close"],
+      volume: data[key]["volume"]
     };
     j++;
   }
