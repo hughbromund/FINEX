@@ -15,10 +15,11 @@ Bugs: might be error on empty input
 
 JSON Format:  
 [
-    [
+    {
     "CODE",
     "COMPANY NAME"
-    ]
+    },
+    ...
 ]
 
 ### /api/stock/intraday/:code  
@@ -71,10 +72,11 @@ Bugs: None
 
 JSON Format:  
 [
-    [
+    {
     "CODE",
     "CRYPTO NAME"
-    ]
+    },
+    ...
 ]
 
 ### /api/crypto/daily/:code  
@@ -133,7 +135,13 @@ This represents the login endpoint
 Requirements: "username" and "password" in JSON. Username must be "username" and password must be "password" to succeed in JSON  
 Returns: returns 200 and JSON object with success message on success or 400 and JSON object with failure message if can't be found.  
 Status: Working  
-Bugs: ??  
+Bugs: ??
+
+JSON Format (Input):
+{
+    "username": "shmem",
+    "password": "shmem"
+}
 
 ### /auth/register  
 POST  
@@ -143,13 +151,26 @@ Returns: Returns 400 and failure message if username is "exist" and a JSON objec
 Status: Working  
 Bugs: ??  
 
+JSON Format (Input):
+{
+    "username": "shmem",
+    "password": "shmem"
+    "email": "basheescript@purdue.edu",
+    "name": "Sonic"
+}
+
 ### /auth/logout  
 POST  
 This represents the logout endpoint  
 Requirements: None  
-Returns: Returns 400 and failure "msg" if user not logged in and a JSON object with success "msg" otherwise  
+Returns: Returns 400 and failure "status" if user not logged in and a JSON object with success "status" otherwise  
 Status: Working  
 Bugs: ??  
+
+JSON Format (Output):
+{
+    "status": "user not logged in!"
+}
 
 ### /auth/user  
 GET  
@@ -159,21 +180,44 @@ Returns: Returns 400 and "status": "no user logged in" JSON if user not logged i
 Status: Working  
 Bugs: ??  
 
+JSON Format (Output):
+{
+    "username": "shmem",
+    "email": "basheescript@purdue.edu",
+    "name": "Sonic"
+}
+
+or 
+
+{
+    "status": "user not logged in!"
+}
+
 ### /auth/updateEmail  
 PUT  
 This represents updating user email endpoint  
-Requirements: None  
+Requirements: "email" in JSON
 Returns: Returns 400 and "status": "not logged in!" JSON if user not logged in and a JSON object with "status": "email updated" otherwise  
 Status: Working  
-Bugs: ??  
+Bugs: ?? 
+
+JSON Format (Input):
+{
+    "email": "basheescript@purdue.edu"
+}
 
 ### /auth/updateName  
 PUT  
 This represents updating user name endpoint  
-Requirements: None  
+Requirements: "name" in JSON
 Returns: Returns 400 and "status": "not logged in!" JSON if user not logged in and a JSON object with "status": "name updated" otherwise  
 Status: Working  
 Bugs: ??  
+
+JSON Format (Input):
+{
+    "name": "Sonic"
+}
 
 ## Finance
 

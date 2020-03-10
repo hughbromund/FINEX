@@ -76,9 +76,16 @@ router.put('/auth/updateName', cors(), authController.updateName);
 
 //FINANCE
 
+//get the user's predicted and spent budget
 router.get('/finance/budget', cors(), financeController.budgetStub);
+
+//get the user's recent income transactions
 router.get('/finance/income', cors(), financeController.incomeStub);
+
+//get the user's recent expense transactions
 router.get('/finance/expense', cors(), financeController.expenseStub);
+
+//get the user's predicted and spent total
 router.get('/finance/total', cors(), financeController.totalStub);
 
 module.exports = router;
