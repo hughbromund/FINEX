@@ -7,8 +7,9 @@ import MonthProgress from "./MonthProgress"
 import CategoryProgress from "./CategoryProgress"
 import history from "../routing/History";
 
-import { GET_TRANSACTION_LIST } from "../constants/Constants"
+import { GET_EXPENSE_LIST } from "../constants/Constants"
 import { LOGIN_PATH } from "../constants/Constants"
+import { GET_INCOME_LIST } from "../constants/Constants"
 
 // import Jumbotron from 'react-bootstrap/Jumbotron'
 import Navbar from 'react-bootstrap/Navbar'
@@ -24,19 +25,22 @@ export default class FinanceDashboard extends Component {
         super(props)
         this.state = 
         {
-            "transactionToasts" : ""
+            "transactionToasts" : "",
+            "incomeToasts" : ""
         }
         this.generateTransactions = this.generateTransactions.bind(this)
         this.getTransactions = this.getTransactions.bind(this)
+        this.getIncomes = this.getIncomes.bind(this)
     }
 
     componentDidMount() {
         this.getTransactions()
+        this.getIncomes()
     }
 
-
-    getTransactions = async() => {
-        var response = await fetch(GET_TRANSACTION_LIST,{
+    getIncomes = async() => {
+        console.log(GET_INCOME_LIST)
+        var response = await fetch(GET_INCOME_LIST,{
             method: "GET",
             withCredentials : true,
             // credentials: 'same-origin'
@@ -51,7 +55,41 @@ export default class FinanceDashboard extends Component {
         }
 
         var body = await response.json()
-        console.log(body)
+        // console.log(body)
+
+
+        this.setState(
+            {
+                "income" : body
+            })
+
+        var transactionToasts = this.generateIncomes()
+        // console.log(transactionToasts)
+        this.setState(
+        {
+            "incomeToasts" : transactionToasts
+        })
+        // console.log(this.state)
+    }
+
+
+    getTransactions = async() => {
+        var response = await fetch(GET_EXPENSE_LIST,{
+            method: "GET",
+            withCredentials : true,
+            // credentials: 'same-origin'
+        }).catch(err => {
+            console.error(err)
+        })
+
+        if (response.status == 400) {
+            // User not logged in 
+            history.push(LOGIN_PATH)
+            return
+        }
+
+        var body = await response.json()
+        //console.log(body)
 
 
         this.setState(
@@ -69,6 +107,7 @@ export default class FinanceDashboard extends Component {
     }
 
     generateTransactions() {
+        //console.log("Called")
         // console.log(response)
         //this.getTransactions()
 
@@ -79,9 +118,23 @@ export default class FinanceDashboard extends Component {
             inputs.push(<div key={i}><TransactionToast 
                 amount={this.state.transactions[i].cost} 
                 classification={this.state.transactions[i].type}
-                name={this.state.transactions[i].name}></TransactionToast></div>)
+                name={this.state.transactions[i].name}
+                type={this.state.transactions[i].category}></TransactionToast></div>)
         }
         // console.log(inputs)
+        return inputs
+    }
+
+    generateIncomes() {
+        const inputs = []
+        for (let i = 0; i < this.state.income.length; i++) {
+            inputs.push(<div key={i}><TransactionToast 
+                amount={this.state.income[i].cost} 
+                classification={this.state.income[i].type}
+                name={this.state.income[i].name}
+                type={this.state.income[i].category}></TransactionToast></div>)
+        }
+        //console.log(inputs)
         return inputs
     }
 
@@ -129,7 +182,7 @@ export default class FinanceDashboard extends Component {
                                     <Button variant="success">Add an Income</Button>
                                 </Card.Body>
                             </Card>
-                            
+                            {this.state.incomeToasts}
                         </Col>
                         <Col>
                             <Row>

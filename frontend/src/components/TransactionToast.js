@@ -9,11 +9,14 @@ export default class TransactionToast extends Component {
         const amount = this.props.amount
         const classification = this.props.classification
         const name = this.props.name
+        const type = this.props.type
+        const fixedType = type.charAt(0).toUpperCase() + type.substring(1);
+
         return (
             <div>
                 <Card style={{flex: 1}}>
                     <Card.Header>
-                        <b>Transaction</b>
+                        <b>{fixedType}</b>
                     </Card.Header>
                     <Card.Body>
                         <b>Name:</b>  {name} <br />
