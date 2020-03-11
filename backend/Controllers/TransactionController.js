@@ -49,8 +49,8 @@ const Transaction = require('../database/models/transactions');
 exports.insertTransaction = async function (req, res, next) {
     console.log('new transaction');
     console.log('body');
-    console.log(req.body.username)
-    const { username, type, cost, name, date } = await req.body
+    console.log(req.body)
+    const { username, type, cost, name, date } = req.body
 
     // ADD VALIDATION
     const newTransaction = new Transaction({
