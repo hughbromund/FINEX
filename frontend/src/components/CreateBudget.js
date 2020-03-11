@@ -13,6 +13,10 @@ export default class CreateBudget extends Component {
   constructor(props) {
     super(props);
 
+    const date = new Date(); // 2009-11-10
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
+
     this.state = {
       totalBudget: 0,
       housingBudget: 0,
@@ -23,7 +27,9 @@ export default class CreateBudget extends Component {
       savingsBudget: 0,
       personalBudget: 0,
       entertainmentBudget: 0,
-      otherBudget: 0
+      otherBudget: 0,
+      currentMonth: month,
+      currentYear: year
     };
     this.handleTotalBudgetChange = this.handleTotalBudgetChange.bind(this);
     this.getBudgetUsed = this.getBudgetUsed.bind(this);
@@ -242,6 +248,12 @@ export default class CreateBudget extends Component {
               <p>
                 Using <b>FINEX</b> you can budget your month in categories and
                 then get feedback as the month progresses.
+              </p>
+              <p>
+                You are creating a budget for{" "}
+                <b>
+                  {this.state.currentMonth} {this.state.currentYear}
+                </b>
               </p>
             </Jumbotron>
             <Form>
