@@ -3,6 +3,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Button from "react-bootstrap/Button";
 
 export default class CreateBudget extends Component {
   constructor(props) {
@@ -57,6 +58,7 @@ export default class CreateBudget extends Component {
       this
     );
     this.getPersonalVariant = this.getPersonalVariant.bind(this);
+    this.getButtonActive = this.getButtonActive.bind(this);
   }
 
   getBudgetUsed() {
@@ -120,6 +122,14 @@ export default class CreateBudget extends Component {
       return "danger";
     } else {
       return "success";
+    }
+  }
+
+  getButtonActive() {
+    if (this.getBudgetUsed() > this.state.totalBudget) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -204,7 +214,7 @@ export default class CreateBudget extends Component {
       <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "50rem" }}>
-            <Jumbotron fluid>
+            <Jumbotron>
               <h1>Let's Create Your Budget</h1>
               <p>
                 Using <b>FINEX</b> you can budget your month in categories and
@@ -232,7 +242,8 @@ export default class CreateBudget extends Component {
             Now, decide how much money you want to spend in each category.
             <br />
             You have used ${this.getBudgetUsed()} of your $
-            {this.state.totalBudget} budget.
+            {this.state.totalBudget} budget. ($
+            {this.state.totalBudget - this.getBudgetUsed()} left)
             <ProgressBar
               max={this.state.totalBudget}
               now={this.getBudgetUsed()}
@@ -445,6 +456,14 @@ export default class CreateBudget extends Component {
               now={this.state.otherBudget}
               variant={this.getOtherVariant()}
             />
+            <br />
+            <Button
+              disabled={this.getButtonActive()}
+              active={this.getButtonActive()}
+              variant={this.getVariant()}
+            >
+              Submit
+            </Button>
           </div>
         </div>
       </div>
