@@ -7,6 +7,7 @@ var stockController = require('../Controllers/StockController');
 var cryptoController = require('../Controllers/CryptoController');
 var authController = require('../Controllers/AuthController');
 var financeController = require('../Controllers/FinanceController');
+var transactionController = require('../Controllers/TransactionController');
 
 const passport = require('../passport');
 

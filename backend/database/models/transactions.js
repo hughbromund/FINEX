@@ -7,10 +7,11 @@ mongoose.promise = Promise
 // Define userSchema
 const transactionSchema = new Schema({
 
-	username: { type: String, unique: true, required: true },
-    cost: { type: String, unique: false, required: true},
-    type: { type: String, unique: false, required: true},
-    name: { type: String, unique: false, required: true}
+	username: { type: String, unique: true, required: false },
+    cost: { type: String, unique: false, required: false},
+    type: { type: String, unique: false, required: false},
+    name: { type: String, unique: false, required: false},
+    date: { type: Date, default: Date.now }
 }, { collection: "Transactions"})
 
 // Define schema methods
@@ -22,4 +23,4 @@ transactionSchema.methods = {
 
 
 const Transaction = mongoose.model('Transaction', transactionSchema)
-module.exports = Transactions
+module.exports = Transaction
