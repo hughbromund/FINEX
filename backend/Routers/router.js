@@ -103,4 +103,7 @@ router.get('/finance/total', cors(), financeController.totalStub);
 //insert new transaction 
 router.post('/transaction/newTransaction', cors(), financeController.insertTransaction);
 
+//create new budget
+router.post('/budget/createBudget', cors(), financeController.createBudget);
+
 module.exports = router;
