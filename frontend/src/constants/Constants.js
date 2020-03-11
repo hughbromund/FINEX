@@ -9,11 +9,13 @@ export const LOGIN_PATH = '/login'
 export const RESET_NAME_PATH = '/resetname'
 export const RESET_USERNAME_PATH = '/resetusername'
 export const FINANCE_DASHBOARD = '/finance'
+export const ADD_BUDGET_ITEM = "/addbudgetitem";
 
 /* Base URL for Backend */
-export const BASE = 'http://localhost:5000'
+export const BASE = "http://localhost:5000";
 
 /* Paths to Call Backend */
+
 export const LOGIN_URL = BASE + "/auth/login"
 export const LOGOUT_URL = BASE + "/auth/logout"
 export const REGISTER_URL = BASE + "/auth/register"
