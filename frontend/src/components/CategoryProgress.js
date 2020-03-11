@@ -69,6 +69,7 @@ export default class CategoryProgress extends Component {
         return (
             <div>
                 <b>Category: </b>{this.state.category} <br />
+                <b>Budgeted Spending: </b>${this.state.budgetedSpending}
                 <ProgressBar 
                 now={this.state.currentSpending} 
                 max={this.state.budgetedSpending}

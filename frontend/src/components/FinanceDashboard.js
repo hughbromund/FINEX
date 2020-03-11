@@ -10,6 +10,7 @@ import history from "../routing/History";
 import { GET_EXPENSE_LIST } from "../constants/Constants"
 import { LOGIN_PATH } from "../constants/Constants"
 import { GET_INCOME_LIST } from "../constants/Constants"
+import { GET_CATEGORY_BUDGET } from "../constants/Constants"
 
 // import Jumbotron from 'react-bootstrap/Jumbotron'
 import Navbar from 'react-bootstrap/Navbar'
@@ -26,16 +27,19 @@ export default class FinanceDashboard extends Component {
         this.state = 
         {
             "transactionToasts" : "",
-            "incomeToasts" : ""
+            "incomeToasts" : "",
+            "categoryProgresses" : ""
         }
         this.generateTransactions = this.generateTransactions.bind(this)
         this.getTransactions = this.getTransactions.bind(this)
         this.getIncomes = this.getIncomes.bind(this)
+        this.getBudgetCategories = this.getBudgetCategories.bind(this)
     }
 
     componentDidMount() {
         this.getTransactions()
         this.getIncomes()
+        this.getBudgetCategories()
     }
 
     getIncomes = async() => {
@@ -104,6 +108,34 @@ export default class FinanceDashboard extends Component {
             "transactionToasts" : transactionToasts
         })
         // console.log(this.state)
+    }
+
+    getBudgetCategories = async() => {
+        var response = await fetch(GET_CATEGORY_BUDGET,{
+            method: "GET",
+            withCredentials : true,
+            // credentials: 'same-origin'
+        }).catch(err => {
+            console.error(err)
+        })
+        var body = await response.json()
+        console.log(body)
+
+        const inputs = []
+        for (let i = 0; i < body.length; i++) {
+            inputs.push(<CategoryProgress 
+                category={body[i].category}
+                currentSpending={body[i].spent} 
+                budgetedSpending={body[i].budgeted}>
+                </CategoryProgress>)
+        }
+
+        this.setState(
+            {
+                "categoryProgresses" : inputs
+            })
+
+
     }
 
     generateTransactions() {
@@ -201,16 +233,7 @@ export default class FinanceDashboard extends Component {
                                         <b>Category Breakdown</b>
                                     </Card.Header>
                                     <Card.Body>
-                                        <CategoryProgress 
-                                        category="Shopping" 
-                                        currentSpending={30} 
-                                        budgetedSpending={150}>
-                                        </CategoryProgress>
-                                        <CategoryProgress 
-                                        category="Utilities" 
-                                        currentSpending={80} 
-                                        budgetedSpending={300}>
-                                        </CategoryProgress>
+                                        {this.state.categoryProgresses}
                                     </Card.Body>
                                 </Card>
                             </Row>
