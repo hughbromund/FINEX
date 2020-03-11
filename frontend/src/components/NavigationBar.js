@@ -17,6 +17,7 @@ import { ACCOUNT_PATH } from "../constants/Constants"
 import { USER_INFO_URL } from "../constants/Constants"
 import { FINANCE_DASHBOARD } from "../constants/Constants"
 import { ADD_BUDGET_ITEM } from "../constants/Constants";
+import { CREATE_NEW_BUDGET } from "../constants/Constants"
 // import { LOGIN_PATH } from "../constants/Constants"
 
 /*
@@ -128,10 +129,13 @@ export default class NavigationBar extends Component {
                 <NavDropdown.Item onClick={() => history.push(ADD_BUDGET_ITEM)}>
                   ADD A NEW ITEM
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
+                <NavDropdown.Item>
                   VIEW YOUR BUDGET
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
+                <NavDropdown.Item onClick={() => history.push(CREATE_NEW_BUDGET)}>
+                  CREATE A NEW BUDGET
+                </NavDropdown.Item>
+                <NavDropdown.Item>
                   MAKE YOUR MONEY WORK
                 </NavDropdown.Item>
               </NavDropdown>

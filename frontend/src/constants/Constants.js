@@ -10,6 +10,7 @@ export const RESET_NAME_PATH = '/resetname'
 export const RESET_USERNAME_PATH = '/resetusername'
 export const FINANCE_DASHBOARD = '/finance'
 export const ADD_BUDGET_ITEM = "/addbudgetitem";
+export const CREATE_NEW_BUDGET = "/newbudget"
 
 /* Base URL for Backend */
 export const BASE = "http://localhost:5000";
