@@ -97,7 +97,7 @@ export default class MonthProgress extends Component {
                 spent : body.spent,
                 noBudget : isBudget
             })
-        console.log(this.state)
+        // console.log(this.state)
 
     }
 

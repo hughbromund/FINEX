@@ -43,7 +43,7 @@ export default class FinanceDashboard extends Component {
     }
 
     getIncomes = async() => {
-        console.log(GET_INCOME_LIST)
+        // console.log(GET_INCOME_LIST)
         var response = await fetch(GET_INCOME_LIST,{
             method: "GET",
             withCredentials : true,
@@ -119,7 +119,7 @@ export default class FinanceDashboard extends Component {
             console.error(err)
         })
         var body = await response.json()
-        console.log(body)
+        // console.log(body)
 
         const inputs = []
         for (let i = 0; i < body.length; i++) {
