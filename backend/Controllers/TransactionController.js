@@ -6,8 +6,6 @@ var transactionService = require('../Services/TransactionService.js')
 //from https://github.com/b-bly/simple-mern-passport
 
 const Transaction = require('../database/models/transactions');
-
-
 /* exports.insertTransaction = async function (req, res, next) {
     console.log('new transaction');
     console.log(req.body)
@@ -47,10 +45,13 @@ const Transaction = require('../database/models/transactions');
     }); 
 } */
 
+//TODO: req.body is returning undefined
 exports.insertTransaction = async function (req, res, next) {
     console.log('new transaction');
-    console.log(req.body)
-    const { username, type, cost, name, date } = req.body
+    console.log('body');
+    console.log(req.body.username)
+    const { username, type, cost, name, date } = await req.body
+
     // ADD VALIDATION
     const newTransaction = new Transaction({
         username: username,
