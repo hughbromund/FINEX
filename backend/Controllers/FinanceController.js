@@ -12,7 +12,7 @@ exports.budgetStub = async function (req, res, next) {
         ])
     }
     else {
-        res.status(400).json({status: "not logged in!"})
+        res.status(400).json({status: "No user logged in."})
     }
 }
 
@@ -25,7 +25,7 @@ exports.expenseStub = async function (req, res, next) {
         ])
     }
     else {
-        res.status(400).json({status: "not logged in!"})
+        res.status(400).json({status: "No user logged in."})
     }
 }
 
@@ -38,7 +38,7 @@ exports.incomeStub = async function (req, res, next) {
         ])
     }
     else {
-        res.status(400).json({status: "not logged in!"})
+        res.status(400).json({status: "No user logged in."})
     }
 }
 
@@ -47,6 +47,6 @@ exports.totalStub = async function (req, res, next) {
         res.status(200).json({budgeted: "1000", spent: "999999"})
     }
     else {
-        res.status(400).json({status: "not logged in!"})
+        res.status(400).json({status: "No user logged in."})
     }
 }
