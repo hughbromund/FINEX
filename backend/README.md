@@ -231,6 +231,60 @@ or
     "status": "No user logged in."
 }
 
+### /user/updateGoodColor
+POST
+This represents updating the good color preference on a user account
+Requirements: "good_color" in JSON
+Returns: Returns 400 and "status": "new good color not passed!" JSON if user does not pass a color preference
+and 200 "good color updated" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "good_color": "some hash value"
+}
+or
+{
+    "status": "No user logged in."
+}
+
+### /user/updateBadColor
+POST
+This represents updating the bad color preference on a user account
+Requirements: "bad_color" in JSON
+Returns: Returns 400 and "status": "new bad color not passed!" JSON if user does not pass a color preference
+and 200 "bad color updated" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "bad_color": "some hash value"
+}
+or
+{
+    "status": "No user logged in."
+}
+
+### /user/lightDarkMode
+POST
+This represents updating the light/dark mode preference on a user account
+Requirements: "dark_mode" in JSON
+Returns: Returns 400 and "status": "mode preference not passed!" JSON if user does not pass a boolean value
+and 200 "mode updated" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "bad_color": true/false
+}
+or
+{
+    "status": "No user logged in."
+}
+
 ## Finance
 
 ### /finance/budget  
@@ -327,4 +381,22 @@ or
 
 {
     "status": "No user logged in."
+}
+
+### /transaction/newTransaction
+POST
+This represents adding a new transaction 
+Requirements: "username", "type", "cost", "name", and "date" in JSON. If date is not specified, the default
+current date JSON will be added
+Returns: Returns 400 and error if an error occurs and a JSON representing the new transaction otherwise
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "username": "username",
+    "type": "type",
+    "cost": "cost",
+    "name": "name",
+    "date": "date"
 }
