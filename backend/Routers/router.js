@@ -7,7 +7,6 @@ var stockController = require('../Controllers/StockController');
 var cryptoController = require('../Controllers/CryptoController');
 var authController = require('../Controllers/AuthController');
 var financeController = require('../Controllers/FinanceController');
-var transactionController = require('../Controllers/TransactionController');
 
 const passport = require('../passport');
 
@@ -83,6 +82,9 @@ router.put('/auth/updateName', cors(), authController.updateName);
 router.post('/user/updateGoodColor', cors(), authController.updateGoodColor);
 router.post('/user/updateBadColor', cors(), authController.updateBadColor);
 
+//update dark/light mode
+router.post('/user/lightDarkMode', cors(), authController.updateMode);
+
 
 //FINANCE
 
@@ -92,6 +94,6 @@ router.get('/finance/expense', cors(), financeController.expenseStub);
 router.get('/finance/total', cors(), financeController.totalStub);
 
 //insert new transaction 
-router.post('/transaction/newTransaction', cors(), FinanceController.insertTransaction);
+router.post('/transaction/newTransaction', cors(), financeController.insertTransaction);
 
 module.exports = router;
