@@ -4,14 +4,14 @@ var cryptoService = require('../Services/CryptoService.js')
 
 //autocompletes the search bar for crypto
 exports.getAutoComplete = async function (req, res, next) {
-    var stocks = await auto_complete_service.cryptoAutoComplete(req.params.input);
-    return res.json(stocks);
+    var cryptos = await auto_complete_service.cryptoAutoComplete(req.params.input);
+    return res.json(cryptos);
 }
 
 //handles case where nothing is entered in the search bar
 exports.getAutoCompleteEmpty = async function (req, res, next) {
-    var stocks = await auto_complete_service.cryptoAutoComplete("");
-    return res.json(stocks);
+    var cryptos = await auto_complete_service.cryptoAutoComplete("");
+    return res.json(cryptos);
 }
 
 // function to validate, get, and return alpha vantage daily crypto info

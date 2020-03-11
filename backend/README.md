@@ -11,7 +11,7 @@ This represents the autofill endpoint
 Requirements: some input from search box  
 Returns: empty list if can't find anything or list of stocks  
 Status: Working  
-Bugs: might be error on empty input  
+Bugs: None
 
 JSON Format:  
 [
@@ -169,7 +169,7 @@ Bugs: ??
 
 JSON Format (Output):
 {
-    "status": "user not logged in!"
+    "status": "No user logged in."
 }
 
 ### /auth/user  
@@ -190,14 +190,14 @@ JSON Format (Output):
 or 
 
 {
-    "status": "user not logged in!"
+    "status": "No user logged in."
 }
 
 ### /auth/updateEmail  
 PUT  
 This represents updating user email endpoint  
 Requirements: "email" in JSON
-Returns: Returns 400 and "status": "not logged in!" JSON if user not logged in and a JSON object with "status": "email updated" otherwise  
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in and a JSON object with "status": "email updated" otherwise  
 Status: Working  
 Bugs: ?? 
 
@@ -206,11 +206,17 @@ JSON Format (Input):
     "email": "basheescript@purdue.edu"
 }
 
+or 
+
+{
+    "status": "No user logged in."
+}
+
 ### /auth/updateName  
 PUT  
 This represents updating user name endpoint  
 Requirements: "name" in JSON
-Returns: Returns 400 and "status": "not logged in!" JSON if user not logged in and a JSON object with "status": "name updated" otherwise  
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in and a JSON object with "status": "name updated" otherwise  
 Status: Working  
 Bugs: ??  
 
@@ -219,13 +225,19 @@ JSON Format (Input):
     "name": "Sonic"
 }
 
+or 
+
+{
+    "status": "No user logged in."
+}
+
 ## Finance
 
 ### /finance/budget  
 GET  
 This represents obtaining current budget  
 Requirements: None  
-Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a JSON list with budget categories, with budgeted amount and spent amount  
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list with budget categories, with budgeted amount and spent amount  
 Status: STUB  
 Bugs: ??  
 
@@ -239,11 +251,17 @@ JSON Format (Output):
     ...
 ]
 
+or 
+
+{
+    "status": "No user logged in."
+}
+
 ### /finance/income  
 GET  
 This represents obtaining current incomes  
 Requirements: None  
-Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a JSON list of the user's incomes otherwise  
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's incomes otherwise  
 Status: STUB  
 Bugs: ??  
 
@@ -259,11 +277,17 @@ JSON Format (Output):
     ...
 ]
 
+or 
+
+{
+    "status": "No user logged in."
+}
+
 ### /finance/expense  
 GET  
 This represents obtaining current expenses  
 Requirements: None  
-Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a JSON list of the user's expenses otherwise  
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's expenses otherwise  
 Status: STUB  
 Bugs: ??  
 
@@ -279,11 +303,17 @@ JSON Format (Output):
     ...
 ]
 
+or 
+
+{
+    "status": "No user logged in."
+}
+
 ### /finance/total  
 GET  
 This represents obtaining totals  
 Requirements: None  
-Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a "budgeted" amount and "spent" amount  
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a "budgeted" amount and "spent" amount  
 Status: STUB  
 Bugs: ??  
 
@@ -291,4 +321,10 @@ JSON Format (Output):
 {
     "budgeted": "1000",
     "spent": "625"
+}
+
+or 
+
+{
+    "status": "No user logged in."
 }
