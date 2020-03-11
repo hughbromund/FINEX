@@ -118,4 +118,18 @@ exports.updateName = async function (req) {
 exports.updatePassword = async function (req) {
     let newPassword = await req.user.updatePassword(req.body.password);
     return await User.updateOne({username: req.user.username}, {password: newPassword}, (err, user) => {}).exec();
+
+exports.updateGoodColor = async function (req) {
+    return await User.updateOne({username: req.user.username}, 
+        {good_color: req.body.good_color}, (err, user) => {}).exec();  
+}
+
+exports.updateBadColor = async function (req) {
+    return await User.updateOne({username: req.user.username}, 
+        {bad_color: req.body.bad_color}, (err, user) => {}).exec();  
+} 
+
+exports.updateMode = async function (req) {
+    return await User.updateOne({username: req.user.username},
+        {dark_mode: req.body.dark_mode}, (err, user) => {}).exec();
 }

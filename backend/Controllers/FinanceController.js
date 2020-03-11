@@ -1,3 +1,8 @@
+var transactionService = require('../Services/TransactionService.js')  
+const Transaction = require('../database/models/transactions');
+
+
+
 exports.budgetStub = async function (req, res, next) {
     if (req.user) {
         res.status(200).json([
@@ -13,6 +18,23 @@ exports.budgetStub = async function (req, res, next) {
     }
     else {
         res.status(400).json({status: "No user logged in."})
+    }
+}
+
+
+exports.insertTransaction = async function (req, res, next) {
+    const { username, type, cost, name, date } = req.body
+    //console.log(req.user.username)
+    if ( username && type && cost && name && date ) {
+        try {
+            let result = await transactionService.insertTransaction(req);
+            res.status(200).json({status: "new transaction inserted"})
+        } catch(e) {
+            res.status(400).json({status: "an error occurred"})
+        }
+    }
+    else {
+        res.status(400).json({status: "incomplete fields"})
     }
 }
 
