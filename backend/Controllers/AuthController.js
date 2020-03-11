@@ -10,10 +10,10 @@ exports.loginStub = async function (req, res, next) {
     const { username, password} = req.body
   
     if (username && password) {
-        res.status(200).json({status: "Login Success!"})
+        res.status(200).json({status: "Login Successful."})
     }
     else {
-        res.status(400).json({status: "Login Failed"})
+        res.status(400).json({status: "Login Failed."})
     }
 }
 
@@ -40,34 +40,8 @@ const User = require('../database/models/user');
 
 
 exports.register = async function (req, res, next) {
-    console.log('user signup');
-    console.log(req.body)
-    const { username, password, email, name } = req.body
-    // ADD VALIDATION
-    User.findOne({ username: username }, (err, user) => {
-        if (err) {
-            console.log('User.js post error: ', err)
-            res.status(400).json({
-                status: "Sorry, an error occured"
-            })
-        } else if (user) {
-            res.status(400).json({
-                status: `Sorry, already a user with the username: ${username}`
-            })
-        }
-        else {
-            const newUser = new User({
-                username: username,
-                password: password,
-                email: email,
-                name: name
-            })
-            newUser.save((err, savedUser) => {
-                if (err) return res.json(err)
-                res.status(200).json(savedUser)
-            })
-        }
-    })
+   let result = await auth_service.register(req);
+   res.status(result.code).json(result)
 }
 
 //additional code for logging?
@@ -82,9 +56,7 @@ exports.login = async function (req, res, next) {{
 
 exports.login = async function (req, res, next) {
     let result = await auth_service.login(req);
-    res.status(result.code).send({
-        username: result.username
-    }); 
+    res.status(result.code).json({username: result.username}); 
 }
 
 
@@ -103,21 +75,23 @@ exports.user = async function (req, res, next) {
         }
         catch (e) {
             console.log(e)
-            res.status(400).json({
-                status: "an error occured"
-            })
+            res.status(400).json({status: "An error occured."})
         }
     }
     else {
-        res.status(400).json({
-            status: "user not logged in!"
-        })
+        res.status(400).json({status: "No user logged in."})
     }
 }
 
 exports.logout = async function (req, res, next) {
-    let status = await auth_service.logout(req, res, next);
-    res.status(status.code).json({status: status.status});
+    try {
+        let status = await auth_service.logout(req, res, next);
+        res.status(status.code).json({status: status.status});
+    }
+    catch (e) {
+        console.log(e)
+        res.status(400).json({status: "an error occured."})
+    }
 }
 
 exports.updateEmail = async function (req, res, next) {
@@ -133,12 +107,12 @@ exports.updateEmail = async function (req, res, next) {
             res.status(200).json({status: "email updated"})
         }
         catch(e) {
-            res.status(400).json({status: "an error occurred"})
+            res.status(400).json({status: "An error occured."})
         }
         
     }
     else {
-        res.status(400).json({status: "not logged in!"})
+        res.status(400).json({status: "No user logged in."})
     }
 }
 
@@ -154,11 +128,11 @@ exports.updateName = async function (req, res, next) {
             res.status(200).json({status: "name updated"})
         }
         catch(e) {
-            res.status(400).json({status: "an error occurred"})
+            res.status(400).json({status: "An error occured."})
         }
     }
     else {
-        res.status(400).json({status: "not logged in!"})
+        res.status(400).json({status: "No user logged in."})
     }
 
 }
