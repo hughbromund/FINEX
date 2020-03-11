@@ -21,29 +21,21 @@ exports.budgetStub = async function (req, res, next) {
     }
 }
 
-exports.insertTransaction = async function (req, res, next) {
-    console.log('new transaction');
-    console.log('body');
-    console.log(req.body)
-    const { username, type, cost, name, date } = req.body
 
-    if (username && type && cost && name && date) {
-        const newTransaction = new Transaction({
-            username: username,
-            type: type,
-            cost: cost,
-            name: name,
-            date: date
-        })
-        newTransaction.save((err, savedTransaction) => {
-            if (err) return res.json(err)
-            res.status(200).json(savedTransaction)
-        })
+exports.insertTransaction = async function (req, res, next) {
+    const { username, type, cost, name, date } = req.body
+    //console.log(req.user.username)
+    if ( username && type && cost && name && date ) {
+        try {
+            let result = await transactionService.insertTransaction(req);
+            res.status(200).json({status: "new transaction inserted"})
+        } catch(e) {
+            res.status(400).json({status: "an error occurred"})
+        }
     }
     else {
-        res.status(400).json({status: "incomplete fields!"})
+        res.status(400).json({status: "incomplete fields"})
     }
-    
 }
 
 exports.expenseStub = async function (req, res, next) {

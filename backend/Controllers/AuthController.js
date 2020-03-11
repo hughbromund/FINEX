@@ -81,7 +81,7 @@ exports.login = async function (req, res, next) {{
 
 
 exports.login = async function (req, res, next) {
-    let result = await auth_service.login(req);
+    let result = await authService.login(req);
     res.status(result.code).send({
         username: result.username
     }); 
@@ -94,7 +94,7 @@ exports.user = async function (req, res, next) {
     
     if (req.user) {
         try {
-            let user = await auth_service.user(req)
+            let user = await authService.user(req)
             res.status(200).json({
                 username: user.username,
                 name: user.name,
@@ -128,7 +128,7 @@ exports.updateEmail = async function (req, res, next) {
     }
     else if (req.user) {
         try {
-            let result = await auth_service.updateEmail(req);
+            let result = await authService.updateEmail(req);
             //console.log(result)
             res.status(200).json({status: "email updated"})
         }
@@ -150,7 +150,7 @@ exports.updateGoodColor = async function (req, res, next) {
     }
     else if (req.user) {
         try {
-            let result = await auth_service.updateGoodColor(req);
+            let result = await authService.updateGoodColor(req);
             //console.log(result)
             res.status(200).json({status: "good color updated"})
         }
@@ -172,7 +172,7 @@ exports.updateBadColor = async function (req, res, next) {
     }
     else if (req.user) {
         try {
-            let result = await auth_service.updateGoodColor(req);
+            let result = await authService.updateGoodColor(req);
             //console.log(result)
             res.status(200).json({status: "bad color updated"})
         }
@@ -193,7 +193,7 @@ exports.updateName = async function (req, res, next) {
     }
     else if (req.user) {
         try {
-            let result = await auth_service.updateName(req);
+            let result = await authService.updateName(req);
             //console.log(result)
             res.status(200).json({status: "name updated"})
         }
@@ -215,7 +215,7 @@ exports.updateMode = async function (req, res, next) {
     }
     else if (req.user) {
         try {
-            let result = await auth_service.updateMode(req);
+            let result = await authService.updateMode(req);
             //console.log(result)
             res.status(200).json({status: "mode updated"})
         }
