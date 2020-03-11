@@ -6,6 +6,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Collapse from "react-bootstrap/Collapse";
+import Table from "react-bootstrap/Table";
 
 import classes from "./CreateBudget.module.css";
 
@@ -516,7 +517,60 @@ export default class CreateBudget extends Component {
                 <br />
                 <Alert variant="success">
                   Your budget is looking good! If you are finished setting up
-                  your categories, click Submit below.
+                  your categories, click Submit below. <br />
+                  Here is a summary of your budget: <br />
+                  <Table>
+                    <thead>
+                      <th>Category</th>
+                      <th>Budget</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Housing</td>
+                        <td>{this.state.housingBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Utilities</td>
+                        <td>{this.state.utilitiesBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Transportation</td>
+                        <td>{this.state.transportationBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Food</td>
+                        <td>{this.state.foodBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Medical</td>
+                        <td>{this.state.medicalBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Savings</td>
+                        <td>{this.state.savingsBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Personal</td>
+                        <td>{this.state.personalBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Entertainment</td>
+                        <td>{this.state.entertainmentBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Other</td>
+                        <td>{this.state.otherBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <b>Total</b>
+                        </td>
+                        <td>
+                          <b>{this.state.totalBudget}</b>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
                 </Alert>
               </div>
             </Collapse>
