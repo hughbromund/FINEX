@@ -229,6 +229,16 @@ Returns: Returns 400 and "status": "no user logged in" JSON if user not logged i
 Status: STUB  
 Bugs: ??  
 
+JSON Format (Output):
+[
+    {
+        "category": "food",
+        "budgeted": "100",
+        "spent": "250"
+    },
+    ...
+]
+
 ### /finance/income  
 GET  
 This represents obtaining current incomes  
@@ -236,6 +246,18 @@ Requirements: None
 Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a JSON list of the user's incomes otherwise  
 Status: STUB  
 Bugs: ??  
+
+JSON Format (Output):
+[
+    {
+        "username": "shmem",
+        "category": "other",
+        "type": "income",
+        "cost": "250",
+        "name": "paycheck"
+    },
+    ...
+]
 
 ### /finance/expense  
 GET  
@@ -245,6 +267,18 @@ Returns: Returns 400 and "status": "no user logged in" JSON if user not logged i
 Status: STUB  
 Bugs: ??  
 
+JSON Format (Output):
+[
+    {
+        "username": "shmem",
+        "category": "Food",
+        "type": "expense",
+        "cost": "250",
+        "name": "Apples"
+    },
+    ...
+]
+
 ### /finance/total  
 GET  
 This represents obtaining totals  
@@ -252,3 +286,9 @@ Requirements: None
 Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in or a "budgeted" amount and "spent" amount  
 Status: STUB  
 Bugs: ??  
+
+JSON Format (Output):
+{
+    "budgeted": "1000",
+    "spent": "625"
+}
