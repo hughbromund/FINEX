@@ -47,60 +47,60 @@ export default class BudgetItemForm extends Component {
   render() {
     return (
       <div className={classes.wrapper}>
-        <div className={classes.innerDiv}>
-          <Jumbotron className={classes.jumbo}>
-            <h1>Welcome to FINEX's Add Budget Form!</h1>
-            <p>Below, you may input a new item to your budget!</p>
-          </Jumbotron>
-        </div>
-        <div className={classes.innerDiv}>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Group>
-              <Form.Label>Cost</Form.Label>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ width: "50rem" }}>
+            <Jumbotron className={classes.jumbo}>
+              <h1>Welcome to FINEX's Add Budget Form!</h1>
+              <p>Below, you may input a new item to your budget!</p>
+            </Jumbotron>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group>
+                <Form.Label>Cost</Form.Label>
 
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text>$</InputGroup.Text>
-                </InputGroup.Prepend>
+                <InputGroup>
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>$</InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control
+                    type="number"
+                    placeholder="e.g. 50"
+                    onChange={this.handleCostChange}
+                    value={this.state.cost}
+                  />
+                </InputGroup>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>Name</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="e.g. water bill"
+                    onChange={this.handleNameChange}
+                    value={this.state.name}
+                  />
+                </InputGroup>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Type</Form.Label>
                 <Form.Control
-                  type="number"
-                  placeholder="e.g. 50"
-                  onChange={this.handleCostChange}
-                  value={this.state.cost}
-                />
-              </InputGroup>
-            </Form.Group>
+                  as="select"
+                  onChange={this.handleTypeChange}
+                  value={this.state.type}
+                >
+                  <option>Rent</option>
+                  <option>Utilities</option>
+                  <option>Transportation</option>
+                  <option>Personal</option>
+                  <option>Medical</option>
+                  <option>Saving/Investing</option>
+                </Form.Control>
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Name</Form.Label>
-              <InputGroup>
-                <Form.Control
-                  placeholder="e.g. water bill"
-                  onChange={this.handleNameChange}
-                  value={this.state.name}
-                />
-              </InputGroup>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Type</Form.Label>
-              <Form.Control
-                as="select"
-                onChange={this.handleTypeChange}
-                value={this.state.type}
-              >
-                <option>Rent</option>
-                <option>Utilities</option>
-                <option>Transportation</option>
-                <option>Personal</option>
-                <option>Medical</option>
-                <option>Saving/Investing</option>
-              </Form.Control>
-            </Form.Group>
-
-            <Button variant="success" type="submit">
-              Submit
-            </Button>
-          </Form>
+              <Button variant="success" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
         </div>
       </div>
     );
