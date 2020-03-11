@@ -8,11 +8,16 @@ mongoose.promise = Promise
 // Define userSchema
 const userSchema = new Schema({
 
-	username: { type: String, unique: false, required: false },
+	username: { type: String, unique: true, required: false },
 	password: { type: String, unique: false, required: false },
-	email: { type: String, unique: false, required: false },
-	name: { type: String, unique: false, required: false }
-
+	email: { type: String, unique: true, required: false },
+	name: { type: String, unique: false, required: false },
+	stocks: { type: String, unique: false, required: false},
+	transaction_ids: { type: String, unique: false, required: false},
+	good_color: { type: String, unique: false, required: false},
+	bad_color: { type: String, unique: false, required: false},
+	dark_mode: { type: Boolean },
+	budget_information: [ { amount: String }, { category: String }],
 }, { collection: "Users"})
 
 // Define schema methods
@@ -22,8 +27,9 @@ userSchema.methods = {
 	},
 	hashPassword: plainTextPassword => {
 		return bcrypt.hashSync(plainTextPassword, 10)
-	}
+	},
 }
+
 
 // Define hooks for pre-saving
 userSchema.pre('save', function (next) {
