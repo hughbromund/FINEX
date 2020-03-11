@@ -142,6 +142,52 @@ exports.updateEmail = async function (req, res, next) {
     }
 }
 
+exports.updateGoodColor = async function (req, res, next) {
+    const { good_color } = req.body;
+    //console.log(req.user.username)
+    if ( good_color == null ) {
+        res.status(400).json({status: "new good color not passed!"})
+    }
+    else if (req.user) {
+        try {
+            let result = await auth_service.updateGoodColor(req);
+            //console.log(result)
+            res.status(200).json({status: "good color updated"})
+        }
+        catch(e) {
+            res.status(400).json({status: "an error occurred"})
+        }
+        
+    }
+    else {
+        res.status(400).json({status: "not logged in!"})
+    }
+}
+
+exports.updateBadColor = async function (req, res, next) {
+    const { bad_color } = req.body;
+    //console.log(req.user.username)
+    if ( bad_color == null ) {
+        res.status(400).json({status: "new bad color not passed!"})
+    }
+    else if (req.user) {
+        try {
+            let result = await auth_service.updateGoodColor(req);
+            //console.log(result)
+            res.status(200).json({status: "bad color updated"})
+        }
+        catch(e) {
+            res.status(400).json({status: "an error occurred"})
+        }
+        
+    }
+    else {
+        res.status(400).json({status: "not logged in!"})
+    }
+}
+
+
+
 exports.updateName = async function (req, res, next) {
     const { name } = req.body;
     if ( name == null ) {

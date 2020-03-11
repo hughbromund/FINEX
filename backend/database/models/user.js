@@ -14,7 +14,8 @@ const userSchema = new Schema({
 	name: { type: String, unique: false, required: false },
 	stocks: { type: String, unique: false, required: false},
 	transaction_ids: { type: String, unique: false, required: false},
-	color_preferences: [ { good_color: String}, { bad_color: String }],
+	good_color: { type: String, unique: false, required: false},
+	bad_color: { type: String, unique: false, required: false},
 	dark_mode: { type: Boolean },
 	budget_information: [ { amount: String }, { category: String }],
 }, { collection: "Users"})

@@ -41,10 +41,12 @@ router.get('/api/crypto/daily/:code', cors(), cryptoController.getCryptoDaily);
 //retrieve crypto daily data endpoint
 router.get('/api/crypto/weekly/:code', cors(), cryptoController.getCryptoWeekly);
 
+
+
+
 //STUBS
 
-//new transaction stub, todo testing
-router.post('/transaction_stub/newTransaction', cors(), FinanceController.insertTransaction);
+
 
 //register account stub
 router.post('/auth_stub/register', cors(), authController.registerStub);
@@ -77,6 +79,10 @@ router.get('/auth/user', cors(), authController.user);
 router.put('/auth/updateEmail', cors(), authController.updateEmail);
 router.put('/auth/updateName', cors(), authController.updateName);
 
+//change color preferences
+router.post('/user/updateGoodColor', cors(), authController.updateGoodColor);
+router.post('/user/updateBadColor', cors(), authController.updateBadColor);
+
 
 //FINANCE
 
@@ -84,5 +90,8 @@ router.get('/finance/budget', cors(), financeController.budgetStub);
 router.get('/finance/income', cors(), financeController.incomeStub);
 router.get('/finance/expense', cors(), financeController.expenseStub);
 router.get('/finance/total', cors(), financeController.totalStub);
+
+//insert new transaction 
+router.post('/transaction/newTransaction', cors(), FinanceController.insertTransaction);
 
 module.exports = router;
