@@ -18,6 +18,7 @@ import ResetName from "../components/ResetName";
 import ResteUsername from "../components/ResetUsername";
 import FinanceDashboard from "../components/FinanceDashboard"
 import BudgetItemForm from "../components/BudgetItemForm";
+import CreateBudget from "../components/CreateBudget"
 
 /* Paths */
 import { RESET_EMAIL_PATH } from "../constants/Constants";
@@ -31,6 +32,7 @@ import { RESET_NAME_PATH} from "../constants/Constants"
 import { RESET_USERNAME_PATH } from "../constants/Constants"
 import { FINANCE_DASHBOARD } from "../constants/Constants"
 import { ADD_BUDGET_ITEM } from "../constants/Constants";
+import { CREATE_NEW_BUDGET } from "../constants/Constants"
 
 
 function Routes() {
@@ -48,6 +50,7 @@ function Routes() {
         <Route path={LOGIN_PATH} component={LoginPage} />
         <Route path={FINANCE_DASHBOARD} component={FinanceDashboard} />
         <Route path={ADD_BUDGET_ITEM} component={BudgetItemForm} />
+        <Route path={CREATE_NEW_BUDGET} component={CreateBudget}/>
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
