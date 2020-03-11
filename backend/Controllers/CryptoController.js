@@ -1,16 +1,16 @@
-var auto_complete_service = require('../Services/AutoCompleteService.js')
+var autoCompleteService = require('../Services/AutoCompleteService.js')
 var cryptoService = require('../Services/CryptoService.js')  
 
 
 //autocompletes the search bar for crypto
 exports.getAutoComplete = async function (req, res, next) {
-    var cryptos = await auto_complete_service.cryptoAutoComplete(req.params.input);
+    var cryptos = await autoCompleteService.cryptoAutoComplete(req.params.input);
     return res.json(cryptos);
 }
 
 //handles case where nothing is entered in the search bar
 exports.getAutoCompleteEmpty = async function (req, res, next) {
-    var cryptos = await auto_complete_service.cryptoAutoComplete("");
+    var cryptos = await autoCompleteService.cryptoAutoComplete("");
     return res.json(cryptos);
 }
 

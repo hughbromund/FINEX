@@ -21,6 +21,7 @@ const nasdaqList = (fs.readFileSync(nasdaqFile))
         return false;
     });
 
+//parses crypto file into array
 const cryptoList = (fs.readFileSync(cryptoFile))
     .toString()
     .replace(/['"\r]+/g, '')
@@ -39,26 +40,26 @@ const cryptoList = (fs.readFileSync(cryptoFile))
 
 
 //returns first 5 stocks with matching symbols/names. exact match symbol comes first
-exports.stockAutoComplete = async function (search_term) {
-    if (search_term == "") {
+exports.stockAutoComplete = async function (searchTerm) {
+    if (searchTerm == "") {
         let lines = [...nasdaqList];
         return lines.splice(0, 5);
     }
     console.log(nasdaqList.length);
-    const search_lower = search_term.toLowerCase();
+    const searchLower = searchTerm.toLowerCase();
 
     //filters all stocks which contain the searched term
     let lines = nasdaqList.filter(function (e) {
-        return e[0].toLowerCase().includes(search_lower) || 
-        e[1].toLowerCase().includes(search_lower);
+        return e[0].toLowerCase().includes(searchLower) || 
+        e[1].toLowerCase().includes(searchLower);
     });
     
     //if search matches stock symbol, place on top of list
-    for (line_num = 0; line_num < lines.length; line_num++) {
-        if (lines[line_num][0].toLowerCase() == search_lower) {
-            found_line = lines[line_num];
-            lines.splice(line_num, 1);
-            lines.unshift(found_line);
+    for (lineNum = 0; lineNum < lines.length; lineNum++) {
+        if (lines[lineNum][0].toLowerCase() == searchLower) {
+            foundLine = lines[lineNum];
+            lines.splice(lineNum, 1);
+            lines.unshift(foundLine);
             break;
         }
     }
@@ -69,26 +70,26 @@ exports.stockAutoComplete = async function (search_term) {
     return lines;
 }
 
-exports.cryptoAutoComplete = async function (search_term) {
-    if (search_term == "") {
+exports.cryptoAutoComplete = async function (searchTerm) {
+    if (searchTerm == "") {
         let lines = [...cryptoList];
         return lines.splice(0, 5);
     }
     console.log(cryptoList.length);
-    const search_lower = search_term.toLowerCase();
+    const searchLower = searchTerm.toLowerCase();
 
-    //filters all stocks which contain the searched term
+    //filters all cryptos which contain the searched term
     let lines = cryptoList.filter(function (e) {
-        return e[0].toLowerCase().includes(search_lower) || 
-        e[1].toLowerCase().includes(search_lower);
+        return e[0].toLowerCase().includes(searchLower) || 
+        e[1].toLowerCase().includes(searchLower);
     });
     
-    //if search matches stock symbol, place on top of list
-    for (line_num = 0; line_num < lines.length; line_num++) {
-        if (lines[line_num][0].toLowerCase() == search_lower) {
-            found_line = lines[line_num];
-            lines.splice(line_num, 1);
-            lines.unshift(found_line);
+    //if search matches crypto symbol, place on top of list
+    for (lineNum = 0; lineNum < lines.length; lineNum++) {
+        if (lines[lineNum][0].toLowerCase() == searchLower) {
+            foundLine = lines[lineNum];
+            lines.splice(lineNum, 1);
+            lines.unshift(foundLine);
             break;
         }
     }

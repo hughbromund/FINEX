@@ -1,6 +1,6 @@
 //var databaseAccess = require('../DatabaseAccess/mongo_commands')
 
-var auth_service = require('../Services/AuthService.js')  
+var authService = require('../Services/AuthService.js')  
 
 // controller that will call the database access functions to login
 // THIS IS A STUB
@@ -40,7 +40,7 @@ const User = require('../database/models/user');
 
 
 exports.register = async function (req, res, next) {
-   let result = await auth_service.register(req);
+   let result = await authService.register(req);
    res.status(result.code).json(result)
 }
 
@@ -55,7 +55,7 @@ exports.login = async function (req, res, next) {{
 
 
 exports.login = async function (req, res, next) {
-    let result = await auth_service.login(req);
+    let result = await authService.login(req);
     res.status(result.code).json({username: result.username}); 
 }
 
@@ -66,7 +66,7 @@ exports.user = async function (req, res, next) {
     
     if (req.user) {
         try {
-            let user = await auth_service.user(req)
+            let user = await authService.user(req)
             res.status(200).json({
                 username: user.username,
                 name: user.name,
@@ -85,7 +85,7 @@ exports.user = async function (req, res, next) {
 
 exports.logout = async function (req, res, next) {
     try {
-        let status = await auth_service.logout(req, res, next);
+        let status = await authService.logout(req, res, next);
         res.status(status.code).json({status: status.status});
     }
     catch (e) {
@@ -102,7 +102,7 @@ exports.updateEmail = async function (req, res, next) {
     }
     else if (req.user) {
         try {
-            let result = await auth_service.updateEmail(req);
+            let result = await authService.updateEmail(req);
             //console.log(result)
             res.status(200).json({status: "email updated"})
         }
@@ -123,7 +123,7 @@ exports.updateName = async function (req, res, next) {
     }
     else if (req.user) {
         try {
-            let result = await auth_service.updateName(req);
+            let result = await authService.updateName(req);
             //console.log(result)
             res.status(200).json({status: "name updated"})
         }
