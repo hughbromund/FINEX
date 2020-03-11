@@ -7,21 +7,26 @@ const Transaction = require('../database/models/transactions');
 
 
 exports.insertTransaction = async function (req, res, next) {
-    console.log('new transaction');
-    console.log(req.body)
-    const { username, type, cost, name, date } = req.body
-    // ADD VALIDATION
-    const newTransaction = new Transaction({
-        username: username,
-        type: type,
-        cost: cost,
-        name: name,
-        date: date
-    })
-    newTransaction.save((err, savedTransaction) => {
-        if (err) return res.json(err)
-        res.status(200).json(savedTransaction)
-    })
+
+    try {
+        console.log('new transaction');
+        console.log(req.body)
+        const { username, type, cost, name, date } = req.body
+
+        const newTransaction = new Transaction({
+            username: username,
+            type: type,
+            cost: cost,
+            name: name,
+            date: date
+        })
+        newTransaction.save((err, savedTransaction) => {
+            if (err) return res.json(err)
+            res.status(200).json(savedTransaction)
+        })
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }   
 }
 
 //in progress

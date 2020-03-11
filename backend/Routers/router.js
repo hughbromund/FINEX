@@ -44,7 +44,7 @@ router.get('/api/crypto/weekly/:code', cors(), cryptoController.getCryptoWeekly)
 //STUBS
 
 //new transaction stub, todo testing
-router.post('/transaction_stub/new', cors(), transactionController.insertTransaction);
+router.post('/transaction_stub/newTransaction', cors(), FinanceController.insertTransaction);
 
 //register account stub
 router.post('/auth_stub/register', cors(), authController.registerStub);
