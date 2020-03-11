@@ -4,6 +4,8 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
+import Collapse from "react-bootstrap/Collapse";
 
 import classes from "./CreateBudget.module.css";
 
@@ -61,6 +63,9 @@ export default class CreateBudget extends Component {
     );
     this.getPersonalVariant = this.getPersonalVariant.bind(this);
     this.getButtonActive = this.getButtonActive.bind(this);
+
+    this.isOverBudget = this.isOverBudget.bind(this);
+    this.isMoneyLeftOver = this.isMoneyLeftOver.bind(this);
   }
 
   getBudgetUsed() {
@@ -211,6 +216,22 @@ export default class CreateBudget extends Component {
     }
   }
 
+  isOverBudget() {
+    if (Number(this.state.totalBudget) - Number(this.getBudgetUsed()) < 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isMoneyLeftOver() {
+    if (Number(this.state.totalBudget) - Number(this.getBudgetUsed()) > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
     return (
       <div>
@@ -243,14 +264,23 @@ export default class CreateBudget extends Component {
             <br />
             Now, decide how much money you want to spend in each category.
             <br />
-            You have used ${this.getBudgetUsed()} of your $
-            {this.state.totalBudget} budget. ($
-            {this.state.totalBudget - this.getBudgetUsed()} left)
+            You have used <b>${this.getBudgetUsed()}</b> of your{" "}
+            <b>${this.state.totalBudget}</b> budget. (
+            <b>${this.state.totalBudget - this.getBudgetUsed()}</b> left)
             <ProgressBar
               max={this.state.totalBudget}
               now={this.getBudgetUsed()}
               variant={this.getVariant()}
             />
+            <Collapse in={this.isOverBudget()}>
+              <div>
+                <br />
+                <Alert variant="danger">
+                  You are <b>Over Budget</b>! Either increase your Total Budget,
+                  or decrease your category spending to fix this error.
+                </Alert>
+              </div>
+            </Collapse>
             <br />
             <Form>
               <Form.Group>
@@ -459,6 +489,34 @@ export default class CreateBudget extends Component {
               variant={this.getOtherVariant()}
             />
             <br />
+            <Collapse in={this.isOverBudget()}>
+              <div>
+                <br />
+                <Alert variant="danger">
+                  You are <b>Over Budget</b>! You cannot submit while Over
+                  Budget. Please either increase your Total Budget or decrease
+                  spending in different categories.
+                </Alert>
+              </div>
+            </Collapse>
+            <Collapse in={!this.isOverBudget() && !this.isMoneyLeftOver()}>
+              <div>
+                <br />
+                <Alert variant="success">
+                  Your budget is looking good! If you are finished setting up
+                  your categories, click Submit below.
+                </Alert>
+              </div>
+            </Collapse>
+            <Collapse in={this.isMoneyLeftOver()}>
+              <div>
+                <br />
+                <Alert variant="warning">
+                  You have not used all of your Total Budget yet. If you Submit,
+                  leftover money will go into the <b>Other</b> category.
+                </Alert>
+              </div>
+            </Collapse>
             <Button
               disabled={this.getButtonActive()}
               active={this.getButtonActive()}
