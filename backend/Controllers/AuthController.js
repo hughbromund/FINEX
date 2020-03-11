@@ -134,6 +134,25 @@ exports.updateName = async function (req, res, next) {
     else {
         res.status(400).json({status: "No user logged in."})
     }
-
 }
 
+exports.updatePassword = async function (req, res, next) {
+    const { password } = req.body;
+    if ( password == null ) {
+        res.status(400).json({status: "new password not passed!"})
+    }
+    else if (req.user) {
+        try {
+            let result = await authService.updatePassword(req);
+            //console.log(result)
+            res.status(200).json({status: "password updated"})
+        }
+        catch(e) {
+            console.log(e)
+            res.status(400).json({status: "An error occured."})
+        }
+    }
+    else {
+        res.status(400).json({status: "No user logged in."})
+    }
+}

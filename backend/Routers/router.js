@@ -72,6 +72,7 @@ router.get('/auth/user', cors(), authController.user);
 //update email
 router.put('/auth/updateEmail', cors(), authController.updateEmail);
 router.put('/auth/updateName', cors(), authController.updateName);
+router.put('/auth/updatePassword', cors(), authController.updatePassword);
 
 
 //FINANCE
