@@ -400,3 +400,31 @@ JSON Format (Input):
     "name": "name",
     "date": "date"
 }
+
+### /budget/createBudget
+POST
+This represents creating a new budget
+Requirements: "username", "month", "year", "total", "housing", "utilities", "transportation", "food", "medical", 
+"savings", "personal", "entertainment", "other", "date" in JSON. If date is not specified, the default
+current date JSON will be added
+Returns: Returns 400 and error if an error occurs and a JSON representing the new budget otherwise
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "username": "username",
+    "month": "month",
+    "year": "year",
+    "total": "total",
+    "housing": "housing",
+    "utilities": "utilities",
+    "transportation": "transportation",
+    "food": "food",
+    "medical": "medical",
+    "savings": "savings",
+    "personal": "personal",
+    "entertainment": "entertainment",
+    "other": "other",
+    "date": "date"
+}
