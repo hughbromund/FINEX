@@ -12,9 +12,10 @@ import history from "../routing/History";
 import { YOUR_STOCKS_PATH, LOGIN_PATH } from "../constants/Constants";
 import { REGISTRATION_PATH } from "../constants/Constants";
 import { SEARCH_STOCK_PATH } from "../constants/Constants";
-import { HOME_PATH } from "../constants/Constants";
-import { ACCOUNT_PATH } from "../constants/Constants";
-import { USER_INFO_URL } from "../constants/Constants";
+import { HOME_PATH } from "../constants/Constants"
+import { ACCOUNT_PATH } from "../constants/Constants"
+import { USER_INFO_URL } from "../constants/Constants"
+import { FINANCE_DASHBOARD } from "../constants/Constants"
 import { ADD_BUDGET_ITEM } from "../constants/Constants";
 // import { LOGIN_PATH } from "../constants/Constants"
 
@@ -119,7 +120,10 @@ export default class NavigationBar extends Component {
                   MARKET TRENDS
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="#link">FINANCE</Nav.Link>
+              <Nav.Link 
+              onClick={() => history.push(FINANCE_DASHBOARD)}>
+                FINANCE
+              </Nav.Link>
               <NavDropdown title="BUDGETING" id="basic-nav-dropdown">
                 <NavDropdown.Item onClick={() => history.push(ADD_BUDGET_ITEM)}>
                   ADD A NEW ITEM

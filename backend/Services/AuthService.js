@@ -36,48 +36,45 @@ exports.registerStub = async function (req, res, next) {
 }
 
 //currently not used or functioning
-exports.register = async function (req, res, next) {
-    
-
+exports.register = async function (req) {
 
     console.log('user signup');
     console.log(req.body)
+
+    
     const { username, password, email, name } = req.body
     // ADD VALIDATION
-    User.findOne({ username: username }, (err, user) => {
-        if (err) {
-            console.log('User.js post error: ', err)
-            res.status(400).json({
-                status: "Sorry, an error occured"
-            })
-        } else if (user) {
-            res.status(400).json({
-                status: `Sorry, already a user with the username: ${username}`
-            })
+ 
+    let foundUser = await User.findOne({ username: username }, (err, user) => {}).exec();
+    let foundEmail = await User.findOne({ email: email }, (err, user) => {}).exec();
+    console.log(foundUser);
+    if (foundUser) {
+        return {
+            "status": "User already registered",
+            "code": 400
         }
-        else {
-            const newUser = new User({
-                username: username,
-                password: password,
-                email: email,
-                name: name
-            })
-            newUser.save((err, savedUser) => {
-                if (err) return res.json(err)
-                res.status(200).json(savedUser)
-            })
-        }
-    })
-}
-
-//additional code for logging?
-/*
-exports.login = async function (req, res, next) {{
-        console.log('routes/user.js, login, req.body: ');
-        console.log(req.body)
-        next()
     }
-*/
+    else if (foundEmail) {
+        return {
+            "status": "email already registered",
+            "code": 400
+        }
+    }
+    else {
+        const newUser = new User({
+            username: username,
+            password: password,
+            email: email,
+            name: name
+        })
+        //save user in database
+        await newUser.save((err, savedUser) => {});
+        return {
+            "status": "Registered.",
+            "code": 200
+        }
+    }
+}
 
 
 exports.login = async function (req) {
@@ -86,13 +83,6 @@ exports.login = async function (req) {
         username: req.user.username,
         code: 200
     }
-
-    /*
-    var userInfo = {
-        username: req.user.username
-    };
-    res.status(200).send(userInfo); 
-    */
 }
 
 
