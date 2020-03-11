@@ -188,12 +188,15 @@ export default class CreateBudget extends Component {
     render() {
         return (
             <div>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={{ width : "50rem"}}>
                 <Jumbotron fluid>
                     <h1>Let's Create Your Budget</h1>
                     <p>
                         Using <b>FINEX</b> you can budget your month in categories and then get feedback as the month progresses. 
                     </p>
                 </Jumbotron>
+                
                 <Form>
                     <Form.Group>
                         <Form.Label>
@@ -382,9 +385,8 @@ export default class CreateBudget extends Component {
                     </Form.Group>
                 </Form>
                 <ProgressBar max={this.state.totalBudget} now={this.state.otherBudget} variant={this.getOtherVariant()}/>
-
-
-                
+                </div>
+                </div>
             </div>
         )
     }
