@@ -5,6 +5,8 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 
+import classes from "./CreateBudget.module.css";
+
 export default class CreateBudget extends Component {
   constructor(props) {
     super(props);
@@ -212,8 +214,8 @@ export default class CreateBudget extends Component {
   render() {
     return (
       <div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <div style={{ width: "50rem" }}>
+        <div className={classes.wrapper}>
+          <div className={classes.inner}>
             <Jumbotron>
               <h1>Let's Create Your Budget</h1>
               <p>
