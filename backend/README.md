@@ -231,6 +231,25 @@ or
     "status": "No user logged in."
 }
 
+### /auth/updatePassword  
+PUT  
+This represents updating user password endpoint  
+Requirements: "password" in JSON
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in and a JSON object with "status": "password updated" otherwise  
+Status: Working  
+Bugs: ??  
+
+JSON Format (Input):
+{
+    "password": "my-secret-password"
+}
+
+or 
+
+{
+    "status": "No user logged in."
+}
+
 ## Finance
 
 ### /finance/budget  

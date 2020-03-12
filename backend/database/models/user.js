@@ -30,6 +30,9 @@ userSchema.methods = {
 	},
 }
 
+userSchema.methods.updatePassword = function updatePassword (password) {
+	return bcrypt.hashSync(password, 10)
+}
 
 // Define hooks for pre-saving
 userSchema.pre('save', function (next) {
