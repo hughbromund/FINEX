@@ -45,7 +45,7 @@ export async function getData(ticker) {
       open: data[key]["open"],
       high: data[key]["high"],
       low: data[key]["low"],
-      date: parseDate(key),
+      date: parseDate(key.substring(0, key.indexOf("T"))),
       close: data[key]["close"],
       volume: data[key]["volume"]
     };
