@@ -1,6 +1,17 @@
 //from https://github.com/b-bly/simple-mern-passport
 
 const User = require('../database/models/user');
+const nodemailer = require('nodemailer');
+const randomstring = require("randomstring");
+ 
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+           user: 'mail.finex.finex@gmail.com',
+           pass: 'cosk.fuss9VOR'
+       }
+   });
 
 //var databaseAccess = require('../DatabaseAccess/mongo_commands')  
 
@@ -118,6 +129,46 @@ exports.updateName = async function (req) {
 exports.updatePassword = async function (req) {
     let newPassword = await req.user.updatePassword(req.body.password);
     return await User.updateOne({username: req.user.username}, {password: newPassword}, (err, user) => {}).exec();
+}
+
+exports.resetPassword = async function (req) {
+    //email code from: https://codeburst.io/sending-an-email-using-nodemailer-gmail-7cfa0712a799
+
+    let resetUser = await User.findOne({ email: req.body.email }, (err, user) => {}).exec();
+    if (resetUser) {
+        //generate random password
+
+        randomPassword = randomstring.generate(12);
+
+        let newPassword = await resetUser.updatePassword(randomPassword);
+        await User.updateOne({username: resetUser.username}, {password: newPassword}, (err, user) => {}).exec();
+
+        const mailOptions = {
+            from: 'mail.finex.finex@gmail.com', // sender address
+            to: req.body.email, // list of receivers
+            subject: 'Temporary Password', // Subject line
+            html: '<p>Your new password is: ' + randomPassword + ' </p>'// plain text body
+        };
+        
+        transporter.sendMail(mailOptions, function (err, info) {
+            if(err)
+              console.log(err)
+            else
+              console.log(info);
+         });
+        
+        return { 
+            status: 'If there was a user associated with that email address, an email was sent to them.',
+            code: 200
+        }
+    } 
+    else {
+        return { 
+            status: 'If there was a user associated with that email address, an email was sent to them.',
+            code: 200
+        }
+    }
+
 }
 
 exports.updateGoodColor = async function (req) {
