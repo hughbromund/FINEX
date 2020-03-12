@@ -12,12 +12,13 @@ import history from "../routing/History";
 import { YOUR_STOCKS_PATH, LOGIN_PATH } from "../constants/Constants";
 import { REGISTRATION_PATH } from "../constants/Constants";
 import { SEARCH_STOCK_PATH } from "../constants/Constants";
-import { HOME_PATH } from "../constants/Constants"
-import { ACCOUNT_PATH } from "../constants/Constants"
-import { USER_INFO_URL } from "../constants/Constants"
-import { FINANCE_DASHBOARD } from "../constants/Constants"
+import { HOME_PATH } from "../constants/Constants";
+import { ACCOUNT_PATH } from "../constants/Constants";
+import { USER_INFO_URL } from "../constants/Constants";
+import { FINANCE_DASHBOARD } from "../constants/Constants";
 import { ADD_BUDGET_ITEM } from "../constants/Constants";
-import { CREATE_NEW_BUDGET } from "../constants/Constants"
+import { ADD_INCOME_ITEM } from "../constants/Constants";
+import { CREATE_NEW_BUDGET } from "../constants/Constants";
 // import { LOGIN_PATH } from "../constants/Constants"
 
 /*
@@ -121,23 +122,23 @@ export default class NavigationBar extends Component {
                   MARKET TRENDS
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link 
-              onClick={() => history.push(FINANCE_DASHBOARD)}>
+              <Nav.Link onClick={() => history.push(FINANCE_DASHBOARD)}>
                 FINANCE
               </Nav.Link>
               <NavDropdown title="BUDGETING" id="basic-nav-dropdown">
                 <NavDropdown.Item onClick={() => history.push(ADD_BUDGET_ITEM)}>
                   ADD A NEW ITEM
                 </NavDropdown.Item>
-                <NavDropdown.Item>
-                  VIEW YOUR BUDGET
+                <NavDropdown.Item onClick={() => history.push(ADD_INCOME_ITEM)}>
+                  ADD A NEW INCOME
                 </NavDropdown.Item>
-                <NavDropdown.Item onClick={() => history.push(CREATE_NEW_BUDGET)}>
+                <NavDropdown.Item>VIEW YOUR BUDGET</NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={() => history.push(CREATE_NEW_BUDGET)}
+                >
                   CREATE A NEW BUDGET
                 </NavDropdown.Item>
-                <NavDropdown.Item>
-                  MAKE YOUR MONEY WORK
-                </NavDropdown.Item>
+                <NavDropdown.Item>MAKE YOUR MONEY WORK</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Form inline>{optional}</Form>

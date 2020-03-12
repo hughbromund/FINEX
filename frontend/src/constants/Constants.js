@@ -1,35 +1,36 @@
 /* Paths for frontend routing */
-export const HOME_PATH = '/';
-export const YOUR_STOCKS_PATH = '/stocks'
-export const SEARCH_STOCK_PATH = '/searchstock'
-export const REGISTRATION_PATH = '/registration'
-export const RESET_EMAIL_PATH = '/resetemail'
-export const ACCOUNT_PATH = '/account'
-export const LOGIN_PATH = '/login'
-export const RESET_NAME_PATH = '/resetname'
-export const RESET_USERNAME_PATH = '/resetusername'
-export const FINANCE_DASHBOARD = '/finance'
+export const HOME_PATH = "/";
+export const YOUR_STOCKS_PATH = "/stocks";
+export const SEARCH_STOCK_PATH = "/searchstock";
+export const REGISTRATION_PATH = "/registration";
+export const RESET_EMAIL_PATH = "/resetemail";
+export const ACCOUNT_PATH = "/account";
+export const LOGIN_PATH = "/login";
+export const RESET_NAME_PATH = "/resetname";
+export const RESET_USERNAME_PATH = "/resetusername";
+export const FINANCE_DASHBOARD = "/finance";
 export const ADD_BUDGET_ITEM = "/addbudgetitem";
-export const CREATE_NEW_BUDGET = "/newbudget"
+export const ADD_INCOME_ITEM = "/addincomeitem";
+export const CREATE_NEW_BUDGET = "/newbudget";
 
 /* Base URL for Backend */
 export const BASE = "http://localhost:5000";
 
 /* Paths to Call Backend */
 
-export const LOGIN_URL = BASE + "/auth/login"
-export const LOGOUT_URL = BASE + "/auth/logout"
-export const REGISTER_URL = BASE + "/auth/register"
-export const USER_INFO_URL = BASE + "/auth/user"
-export const STOCK_LIST_URL = BASE + "/api/stock/auto/"
-export const STOCK_INTRADAY_URL = BASE + "/api/stock/intraday/"
-export const STOCK_DAILY_URL = BASE + "/api/stock/daily/"
-export const CRYPTO_LIST_URL = BASE + "/api/crypto/auto/"
-export const UPDATE_EMAIL_URL = BASE + "/auth/updateEmail"
-export const UPDATE_NAME_URL = BASE + "/auth/updateName"
-export const UPDATE_USERNAME_URL = BASE + "/auth"
-export const GET_BUDGET_CATEGORIES = BASE + "/finance/budget"
-export const GET_EXPENSE_LIST = BASE + "/finance/expense"
-export const GET_OVERALL_BUDGET = BASE + "/finance/total"
-export const GET_INCOME_LIST = BASE + "/finance/income"
-export const GET_CATEGORY_BUDGET = BASE + "/finance/budget"
+export const LOGIN_URL = BASE + "/auth/login";
+export const LOGOUT_URL = BASE + "/auth/logout";
+export const REGISTER_URL = BASE + "/auth/register";
+export const USER_INFO_URL = BASE + "/auth/user";
+export const STOCK_LIST_URL = BASE + "/api/stock/auto/";
+export const STOCK_INTRADAY_URL = BASE + "/api/stock/intraday/";
+export const STOCK_DAILY_URL = BASE + "/api/stock/daily/";
+export const CRYPTO_LIST_URL = BASE + "/api/crypto/auto/";
+export const UPDATE_EMAIL_URL = BASE + "/auth/updateEmail";
+export const UPDATE_NAME_URL = BASE + "/auth/updateName";
+export const UPDATE_USERNAME_URL = BASE + "/auth";
+export const GET_BUDGET_CATEGORIES = BASE + "/finance/budget";
+export const GET_EXPENSE_LIST = BASE + "/finance/expense";
+export const GET_OVERALL_BUDGET = BASE + "/finance/total";
+export const GET_INCOME_LIST = BASE + "/finance/income";
+export const GET_CATEGORY_BUDGET = BASE + "/finance/budget";

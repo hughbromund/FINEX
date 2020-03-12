@@ -16,9 +16,10 @@ import LoginPage from "../components/LoginPage";
 import StockInfo from "../components/StockInfo";
 import ResetName from "../components/ResetName";
 import ResteUsername from "../components/ResetUsername";
-import FinanceDashboard from "../components/FinanceDashboard"
+import FinanceDashboard from "../components/FinanceDashboard";
 import BudgetItemForm from "../components/BudgetItemForm";
-import CreateBudget from "../components/CreateBudget"
+import IncomeItemForm from "../components/IncomeItemForm";
+import CreateBudget from "../components/CreateBudget";
 
 /* Paths */
 import { RESET_EMAIL_PATH } from "../constants/Constants";
@@ -26,14 +27,14 @@ import { SEARCH_STOCK_PATH } from "../constants/Constants";
 import { REGISTRATION_PATH } from "../constants/Constants";
 import { YOUR_STOCKS_PATH } from "../constants/Constants";
 import { HOME_PATH } from "../constants/Constants";
-import { ACCOUNT_PATH } from "../constants/Constants"
-import { LOGIN_PATH } from "../constants/Constants"
-import { RESET_NAME_PATH} from "../constants/Constants"
-import { RESET_USERNAME_PATH } from "../constants/Constants"
-import { FINANCE_DASHBOARD } from "../constants/Constants"
+import { ACCOUNT_PATH } from "../constants/Constants";
+import { LOGIN_PATH } from "../constants/Constants";
+import { RESET_NAME_PATH } from "../constants/Constants";
+import { RESET_USERNAME_PATH } from "../constants/Constants";
+import { FINANCE_DASHBOARD } from "../constants/Constants";
 import { ADD_BUDGET_ITEM } from "../constants/Constants";
-import { CREATE_NEW_BUDGET } from "../constants/Constants"
-
+import { ADD_INCOME_ITEM } from "../constants/Constants";
+import { CREATE_NEW_BUDGET } from "../constants/Constants";
 
 function Routes() {
   return (
@@ -50,7 +51,8 @@ function Routes() {
         <Route path={LOGIN_PATH} component={LoginPage} />
         <Route path={FINANCE_DASHBOARD} component={FinanceDashboard} />
         <Route path={ADD_BUDGET_ITEM} component={BudgetItemForm} />
-        <Route path={CREATE_NEW_BUDGET} component={CreateBudget}/>
+        <Route path={ADD_INCOME_ITEM} component={IncomeItemForm} />
+        <Route path={CREATE_NEW_BUDGET} component={CreateBudget} />
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
