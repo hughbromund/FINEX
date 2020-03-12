@@ -58,35 +58,21 @@ class StockInfo extends Component {
     let tmpClose = "No Data";
     let tmpVol = "No Data";
 
-    if (
-      body.data["Time Series (Daily)"] != undefined &&
-      body.data["Time Series (Daily)"][this.getCurrentDate()] != undefined
-    ) {
-      tmpOpen =
-        "$" +
-        parseFloat(
-          body.data["Time Series (Daily)"][this.getCurrentDate()]["1. open"]
-        ).toFixed(2);
-      tmpHigh =
-        "$" +
-        parseFloat(
-          body.data["Time Series (Daily)"][this.getCurrentDate()]["2. high"]
-        ).toFixed(2);
-      tmpLow =
-        "$" +
-        parseFloat(
-          body.data["Time Series (Daily)"][this.getCurrentDate()]["3. low"]
-        ).toFixed(2);
-      tmpClose =
-        "$" +
-        parseFloat(
-          body.data["Time Series (Daily)"][this.getCurrentDate()]["4. close"]
-        ).toFixed(2);
-      tmpVol =
-        body.data["Time Series (Daily)"][this.getCurrentDate()]["5. volume"];
+    let dateStr = this.getCurrentDate();
+    let key = dateStr + "T00:00:00.000Z";
+
+    console.log("KEY: " + key);
+
+    console.log(body[key]);
+
+    if (body[key] != undefined) {
+      tmpOpen = "$" + parseFloat(body[key]["open"]).toFixed(2);
+      tmpHigh = "$" + parseFloat(body[key]["high"]).toFixed(2);
+      tmpLow = "$" + parseFloat(body[key]["low"]).toFixed(2);
+      tmpClose = "$" + parseFloat(body[key]["close"]).toFixed(2);
+      tmpVol = body[key]["volume"];
     }
 
-    // TODO: change state
     this.setState({ open: tmpOpen });
     this.setState({ high: tmpHigh });
     this.setState({ low: tmpLow });
