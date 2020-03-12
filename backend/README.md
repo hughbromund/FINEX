@@ -84,48 +84,36 @@ GET
 This represents the basic endpoint to get daily data for crypto  
 Requirements: some crypto code  
 Returns: JSON object containing quotes on 1 day interval or 400 if not found  
-Status: Working, but JSON currently DOESN'T match stocks. That's TODO  
+Status: Working 
 Bugs: None  
 
-JSON Format:  
 {  
-    "2020-03-08T00:00:00.000Z": {  
-        "market_open": "8885.25000000",  
-        "usd_open": "8885.25000000",  
-        "market_high": "8886.76000000",  
-        "usd_high": "8886.76000000",  
-        "market_low": "8149.27000000",  
-        "usd_low": "8149.27000000",  
-        "market_close": "8166.89000000",  
-        "usd_close": "8166.89000000",  
-        "volume": "72517.56090300",  
-        "cap": "72517.56090300"  
-&nbsp;&nbsp;&nbsp;&nbsp;}  
-}  
+    "2020-03-06T21:00:00.000Z": {  
+        "open": "162.2100",  
+        "high": "162.3100",  
+        "low": "159.2400",  
+        "close": "161.5800",  
+        "volume": "1149463"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
 
 ### /api/crypto/weekly/:code  
 GET  
 This represents the basic endpoint to get wekkly data for crypto  
 Requirements: some crypto code  
 Returns: JSON object containing quotes on 1 week interval or 400 if not found  
-Status: Working, but JSON currently DOESN'T match stocks. That's TODO  
+Status: Working  
 Bugs: None  
 
-JSON Format:  
 {  
-    "2020-03-08T00:00:00.000Z": {  
-        "market_open": "8885.25000000",  
-        "usd_open": "8885.25000000",  
-        "market_high": "8886.76000000",  
-        "usd_high": "8886.76000000",  
-        "market_low": "8149.27000000",  
-        "usd_low": "8149.27000000",  
-        "market_close": "8166.89000000",  
-        "usd_close": "8166.89000000",  
-        "volume": "72517.56090300",  
-        "cap": "72517.56090300"  
-&nbsp;&nbsp;&nbsp;&nbsp;}  
-}  
+    "2020-03-06T21:00:00.000Z": {  
+        "open": "162.2100",  
+        "high": "162.3100",  
+        "low": "159.2400",  
+        "close": "161.5800",  
+        "volume": "1149463"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
 
 ## Auth
 
