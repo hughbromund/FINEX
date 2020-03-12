@@ -60,6 +60,36 @@ JSON Format:
 &nbsp;&nbsp;&nbsp;&nbsp;}     
 } 
 
+### /api/stock/sma/:code/:interval/:series_type  
+GET  
+This represents the endpoint to get SMA (Simple moving average) data  
+Requirements: some stock code (Eventually can inlclude crypto)  
+Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
+Status: Working. Will need work to support crypto  
+Bugs: None   
+
+JSON Format:  
+{  
+    "2020-03-12T17:21:00.000Z": {  
+        "EMA": "159.4868"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
+
+### /api/stock/ema/:code/:interval/:series_type  
+GET  
+This represents the endpoint to get SMA (Exponential moving average) data  
+Requirements: some stock code (Eventually can inlclude crypto)  
+Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
+Status: Working. Will need work to support crypto  
+Bugs: None   
+
+JSON Format:  
+{  
+    "2020-03-12T17:21:00.000Z": {  
+        "EMA": "159.4868"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
+
 ## Crypto
 
 ### /api/crypto/auto/:input    
