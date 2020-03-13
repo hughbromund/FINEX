@@ -40,8 +40,11 @@ router.get('/api/crypto/daily/:code', cors(), cryptoController.getCryptoDaily);
 //retrieve crypto daily data endpoint
 router.get('/api/crypto/weekly/:code', cors(), cryptoController.getCryptoWeekly);
 
+//retrieve SMA data endpoint
+router.get('/api/stock/sma/:code/:interval/:series_type', cors(), stockController.getSMA);
 
-
+//retrieve EMA data endpoint
+router.get('/api/stock/ema/:code/:interval/:series_type', cors(), stockController.getEMA);
 
 //STUBS
 

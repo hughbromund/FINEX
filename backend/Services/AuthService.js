@@ -133,4 +133,4 @@ exports.updateBadColor = async function (req) {
 exports.updateMode = async function (req) {
     return await User.updateOne({username: req.user.username},
         {dark_mode: req.body.dark_mode}, (err, user) => {}).exec();
-}
+    }
