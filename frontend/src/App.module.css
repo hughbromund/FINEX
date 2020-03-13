@@ -13,6 +13,22 @@
   */ 
 }
 
+.darkMode {
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  background: black;
+  height: 100vh;
+  width: 100vw;
+}
+
+.lightMode {
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  background: white;
+  height: 100vh;
+  width: 100vw;
+}
+
 .navContainer {
   /* margin-bottom: 100px; */
 }

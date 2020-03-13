@@ -226,20 +226,20 @@ class SearchBar extends Component {
                         }} >
                 <ButtonToolbar>
                     <ToggleButtonGroup name="radio" toggle className={classes.toggle} defaultValue={this.state.selected}>
-                            <ToggleButton variant="success" 
-                                onClick={this.handleStocksToggle} 
-                                value="Stocks" 
-                                className={classes.toggleButton} 
-                                type="radio" 
-                                name="radio" 
-                                defaultChecked> Stocks</ToggleButton>
-                            <ToggleButton variant="success" 
-                                onClick={this.handleCryptoToggle} 
-                                value="Crypto" 
-                                className={classes.toggleButton} 
-                                type="radio" 
-                                name="radio"> Crypto </ToggleButton>                    
-                            </ToggleButtonGroup>
+                        <ToggleButton variant="success" 
+                            onClick={this.handleStocksToggle} 
+                            value="Stocks" 
+                            className={classes.toggleButton} 
+                            type="radio" 
+                            name="radio" 
+                            defaultChecked> Stocks</ToggleButton>
+                        <ToggleButton variant="success" 
+                            onClick={this.handleCryptoToggle} 
+                            value="Crypto" 
+                            className={classes.toggleButton} 
+                            type="radio" 
+                            name="radio"> Crypto </ToggleButton>                    
+                    </ToggleButtonGroup>
                 </ButtonToolbar>
                 <Dropdown className={classes.bar} show={this.state.showDropdown}>
                     <Dropdown.Toggle as={CustomToggle} id="toggle"></Dropdown.Toggle>
