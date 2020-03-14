@@ -9,7 +9,7 @@ import AccountPage from "./components/AccountPage";
 import HomePage from "./components/HomePage";
 
 // Imports for dark mode toggle (to be moved)
-import {DarkModeProvider, useDarkModeState, useDarkModeToggle} from "./themes/DarkModeContext";
+import {DarkModeProvider, useDarkModeState, useDarkModeToggle} from "./contexts/DarkModeContext";
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'

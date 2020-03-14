@@ -251,8 +251,6 @@ class SearchBar extends Component {
                         onClick={() => history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)}> 
                     Search
                 </Button>
-                <p>{this.state.auto}</p>
-                <p>{this.state.showDropdown}</p>
             </div>
         );
     }
