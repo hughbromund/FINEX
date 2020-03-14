@@ -1,7 +1,8 @@
-import React, {createContext, useReducer, useContext} from 'react';
+import React, {createContext, useReducer, useContext, useEffect} from 'react';
 
 const DarkModeContext = createContext({isDarkMode: false});
 const DarkModeToggleContext = createContext();
+const localState = JSON.parse(localStorage.getItem("darkMode"));
 
 const darkModeReducer = (state, action) => {
     console.log(action.type);
@@ -19,7 +20,12 @@ const darkModeReducer = (state, action) => {
 }
 
 const DarkModeProvider = ({children}) => {
-    const [state, toggle] = useReducer(darkModeReducer, {isDarkMode: false})
+    const [state, toggle] = useReducer(darkModeReducer, localState || {isDarkMode: false})
+
+    useEffect(() => {
+        localStorage.setItem("darkMode", JSON.stringify(state));
+      }, [state]);
+
     return (
         <DarkModeContext.Provider value={state}>
             <DarkModeToggleContext.Provider value={toggle}>

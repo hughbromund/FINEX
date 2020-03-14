@@ -18,7 +18,6 @@
   color: white;
   background: black;
   height: 100vh;
-  width: 100vw;
 }
 
 .lightMode {
@@ -26,7 +25,6 @@
   color: black;
   background: white;
   height: 100vh;
-  width: 100vw;
 }
 
 .navContainer {
