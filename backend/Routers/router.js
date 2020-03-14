@@ -86,7 +86,8 @@ router.post('/user/updateBadColor', cors(), authController.updateBadColor);
 router.post('/user/lightDarkMode', cors(), authController.updateMode);
 
 //get good/bad color hex value
-
+router.get('/user/getGoodColor', cors(), authController.getGoodColor);
+router.get('/user/getBadColor', cors(), authController.getBadColor);
 
 
 //FINANCE
