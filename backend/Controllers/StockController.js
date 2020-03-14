@@ -60,6 +60,51 @@ exports.getEMA = async function (req, res, next) {
     }
 }
 
+// function to validate, get, and return alpha vantage RSI stock info
+exports.getRSI = async function (req, res, next) {
+    let check = verifyAnalyticsParameters(req.params.code, req.params.interval, req.params.series_type);
+    if (check) {
+        return res.status(400).json({ status: 400, message: check });
+    }
+
+    try {
+        let stock = await stockService.getRSI(req.params.code, req.params.interval, req.params.series_type);
+        return res.status(200).json(stock);
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
+
+// function to validate, get, and return alpha vantage Bbands stock info
+exports.getBbands = async function (req, res, next) {
+    let check = verifyAnalyticsParameters(req.params.code, req.params.interval, req.params.series_type);
+    if (check) {
+        return res.status(400).json({ status: 400, message: check });
+    }
+
+    try {
+        let stock = await stockService.getBbands(req.params.code, req.params.interval, req.params.series_type);
+        return res.status(200).json(stock);
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
+
+// function to validate, get, and return alpha vantage MACd stock info
+exports.getMACD = async function (req, res, next) {
+    let check = verifyAnalyticsParameters(req.params.code, req.params.interval, req.params.series_type);
+    if (check) {
+        return res.status(400).json({ status: 400, message: check });
+    }
+
+    try {
+        let stock = await stockService.getMACD(req.params.code, req.params.interval, req.params.series_type);
+        return res.status(200).json(stock);
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
+
 // helper function to verify the parameters for analytics endpoints
 function verifyAnalyticsParameters(code, interval, series_type) {
     //check interval
