@@ -83,6 +83,45 @@ exports.user = async function (req, res, next) {
     }
 }
 
+
+exports.getGoodColor = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let color_hex = await authService.getGoodColor(req)
+            res.status(200).json({
+                good_color = color_hex
+            })
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({status: "An error occured."})
+        }
+    }
+    else {
+        res.status(400).json({status: "No user logged in."})
+    }
+}
+
+
+exports.getBadColor = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let color_hex = await authService.getBadColor(req)
+            res.status(200).json({
+                good_color = color_hex
+            })
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({status: "An error occured."})
+        }
+    }
+    else {
+        res.status(400).json({status: "No user logged in."})
+    }
+}
+
+
 exports.logout = async function (req, res, next) {
     try {
         let status = await authService.logout(req, res, next);
