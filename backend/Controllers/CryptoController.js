@@ -18,7 +18,7 @@ exports.getAutoCompleteEmpty = async function (req, res, next) {
 exports.getCryptoDaily = async function (req, res, next) {
     try {
         let crypto = await cryptoService.getCryptoDaily(req.params.code);
-        return res.status(200).json(crypto.data);
+        return res.status(200).json(crypto);
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }
@@ -28,7 +28,7 @@ exports.getCryptoDaily = async function (req, res, next) {
 exports.getCryptoWeekly = async function (req, res, next) {
     try {
         let crypto = await cryptoService.getCryptoWeekly(req.params.code);
-        return res.status(200).json(crypto.data);
+        return res.status(200).json(crypto);
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }

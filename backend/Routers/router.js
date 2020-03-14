@@ -40,8 +40,11 @@ router.get('/api/crypto/daily/:code', cors(), cryptoController.getCryptoDaily);
 //retrieve crypto daily data endpoint
 router.get('/api/crypto/weekly/:code', cors(), cryptoController.getCryptoWeekly);
 
+//retrieve SMA data endpoint
+router.get('/api/stock/sma/:code/:interval/:series_type', cors(), stockController.getSMA);
 
-
+//retrieve EMA data endpoint
+router.get('/api/stock/ema/:code/:interval/:series_type', cors(), stockController.getEMA);
 
 //STUBS
 
@@ -77,6 +80,7 @@ router.get('/auth/user', cors(), authController.user);
 //update email
 router.put('/auth/updateEmail', cors(), authController.updateEmail);
 router.put('/auth/updateName', cors(), authController.updateName);
+router.put('/auth/updatePassword', cors(), authController.updatePassword);
 
 //change color preferences
 router.post('/user/updateGoodColor', cors(), authController.updateGoodColor);

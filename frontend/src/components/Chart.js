@@ -33,17 +33,19 @@ export default class Chart extends React.Component {
     //   this.setState({ data });
     // });
 
-    console.log(this.props.symbol)
+    console.log(this.props.symbol);
 
     var myData = await getData(this.props.symbol).catch(err => {
-      console.log("Stock not found for chart.")
-    })
+      console.log("Stock not found for chart.");
+    });
     console.log(myData);
     this.setState({ data: myData, ticker: this.props.symbol, header: "" });
   }
   render() {
     if (this.state == null) {
       return <div>Loading...</div>;
+    } else if (this.state.data[0]["date"] == null) {
+      return <div>No data found</div>;
     }
     return (
       <div>

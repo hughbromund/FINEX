@@ -60,6 +60,36 @@ JSON Format:
 &nbsp;&nbsp;&nbsp;&nbsp;}     
 } 
 
+### /api/stock/sma/:code/:interval/:series_type  
+GET  
+This represents the endpoint to get SMA (Simple moving average) data  
+Requirements: some stock code (Eventually can inlclude crypto)  
+Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
+Status: Working. Will need work to support crypto  
+Bugs: None   
+
+JSON Format:  
+{  
+    "2020-03-12T17:21:00.000Z": {  
+        "EMA": "159.4868"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
+
+### /api/stock/ema/:code/:interval/:series_type  
+GET  
+This represents the endpoint to get SMA (Exponential moving average) data  
+Requirements: some stock code (Eventually can inlclude crypto)  
+Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
+Status: Working. Will need work to support crypto  
+Bugs: None   
+
+JSON Format:  
+{  
+    "2020-03-12T17:21:00.000Z": {  
+        "EMA": "159.4868"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
+
 ## Crypto
 
 ### /api/crypto/auto/:input    
@@ -84,48 +114,36 @@ GET
 This represents the basic endpoint to get daily data for crypto  
 Requirements: some crypto code  
 Returns: JSON object containing quotes on 1 day interval or 400 if not found  
-Status: Working, but JSON currently DOESN'T match stocks. That's TODO  
+Status: Working 
 Bugs: None  
 
-JSON Format:  
 {  
-    "2020-03-08T00:00:00.000Z": {  
-        "market_open": "8885.25000000",  
-        "usd_open": "8885.25000000",  
-        "market_high": "8886.76000000",  
-        "usd_high": "8886.76000000",  
-        "market_low": "8149.27000000",  
-        "usd_low": "8149.27000000",  
-        "market_close": "8166.89000000",  
-        "usd_close": "8166.89000000",  
-        "volume": "72517.56090300",  
-        "cap": "72517.56090300"  
-&nbsp;&nbsp;&nbsp;&nbsp;}  
-}  
+    "2020-03-06T21:00:00.000Z": {  
+        "open": "162.2100",  
+        "high": "162.3100",  
+        "low": "159.2400",  
+        "close": "161.5800",  
+        "volume": "1149463"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
 
 ### /api/crypto/weekly/:code  
 GET  
 This represents the basic endpoint to get wekkly data for crypto  
 Requirements: some crypto code  
 Returns: JSON object containing quotes on 1 week interval or 400 if not found  
-Status: Working, but JSON currently DOESN'T match stocks. That's TODO  
+Status: Working  
 Bugs: None  
 
-JSON Format:  
 {  
-    "2020-03-08T00:00:00.000Z": {  
-        "market_open": "8885.25000000",  
-        "usd_open": "8885.25000000",  
-        "market_high": "8886.76000000",  
-        "usd_high": "8886.76000000",  
-        "market_low": "8149.27000000",  
-        "usd_low": "8149.27000000",  
-        "market_close": "8166.89000000",  
-        "usd_close": "8166.89000000",  
-        "volume": "72517.56090300",  
-        "cap": "72517.56090300"  
-&nbsp;&nbsp;&nbsp;&nbsp;}  
-}  
+    "2020-03-06T21:00:00.000Z": {  
+        "open": "162.2100",  
+        "high": "162.3100",  
+        "low": "159.2400",  
+        "close": "161.5800",  
+        "volume": "1149463"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
 
 ## Auth
 
@@ -297,11 +315,6 @@ JSON Format (Output):
 {
     "good_color": "some hash value"
 }
-or
-{
-    "status": "No user logged in."
-}
-
 
 ### /user/getBadColor
 GET
@@ -320,6 +333,23 @@ or
     "status": "No user logged in."
 }
 
+### /auth/updatePassword  
+PUT  
+This represents updating user password endpoint  
+Requirements: "password" in JSON
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in and a JSON object with "status": "password updated" otherwise  
+Status: Working  
+Bugs: ??  
+
+JSON Format (Input):
+{
+    "password": "my-secret-password"
+}
+
+or 
+{
+    "status": "No user logged in."
+}
 
 ## Finance
 
