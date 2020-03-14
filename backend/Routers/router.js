@@ -46,6 +46,15 @@ router.get('/api/stock/sma/:code/:interval/:series_type', cors(), stockControlle
 //retrieve EMA data endpoint
 router.get('/api/stock/ema/:code/:interval/:series_type', cors(), stockController.getEMA);
 
+//retrieve EMA data endpoint
+router.get('/api/stock/rsi/:code/:interval/:series_type', cors(), stockController.getRSI);
+
+//retrieve EMA data endpoint
+router.get('/api/stock/bbands/:code/:interval/:series_type', cors(), stockController.getBbands);
+
+//retrieve EMA data endpoint
+router.get('/api/stock/macd/:code/:interval/:series_type', cors(), stockController.getMACD);
+
 //STUBS
 
 
