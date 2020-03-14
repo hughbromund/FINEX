@@ -285,6 +285,42 @@ or
     "status": "No user logged in."
 }
 
+### /user/getGoodColor
+GET
+This represents getting the good color preference on a user account
+Requirements: none
+Returns: Returns 200 and the good color hex value on success and an error otherwise
+Status: Teasting
+Bugs: none as of now
+
+JSON Format (Output):
+{
+    "good_color": "some hash value"
+}
+or
+{
+    "status": "No user logged in."
+}
+
+
+### /user/getBadColor
+GET
+This represents getting the bad color preference on a user account
+Requirements: none
+Returns: Returns 200 and the bad color hex value on success and an error otherwise
+Status: Testing
+Bugs: none as of now
+
+JSON Format (Output):
+{
+    "bad_color": "some hash value"
+}
+or
+{
+    "status": "No user logged in."
+}
+
+
 ## Finance
 
 ### /finance/budget  
