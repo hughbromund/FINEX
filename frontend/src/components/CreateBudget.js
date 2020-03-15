@@ -506,9 +506,10 @@ export default class CreateBudget extends Component {
               <div>
                 <br />
                 <Alert variant="danger">
-                  You are <b>Over Budget</b>! You cannot submit while Over
-                  Budget. Please either increase your Total Budget or decrease
-                  spending in different categories.
+                  You are <b>Over Budget</b> by{" "}
+                  <b>${this.getBudgetUsed() - this.state.totalBudget}</b>! You
+                  cannot submit while Over Budget. Please either increase your
+                  Total Budget or decrease spending in different categories.
                 </Alert>
               </div>
             </Collapse>
@@ -579,7 +580,9 @@ export default class CreateBudget extends Component {
                 <br />
                 <Alert variant="warning">
                   You have not used all of your Total Budget yet. If you Submit,
-                  leftover money will go into the <b>Other</b> category.
+                  the leftover{" "}
+                  <b>${this.state.totalBudget - this.getBudgetUsed()}</b> will
+                  go into the <b>Other</b> category.
                 </Alert>
               </div>
             </Collapse>
