@@ -63,7 +63,7 @@ JSON Format:
 ### /api/stock/sma/:code/:interval/:series_type  
 GET  
 This represents the endpoint to get SMA (Simple moving average) data  
-Requirements: some stock code (Eventually can inlclude crypto)  
+Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
 Bugs: None   
@@ -71,14 +71,14 @@ Bugs: None
 JSON Format:  
 {  
     "2020-03-12T17:21:00.000Z": {  
-        "EMA": "159.4868"  
+&nbsp;&nbsp;    "SMA": "159.4868"  
 &nbsp;&nbsp;&nbsp;&nbsp;}     
 } 
 
 ### /api/stock/ema/:code/:interval/:series_type  
 GET  
 This represents the endpoint to get SMA (Exponential moving average) data  
-Requirements: some stock code (Eventually can inlclude crypto)  
+Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
 Bugs: None   
@@ -86,7 +86,56 @@ Bugs: None
 JSON Format:  
 {  
     "2020-03-12T17:21:00.000Z": {  
-        "EMA": "159.4868"  
+&nbsp;&nbsp;   "EMA": "159.4868"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
+
+### /api/stock/rsi/:code/:interval/:series_type  
+GET  
+This represents the endpoint to get RSI (relative strength index) data  
+Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
+Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
+Status: Working. Will need work to support crypto  
+Bugs: None   
+
+JSON Format:  
+{  
+    "2020-03-12T17:21:00.000Z": {  
+&nbsp;&nbsp;    "RSI": "37.3574"  
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
+
+### /api/stock/bbands/:code/:interval/:series_type  
+GET  
+This represents the endpoint to get Bollinger Bands data  
+Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
+Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
+Status: Working. Will need work to support crypto  
+Bugs: None   
+
+JSON Format:  
+{  
+    "2020-03-12T17:21:00.000Z": {  
+&nbsp;&nbsp;    "Real Lower Band": "141.6096",
+&nbsp;&nbsp;    "Real Upper Band": "193.3689",
+&nbsp;&nbsp;    "Real Middle Band": "167.4893" 
+&nbsp;&nbsp;&nbsp;&nbsp;}     
+} 
+
+### /api/stock/macd/:code/:interval/:series_type  
+GET  
+This represents the endpoint to get MACD (moving average convergence / divergence) data  
+Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
+Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
+Status: Working. Will need work to support crypto  
+Bugs: None   
+
+JSON Format:  
+{  
+    "2020-03-12T17:21:00.000Z": {  
+&nbsp;&nbsp;    "MACD_Signal": "-3.2184",
+&nbsp;&nbsp;    "MACD_Hist": "-2.7352",
+&nbsp;&nbsp;    "MACD": "-5.9537" 
 &nbsp;&nbsp;&nbsp;&nbsp;}     
 } 
 
