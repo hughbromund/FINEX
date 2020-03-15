@@ -26,8 +26,13 @@ Personal finance tools are very segmented and can be difficult to navigate. We w
 
 ## Installation
 
-1) `./install.sh`
-2) `npm run start`
-3) Navigate to `localhost:3000`
+1) Clone the repo
+2) `./install.sh`
+3) `npm run start`
+4) Open Google Chrome without CORS enforcement
+    * Windows: `"[PATH_TO_CHROME]\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp`
+    * OSX: `open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security`
+    * Linux: `google-chrome --disable-web-security`
+5) Navigate to `localhost:3000`
 
 ### CS307 - Team 8
