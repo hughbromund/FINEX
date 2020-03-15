@@ -24,4 +24,10 @@ Personal finance tools are very segmented and can be difficult to navigate. We w
 
 [Niyati Sriram](https://github.com/niyativs)
 
+## Installation
+
+1) `./install.sh`
+2) `npm run start`
+3) Navigate to `localhost:3000`
+
 ### CS307 - Team 8
