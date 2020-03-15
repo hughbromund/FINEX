@@ -4,12 +4,19 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
+import Collapse from "react-bootstrap/Collapse";
+import Table from "react-bootstrap/Table";
 
 import classes from "./CreateBudget.module.css";
 
 export default class CreateBudget extends Component {
   constructor(props) {
     super(props);
+
+    const date = new Date(); // 2009-11-10
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
 
     this.state = {
       totalBudget: 0,
@@ -21,7 +28,9 @@ export default class CreateBudget extends Component {
       savingsBudget: 0,
       personalBudget: 0,
       entertainmentBudget: 0,
-      otherBudget: 0
+      otherBudget: 0,
+      currentMonth: month,
+      currentYear: year
     };
     this.handleTotalBudgetChange = this.handleTotalBudgetChange.bind(this);
     this.getBudgetUsed = this.getBudgetUsed.bind(this);
@@ -61,6 +70,9 @@ export default class CreateBudget extends Component {
     );
     this.getPersonalVariant = this.getPersonalVariant.bind(this);
     this.getButtonActive = this.getButtonActive.bind(this);
+
+    this.isOverBudget = this.isOverBudget.bind(this);
+    this.isMoneyLeftOver = this.isMoneyLeftOver.bind(this);
   }
 
   getBudgetUsed() {
@@ -211,6 +223,22 @@ export default class CreateBudget extends Component {
     }
   }
 
+  isOverBudget() {
+    if (Number(this.state.totalBudget) - Number(this.getBudgetUsed()) < 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isMoneyLeftOver() {
+    if (Number(this.state.totalBudget) - Number(this.getBudgetUsed()) > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
     return (
       <div>
@@ -221,6 +249,12 @@ export default class CreateBudget extends Component {
               <p>
                 Using <b>FINEX</b> you can budget your month in categories and
                 then get feedback as the month progresses.
+              </p>
+              <p>
+                You are creating a budget for{" "}
+                <b>
+                  {this.state.currentMonth} {this.state.currentYear}
+                </b>
               </p>
             </Jumbotron>
             <Form>
@@ -243,14 +277,23 @@ export default class CreateBudget extends Component {
             <br />
             Now, decide how much money you want to spend in each category.
             <br />
-            You have used ${this.getBudgetUsed()} of your $
-            {this.state.totalBudget} budget. ($
-            {this.state.totalBudget - this.getBudgetUsed()} left)
+            You have used <b>${this.getBudgetUsed()}</b> of your{" "}
+            <b>${this.state.totalBudget}</b> budget. (
+            <b>${this.state.totalBudget - this.getBudgetUsed()}</b> left)
             <ProgressBar
               max={this.state.totalBudget}
               now={this.getBudgetUsed()}
               variant={this.getVariant()}
             />
+            <Collapse in={this.isOverBudget()}>
+              <div>
+                <br />
+                <Alert variant="danger">
+                  You are <b>Over Budget</b>! Either increase your Total Budget,
+                  or decrease your category spending to fix this error.
+                </Alert>
+              </div>
+            </Collapse>
             <br />
             <Form>
               <Form.Group>
@@ -459,6 +502,90 @@ export default class CreateBudget extends Component {
               variant={this.getOtherVariant()}
             />
             <br />
+            <Collapse in={this.isOverBudget()}>
+              <div>
+                <br />
+                <Alert variant="danger">
+                  You are <b>Over Budget</b> by{" "}
+                  <b>${this.getBudgetUsed() - this.state.totalBudget}</b>! You
+                  cannot submit while Over Budget. Please either increase your
+                  Total Budget or decrease spending in different categories.
+                </Alert>
+              </div>
+            </Collapse>
+            <Collapse in={!this.isOverBudget() && !this.isMoneyLeftOver()}>
+              <div>
+                <br />
+                <Alert variant="success">
+                  Your budget is looking good! If you are finished setting up
+                  your categories, click Submit below. <br />
+                  Here is a summary of your budget: <br />
+                  <Table>
+                    <thead>
+                      <th>Category</th>
+                      <th>Budget</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Housing</td>
+                        <td>{this.state.housingBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Utilities</td>
+                        <td>{this.state.utilitiesBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Transportation</td>
+                        <td>{this.state.transportationBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Food</td>
+                        <td>{this.state.foodBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Medical</td>
+                        <td>{this.state.medicalBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Savings</td>
+                        <td>{this.state.savingsBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Personal</td>
+                        <td>{this.state.personalBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Entertainment</td>
+                        <td>{this.state.entertainmentBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>Other</td>
+                        <td>{this.state.otherBudget}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <b>Total</b>
+                        </td>
+                        <td>
+                          <b>{this.state.totalBudget}</b>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Alert>
+              </div>
+            </Collapse>
+            <Collapse in={this.isMoneyLeftOver()}>
+              <div>
+                <br />
+                <Alert variant="warning">
+                  You have not used all of your Total Budget yet. If you Submit,
+                  the leftover{" "}
+                  <b>${this.state.totalBudget - this.getBudgetUsed()}</b> will
+                  go into the <b>Other</b> category.
+                </Alert>
+              </div>
+            </Collapse>
             <Button
               disabled={this.getButtonActive()}
               active={this.getButtonActive()}
