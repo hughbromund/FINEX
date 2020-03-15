@@ -91,6 +91,9 @@ router.put('/auth/updateEmail', cors(), authController.updateEmail);
 router.put('/auth/updateName', cors(), authController.updateName);
 router.put('/auth/updatePassword', cors(), authController.updatePassword);
 
+//reset password
+router.put('/auth/resetPassword', cors(), authController.resetPassword);
+
 //change color preferences
 router.post('/user/updateGoodColor', cors(), authController.updateGoodColor);
 router.post('/user/updateBadColor', cors(), authController.updateBadColor);

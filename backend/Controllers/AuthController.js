@@ -201,6 +201,25 @@ exports.updatePassword = async function (req, res, next) {
     }
 }
 
+exports.resetPassword = async function (req, res, next) {
+    const { email } = req.body;
+    if ( email == null ) {
+        res.status(400).json({status: "email not passed!"})
+    } 
+    else {
+        try {
+            let result = await authService.resetPassword(req);
+            //console.log(result)
+            res.status(result.code).json({status: result.status})
+        }
+        catch(e) {
+            console.log(e)
+            res.status(400).json({status: "An error occured."})
+        }
+    }
+}
+
+
 exports.updateMode = async function (req, res, next) {
     const { dark_mode } = req.body;
     //console.log(req.user.username)

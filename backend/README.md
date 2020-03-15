@@ -317,6 +317,31 @@ or
     "status": "No user logged in."
 }
 
+### /auth/resetPassword  
+PUT  
+This represents reseting user password endpoint  
+Requirements: "email" in JSON
+Returns: Returns 400 and "status": "email not passed!" JSON if no email passed and a JSON object with "status": "If there was a user associated with that email address, an email was sent to them" otherwise  
+Status: Working  
+Bugs: ??  
+
+JSON Format (Input):
+{
+    "email": "basheescript@purdue.edu"
+}
+
+JSON Format (Output):
+
+{
+    "status": "If there was a user associated with that email address, an email was sent to them"
+}
+
+or 
+
+{
+    "status": "email not passed!"
+}
+
 ## Finance
 
 ### /finance/budget  
