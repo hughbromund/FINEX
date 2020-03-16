@@ -35,3 +35,4 @@ export const GET_EXPENSE_LIST = BASE + "/finance/expense";
 export const GET_OVERALL_BUDGET = BASE + "/finance/total";
 export const GET_INCOME_LIST = BASE + "/finance/income";
 export const GET_CATEGORY_BUDGET = BASE + "/finance/budget";
+export const PUT_RESET_PASSWORD = BASE + "/auth/resetPassword";
