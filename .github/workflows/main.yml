@@ -20,6 +20,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: cd frontend
+        working-directory: ./frontend
       - run: npm ci
       - run: npm run build
