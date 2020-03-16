@@ -1,0 +1,28 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  pull_request:
+    branches:
+      - development
+      - master
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test_frontend_compiles:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./frontend
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+        working-directory: ${{env.working-directory}}
+      - run: npm run build
+        working-directory: ${{env.working-directory}}
