@@ -23,5 +23,9 @@
   "homepage": "https://github.com/hughbromund/FINEX#readme",
   "devDependencies": {
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "react-color": "^2.18.0",
+    "zxcvbn": "^4.4.2"
   }
 }
