@@ -27,7 +27,7 @@ export default class ForgotPassword extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    console.log(this.state.email);
+    // console.log(this.state.email);
 
     var response = await fetch(PUT_RESET_PASSWORD, {
       method: "PUT",
@@ -54,7 +54,7 @@ export default class ForgotPassword extends Component {
 
     // var body = await response.json();
 
-    console.log(response);
+    // console.log(response);
   };
 
   handleEmailChange(event) {
