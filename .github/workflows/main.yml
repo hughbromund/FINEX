@@ -6,22 +6,21 @@ name: CI
 # events but only for the master branch
 on:
   pull_request:
-    branches: [development]
+    branches:
+      - development
+      - master
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  
+  test_pull_request
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Test if Frontend Compiles
-        run: |
-          cd frontend
-          npm run build
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: cd frontend
+      - run: npm ci
+      - run: npm run build
