@@ -298,6 +298,90 @@ or
     "status": "No user logged in."
 }
 
+### /user/updateGoodColor
+POST
+This represents updating the good color preference on a user account
+Requirements: "good_color" in JSON
+Returns: Returns 400 and "status": "new good color not passed!" JSON if user does not pass a color preference
+and 200 "good color updated" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "good_color": "some hash value"
+}
+or
+{
+    "status": "No user logged in."
+}
+
+### /user/updateBadColor
+POST
+This represents updating the bad color preference on a user account
+Requirements: "bad_color" in JSON
+Returns: Returns 400 and "status": "new bad color not passed!" JSON if user does not pass a color preference
+and 200 "bad color updated" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "bad_color": "some hash value"
+}
+or
+{
+    "status": "No user logged in."
+}
+
+### /user/lightDarkMode
+POST
+This represents updating the light/dark mode preference on a user account
+Requirements: "dark_mode" in JSON
+Returns: Returns 400 and "status": "mode preference not passed!" JSON if user does not pass a boolean value
+and 200 "mode updated" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "bad_color": true/false
+}
+or
+{
+    "status": "No user logged in."
+}
+
+### /user/getGoodColor
+GET
+This represents getting the good color preference on a user account
+Requirements: none
+Returns: Returns 200 and the good color hex value on success and an error otherwise
+Status: Teasting
+Bugs: none as of now
+
+JSON Format (Output):
+{
+    "good_color": "some hash value"
+}
+
+### /user/getBadColor
+GET
+This represents getting the bad color preference on a user account
+Requirements: none
+Returns: Returns 200 and the bad color hex value on success and an error otherwise
+Status: Testing
+Bugs: none as of now
+
+JSON Format (Output):
+{
+    "bad_color": "some hash value"
+}
+or
+{
+    "status": "No user logged in."
+}
+
 ### /auth/updatePassword  
 PUT  
 This represents updating user password endpoint  
@@ -312,7 +396,6 @@ JSON Format (Input):
 }
 
 or 
-
 {
     "status": "No user logged in."
 }
@@ -438,4 +521,50 @@ or
 
 {
     "status": "No user logged in."
+}
+
+### /transaction/newTransaction
+POST
+This represents adding a new transaction 
+Requirements: "username", "type", "cost", "name", and "date" in JSON. If date is not specified, the default
+current date JSON will be added
+Returns: Returns 400 and error if an error occurs and a JSON representing the new transaction otherwise
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "username": "username",
+    "type": "type",
+    "cost": "cost",
+    "name": "name",
+    "date": "date"
+}
+
+### /budget/createBudget
+POST
+This represents creating a new budget
+Requirements: "username", "month", "year", "total", "housing", "utilities", "transportation", "food", "medical", 
+"savings", "personal", "entertainment", "other", "date" in JSON. If date is not specified, the default
+current date JSON will be added
+Returns: Returns 400 and error if an error occurs and a JSON representing the new budget otherwise
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "username": "username",
+    "month": "month",
+    "year": "year",
+    "total": "total",
+    "housing": "housing",
+    "utilities": "utilities",
+    "transportation": "transportation",
+    "food": "food",
+    "medical": "medical",
+    "savings": "savings",
+    "personal": "personal",
+    "entertainment": "entertainment",
+    "other": "other",
+    "date": "date"
 }

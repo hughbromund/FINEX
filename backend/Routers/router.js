@@ -101,6 +101,10 @@ router.post('/user/updateBadColor', cors(), authController.updateBadColor);
 //update dark/light mode
 router.post('/user/lightDarkMode', cors(), authController.updateMode);
 
+//get good/bad color hex value
+router.get('/user/getGoodColor', cors(), authController.getGoodColor);
+router.get('/user/getBadColor', cors(), authController.getBadColor);
+
 
 //FINANCE
 
@@ -118,5 +122,8 @@ router.get('/finance/total', cors(), financeController.totalStub);
 
 //insert new transaction 
 router.post('/transaction/newTransaction', cors(), financeController.insertTransaction);
+
+//create new budget
+router.post('/budget/createBudget', cors(), financeController.createBudget);
 
 module.exports = router;

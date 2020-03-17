@@ -1,8 +1,10 @@
 var transactionService = require('../Services/TransactionService.js')  
 const Transaction = require('../database/models/transactions');
+var budgetService = require('../Services/BudgetService.js')
+const Budget = require('../database/models/budget')
 
 
-
+/*
 exports.budgetStub = async function (req, res, next) {
     if (req.user) {
         res.status(200).json([
@@ -20,7 +22,7 @@ exports.budgetStub = async function (req, res, next) {
         res.status(400).json({status: "No user logged in."})
     }
 }
-
+*/
 
 exports.insertTransaction = async function (req, res, next) {
     const { username, type, cost, name, date } = req.body
@@ -29,6 +31,24 @@ exports.insertTransaction = async function (req, res, next) {
         try {
             let result = await transactionService.insertTransaction(req);
             res.status(200).json({status: "new transaction inserted"})
+        } catch(e) {
+            res.status(400).json({status: "an error occurred"})
+        }
+    }
+    else {
+        res.status(400).json({status: "incomplete fields"})
+    }
+}
+
+exports.createBudget = async function (req, res, next) {
+    const { username, month, year, total, housing, utilities, transportation, food, medical, 
+        savings, personal, entertainment, other, date } = req.body
+    //console.log(req.user.username)
+    if ( username && month && year && total && housing && utilities && transportation && food && medical &&
+        savings && personal && entertainment && other && date ) {
+        try {
+            let result = await budgetService.createBudget(req);
+            res.status(200).json({status: "new budget created"})
         } catch(e) {
             res.status(400).json({status: "an error occurred"})
         }
