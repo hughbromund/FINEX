@@ -14,7 +14,6 @@ import {DarkModeContext, DarkModeProvider, useDarkModeState, useDarkModeToggle} 
  * summary page.
  */
 class StockSearch extends Component {
-
     render() {
         return (
             <div className={classes.wrapper}>
