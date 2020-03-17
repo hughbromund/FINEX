@@ -40,7 +40,7 @@ const useDarkModeState = () => {
     if (context === undefined) {
       throw new Error('useCountState must be used within a DarkModeProvider')
     }
-    return context
+    return context;
 }
 
 const useDarkModeToggle = () => {
@@ -48,7 +48,7 @@ const context = useContext(DarkModeToggleContext)
 if (context === undefined) {
     throw new Error('useDarkModeToggle must be used within a DarkModeProvider')
 }
-return context
+return context;
 }
 
-export {DarkModeProvider, useDarkModeState, useDarkModeToggle};
+export {DarkModeContext, DarkModeProvider, useDarkModeState, useDarkModeToggle};

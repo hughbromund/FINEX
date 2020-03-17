@@ -7,9 +7,9 @@ import ResetEmail from "./components/ResetEmail";
 import Routes from "./routing/Routes";
 import AccountPage from "./components/AccountPage";
 import HomePage from "./components/HomePage";
+import {DarkModeContext, DarkModeProvider, useDarkModeState, useDarkModeToggle} from "./contexts/DarkModeContext";
 
 // Imports for dark mode toggle (to be moved)
-import {DarkModeProvider, useDarkModeState, useDarkModeToggle} from "./contexts/DarkModeContext";
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
@@ -41,19 +41,13 @@ function Toggles() {
 
 function BodyWrapper({children}) {
   const {isDarkMode} = useDarkModeState();
-  if (isDarkMode) {
-    return (
-      <div className={classes.darkMode}>
-        {children}
-      </div>
-    )
-  } else {
-    return (
-      <div className={classes.lightMode}>
-        {children}
-      </div>
-    )
-  }
+  let newClass = classes.lightMode;
+  if (isDarkMode) newClass = classes.darkMode;
+  return (
+    <div className={newClass}>
+      {children}
+    </div>
+  )
 }
 
 class App extends Component {
@@ -75,5 +69,6 @@ render() {
     );
   }
 }
+
 
 export default App;

@@ -6,6 +6,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button';
 import { STOCK_LIST_API } from '../../constants/Constants';
 import SearchBar from '../SearchBar/SearchBar';
+import {DarkModeContext, DarkModeProvider, useDarkModeState, useDarkModeToggle} from "../../contexts/DarkModeContext";
 
 /**
  * This page is a page where the user may search for a stock.
@@ -18,7 +19,7 @@ class StockSearch extends Component {
         return (
             <div className={classes.wrapper}>
                 <div className={classes.innerDiv}>
-                    <Jumbotron className={classes.jumbo}>
+                    <Jumbotron className={this.context.isDarkMode ? classes.jumboDark : classes.jumboLight}>
                             <h1>Welcome to FINEX's Stock Search Page!</h1>
                             <p>
                                 Below, you may search for a stock by symbol or name. Clicking on the stock will bring you to its own, 
@@ -34,4 +35,5 @@ class StockSearch extends Component {
     }
 }
 
+StockSearch.contextType = DarkModeContext;
 export default StockSearch;

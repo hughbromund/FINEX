@@ -10,7 +10,12 @@
     width: 50rem;
 }
 
-.jumbo {
+.jumboDark {
+    width: 50rem;
+    background-color: #353535;
+}
+
+.jumboLight {
     width: 50rem;
 }
 

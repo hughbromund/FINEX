@@ -10,6 +10,7 @@ import { STOCK_LIST_URL } from '../../constants/Constants';
 import { CRYPTO_LIST_URL } from '../../constants/Constants';
 import history from '../../routing/History';
 import { YOUR_STOCKS_PATH } from '../../constants/Constants';
+import {DarkModeContext, DarkModeProvider, useDarkModeState, useDarkModeToggle} from "../../contexts/DarkModeContext";
 
 /**
  * The SearchBar component creates a search bar for stocks,
@@ -146,7 +147,7 @@ class SearchBar extends Component {
                 </Dropdown.Item>
             )
         }
-        if (currList.length == 0) {
+        if (currList.length === 0) {
             return;
         }
         return (
@@ -219,24 +220,24 @@ class SearchBar extends Component {
 
         return (
             <div className={classes.wrapper}
-            onKeyPress={event => {
-                            if (event.key === "Enter") {
-                                history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)
-                            }
-                        }} >
+                onKeyPress={event => {
+                    if (event.key === "Enter") {
+                        history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)
+                    }
+                }} >
                 <ButtonToolbar>
                     <ToggleButtonGroup name="radio" toggle className={classes.toggle} defaultValue={this.state.selected}>
                         <ToggleButton variant="success" 
                             onClick={this.handleStocksToggle} 
                             value="Stocks" 
-                            className={classes.toggleButton} 
+                            className={this.context.isDarkMode ? classes.toggleButtonDark : classes.toggleButtonLight} 
                             type="radio" 
                             name="radio" 
                             defaultChecked> Stocks</ToggleButton>
                         <ToggleButton variant="success" 
                             onClick={this.handleCryptoToggle} 
                             value="Crypto" 
-                            className={classes.toggleButton} 
+                            className={this.context.isDarkMode ? classes.toggleButtonDark : classes.toggleButtonLight} 
                             type="radio" 
                             name="radio"> Crypto </ToggleButton>                    
                     </ToggleButtonGroup>
@@ -247,14 +248,14 @@ class SearchBar extends Component {
                 </Dropdown>
                 <Button
                         variant="success" 
-                        className={classes.searchButton} 
+                        className={this.context.isDarkMode ? classes.searchButtonDark : classes.searchButtonLight} 
                         onClick={() => history.push(YOUR_STOCKS_PATH + '/' + this.state.inputValue)}> 
                     Search
                 </Button>
             </div>
         );
     }
-
 }
 
+SearchBar.contextType = DarkModeContext;
 export default SearchBar;

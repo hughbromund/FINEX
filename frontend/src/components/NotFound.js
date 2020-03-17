@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./NotFound.module.css";
 import SearchBar from './SearchBar/SearchBar';
-import {DarkModeProvider, useDarkModeState, useDarkModeToggle} from "../contexts/DarkModeContext";
+import {DarkModeContext, DarkModeProvider, useDarkModeState, useDarkModeToggle} from "../contexts/DarkModeContext";
 
 /**
  * This class displays the page navigated to by a user entering
@@ -9,10 +9,9 @@ import {DarkModeProvider, useDarkModeState, useDarkModeToggle} from "../contexts
  * bar.
  */
 class NotFound extends Component {
-
     render() {
         return (
-            <CustomWrapper>
+            <div className={this.context.isDarkMode ? classes.darkWrapper : classes.lightWrapper}>
                 <div className={classes.content}>
                     <div className={classes.message}>
                         Sorry, we were unable to find that page.
@@ -24,21 +23,10 @@ class NotFound extends Component {
                         <SearchBar />
                     </div>
                 </div>
-            </CustomWrapper>
+            </div>
         )
-
     }
 }
 
-function CustomWrapper({children}) {
-    const {isDarkMode} = useDarkModeState();
-    let classNameVar = classes.lightWrapper;
-    if (isDarkMode) classNameVar = classes.darkWrapper;
-    return (
-        <div className={classNameVar}>
-            {children}
-        </div>
-    );
-}
-
+NotFound.contextType = DarkModeContext;
 export default NotFound;

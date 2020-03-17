@@ -1,6 +1,6 @@
-.lightWrapper {
+.darkWrapper {
     transition: 0.3s;
-    background-color: black;
+    background-color: #121212;
     background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url("../assets/img/not-found.jpg");
     background-size: contain;
     background-size: cover;
@@ -13,9 +13,9 @@
     color: white;
 }
 
-.darkWrapper {
+.lightWrapper {
     transition: 0.3s;
-    background-color: black;
+    background-color: white;
     background-image: linear-gradient( rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6) ), url("../assets/img/not-found.jpg");
     background-size: contain;
     background-size: cover;

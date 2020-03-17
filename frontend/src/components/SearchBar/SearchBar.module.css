@@ -12,12 +12,27 @@
     padding-left: 1rem;
 }
 
-.searchButton {
+.searchButtonDark {
+    color: white !important;
     width: 9rem;
     background-color: #34c759;
 }
 
-.searchButton:hover {
+.searchButtonDark:hover {
+    color: white !important;
+    opacity: 100%;
+    background-color: #34c7599f;
+    border: none;
+}
+
+.searchButtonLight {
+    color: black !important;
+    width: 9rem;
+    background-color: #34c759;
+}
+
+.searchButtonLight:hover {
+    color: black !important;
     opacity: 100%;
     background-color: #34c7599f;
     border: none;
@@ -27,13 +42,33 @@
     width: 9rem;
 }
 
-.toggleButton {
+.toggleButtonDark {
+    color: white;
     background-color: #34c759;
     border: none;
 }
 
-.toggleButton:hover {
+.toggleButtonDark:hover {
+    color: white;
     background-color: #34c7599f;
     opacity: 100%;
     border: none;
+}
+
+.toggleButtonLight {
+    color: black !important;
+    background-color: #34c759;
+    border: none;
+}
+
+.toggleButtonLight:hover {
+    color: black !important;
+    background-color: #34c7599f;
+    opacity: 100%;
+    border: none;
+}
+
+.toggleButtonLight:active {
+    color: black !important;
+    
 }
