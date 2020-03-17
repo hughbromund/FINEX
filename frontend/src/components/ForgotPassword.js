@@ -97,7 +97,7 @@ export default class ForgotPassword extends Component {
                   <p>
                     Something went wrong. Please try submiting again. If this
                     error continues please try checking your internet connection
-                    or restarting your Web Browser.
+                    or try restarting your Web Browser.
                   </p>
                 </Alert>
               </div>
