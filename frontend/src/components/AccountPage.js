@@ -13,6 +13,7 @@ import { LOGOUT_URL } from "../constants/Constants";
 import { USER_INFO_URL } from "../constants/Constants";
 import { RESET_EMAIL_PATH } from "../constants/Constants";
 import { RESET_USERNAME_PATH } from "../constants/Constants";
+import { RESET_PASSWORD_PATH } from "../constants/Constants";
 
 import { SketchPicker } from "react-color";
 
@@ -174,6 +175,12 @@ export default class AccountPage extends Component {
               </div>
               <div>
                 Password: <b>{this.state.password}</b>
+                <Badge
+                  variant="success"
+                  onClick={() => history.push(RESET_PASSWORD_PATH)}
+                >
+                  Change Password
+                </Badge>
               </div>
               <div>
                 Current Primary Color:<b>{this.state.primaryColor}</b>

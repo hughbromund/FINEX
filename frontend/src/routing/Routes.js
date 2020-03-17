@@ -21,6 +21,7 @@ import BudgetItemForm from "../components/BudgetItemForm";
 import IncomeItemForm from "../components/IncomeItemForm";
 import CreateBudget from "../components/CreateBudget";
 import ForgotPassword from "../components/ForgotPassword";
+import ResetPassword from "../components/ResetPassword";
 
 /* Paths */
 import { RESET_EMAIL_PATH } from "../constants/Constants";
@@ -37,6 +38,7 @@ import { ADD_BUDGET_ITEM } from "../constants/Constants";
 import { ADD_INCOME_ITEM } from "../constants/Constants";
 import { CREATE_NEW_BUDGET } from "../constants/Constants";
 import { FORGOT_PASSWORD_PATH } from "../constants/Constants";
+import { RESET_PASSWORD_PATH } from "../constants/Constants";
 
 function Routes() {
   return (
@@ -56,6 +58,7 @@ function Routes() {
         <Route path={ADD_INCOME_ITEM} component={IncomeItemForm} />
         <Route path={CREATE_NEW_BUDGET} component={CreateBudget} />
         <Route path={FORGOT_PASSWORD_PATH} component={ForgotPassword} />
+        <Route path={RESET_PASSWORD_PATH} component={ResetPassword} />
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
