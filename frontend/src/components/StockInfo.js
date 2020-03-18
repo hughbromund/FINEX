@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import classes from "./StockInfo.module.css";
 import Chart from "./Chart";
-import { YOUR_STOCKS_PATH, STOCK_DAILY_URL } from "../constants/Constants";
+import {
+  YOUR_STOCKS_PATH,
+  STOCK_DAILY_URL,
+  CRYPTO_EXTENSION
+} from "../constants/Constants";
 import history from "../routing/History";
 
 /**
@@ -19,6 +23,7 @@ class StockInfo extends Component {
     high: "Loading...",
     low: "Loading...",
     volume: "Loading...",
+    isCrypto: false,
     isValid: true
   };
 
@@ -27,17 +32,28 @@ class StockInfo extends Component {
    */
   componentDidMount = () => {
     let currPath = this.props.location.pathname;
-    let pathLength = (YOUR_STOCKS_PATH + "/").length;
-    let searchedSymbol = currPath.slice(pathLength);
+    if (currPath.includes(CRYPTO_EXTENSION)) {
+      this.state.isCrypto = true;
+    } else {
+      this.state.isCrypto = false;
+    }
 
-    // TODO: call backend based on path on load
-    this.callDataAPI(searchedSymbol).catch(err => {
-      console.log(err);
-      history.push("/stocknotfound");
-      this.setState({ isValid: false });
-    });
-    searchedSymbol = searchedSymbol.toUpperCase();
-    this.setState({ stockSymbol: searchedSymbol });
+    if (!this.state.isCrypto) {
+      let pathLength = (YOUR_STOCKS_PATH + "/").length;
+      let searchedSymbol = currPath.slice(pathLength);
+
+      // TODO: call backend based on path on load
+      this.callDataAPI(searchedSymbol).catch(err => {
+        console.log(err);
+        history.push("/stocknotfound");
+        this.setState({ isValid: false });
+      });
+      searchedSymbol = searchedSymbol.toUpperCase();
+      this.setState({ stockSymbol: searchedSymbol });
+    } else {
+      let pathLength = (YOUR_STOCKS_PATH + CRYPTO_EXTENSION).length;
+      let searchedSymbol = currPath.slice(pathLength);
+    }
   };
 
   /**

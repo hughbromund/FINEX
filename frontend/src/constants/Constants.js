@@ -14,6 +14,7 @@ export const ADD_BUDGET_ITEM = "/addbudgetitem";
 export const ADD_INCOME_ITEM = "/addincomeitem";
 export const CREATE_NEW_BUDGET = "/newbudget";
 export const RESET_PASSWORD_PATH = "/updatepassword";
+export const CRYPTO_EXTENSION = "/crypto/";
 
 /* Base URL for Backend */
 export const BASE = "http://localhost:5000";

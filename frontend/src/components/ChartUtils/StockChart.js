@@ -60,6 +60,10 @@ class LineAndScatterChartGrid extends React.Component {
         xAccessor={xAccessor}
         displayXAccessor={displayXAccessor}
         xExtents={xExtents}
+        mouseMoveEvent={true}
+        panEvent={false}
+        zoomEvent={true}
+        clamp={true}
       >
         <Chart id={1} yExtents={d => [d.high, d.low]}>
           <XAxis axisAt="bottom" orient="bottom" {...gridProps} {...xGrid} />

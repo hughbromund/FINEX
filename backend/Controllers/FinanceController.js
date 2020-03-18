@@ -4,7 +4,6 @@ var budgetService = require('../Services/BudgetService.js')
 const Budget = require('../database/models/budget')
 
 
-/*
 exports.budgetStub = async function (req, res, next) {
     if (req.user) {
         res.status(200).json([
@@ -22,7 +21,6 @@ exports.budgetStub = async function (req, res, next) {
         res.status(400).json({status: "No user logged in."})
     }
 }
-*/
 
 exports.insertTransaction = async function (req, res, next) {
     const { username, type, cost, name, date } = req.body
