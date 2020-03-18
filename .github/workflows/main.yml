@@ -23,9 +23,22 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm i
-        working-directory: ${{env.backend}}
       - run: npm ci
         working-directory: ${{env.frontend}}
       - run: npm run build
         working-directory: ${{env.frontend}}
+  test_backend_compiles:
+    runs-on: ubuntu-latest
+    env:
+      frontend: ./frontend
+      backend: ./backend
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+        working-directory: ${{env.backend}}
+      - run: npm run build
+        working-directory: ${{env.backend}}
