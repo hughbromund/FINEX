@@ -40,5 +40,5 @@ jobs:
           node-version: 12
       - run: npm ci
         working-directory: ${{env.backend}}
-      - run: npm run build
+      - run: node app.js
         working-directory: ${{env.backend}}
