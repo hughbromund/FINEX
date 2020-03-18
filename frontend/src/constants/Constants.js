@@ -29,6 +29,7 @@ export const STOCK_LIST_URL = BASE + "/api/stock/auto/";
 export const STOCK_INTRADAY_URL = BASE + "/api/stock/intraday/";
 export const STOCK_DAILY_URL = BASE + "/api/stock/daily/";
 export const CRYPTO_LIST_URL = BASE + "/api/crypto/auto/";
+export const CRYPTO_DAILY_URL = BASE + "/api/crypto/daily/";
 export const UPDATE_EMAIL_URL = BASE + "/auth/updateEmail";
 export const UPDATE_NAME_URL = BASE + "/auth/updateName";
 export const UPDATE_USERNAME_URL = BASE + "/auth";
