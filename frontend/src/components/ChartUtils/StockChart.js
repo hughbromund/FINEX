@@ -65,7 +65,10 @@ class LineAndScatterChartGrid extends React.Component {
         zoomEvent={true}
         clamp={true}
       >
-        <Chart id={1} yExtents={d => [d.high, d.low]}>
+        <Chart
+          id={1}
+          yExtents={d => [Math.max(d.high, d.low), Math.min(d.high, d.low)]}
+        >
           <XAxis axisAt="bottom" orient="bottom" {...gridProps} {...xGrid} />
           <YAxis
             axisAt="right"
