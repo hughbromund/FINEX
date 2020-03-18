@@ -68,6 +68,7 @@ export default class ForgotPassword extends Component {
       <div>
         <div className={classes.wrapper}>
           <div className={classes.inner}>
+            <h1>Forgot Password</h1>
             <Collapse in={this.state.success}>
               <div>
                 <Alert variant="success">

@@ -62,6 +62,7 @@ export default class ResetPassword extends Component {
       <div>
         <div className={classes.wrapper}>
           <div className={classes.inner}>
+            <h1>Update Password</h1>
             <Collapse in={this.state.success}>
               <div>
                 <Alert variant="success">
