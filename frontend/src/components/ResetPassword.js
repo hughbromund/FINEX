@@ -3,35 +3,33 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Collapse from "react-bootstrap/Collapse";
-import Container from "react-bootstrap/Container";
 
-import classes from "../components/ForgotPassword.module.css";
+import classes from "../components/ResetPassword.module.css";
 
-import { PUT_RESET_PASSWORD } from "../constants/Constants";
-import { LOGIN_PATH } from "../constants/Constants";
+import { PUT_UPDATE_PASSWORD } from "../constants/Constants";
+import { ACCOUNT_PATH } from "../constants/Constants";
 import history from "../routing/History";
 
-export default class ForgotPassword extends Component {
+export default class ResetPassword extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
+      password: "",
       success: false,
       error: false
     };
-
-    this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
   handleSubmit = async event => {
     event.preventDefault();
     // console.log(this.state.email);
 
-    var response = await fetch(PUT_RESET_PASSWORD, {
+    var response = await fetch(PUT_UPDATE_PASSWORD, {
       method: "PUT",
-      body: JSON.stringify({ email: this.state.email }),
+      body: JSON.stringify({ password: this.state.password }),
       headers: {
         "content-type": "application/json"
       }
@@ -51,15 +49,11 @@ export default class ForgotPassword extends Component {
         error: true
       });
     }
-
-    // var body = await response.json();
-
-    // console.log(response);
   };
 
-  handleEmailChange(event) {
+  handlePasswordChange(event) {
     this.setState({
-      email: event.target.value
+      password: event.target.value
     });
   }
 
@@ -68,24 +62,26 @@ export default class ForgotPassword extends Component {
       <div>
         <div className={classes.wrapper}>
           <div className={classes.inner}>
-            <h1>Forgot Password</h1>
+            <h1>Update Password</h1>
             <Collapse in={this.state.success}>
               <div>
                 <Alert variant="success">
                   <Alert.Heading>Success</Alert.Heading>
                   <p>
-                    You successfully submited a password reset request. If we
-                    find an account matching the email you provided you will
-                    recieve an email with further steps
+                    You successfully updated your password! It's a good habit to
+                    change your password once a year.
                   </p>
-                  <p>For now, you can navigate back to the login screen.</p>
+                  <p>
+                    If you don't need to change it again, you can navigate back
+                    to the Account Screen
+                  </p>
                   <hr />
                   <div className="d-flex justify-content-end">
                     <Button
                       variant="outline-success"
-                      onClick={() => history.push(LOGIN_PATH)}
+                      onClick={() => history.push(ACCOUNT_PATH)}
                     >
-                      Login
+                      Account
                     </Button>
                   </div>
                 </Alert>
@@ -105,12 +101,12 @@ export default class ForgotPassword extends Component {
             </Collapse>
             <Form onSubmit={this.handleSubmit}>
               <Form.Group>
-                <Form.Label>Please Enter your Email Address</Form.Label>
+                <Form.Label>Please Enter your New Password</Form.Label>
                 <Form.Control
                   required
-                  type="email"
-                  placeholder="Enter email"
-                  onChange={this.handleEmailChange}
+                  type="password"
+                  placeholder="Enter password"
+                  onChange={this.handlePasswordChange}
                 />
               </Form.Group>
               <Form.Group>

@@ -13,6 +13,7 @@ export const FINANCE_DASHBOARD = "/finance";
 export const ADD_BUDGET_ITEM = "/addbudgetitem";
 export const ADD_INCOME_ITEM = "/addincomeitem";
 export const CREATE_NEW_BUDGET = "/newbudget";
+export const RESET_PASSWORD_PATH = "/updatepassword";
 
 /* Base URL for Backend */
 export const BASE = "http://localhost:5000";
@@ -36,3 +37,4 @@ export const GET_OVERALL_BUDGET = BASE + "/finance/total";
 export const GET_INCOME_LIST = BASE + "/finance/income";
 export const GET_CATEGORY_BUDGET = BASE + "/finance/budget";
 export const PUT_RESET_PASSWORD = BASE + "/auth/resetPassword";
+export const PUT_UPDATE_PASSWORD = BASE + "/auth/updatePassword";
