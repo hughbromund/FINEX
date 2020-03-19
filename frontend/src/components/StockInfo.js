@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import classes from "./StockInfo.module.css";
 import Chart from "./Chart";
+import { Button, ButtonGroup } from "react-bootstrap";
 import {
   YOUR_STOCKS_PATH,
   STOCK_DAILY_URL,
@@ -25,7 +26,8 @@ class StockInfo extends Component {
     low: "Loading...",
     volume: "Loading...",
     isCrypto: false,
-    isValid: true
+    isValid: true,
+    daily: true
   };
 
   /**
@@ -138,12 +140,38 @@ class StockInfo extends Component {
     return (
       <div className={classes.wrapper}>
         <div className={classes.title}>{this.state.stockSymbol}</div>
-        {this.state.stockSymbol != null && this.state.isValid == true ? (
-          <Chart
-            isCrypto={this.state.isCrypto}
-            symbol={this.state.stockSymbol}
-          />
-        ) : null}
+        <div hidden={!this.state.daily}>
+          {this.state.stockSymbol != null && this.state.isValid == true ? (
+            <Chart
+              isCrypto={this.state.isCrypto}
+              symbol={this.state.stockSymbol}
+              isDaily={true}
+            />
+          ) : null}
+        </div>
+        <div hidden={this.state.daily}>
+          {this.state.stockSymbol != null && this.state.isValid == true ? (
+            <Chart
+              isCrypto={this.state.isCrypto}
+              symbol={this.state.stockSymbol}
+              isDaily={false}
+            />
+          ) : null}
+        </div>
+        <ButtonGroup aria-label="Basic example">
+          <Button
+            variant="success"
+            onClick={() => this.setState({ daily: true })}
+          >
+            Daily
+          </Button>
+          <Button
+            variant="success"
+            onClick={() => this.setState({ daily: false })}
+          >
+            Intraday
+          </Button>
+        </ButtonGroup>
         <div className={classes.infoTitle}>
           Daily Summary ({this.getCurrentDate()}):
         </div>
