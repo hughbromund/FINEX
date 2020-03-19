@@ -156,13 +156,6 @@ export default class AccountPage extends Component {
             <Card.Body>
               <div>
                 Username: <b>{this.state.username}</b>
-                &nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => history.push(RESET_USERNAME_PATH)}
-                >
-                  Update Username
-                </Badge>
               </div>
               <div>
                 Email: <b>{this.state.email}</b>&nbsp;&nbsp;
