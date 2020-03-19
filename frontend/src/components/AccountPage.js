@@ -7,6 +7,10 @@ import CardColumns from "react-bootstrap/CardColumns";
 import Button from "react-bootstrap/Button";
 import history from "../routing/History";
 import Badge from "react-bootstrap/Badge";
+// import Overlay from "react-bootstrap/Overlay";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+// import Tooltip from "react-bootstrap/Tooltip";
+import Popover from "react-bootstrap/Popover";
 
 import { HOME_PATH, LOGIN_PATH, RESET_NAME_PATH } from "../constants/Constants";
 import { LOGOUT_URL } from "../constants/Constants";
@@ -114,6 +118,16 @@ export default class AccountPage extends Component {
   };
 
   render() {
+    const popover = (
+      <Popover>
+        <Popover.Title as="h3">Currently Unavailable</Popover.Title>
+        <Popover.Content>
+          Unfortunately, you can't change your username at this time. We
+          apologize for the inconvenience.
+        </Popover.Content>
+      </Popover>
+    );
+
     return (
       <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -155,7 +169,14 @@ export default class AccountPage extends Component {
             <Card.Header>Personal Information</Card.Header>
             <Card.Body>
               <div>
-                Username: <b>{this.state.username}</b>
+                Username: <b>{this.state.username}</b>&nbsp;&nbsp;
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={popover}
+                >
+                  <Badge variant="success">Update Username</Badge>
+                </OverlayTrigger>
               </div>
               <div>
                 Email: <b>{this.state.email}</b>&nbsp;&nbsp;
