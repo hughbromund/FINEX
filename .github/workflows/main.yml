@@ -50,3 +50,9 @@ jobs:
         working-directory: ./backend/database/models
       - run: node -c *.js
         working-directory: ./backend/DatabaseAccess
+      - run: node -c *.js
+        working-directory: ./backend/passport
+      - run: node -c *.js
+        working-directory: ./backend/Routers
+      - run: node -c *.js
+        working-directory: ./backend/Services
