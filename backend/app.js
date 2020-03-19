@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
-var cors = require("cors");
+var1 cors = require("cors");
 
 //for user auth
 const session = require("express-session");
