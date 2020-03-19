@@ -14,6 +14,7 @@ export const ADD_BUDGET_ITEM = "/addbudgetitem";
 export const ADD_INCOME_ITEM = "/addincomeitem";
 export const CREATE_NEW_BUDGET = "/newbudget";
 export const RESET_PASSWORD_PATH = "/updatepassword";
+export const CRYPTO_EXTENSION = "/crypto/";
 
 /* Base URL for Backend */
 export const BASE = "http://localhost:5000";
@@ -28,6 +29,7 @@ export const STOCK_LIST_URL = BASE + "/api/stock/auto/";
 export const STOCK_INTRADAY_URL = BASE + "/api/stock/intraday/";
 export const STOCK_DAILY_URL = BASE + "/api/stock/daily/";
 export const CRYPTO_LIST_URL = BASE + "/api/crypto/auto/";
+export const CRYPTO_DAILY_URL = BASE + "/api/crypto/daily/";
 export const UPDATE_EMAIL_URL = BASE + "/auth/updateEmail";
 export const UPDATE_NAME_URL = BASE + "/auth/updateName";
 export const UPDATE_USERNAME_URL = BASE + "/auth";

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { getData } from "./ChartUtils/ChartUtils";
+import { getCryptoData } from "./ChartUtils/ChartUtils";
 
 import StockChart from "./ChartUtils/StockChart";
 import Button from "react-bootstrap/Button";
@@ -34,18 +35,33 @@ export default class Chart extends React.Component {
     // });
 
     console.log(this.props.symbol);
-
-    var myData = await getData(this.props.symbol).catch(err => {
-      console.log("Stock not found for chart.");
+    this.setState({
+      ticker: this.props.symbol,
+      header: "",
+      isCrypto: this.props.isCrypto
     });
+
+    let myData;
+
+    if (!this.props.isCrypto) {
+      myData = await getData(this.props.symbol).catch(err => {
+        console.log("Stock not found for chart.");
+      });
+    } else {
+      myData = await getCryptoData(this.props.symbol).catch(err => {
+        console.log("Stock not found for chart.");
+      });
+    }
     console.log(myData);
-    this.setState({ data: myData, ticker: this.props.symbol, header: "" });
+    this.setState({
+      data: myData
+    });
   }
   render() {
     if (this.state == null) {
       return <div>Loading...</div>;
-    } else if (this.state.data[0]["date"] == null) {
-      return <div>No data found</div>;
+    } else if (this.state.data == null || this.state.data[0]["date"] == null) {
+      return <div>Loading...</div>;
     }
     return (
       <div>

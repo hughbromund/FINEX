@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import classes from "./StockInfo.module.css";
 import Chart from "./Chart";
-import { YOUR_STOCKS_PATH, STOCK_DAILY_URL } from "../constants/Constants";
+import {
+  YOUR_STOCKS_PATH,
+  STOCK_DAILY_URL,
+  CRYPTO_EXTENSION,
+  CRYPTO_DAILY_URL
+} from "../constants/Constants";
 import history from "../routing/History";
 
 /**
@@ -19,6 +24,7 @@ class StockInfo extends Component {
     high: "Loading...",
     low: "Loading...",
     volume: "Loading...",
+    isCrypto: false,
     isValid: true
   };
 
@@ -27,8 +33,21 @@ class StockInfo extends Component {
    */
   componentDidMount = () => {
     let currPath = this.props.location.pathname;
-    let pathLength = (YOUR_STOCKS_PATH + "/").length;
-    let searchedSymbol = currPath.slice(pathLength);
+    if (currPath.includes(CRYPTO_EXTENSION)) {
+      this.state.isCrypto = true;
+    } else {
+      this.state.isCrypto = false;
+    }
+
+    let pathLength;
+    let searchedSymbol;
+    if (!this.state.isCrypto) {
+      pathLength = (YOUR_STOCKS_PATH + "/").length;
+      searchedSymbol = currPath.slice(pathLength);
+    } else {
+      pathLength = (YOUR_STOCKS_PATH + CRYPTO_EXTENSION).length;
+      searchedSymbol = currPath.slice(pathLength);
+    }
 
     // TODO: call backend based on path on load
     this.callDataAPI(searchedSymbol).catch(err => {
@@ -46,7 +65,13 @@ class StockInfo extends Component {
    */
   callDataAPI = async symbol => {
     console.log(STOCK_DAILY_URL + symbol);
-    const response = await fetch(STOCK_DAILY_URL + symbol);
+    let response;
+
+    if (!this.state.isCrypto) {
+      response = await fetch(STOCK_DAILY_URL + symbol);
+    } else {
+      response = await fetch(CRYPTO_DAILY_URL + symbol);
+    }
 
     const body = await response.json();
 
@@ -114,7 +139,10 @@ class StockInfo extends Component {
       <div className={classes.wrapper}>
         <div className={classes.title}>{this.state.stockSymbol}</div>
         {this.state.stockSymbol != null && this.state.isValid == true ? (
-          <Chart symbol={this.state.stockSymbol} />
+          <Chart
+            isCrypto={this.state.isCrypto}
+            symbol={this.state.stockSymbol}
+          />
         ) : null}
         <div className={classes.infoTitle}>
           Daily Summary ({this.getCurrentDate()}):
