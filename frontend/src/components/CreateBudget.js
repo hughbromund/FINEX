@@ -270,6 +270,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 300"
                     onChange={this.handleTotalBudgetChange}
+                    id="total-budget-input"
                   />
                 </InputGroup>
               </Form.Group>
@@ -522,8 +523,10 @@ export default class CreateBudget extends Component {
                   Here is a summary of your budget: <br />
                   <Table>
                     <thead>
-                      <th>Category</th>
-                      <th>Budget</th>
+                      <tr>
+                        <th>Category</th>
+                        <th>Budget</th>
+                      </tr>
                     </thead>
                     <tbody>
                       <tr>

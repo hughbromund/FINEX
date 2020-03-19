@@ -12,6 +12,8 @@
     "bootstrap": "^4.4.1",
     "d3-dsv": "^1.2.0",
     "emotion-theming": "^10.0.27",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "history": "^4.10.1",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
@@ -20,8 +22,9 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.1",
     "react-stockcharts": "^0.7.8",
-    "zxcvbn": "^4.4.2",
-    "styled-components": "^5.0.1"
+    "react-test-renderer": "^16.13.1",
+    "styled-components": "^5.0.1",
+    "zxcvbn": "^4.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
