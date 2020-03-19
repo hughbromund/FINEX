@@ -42,3 +42,11 @@ jobs:
           node-version: 12
       - run: node -c *.js
         working-directory: ./backend
+      - run: node -c *.js
+        working-directory: ./backend/Controllers
+      - run: node -c *.js
+        working-directory: ./backend/database
+      - run: node -c *.js
+        working-directory: ./backend/database/models
+      - run: node -c *.js
+        working-directory: ./backend/DatabaseAccess
