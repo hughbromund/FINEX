@@ -140,24 +140,24 @@ class StockInfo extends Component {
     return (
       <div className={classes.wrapper}>
         <div className={classes.title}>{this.state.stockSymbol}</div>
-        <div hidden={!this.state.daily}>
-          {this.state.stockSymbol != null && this.state.isValid == true ? (
+        {this.state.stockSymbol != null && this.state.isValid == true ? (
+          this.state.daily ? (
             <Chart
               isCrypto={this.state.isCrypto}
               symbol={this.state.stockSymbol}
               isDaily={true}
             />
-          ) : null}
-        </div>
-        <div hidden={this.state.daily}>
-          {this.state.stockSymbol != null && this.state.isValid == true ? (
+          ) : null
+        ) : null}
+        {this.state.stockSymbol != null && this.state.isValid == true ? (
+          !this.state.daily ? (
             <Chart
               isCrypto={this.state.isCrypto}
               symbol={this.state.stockSymbol}
               isDaily={false}
             />
-          ) : null}
-        </div>
+          ) : null
+        ) : null}
         <ButtonGroup aria-label="Basic example">
           <Button
             variant="success"
