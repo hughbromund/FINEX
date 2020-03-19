@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
-var1 cors = require("cors");
+var cors = require("cors");
 
 //for user auth
 const session = require("express-session");
@@ -19,11 +19,13 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-app.use(cors({
-  credentials: true,
-  origin: 'http://localhost:3000',
-  preFlightContinue : true, 
-}));
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+    preFlightContinue: true
+  })
+);
 
 const dbConnection = require("./database");
 //const user = require('./routes/user')
