@@ -27,8 +27,8 @@ jobs:
         working-directory: ${{env.backend}}
       - run: npm ci
         working-directory: ${{env.frontend}}
-      - run: npm test
-        working-directory: ${{env.frontend}}
+      #- run: npm test
+      # working-directory: ${{env.frontend}}
       - run: npm run build
         working-directory: ${{env.frontend}}
   test_backend_syntax:
