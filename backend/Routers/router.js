@@ -55,6 +55,10 @@ router.get('/api/stock/bbands/:code/:interval/:series_type', cors(), stockContro
 //retrieve EMA data endpoint
 router.get('/api/stock/macd/:code/:interval/:series_type', cors(), stockController.getMACD);
 
+//update user's stock array
+router.post('/stock/addStock', cors(), stockController.addStockToUser);
+router.post('stock/removeStock', cors(), stockController.removeStockFromUser);
+
 //STUBS
 
 

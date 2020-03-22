@@ -139,6 +139,43 @@ JSON Format:
 &nbsp;&nbsp;&nbsp;&nbsp;}     
 } 
 
+### /stock/addStock
+POST
+This represents adding a stock to the user's stock array
+Requirements: "stock_id" in JSON
+Returns: Returns 400 and "status": "stock id not passed!" JSON if user does not pass an id
+and 200 "stock added" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "stock_id": "some ID"
+}
+or
+{
+    "status": "No user logged in."
+}
+
+### /stock/removeStock
+POST
+This represents removing a stock from the user's stock array
+Requirements: "stock_id" in JSON
+Returns: Returns 400 and "status": "stock id not passed!" JSON if user does not pass an id
+and 200 "stock removed" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "stock_id": "some ID"
+}
+or
+{
+    "status": "No user logged in."
+}
+
+
 ## Crypto
 
 ### /api/crypto/auto/:input    
