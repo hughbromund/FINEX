@@ -126,4 +126,5 @@ router.post('/transaction/newTransaction', cors(), financeController.insertTrans
 //create new budget
 router.post('/budget/createBudget', cors(), financeController.createBudget);
 
+
 module.exports = router;

@@ -131,3 +131,25 @@ exports.getAutoCompleteEmpty = async function (req, res, next) {
     var stocks = await autoCompleteService.stockAutoComplete("");
     return res.json(stocks);
 }
+
+//adds given stock ID to user's stock array
+exports.addStockToUser = async function (req, res, next) {
+    const { stock_id } = req.body;
+    if ( stock_id == null ) {
+        res.status(400).json({status: "stock id not passed!"})
+    }
+    else if (req.user) {
+        try {
+            let result = await stockService(req);
+            //console.log(result)
+            res.status(200).json({status: "email updated"})
+        }
+        catch(e) {
+            res.status(400).json({status: "An error occured."})
+        }
+        
+    }
+    else {
+        res.status(400).json({status: "No user logged in."})
+    }
+}
