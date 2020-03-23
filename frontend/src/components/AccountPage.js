@@ -11,6 +11,10 @@ import Badge from "react-bootstrap/Badge";
 import { HOME_PATH, LOGIN_PATH, RESET_NAME_PATH } from "../constants/Constants";
 import { LOGOUT_URL } from "../constants/Constants";
 import { USER_INFO_URL } from "../constants/Constants";
+import { GET_BAD_COLOR } from "../constants/Constants";
+import { GET_GOOD_COLOR } from "../constants/Constants";
+import { UPDATE_BAD_COLOR } from "../constants/Constants";
+import { UPDATE_GOOD_COLOR } from "../constants/Constants";
 import { RESET_EMAIL_PATH } from "../constants/Constants";
 import { RESET_USERNAME_PATH } from "../constants/Constants";
 import { RESET_PASSWORD_PATH } from "../constants/Constants";
@@ -33,8 +37,8 @@ export default class AccountPage extends Component {
       username: "",
       email: "",
       password: "",
-      primaryColor: "#FFFFFF",
-      secondaryColor: "#FFFFFF",
+      primaryColor: "",
+      secondaryColor: "",
       isPrimaryPickerHidden: true,
       isSecondaryPickerHidden: true
     };
@@ -66,10 +70,20 @@ export default class AccountPage extends Component {
 
   handlePrimaryChangeComplete = color => {
     this.setState({ primaryColor: color.hex });
+    fetch(UPDATE_GOOD_COLOR, {
+      method: "POST",
+      withCredentials: true,
+      body: JSON.stringify(this.state.primaryColor)
+    });
   };
 
   handleSecondaryChangeComplete = color => {
     this.setState({ secondaryColor: color.hex });
+    fetch(UPDATE_BAD_COLOR, {
+      method: "POST",
+      withCredentials: true,
+      body: JSON.stringify(this.state.secondaryColor)
+    });
   };
 
   handleLogout(event) {
@@ -111,6 +125,23 @@ export default class AccountPage extends Component {
         console.log(err);
       });
     }
+
+    var response = await fetch(GET_GOOD_COLOR, {
+      method: "GET",
+      withCredentials: true
+    });
+    const goodColorBody = await response.json();
+
+    var response = await fetch(GET_BAD_COLOR, {
+      method: "GET",
+      withCredentials: true
+    });
+    const badColorBody = await response.json();
+
+    this.setState({
+      primaryColor: goodColorBody.good_color,
+      secondaryColor: badColorBody.bad_color
+    });
   };
 
   render() {
