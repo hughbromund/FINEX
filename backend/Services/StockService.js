@@ -94,7 +94,7 @@ exports.getMACD = async function (code, interval, series_type) {
 
 //add a stock ID to the user's stock array
 exports.addStockToUser = async function (req) {
-    return await User.updateOne({username: req.user.username}, {$push: {stocks: req.body.stock_id}}, 
+    return await User.updateOne({username: req.user.username}, {$addToSet: {stocks: req.body.stock_id}}, 
     (err, user) => {}).exec();
 }
 

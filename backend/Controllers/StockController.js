@@ -141,7 +141,7 @@ exports.addStockToUser = async function (req, res, next) {
     else if (req.user) {
         try {
             let result = await stockService.addStockToUser(req);
-            //console.log(result)
+            console.log('ADDED STOCK')
             res.status(200).json({status: "stock added"})
         }
         catch(e) {
