@@ -88,9 +88,7 @@ exports.getGoodColor = async function (req, res, next) {
     if (req.user) {
         try {
             let color_hex = await authService.getGoodColor(req)
-            res.status(200).json({
-                good_color: color_hex
-            })
+            res.status(200).json(color_hex)
         }
         catch (e) {
             console.log(e)
@@ -107,9 +105,7 @@ exports.getBadColor = async function (req, res, next) {
     if (req.user) {
         try {
             let color_hex = await authService.getBadColor(req)
-            res.status(200).json({
-                bad_color: color_hex
-            })
+            res.status(200).json(color_hex)
         }
         catch (e) {
             console.log(e)
@@ -185,7 +181,7 @@ exports.updateBadColor = async function (req, res, next) {
     }
     else if (req.user) {
         try {
-            let result = await authService.updateGoodColor(req);
+            let result = await authService.updateBadColor(req);
             //console.log(result)
             res.status(200).json({status: "bad color updated"})
         }
