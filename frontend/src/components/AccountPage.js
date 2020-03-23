@@ -18,6 +18,12 @@ import { USER_INFO_URL } from "../constants/Constants";
 import { RESET_EMAIL_PATH } from "../constants/Constants";
 import { RESET_USERNAME_PATH } from "../constants/Constants";
 import { RESET_PASSWORD_PATH } from "../constants/Constants";
+import {
+  DarkModeContext,
+  DarkModeProvider,
+  useDarkModeState,
+  useDarkModeToggle
+} from "../contexts/DarkModeContext";
 
 import { SketchPicker } from "react-color";
 
@@ -129,132 +135,131 @@ export default class AccountPage extends Component {
     );
 
     return (
-      <div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Image
-            src={require("../assets/img/slothlogo.png")}
-            style={{ width: "10rem" }}
-            fluid
-            roundedCircle
-          />
-        </div>
-        <div
-          style={{ display: "flex", justifyContent: "center" }}
-          className={classes.carddiv}
-        >
-          <Card style={{ width: "50rem" }}>
-            <Card.Header>Your Account</Card.Header>
-            <Card.Body>
-              <Card.Title>
-                Welcome Back, <b>{this.state.name}</b>&nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => history.push(RESET_NAME_PATH)}
-                >
-                  Update Name
-                </Badge>
-              </Card.Title>
-              <Card.Subtitle>
-                Manage your Info, Privacy, and Security settings to make{" "}
-                <b>FINEX</b> yours.
-              </Card.Subtitle>
-            </Card.Body>
-          </Card>
-        </div>
-        <div
-          style={{ display: "flex", justifyContent: "center" }}
-          className={classes.carddiv}
-        >
-          <Card style={{ width: "50rem" }}>
-            <Card.Header>Personal Information</Card.Header>
-            <Card.Body>
-              <div>
-                Username: <b>{this.state.username}</b>&nbsp;&nbsp;
-                <OverlayTrigger
-                  trigger="click"
-                  placement="top"
-                  overlay={popover}
-                >
-                  <Badge variant="success">Update Username</Badge>
-                </OverlayTrigger>
-              </div>
-              <div>
-                Email: <b>{this.state.email}</b>&nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => history.push(RESET_EMAIL_PATH)}
-                >
-                  Update Email
-                </Badge>
-              </div>
-              <div>
-                Password: <b>{this.state.password}</b>
-                <Badge
-                  variant="success"
-                  onClick={() => history.push(RESET_PASSWORD_PATH)}
-                >
-                  Change Password
-                </Badge>
-              </div>
-              <div>
-                Current Primary Color:<b>{this.state.primaryColor}</b>
-                <Badge
-                  variant="success"
-                  onClick={() =>
-                    this.setState({ isPrimaryPickerHidden: false })
-                  }
-                >
-                  Change Primary Color
-                </Badge>
-                <div hidden={this.state.isPrimaryPickerHidden}>
-                  <SketchPicker
-                    color={this.state.primaryColor}
-                    onChangeComplete={this.handlePrimaryChangeComplete}
-                  />
+      <div className={classes.wrapper}>
+        <div className={classes.inner}>
+          <div className={classes.wrapper}>
+            <Image
+              src={require("../assets/img/slothlogo.png")}
+              style={{ width: "10rem" }}
+              fluid
+              roundedCircle
+            />
+          </div>
+          <div>
+            <Card className={this.context.isDarkMode ? "bg-dark" : "bg-light"}>
+              <Card.Header>Your Account</Card.Header>
+              <Card.Body>
+                <Card.Title>
+                  Welcome Back, <b>{this.state.name}</b>&nbsp;&nbsp;
                   <Badge
                     variant="success"
-                    onClick={() =>
-                      this.setState({ isPrimaryPickerHidden: true })
-                    }
+                    onClick={() => history.push(RESET_NAME_PATH)}
                   >
-                    Confirm
+                    Update Name
+                  </Badge>
+                </Card.Title>
+                <Card.Subtitle>
+                  Manage your Info, Privacy, and Security settings to make{" "}
+                  <b>FINEX</b> yours.
+                </Card.Subtitle>
+              </Card.Body>
+            </Card>
+          </div>
+          <br />
+          <div>
+            <Card className={this.context.isDarkMode ? "bg-dark" : "bg-light"}>
+              <Card.Header>Personal Information</Card.Header>
+              <Card.Body>
+                <div>
+                  Username: <b>{this.state.username}</b>&nbsp;&nbsp;
+                  <OverlayTrigger
+                    trigger="click"
+                    placement="top"
+                    overlay={popover}
+                  >
+                    <Badge variant="success">Update Username</Badge>
+                  </OverlayTrigger>
+                </div>
+                <div>
+                  Email: <b>{this.state.email}</b>&nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => history.push(RESET_EMAIL_PATH)}
+                  >
+                    Update Email
                   </Badge>
                 </div>
                 <div>
-                  Current Secondary Color:<b>{this.state.secondaryColor}</b>
+                  Password: <b>{this.state.password}</b>
+                  <Badge
+                    variant="success"
+                    onClick={() => history.push(RESET_PASSWORD_PATH)}
+                  >
+                    Change Password
+                  </Badge>
+                </div>
+                <div>
+                  Current Primary Color:<b>{this.state.primaryColor}</b>
                   <Badge
                     variant="success"
                     onClick={() =>
-                      this.setState({ isSecondaryPickerHidden: false })
+                      this.setState({ isPrimaryPickerHidden: false })
                     }
                   >
-                    Change Secondary Color
+                    Change Primary Color
                   </Badge>
-                  <div hidden={this.state.isSecondaryPickerHidden}>
+                  <div hidden={this.state.isPrimaryPickerHidden}>
                     <SketchPicker
-                      color={this.state.secondaryColor}
-                      onChangeComplete={this.handleSecondaryChangeComplete}
+                      color={this.state.primaryColor}
+                      onChangeComplete={this.handlePrimaryChangeComplete}
                     />
                     <Badge
                       variant="success"
                       onClick={() =>
-                        this.setState({ isSecondaryPickerHidden: true })
+                        this.setState({ isPrimaryPickerHidden: true })
                       }
                     >
                       Confirm
                     </Badge>
                   </div>
+                  <div>
+                    Current Secondary Color:<b>{this.state.secondaryColor}</b>
+                    <Badge
+                      variant="success"
+                      onClick={() =>
+                        this.setState({ isSecondaryPickerHidden: false })
+                      }
+                    >
+                      Change Secondary Color
+                    </Badge>
+                    <div hidden={this.state.isSecondaryPickerHidden}>
+                      <SketchPicker
+                        color={this.state.secondaryColor}
+                        onChangeComplete={this.handleSecondaryChangeComplete}
+                      />
+                      <Badge
+                        variant="success"
+                        onClick={() =>
+                          this.setState({ isSecondaryPickerHidden: true })
+                        }
+                      >
+                        Confirm
+                      </Badge>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </Card.Body>
-          </Card>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Button variant="danger" onClick={this.handleLogout}>
-            Logout
-          </Button>
+              </Card.Body>
+            </Card>
+          </div>
+          <div className={classes.wrapper}>
+            <Button variant="danger" onClick={this.handleLogout}>
+              Logout
+            </Button>
+          </div>
         </div>
       </div>
     );
   }
 }
+
+AccountPage.contextType = DarkModeContext;
