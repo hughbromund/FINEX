@@ -34,3 +34,25 @@ exports.addTransactionToUser = async function (req) {
     return await User.updateOne( { username: req.user.username }, 
         { $push: { transaction_ids: transaction }}).catch(() => {}).exec();
 }
+
+exports.getExpenses = async function (req) {
+    var minDate = new Date()
+    minDate.setMilliseconds(0);
+    minDate.setSeconds(0);
+    minDate.setMinutes(0);
+    minDate.setHours(0);
+    minDate.setDate(1);
+    
+   return await Transaction.find({username: req.user.username, type: "expense", date: {$gte: minDate}}, (err, user) => {}).exec();
+}
+
+exports.getIncome = async function (req) {
+    var minDate = new Date()
+    minDate.setMilliseconds(0);
+    minDate.setSeconds(0);
+    minDate.setMinutes(0);
+    minDate.setHours(0);
+    minDate.setDate(1);
+    
+   return await Transaction.find({username: req.user.username, type: "income", date: {$gte: minDate}}, (err, user) => {}).exec();
+}

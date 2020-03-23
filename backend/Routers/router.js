@@ -115,7 +115,7 @@ router.get('/finance/budget', cors(), financeController.budgetStub);
 router.get('/finance/income', cors(), financeController.incomeStub);
 
 //get the user's recent expense transactions
-router.get('/finance/expense', cors(), financeController.expenseStub);
+router.get('/finance/expense', cors(), financeController.getExpenses);
 
 //get the user's predicted and spent total
 router.get('/finance/total', cors(), financeController.totalStub);
