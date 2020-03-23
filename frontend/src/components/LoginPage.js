@@ -102,7 +102,11 @@ export default class LoginPage extends Component {
 
   render() {
     return (
-      <div className={classes.wrapper}>
+      <div
+        className={
+          this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
+        }
+      >
         <div className={classes.inner}>
           <div>
             <Image
