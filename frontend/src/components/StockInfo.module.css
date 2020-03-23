@@ -1,40 +1,51 @@
 .wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-.title {
-    font-size: 30pt;
-    font-weight: bold;
-    padding-left: 65px;
+  display: flex;
+  flex-direction: column;
 }
 
 .infoTitle {
-    font-size: 20pt;
-    font-weight: bold;
-    padding-left: 80px;
+  font-size: 20pt;
+  font-weight: bold;
+  padding-left: 80px;
 }
 
 .infoBox {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    margin-top: 20px;
-    font-size: 16pt;
-    padding-left: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin-top: 20px;
+  font-size: 16pt;
+  padding-left: 80px;
 }
 
 .headerColumn {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    font-weight: bold;
-    width: 20vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  font-weight: bold;
+  width: 20vw;
 }
 
 .dataColumn {
-    display: flex;
-    flex-direction: column;
-    justify-content: right;
-    width: 15vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  width: 15vw;
+}
+
+.infoHeader {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.followButtonDiv {
+  margin-top: 11px;
+  margin-left: 20px;
+}
+
+.title {
+  font-size: 30pt;
+  font-weight: bold;
+  padding-left: 65px;
 }

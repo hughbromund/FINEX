@@ -6,7 +6,8 @@ import {
   YOUR_STOCKS_PATH,
   STOCK_DAILY_URL,
   CRYPTO_EXTENSION,
-  CRYPTO_DAILY_URL
+  CRYPTO_DAILY_URL,
+  USER_INFO_URL
 } from "../constants/Constants";
 import history from "../routing/History";
 
@@ -27,13 +28,18 @@ class StockInfo extends Component {
     volume: "Loading...",
     isCrypto: false,
     isValid: true,
-    daily: true
+    daily: true,
+    isLoggedIn: false
   };
 
   /**
    * Gets stock information from backend.
    */
   componentDidMount = () => {
+    this.callAuthAPI().catch(err => {
+      console.log(err);
+    });
+
     let currPath = this.props.location.pathname;
     if (currPath.includes(CRYPTO_EXTENSION)) {
       this.state.isCrypto = true;
@@ -109,6 +115,22 @@ class StockInfo extends Component {
     return body;
   };
 
+  callAuthAPI = async () => {
+    console.log(USER_INFO_URL);
+    let response;
+    response = await fetch(USER_INFO_URL);
+    const body = await response.json();
+    console.log(body.status);
+
+    if (response.status != 200) {
+      console.log("false");
+      this.setState({ isLoggedIn: false });
+    } else {
+      console.log("true");
+      this.setState({ isLoggedIn: true });
+    }
+  };
+
   /**
    * Returns current date in the format yyyy-mm-dd.
    */
@@ -136,10 +158,35 @@ class StockInfo extends Component {
     }
   };
 
+  renderFollowButton = () => {
+    console.log(this.state.isLoggedIn);
+
+    if (this.state.isLoggedIn == true) {
+      // TODO: render unfollow if already following
+      return (
+        <Button variant="success" className={classes.followButton}>
+          {" "}
+          +{" "}
+        </Button>
+      );
+    }
+    return (
+      <Button variant="success" disabled className={classes.followButton}>
+        {" "}
+        +{" "}
+      </Button>
+    );
+  };
+
   render() {
     return (
       <div className={classes.wrapper}>
-        <div className={classes.title}>{this.state.stockSymbol}</div>
+        <div className={classes.infoHeader}>
+          <div className={classes.title}>{this.state.stockSymbol}</div>
+          <div className={classes.followButtonDiv}>
+            {this.renderFollowButton()}
+          </div>
+        </div>
         {this.state.stockSymbol != null && this.state.isValid == true ? (
           this.state.daily ? (
             <Chart
