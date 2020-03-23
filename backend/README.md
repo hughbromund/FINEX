@@ -534,8 +534,8 @@ Bugs: none as of now
 
 JSON Format (Input):
 {
-    "username": "username",
     "type": "type",
+    "category": "category",
     "cost": "cost",
     "name": "name",
     "date": "date"

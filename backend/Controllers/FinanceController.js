@@ -23,11 +23,11 @@ exports.budgetStub = async function (req, res, next) {
 }
 
 exports.insertTransaction = async function (req, res, next) {
-    const { username, type, cost, name, date } = req.body
+    const { category, type, cost, name} = req.body
     //console.log(req.user.username)
-    if ( username && type && cost && name && date ) {
+    if ( category && type && cost && name) {
         try {
-            let result = await transactionService.insertTransaction(req);
+            let result = await transactionService.insertTransaction(req, res);
             res.status(200).json({status: "new transaction inserted"})
         } catch(e) {
             res.status(400).json({status: "an error occurred"})
