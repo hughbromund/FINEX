@@ -251,6 +251,7 @@ export default class AccountPage extends Component {
               </Card.Body>
             </Card>
           </div>
+          <br />
           <div className={classes.wrapper}>
             <Button variant="danger" onClick={this.handleLogout}>
               Logout
