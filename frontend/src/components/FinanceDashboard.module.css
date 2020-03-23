@@ -2,3 +2,12 @@
 .navbar-default {
   background-color: black;
 }
+
+.wrapperDark {
+  background-color: #121212;
+  transition: 0.3s;
+}
+.wrapperLight {
+  background-color: white;
+  transition: 0.3s;
+}
