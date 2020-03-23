@@ -591,7 +591,7 @@ Bugs: none as of now
 JSON Format (Input):
 {
     "username": "username",
-    "month": "month",
+    "month": "month", (AS A NUMBER)
     "year": "year",
     "total": "total",
     "housing": "housing",
