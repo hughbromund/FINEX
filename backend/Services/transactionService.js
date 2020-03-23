@@ -45,7 +45,7 @@ exports.getExpenses = async function (req) {
     minDate.setHours(0);
     minDate.setDate(1);
     
-   return await Transaction.find({username: req.user.username, type: "expense", date: {$gte: minDate}}, (err, user) => {}).exec();
+   return await Transaction.find({username: req.user.username, type: "expense", date: {$gte: minDate}}, { '_id': 0, 'username': 1, 'type': 1, 'category' : 1, 'cost' : 1, 'name' : 1 }, (err, user) => {}).exec();
 }
 
 exports.getIncome = async function (req) {
@@ -56,5 +56,5 @@ exports.getIncome = async function (req) {
     minDate.setHours(0);
     minDate.setDate(1);
     
-   return await Transaction.find({username: req.user.username, type: "income", date: {$gte: minDate}}, (err, user) => {}).exec();
+   return await Transaction.find({username: req.user.username, type: "income", date: {$gte: minDate}}, { '_id': 0, 'username': 1, 'type': 1, 'category' : 1, 'cost' : 1, 'name' : 1 }, (err, user) => {}).exec();
 }
