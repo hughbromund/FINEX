@@ -1,4 +1,5 @@
 const alpha = require('alphavantage')({ key: '204HFII8A4KASQYO' });
+const User = require('../database/models/user');
 
 exports.helloWorld = async function () {
     return {"Hello": "World"};
@@ -89,4 +90,16 @@ exports.getMACD = async function (code, interval, series_type) {
     return alpha.technical.macd(code, numInterval, series_type, 12, 26, 9).then(data => {
         return alpha.util.polish(data).data;
     });
+}
+
+//add a stock ID to the user's stock array
+exports.addStockToUser = async function (req) {
+    return await User.updateOne({username: req.user.username}, {$addToSet: {stocks: req.body.stock_id}}, 
+    (err, user) => {}).exec();
+}
+
+//remove a stock ID from the user's stock array
+exports.removeStockFromUser = async function (req) {
+    return await User.updateOne({username: req.user.username}, {$pull: {stocks: req.body.stock_id}},
+        (err,user) => {}).exec();
 }

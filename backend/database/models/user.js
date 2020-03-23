@@ -17,7 +17,6 @@ const userSchema = new Schema({
 	good_color: { type: String, unique: false, required: false},
 	bad_color: { type: String, unique: false, required: false},
 	dark_mode: { type: Boolean },
-	budget_information: [ { amount: String }, { category: String }],
 }, { collection: "Users"})
 
 // Define schema methods
@@ -47,5 +46,5 @@ userSchema.pre('save', function (next) {
 	}
 })
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model("User", userSchema, "users")
 module.exports = User

@@ -131,3 +131,47 @@ exports.getAutoCompleteEmpty = async function (req, res, next) {
     var stocks = await autoCompleteService.stockAutoComplete("");
     return res.json(stocks);
 }
+
+//adds given stock ID to user's stock array
+exports.addStockToUser = async function (req, res, next) {
+    const { stock_id } = req.body;
+    if ( stock_id == null ) {
+        res.status(400).json({status: "stock id not passed!"})
+    }
+    else if (req.user) {
+        try {
+            let result = await stockService.addStockToUser(req);
+            console.log('ADDED STOCK')
+            res.status(200).json({status: "stock added"})
+        }
+        catch(e) {
+            res.status(400).json({status: "An error occured."})
+        }
+        
+    }
+    else {
+        res.status(400).json({status: "No user logged in."})
+    }
+}
+
+//removed given stock ID to user's stock array
+exports.removeStockFromUser = async function (req, res, next) {
+    const { stock_id } = req.body;
+    if ( stock_id == null ) {
+        res.status(400).json({status: "stock id not passed!"})
+    }
+    else if (req.user) {
+        try {
+            let result = await stockService.removeStockFromUser(req);
+            //console.log(result)
+            res.status(200).json({status: "stock removed"})
+        }
+        catch(e) {
+            res.status(400).json({status: "An error occured."})
+        }
+        
+    }
+    else {
+        res.status(400).json({status: "No user logged in."})
+    }
+}

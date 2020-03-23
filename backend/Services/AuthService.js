@@ -102,13 +102,20 @@ exports.user = async function (req) {
 }
 
 exports.getGoodColor = async function (req) {
-    return await User.findOne( { username: username }, { projection: { _id: 0, username: 0, transaction_ids: 0,
-        password: 0, email: 0, stocks: 0, bad_color: 0, name: 0 } }, (err, good_color) => {}).exec()
+    //console.log(User.findOne(({username: req.user.username})));
+    return await User.findOne({username: req.user.username},
+        {
+          _id: 0,
+          good_color: 1
+        }, (err, user) => {}).exec()
 }
 
 exports.getBadColor = async function (req) {
-    return await User.findOne( { username: username }, { projection: { _id: 0, username: 0, transaction_ids: 0,
-        password: 0, email: 0, stocks: 0, good_color: 0, name: 0 } }, (err, bad_color) => {}).exec()
+    return await User.findOne({username: req.user.username},
+        {
+          _id: 0,
+          bad_color: 1
+        }, (err, user) => {}).exec()
 }
 
 
