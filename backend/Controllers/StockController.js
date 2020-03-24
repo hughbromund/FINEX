@@ -11,6 +11,10 @@ exports.getHello = async function (req, res, next) {
 // function to validate, get, and return alpha vantage intraday stock info
 exports.getStockIntraday = async function (req, res, next) {
     try {
+        if (req.params.code == null) {
+            throw new Error('code is undefined')
+        }
+
         let stock = await stockService.getStockIntraday(req.params.code);
         return res.status(200).json(stock);
     } catch (e) {
@@ -21,6 +25,10 @@ exports.getStockIntraday = async function (req, res, next) {
 // function to validate, get, and return alpha vantage daily stock info
 exports.getStockDaily = async function (req, res, next) {
     try {
+        if (req.params.code == null) {
+            throw new Error('code is undefined')
+        }
+
         let stock = await stockService.getStockDaily(req.params.code);
         return res.status(200).json(stock);
     } catch (e) {
@@ -115,6 +123,11 @@ function verifyAnalyticsParameters(code, interval, series_type) {
     //check series_type
     if (series_type !== "open" && series_type !== "close" && series_type !== "high" && series_type !== "low") {
         return series_type + " is not a valid series_type.";
+    }
+
+    //check code
+    if (req.params.code == null) {
+        return code + " is null or undefined";
     }
     return;
 }

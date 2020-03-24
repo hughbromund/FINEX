@@ -12,13 +12,13 @@ const mockResponse = () => {
 
 const mockRequest = (paramData) => {
     return {
-        params: {data: paramData},
+        params: {code: paramData},
     };
 };
 
 describe("Stock Intraday", () => {
     test("expected path", async () => {
-        const req = mockRequest({code: 'msft'})
+        const req = mockRequest('msft')
         const res = mockResponse()
 
         const resp = {data: 'yeet'};
@@ -26,5 +26,16 @@ describe("Stock Intraday", () => {
         await stockController.getStockIntraday(req, res)
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalledWith({data: 'yeet'})
+    })
+
+    test("code is undefined", async () => {
+        const req = mockRequest(null)
+        const res = mockResponse()
+
+        const resp = {data: 'yeet'};
+        stockService.getStockIntraday.mockResolvedValue(resp);
+        await stockController.getStockIntraday(req, res)
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ status: 400, message: 'code is undefined'})
     })
 })
