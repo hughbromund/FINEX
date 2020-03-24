@@ -490,7 +490,7 @@ or
 
 ### /finance/income  
 GET  
-This represents obtaining current incomes  
+This represents obtaining current incomes for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's incomes otherwise  
 Status: Working
@@ -516,7 +516,7 @@ or
 
 ### /finance/expense  
 GET  
-This represents obtaining current expenses  
+This represents obtaining current expenses for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's expenses otherwise  
 Status: Working
@@ -542,7 +542,7 @@ or
 
 ### /finance/total  
 GET  
-This represents obtaining totals  
+This represents obtaining totals for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a "budgeted" amount and "spent" amount  
 Status: STUB  
