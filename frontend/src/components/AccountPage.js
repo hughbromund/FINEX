@@ -85,10 +85,14 @@ export default class AccountPage extends Component {
 
   handlePrimaryChangeComplete = color => {
     this.setState({ primaryColor: color.hex });
+    console.log(JSON.stringify({ good_color: this.state.primaryColor }));
     fetch(UPDATE_GOOD_COLOR, {
       method: "POST",
       withCredentials: true,
-      body: JSON.stringify(this.state.primaryColor)
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ good_color: this.state.primaryColor })
     });
   };
 
@@ -97,7 +101,10 @@ export default class AccountPage extends Component {
     fetch(UPDATE_BAD_COLOR, {
       method: "POST",
       withCredentials: true,
-      body: JSON.stringify(this.state.secondaryColor)
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ good_color: this.state.primaryColor })
     });
   };
 
@@ -255,7 +262,7 @@ export default class AccountPage extends Component {
                         this.setState({ isPrimaryPickerHidden: true })
                       }
                     >
-                      Confirm
+                      Close
                     </Badge>
                   </div>
                   <div>
@@ -279,7 +286,7 @@ export default class AccountPage extends Component {
                           this.setState({ isSecondaryPickerHidden: true })
                         }
                       >
-                        Confirm
+                        Close
                       </Badge>
                     </div>
                   </div>
