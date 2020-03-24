@@ -507,18 +507,18 @@ or
 
 ### /finance/income  
 GET  
-This represents obtaining current incomes  
+This represents obtaining current incomes for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's incomes otherwise  
-Status: STUB  
+Status: Working
 Bugs: ??  
 
 JSON Format (Output):
 [
     {
         "username": "shmem",
-        "category": "other",
         "type": "income",
+        "category": "other",
         "cost": "250",
         "name": "paycheck"
     },
@@ -533,18 +533,18 @@ or
 
 ### /finance/expense  
 GET  
-This represents obtaining current expenses  
+This represents obtaining current expenses for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's expenses otherwise  
-Status: STUB  
+Status: Working
 Bugs: ??  
 
 JSON Format (Output):
 [
     {
         "username": "shmem",
-        "category": "Food",
         "type": "expense",
+        "category": "Food",
         "cost": "250",
         "name": "Apples"
     },
@@ -559,7 +559,7 @@ or
 
 ### /finance/total  
 GET  
-This represents obtaining totals  
+This represents obtaining totals for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a "budgeted" amount and "spent" amount  
 Status: STUB  
@@ -588,8 +588,8 @@ Bugs: none as of now
 
 JSON Format (Input):
 {
-    "username": "username",
     "type": "type",
+    "category": "category",
     "cost": "cost",
     "name": "name",
     "date": "date"

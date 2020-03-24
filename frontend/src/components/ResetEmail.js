@@ -106,7 +106,7 @@ export default class ResetEmail extends Component {
               <Alert variant="danger">
                 <Alert.Heading>Error</Alert.Heading>
                 <p>
-                  Something went wrong. Please try submiting again. If this
+                  Something went wrong. Please try submitting again. If this
                   error continues please try checking your internet connection
                   or try restarting your Web Browser.
                 </p>

@@ -6,7 +6,10 @@ import {
   YOUR_STOCKS_PATH,
   STOCK_DAILY_URL,
   CRYPTO_EXTENSION,
-  CRYPTO_DAILY_URL
+  CRYPTO_DAILY_URL,
+  USER_INFO_URL,
+  FOLLOW_STOCK_URL,
+  UNFOLLOW_STOCK_URL
 } from "../constants/Constants";
 import history from "../routing/History";
 
@@ -27,13 +30,19 @@ class StockInfo extends Component {
     volume: "Loading...",
     isCrypto: false,
     isValid: true,
-    daily: true
+    daily: true,
+    isLoggedIn: false,
+    following: false
   };
 
   /**
    * Gets stock information from backend.
    */
   componentDidMount = () => {
+    this.callAuthAPI().catch(err => {
+      console.log(err);
+    });
+
     let currPath = this.props.location.pathname;
     if (currPath.includes(CRYPTO_EXTENSION)) {
       this.state.isCrypto = true;
@@ -77,7 +86,7 @@ class StockInfo extends Component {
 
     const body = await response.json();
 
-    console.log(body);
+    // console.log(body);
 
     let tmpOpen = "No Data";
     let tmpHigh = "No Data";
@@ -88,9 +97,9 @@ class StockInfo extends Component {
     let dateStr = this.getCurrentDate();
     let key = dateStr + "T00:00:00.000Z";
 
-    console.log("KEY: " + key);
+    // console.log("KEY: " + key);
 
-    console.log(body[key]);
+    // console.log(body[key]);
 
     if (body[key] != undefined) {
       tmpOpen = "$" + parseFloat(body[key]["open"]).toFixed(2);
@@ -107,6 +116,54 @@ class StockInfo extends Component {
     this.setState({ volume: tmpVol });
 
     return body;
+  };
+
+  callAuthAPI = async () => {
+    console.log(USER_INFO_URL);
+    let response;
+    response = await fetch(USER_INFO_URL);
+    const body = await response.json();
+    // console.log(body.status);
+
+    if (response.status != 200) {
+      // console.log("false");
+      this.setState({ isLoggedIn: false });
+    } else {
+      // console.log("true");
+      this.setState({ isLoggedIn: true });
+    }
+  };
+
+  followStock = async () => {
+    console.log(FOLLOW_STOCK_URL);
+    var response = await fetch(FOLLOW_STOCK_URL, {
+      method: "POST",
+      body: JSON.stringify({ stock_id: this.state.stockSymbol }),
+      headers: {
+        "content-type": "application/json"
+      }
+    });
+
+    if (response.status === 200) {
+      // console.log("Success");
+      this.setState({ following: true });
+    }
+  };
+
+  unfollowStock = async () => {
+    console.log(UNFOLLOW_STOCK_URL);
+    var response = await fetch(UNFOLLOW_STOCK_URL, {
+      method: "POST",
+      body: JSON.stringify({ stock_id: this.state.stockSymbol }),
+      headers: {
+        "content-type": "application/json"
+      }
+    });
+
+    if (response.status === 200) {
+      // console.log("Success");
+      this.setState({ following: false });
+    }
   };
 
   /**
@@ -136,10 +193,55 @@ class StockInfo extends Component {
     }
   };
 
+  renderFollowButton = () => {
+    // console.log(this.state.isLoggedIn);
+
+    if (this.state.isLoggedIn == true) {
+      // TODO: render unfollow if already following
+      return (
+        <div>
+          <Button
+            variant="success"
+            onClick={this.followStock}
+            className={classes.followButton}
+          >
+            {" "}
+            +{" "}
+          </Button>
+          <Button
+            variant="danger"
+            onClick={this.unfollowStock}
+            className={classes.followButton}
+          >
+            {" "}
+            -{" "}
+          </Button>
+        </div>
+      );
+    }
+    return (
+      <div>
+        <Button variant="success" disabled className={classes.followButton}>
+          {" "}
+          +{" "}
+        </Button>
+        <Button variant="danger" disabled className={classes.followButton}>
+          {" "}
+          -{" "}
+        </Button>
+      </div>
+    );
+  };
+
   render() {
     return (
       <div className={classes.wrapper}>
-        <div className={classes.title}>{this.state.stockSymbol}</div>
+        <div className={classes.infoHeader}>
+          <div className={classes.title}>{this.state.stockSymbol}</div>
+          <div className={classes.followButtonDiv}>
+            {this.renderFollowButton()}
+          </div>
+        </div>
         {this.state.stockSymbol != null && this.state.isValid == true ? (
           this.state.daily ? (
             <Chart
@@ -193,6 +295,7 @@ class StockInfo extends Component {
           </div>
           <div className={classes.dataColumn}>
             <p>{this.state.volume}</p>
+            <p>{this.state.following + ""}</p>
           </div>
         </div>
       </div>

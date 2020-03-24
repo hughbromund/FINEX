@@ -1,7 +1,13 @@
-.card,
-.card-default {
-    background-color: black;
+.wrapper {
+  display: flex;
+  justify-content: center;
 }
-.carddiv {
-    padding-bottom: 20px;
+.inner {
+  width: 50rem;
+}
+
+.darkModeToggles {
+  margin-left: 20px;
+  margin-top: -10px;
+  margin-bottom: 10px;
 }
