@@ -25,6 +25,11 @@ import {
   useDarkModeToggle
 } from "../contexts/DarkModeContext";
 
+// Imports for dark mode toggle
+import ToggleButton from "react-bootstrap/ToggleButton";
+import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+
 import { SketchPicker } from "react-color";
 
 /*
@@ -249,6 +254,8 @@ export default class AccountPage extends Component {
                   </div>
                 </div>
               </Card.Body>
+
+              <Toggles />
             </Card>
           </div>
           <br />
@@ -261,6 +268,43 @@ export default class AccountPage extends Component {
       </div>
     );
   }
+}
+
+function Toggles() {
+  const toggle = useDarkModeToggle();
+  const { isDarkMode } = useDarkModeState();
+  return (
+    <div className={classes.darkModeToggles}>
+      <ButtonToolbar>
+        <ToggleButtonGroup name="radio">
+          <ToggleButton
+            variant="light"
+            onClick={() => toggle({ type: "turnOffDarkMode" })}
+            value="light"
+            type="radio"
+            name="radio"
+            checked={isDarkMode ? false : true}
+            size="sm"
+          >
+            {" "}
+            Light Mode{" "}
+          </ToggleButton>
+          <ToggleButton
+            variant="dark"
+            onClick={() => toggle({ type: "turnOnDarkMode" })}
+            value="dark"
+            type="radio"
+            name="radio"
+            checked={isDarkMode ? true : false}
+            size="sm"
+          >
+            {" "}
+            Dark Mode{" "}
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </ButtonToolbar>
+    </div>
+  );
 }
 
 AccountPage.contextType = DarkModeContext;
