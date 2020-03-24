@@ -585,21 +585,23 @@ Requirements: "username", "month", "year", "total", "housing", "utilities", "tra
 "savings", "personal", "entertainment", "other", "date" in JSON. If date is not specified, the default
 current date JSON will be added
 Returns: Returns 400 and error if an error occurs and a JSON representing the new budget otherwise
+CHECKS: MUST enter the JSON input with NUMBERS (no ""), no negative numbers are allowed,
+and all the individual categories must add up to the total value
 Status: Working
 Bugs: none as of now
 
 JSON Format (Input):
 {
-    "month": "month", (AS A NUMBER)
-    "year": "year",
-    "total": "total",
-    "housing": "housing",
-    "utilities": "utilities",
-    "transportation": "transportation",
-    "food": "food",
-    "medical": "medical",
-    "savings": "savings",
-    "personal": "personal",
-    "entertainment": "entertainment",
-    "other": "other"
+    "month": month, (AS A NUMBER)
+    "year": year,
+    "total": total,
+    "housing": housing,
+    "utilities": utilities,
+    "transportation": transportation,
+    "food": food,
+    "medical": medical,
+    "savings": savings,
+    "personal": personal,
+    "entertainment": entertainment,
+    "other": other
 }
