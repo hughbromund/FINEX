@@ -10,6 +10,10 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import history from "../routing/History";
 import classes from "./BudgetItemForm.module.css";
+import { CREATE_TRANSACTION } from "../constants/Constants";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class BudgetItemForm extends Component {
   constructor(props) {
@@ -18,7 +22,8 @@ export default class BudgetItemForm extends Component {
     this.state = {
       cost: "",
       name: "",
-      type: "Rent"
+      type: "Housing",
+      startDate: ""
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -29,7 +34,20 @@ export default class BudgetItemForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+    fetch(CREATE_TRANSACTION, {
+      method: "POST",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        type: "expense",
+        category: this.state.type,
+        cost: this.state.cost,
+        name: this.state.name,
+        date: this.state.date
+      })
+    }).then(res => console.log(res));
   }
 
   handleNameChange(event) {
@@ -43,6 +61,12 @@ export default class BudgetItemForm extends Component {
   handleTypeChange(event) {
     this.setState({ type: event.target.value });
   }
+
+  handleDateChange = date => {
+    this.setState({
+      startDate: date
+    });
+  };
 
   render() {
     return (
@@ -87,13 +111,25 @@ export default class BudgetItemForm extends Component {
                   onChange={this.handleTypeChange}
                   value={this.state.type}
                 >
-                  <option>Rent</option>
+                  <option>Housing</option>
                   <option>Utilities</option>
                   <option>Transportation</option>
-                  <option>Personal</option>
+                  <option>Food</option>
                   <option>Medical</option>
-                  <option>Saving/Investing</option>
+                  <option>Savings</option>
+                  <option>Personal</option>
+                  <option>Entertainment</option>
+                  <option>Other</option>
                 </Form.Control>
+                <Form.Group>
+                  <br />
+                  <Form.Label>Date</Form.Label>
+                  <br />
+                  <DatePicker
+                    selected={this.state.startDate}
+                    onChange={this.handleDateChange}
+                  />
+                </Form.Group>
               </Form.Group>
 
               <Button variant="success" type="submit">
