@@ -493,15 +493,15 @@ GET
 This represents obtaining current incomes  
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's incomes otherwise  
-Status: STUB  
+Status: Working
 Bugs: ??  
 
 JSON Format (Output):
 [
     {
         "username": "shmem",
-        "category": "other",
         "type": "income",
+        "category": "other",
         "cost": "250",
         "name": "paycheck"
     },
@@ -519,15 +519,15 @@ GET
 This represents obtaining current expenses  
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's expenses otherwise  
-Status: STUB  
+Status: Working
 Bugs: ??  
 
 JSON Format (Output):
 [
     {
         "username": "shmem",
-        "category": "Food",
         "type": "expense",
+        "category": "Food",
         "cost": "250",
         "name": "Apples"
     },
@@ -571,8 +571,8 @@ Bugs: none as of now
 
 JSON Format (Input):
 {
-    "username": "username",
     "type": "type",
+    "category": "category",
     "cost": "cost",
     "name": "name",
     "date": "date"
