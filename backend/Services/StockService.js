@@ -103,3 +103,12 @@ exports.removeStockFromUser = async function (req) {
     return await User.updateOne({username: req.user.username}, {$pull: {stocks: req.body.stock_id}},
         (err,user) => {}).exec();
 }
+
+//get all stock IDs for a given user
+exports.getStocks = async function (req) {
+    return await User.findOne({username: req.user.username},
+        {
+          _id: 0,
+          stocks: 1
+        }, (err, user) => {}).exec()
+}

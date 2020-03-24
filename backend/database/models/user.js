@@ -12,7 +12,7 @@ const userSchema = new Schema({
 	password: { type: String, unique: false, required: false },
 	email: { type: String, unique: true, required: false },
 	name: { type: String, unique: false, required: false },
-	stocks: { type: String, unique: false, required: false},
+	stocks: { type: Array, default: [], unique: false, required: false},
 	transaction_ids: { type: String, unique: false, required: false},
 	good_color: { type: String, unique: false, required: false},
 	bad_color: { type: String, unique: false, required: false},
@@ -46,5 +46,5 @@ userSchema.pre('save', function (next) {
 	}
 })
 
-const User = mongoose.model("User", userSchema, "users")
+const User = mongoose.model("User", userSchema)
 module.exports = User

@@ -175,6 +175,23 @@ or
     "status": "No user logged in."
 }
 
+### /stock/getStocks
+GET
+This represents getting the stock IDs saved to a user account
+Requirements: none
+Returns: Returns 200 and the user's stock array on success and an error otherwise
+Status: Working
+Bugs: none as of now
+
+JSON Format (Output):
+{
+    "stocks": [
+        "stock1",
+        "stock2",
+        etc.
+    ]
+}
+
 
 ## Crypto
 
@@ -394,7 +411,7 @@ GET
 This represents getting the good color preference on a user account
 Requirements: none
 Returns: Returns 200 and the good color hex value on success and an error otherwise
-Status: Teasting
+Status: Working
 Bugs: none as of now
 
 JSON Format (Output):
@@ -407,7 +424,7 @@ GET
 This represents getting the bad color preference on a user account
 Requirements: none
 Returns: Returns 200 and the bad color hex value on success and an error otherwise
-Status: Testing
+Status: Working
 Bugs: none as of now
 
 JSON Format (Output):
@@ -581,9 +598,9 @@ JSON Format (Input):
 ### /budget/createBudget
 POST
 This represents creating a new budget
-Requirements: "username", "month", "year", "total", "housing", "utilities", "transportation", "food", "medical", 
-"savings", "personal", "entertainment", "other", "date" in JSON. If date is not specified, the default
-current date JSON will be added
+Requirements: "month", "year", "total", "housing", "utilities", "transportation", "food", "medical", 
+"savings", "personal", "entertainment", "other"
+USERNAME will default to the currently logged in user, no need to input it
 Returns: Returns 400 and error if an error occurs and a JSON representing the new budget otherwise
 CHECKS: MUST enter the JSON input with NUMBERS (no ""), no negative numbers are allowed,
 and all the individual categories must add up to the total value
