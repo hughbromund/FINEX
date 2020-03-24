@@ -69,6 +69,7 @@ class LineAndScatterChartGrid extends React.Component {
 
   async componentDidMount() {
     await this.getColors();
+    console.log(this.context.isDarkMode);
   }
 
   render() {
