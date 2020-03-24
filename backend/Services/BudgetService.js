@@ -31,8 +31,12 @@ exports.createBudget = async function (req, res, next) {
             date: date
         })
         newBudget.save((err, savedBudget) => {
-            if (err) return res.json(err)
-            res.status(200).json(savedBudget)
+            if (err) {
+                console.log(err);
+                //return res.json(err);
+            }
+            //console.log(res);
+            //res.status(200).json(savedBudget);
         })
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });

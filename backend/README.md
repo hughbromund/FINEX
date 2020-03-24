@@ -139,6 +139,43 @@ JSON Format:
 &nbsp;&nbsp;&nbsp;&nbsp;}     
 } 
 
+### /stock/addStock
+POST
+This represents adding a stock to the user's stock array
+Requirements: "stock_id" in JSON
+Returns: Returns 400 and "status": "stock id not passed!" JSON if user does not pass an id
+and 200 "stock added" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "stock_id": "some ID"
+}
+or
+{
+    "status": "No user logged in."
+}
+
+### /stock/removeStock
+POST
+This represents removing a stock from the user's stock array
+Requirements: "stock_id" in JSON
+Returns: Returns 400 and "status": "stock id not passed!" JSON if user does not pass an id
+and 200 "stock removed" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+    "stock_id": "some ID"
+}
+or
+{
+    "status": "No user logged in."
+}
+
+
 ## Crypto
 
 ### /api/crypto/auto/:input    
@@ -456,15 +493,15 @@ GET
 This represents obtaining current incomes  
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's incomes otherwise  
-Status: STUB  
+Status: Working
 Bugs: ??  
 
 JSON Format (Output):
 [
     {
         "username": "shmem",
-        "category": "other",
         "type": "income",
+        "category": "other",
         "cost": "250",
         "name": "paycheck"
     },
@@ -482,15 +519,15 @@ GET
 This represents obtaining current expenses  
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's expenses otherwise  
-Status: STUB  
+Status: Working
 Bugs: ??  
 
 JSON Format (Output):
 [
     {
         "username": "shmem",
-        "category": "Food",
         "type": "expense",
+        "category": "Food",
         "cost": "250",
         "name": "Apples"
     },
@@ -534,8 +571,8 @@ Bugs: none as of now
 
 JSON Format (Input):
 {
-    "username": "username",
     "type": "type",
+    "category": "category",
     "cost": "cost",
     "name": "name",
     "date": "date"
@@ -554,7 +591,7 @@ Bugs: none as of now
 JSON Format (Input):
 {
     "username": "username",
-    "month": "month",
+    "month": "month", (AS A NUMBER)
     "year": "year",
     "total": "total",
     "housing": "housing",

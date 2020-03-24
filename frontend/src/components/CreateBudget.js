@@ -9,6 +9,7 @@ import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 
 import classes from "./CreateBudget.module.css";
+import { DarkModeContext } from "../contexts/DarkModeContext";
 
 export default class CreateBudget extends Component {
   constructor(props) {
@@ -242,9 +243,15 @@ export default class CreateBudget extends Component {
   render() {
     return (
       <div>
-        <div className={classes.wrapper}>
+        <div
+          className={
+            this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
+          }
+        >
           <div className={classes.inner}>
-            <Jumbotron>
+            <Jumbotron
+              className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
+            >
               <h1>Let's Create Your Budget</h1>
               <p>
                 Using <b>FINEX</b> you can budget your month in categories and
@@ -270,6 +277,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 300"
                     onChange={this.handleTotalBudgetChange}
+                    id="total-budget-input"
                   />
                 </InputGroup>
               </Form.Group>
@@ -522,8 +530,10 @@ export default class CreateBudget extends Component {
                   Here is a summary of your budget: <br />
                   <Table>
                     <thead>
-                      <th>Category</th>
-                      <th>Budget</th>
+                      <tr>
+                        <th>Category</th>
+                        <th>Budget</th>
+                      </tr>
                     </thead>
                     <tbody>
                       <tr>
@@ -599,3 +609,5 @@ export default class CreateBudget extends Component {
     );
   }
 }
+
+CreateBudget.contextType = DarkModeContext;

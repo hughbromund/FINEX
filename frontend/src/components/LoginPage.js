@@ -3,6 +3,8 @@ import React, { Component } from "react";
 
 // import './RegistrationPage.module.css'
 
+import classes from "./LoginPage.module.css";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 // import Card from 'react-bootstrap/Card'
@@ -17,6 +19,7 @@ import { ACCOUNT_PATH } from "../constants/Constants";
 import { LOGIN_URL } from "../constants/Constants";
 import { USER_INFO_URL } from "../constants/Constants";
 import { FORGOT_PASSWORD_PATH } from "../constants/Constants";
+import { DarkModeContext } from "../contexts/DarkModeContext";
 
 // const axios = require('axios').default;
 /*
@@ -99,79 +102,85 @@ export default class LoginPage extends Component {
 
   render() {
     return (
-      <div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Image
-            src={require("../assets/img/logo-black.png")}
-            style={{ width: "40rem" }}
-            fluid
-          />
-        </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Jumbotron style={{ width: "50rem" }}>
-            <Container>
-              <h1>Welcome Back</h1>
+      <div
+        className={
+          this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
+        }
+      >
+        <div className={classes.inner}>
+          <div>
+            <Image
+              src={
+                this.context.isDarkMode
+                  ? require("../assets/img/logo-white.png")
+                  : require("../assets/img/logo-black.png")
+              }
+              fluid
+            />
+          </div>
+          <div>
+            <Jumbotron className={this.context.isDarkMode ? "bg-dark" : ""}>
+              <Container>
+                <h1>Welcome Back</h1>
+                <p>
+                  Welcome back to <b>FINEX</b>,{" "}
+                  <i>let's get your money working for you. </i> <br></br>
+                </p>
+              </Container>
+            </Jumbotron>
+          </div>
+          <div>
+            <Alert variant="danger" hidden={this.state.loginError}>
+              <Alert.Heading>No Account Found!</Alert.Heading>
               <p>
-                Welcome back to <b>FINEX</b>,{" "}
-                <i>let's get your money working for you. </i> <br></br>
+                Looks like your username or password are incorrect. Try checking
+                your spelling and logging in again.
               </p>
-            </Container>
-          </Jumbotron>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Alert
-            style={{ width: "50rem" }}
-            variant="danger"
-            hidden={this.state.loginError}
-          >
-            <Alert.Heading>No Account Found!</Alert.Heading>
-            <p>
-              Looks like your username or password are incorrect. Try checking
-              your spelling and logging in again.
-            </p>
-          </Alert>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Form style={{ width: "50rem" }} onSubmit={this.handleLogin}>
-            <Form.Group controlId="validationCustomUsername">
-              <Form.Label>Username</Form.Label>
-              <InputGroup>
+            </Alert>
+          </div>
+          <div>
+            <Form onSubmit={this.handleLogin}>
+              <Form.Group controlId="validationCustomUsername">
+                <Form.Label>Username</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    placeholder="Username"
+                    aria-describedby="inputGroupPrepend"
+                    required
+                    value={this.state.username}
+                    onChange={this.handleUsernameChange}
+                  />
+                </InputGroup>
+              </Form.Group>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
                 <Form.Control
-                  type="text"
-                  placeholder="Username"
-                  aria-describedby="inputGroupPrepend"
+                  type="password"
+                  placeholder="Password"
                   required
-                  value={this.state.username}
-                  onChange={this.handleUsernameChange}
+                  value={this.state.password}
+                  onChange={this.handlePasswordChange}
                 />
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                required
-                value={this.state.password}
-                onChange={this.handlePasswordChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Keep me Logged In" />
-            </Form.Group>
-            <Button data-testid="submit" variant="success" type="submit">
-              Log In
-            </Button>
-            &nbsp; or &nbsp;
-            <Button
-              variant="outline-success"
-              onClick={() => history.push(FORGOT_PASSWORD_PATH)}
-            >
-              Forgot Password
-            </Button>
-          </Form>
+              </Form.Group>
+              <Form.Group controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Keep me Logged In" />
+              </Form.Group>
+              <Button data-testid="submit" variant="success" type="submit">
+                Log In
+              </Button>
+              &nbsp; or &nbsp;
+              <Button
+                variant="outline-success"
+                onClick={() => history.push(FORGOT_PASSWORD_PATH)}
+              >
+                Forgot Password
+              </Button>
+            </Form>
+          </div>
         </div>
       </div>
     );
   }
 }
+LoginPage.contextType = DarkModeContext;

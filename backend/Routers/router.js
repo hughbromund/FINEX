@@ -55,6 +55,10 @@ router.get('/api/stock/bbands/:code/:interval/:series_type', cors(), stockContro
 //retrieve EMA data endpoint
 router.get('/api/stock/macd/:code/:interval/:series_type', cors(), stockController.getMACD);
 
+//update user's stock array
+router.post('/stock/addStock', cors(), stockController.addStockToUser);
+router.post('/stock/removeStock', cors(), stockController.removeStockFromUser);
+
 //STUBS
 
 
@@ -112,10 +116,10 @@ router.get('/user/getBadColor', cors(), authController.getBadColor);
 router.get('/finance/budget', cors(), financeController.budgetStub);
 
 //get the user's recent income transactions
-router.get('/finance/income', cors(), financeController.incomeStub);
+router.get('/finance/income', cors(), financeController.getIncome);
 
 //get the user's recent expense transactions
-router.get('/finance/expense', cors(), financeController.expenseStub);
+router.get('/finance/expense', cors(), financeController.getExpenses);
 
 //get the user's predicted and spent total
 router.get('/finance/total', cors(), financeController.totalStub);
@@ -125,5 +129,6 @@ router.post('/transaction/newTransaction', cors(), financeController.insertTrans
 
 //create new budget
 router.post('/budget/createBudget', cors(), financeController.createBudget);
+
 
 module.exports = router;

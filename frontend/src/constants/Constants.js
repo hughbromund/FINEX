@@ -45,3 +45,5 @@ export const UPDATE_GOOD_COLOR = BASE + "/user/updateGoodColor";
 export const GET_GOOD_COLOR = BASE + "/user/getGoodColor";
 export const UPDATE_BAD_COLOR = BASE + "/user/updateBadColor";
 export const GET_BAD_COLOR = BASE + "/user/getBadColor";
+export const FOLLOW_STOCK_URL = BASE + "/stock/addStock";
+export const UNFOLLOW_STOCK_URL = BASE + "/stock/removeStock";
