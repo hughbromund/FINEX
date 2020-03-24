@@ -13,6 +13,8 @@ import classes from "./BudgetItemForm.module.css";
 import { CREATE_TRANSACTION } from "../constants/Constants";
 import DatePicker from "react-datepicker";
 
+import { DarkModeContext } from "../contexts/DarkModeContext";
+
 import "react-datepicker/dist/react-datepicker.css";
 
 export default class BudgetItemForm extends Component {
@@ -73,7 +75,9 @@ export default class BudgetItemForm extends Component {
       <div className={classes.wrapper}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "50rem" }}>
-            <Jumbotron className={classes.jumbo}>
+            <Jumbotron
+              className={this.context.isDarkMode ? "bg-dark" : classes.jumbo}
+            >
               <h1>Welcome to FINEX's Add Budget Form!</h1>
               <p>Below, you may input a new item to your budget!</p>
             </Jumbotron>
@@ -141,3 +145,4 @@ export default class BudgetItemForm extends Component {
     );
   }
 }
+BudgetItemForm.contextType = DarkModeContext;
