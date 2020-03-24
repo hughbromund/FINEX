@@ -116,10 +116,10 @@ router.get('/user/getBadColor', cors(), authController.getBadColor);
 router.get('/finance/budget', cors(), financeController.budgetStub);
 
 //get the user's recent income transactions
-router.get('/finance/income', cors(), financeController.incomeStub);
+router.get('/finance/income', cors(), financeController.getIncome);
 
 //get the user's recent expense transactions
-router.get('/finance/expense', cors(), financeController.expenseStub);
+router.get('/finance/expense', cors(), financeController.getExpenses);
 
 //get the user's predicted and spent total
 router.get('/finance/total', cors(), financeController.totalStub);
