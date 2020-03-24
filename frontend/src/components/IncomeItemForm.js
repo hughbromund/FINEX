@@ -10,6 +10,10 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import history from "../routing/History";
 import classes from "./IncomeItemForm.module.css";
+import DatePicker from "react-datepicker";
+import { CREATE_TRANSACTION } from "../constants/Constants";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class IncomeItemForm extends Component {
   constructor(props) {
@@ -18,7 +22,8 @@ export default class IncomeItemForm extends Component {
     this.state = {
       amount: "",
       name: "",
-      type: "Rent"
+      type: "Rent",
+      date: ""
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -29,7 +34,20 @@ export default class IncomeItemForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+    fetch(CREATE_TRANSACTION, {
+      method: "POST",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        type: "income",
+        category: this.state.type,
+        cost: this.state.amount,
+        name: this.state.name,
+        date: this.state.date
+      })
+    }).then(res => console.log(res));
   }
 
   handleNameChange(event) {
@@ -43,6 +61,12 @@ export default class IncomeItemForm extends Component {
   handleTypeChange(event) {
     this.setState({ type: event.target.value });
   }
+
+  handleDateChange = date => {
+    this.setState({
+      startDate: date
+    });
+  };
 
   render() {
     return (
@@ -90,6 +114,14 @@ export default class IncomeItemForm extends Component {
                   <option>Income</option>
                   <option>Gift</option>
                 </Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Date</Form.Label>
+                <br />
+                <DatePicker
+                  selected={this.state.startDate}
+                  onChange={this.handleDateChange}
+                />
               </Form.Group>
 
               <Button variant="success" type="submit">

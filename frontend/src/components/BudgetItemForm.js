@@ -121,15 +121,14 @@ export default class BudgetItemForm extends Component {
                   <option>Entertainment</option>
                   <option>Other</option>
                 </Form.Control>
-                <Form.Group>
-                  <br />
-                  <Form.Label>Date</Form.Label>
-                  <br />
-                  <DatePicker
-                    selected={this.state.startDate}
-                    onChange={this.handleDateChange}
-                  />
-                </Form.Group>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Date</Form.Label>
+                <br />
+                <DatePicker
+                  selected={this.state.startDate}
+                  onChange={this.handleDateChange}
+                />
               </Form.Group>
 
               <Button variant="success" type="submit">
