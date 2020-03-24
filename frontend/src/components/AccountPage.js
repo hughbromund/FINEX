@@ -104,7 +104,7 @@ export default class AccountPage extends Component {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ good_color: this.state.primaryColor })
+      body: JSON.stringify({ bad_color: this.state.secondaryColor })
     });
   };
 
