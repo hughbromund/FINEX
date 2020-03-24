@@ -1,26 +1,25 @@
 .wrapper {
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+  margin-top: 20px;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .form {
-    font-family: 'Montserrat', sans-serif;
-    width: 50rem;
+  font-family: "Montserrat", sans-serif;
+  width: 50rem;
 }
 
-.jumboDark {
-    width: 50rem;
-    background-color: #353535;
-}
-
-.jumboLight {
-    width: 50rem;
+.innerWrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 50rem;
 }
 
 .innerDiv {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
