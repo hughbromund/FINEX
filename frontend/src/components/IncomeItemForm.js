@@ -25,7 +25,7 @@ export default class IncomeItemForm extends Component {
       amount: "",
       name: "",
       type: "Rent",
-      date: ""
+      startDate: ""
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
