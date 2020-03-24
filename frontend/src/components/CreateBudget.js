@@ -249,9 +249,7 @@ export default class CreateBudget extends Component {
           }
         >
           <div className={classes.inner}>
-            <Jumbotron
-              className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
-            >
+            <Jumbotron className={this.context.isDarkMode ? "bg-dark" : ""}>
               <h1>Let's Create Your Budget</h1>
               <p>
                 Using <b>FINEX</b> you can budget your month in categories and

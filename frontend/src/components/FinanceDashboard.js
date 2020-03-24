@@ -11,6 +11,8 @@ import { GET_EXPENSE_LIST } from "../constants/Constants";
 import { LOGIN_PATH } from "../constants/Constants";
 import { GET_INCOME_LIST } from "../constants/Constants";
 import { GET_CATEGORY_BUDGET } from "../constants/Constants";
+import { ADD_BUDGET_ITEM } from "../constants/Constants";
+import { ADD_INCOME_ITEM } from "../constants/Constants";
 
 // import Jumbotron from 'react-bootstrap/Jumbotron'
 import Navbar from "react-bootstrap/Navbar";
@@ -206,7 +208,12 @@ export default class FinanceDashboard extends Component {
                   <b>Add a new Transaction</b>
                 </Card.Header>
                 <Card.Body>
-                  <Button variant="success">Add a Transaction</Button>
+                  <Button
+                    variant="success"
+                    onClick={() => history.push(ADD_BUDGET_ITEM)}
+                  >
+                    Add a Transaction
+                  </Button>
                 </Card.Body>
               </Card>
               {this.state.transactionToasts}
@@ -228,7 +235,12 @@ export default class FinanceDashboard extends Component {
                   <b>Add a new Income</b>
                 </Card.Header>
                 <Card.Body>
-                  <Button variant="success">Add an Income</Button>
+                  <Button
+                    variant="success"
+                    onClick={() => history.push(ADD_INCOME_ITEM)}
+                  >
+                    Add an Income
+                  </Button>
                 </Card.Body>
               </Card>
               {this.state.incomeToasts}
