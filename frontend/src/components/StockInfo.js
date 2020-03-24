@@ -7,7 +7,9 @@ import {
   STOCK_DAILY_URL,
   CRYPTO_EXTENSION,
   CRYPTO_DAILY_URL,
-  USER_INFO_URL
+  USER_INFO_URL,
+  FOLLOW_STOCK_URL,
+  UNFOLLOW_STOCK_URL
 } from "../constants/Constants";
 import history from "../routing/History";
 
@@ -29,7 +31,8 @@ class StockInfo extends Component {
     isCrypto: false,
     isValid: true,
     daily: true,
-    isLoggedIn: false
+    isLoggedIn: false,
+    following: false
   };
 
   /**
@@ -83,7 +86,7 @@ class StockInfo extends Component {
 
     const body = await response.json();
 
-    console.log(body);
+    // console.log(body);
 
     let tmpOpen = "No Data";
     let tmpHigh = "No Data";
@@ -94,9 +97,9 @@ class StockInfo extends Component {
     let dateStr = this.getCurrentDate();
     let key = dateStr + "T00:00:00.000Z";
 
-    console.log("KEY: " + key);
+    // console.log("KEY: " + key);
 
-    console.log(body[key]);
+    // console.log(body[key]);
 
     if (body[key] != undefined) {
       tmpOpen = "$" + parseFloat(body[key]["open"]).toFixed(2);
@@ -120,14 +123,46 @@ class StockInfo extends Component {
     let response;
     response = await fetch(USER_INFO_URL);
     const body = await response.json();
-    console.log(body.status);
+    // console.log(body.status);
 
     if (response.status != 200) {
-      console.log("false");
+      // console.log("false");
       this.setState({ isLoggedIn: false });
     } else {
-      console.log("true");
+      // console.log("true");
       this.setState({ isLoggedIn: true });
+    }
+  };
+
+  followStock = async () => {
+    console.log(FOLLOW_STOCK_URL);
+    var response = await fetch(FOLLOW_STOCK_URL, {
+      method: "POST",
+      body: JSON.stringify({ stock_id: this.state.stockSymbol }),
+      headers: {
+        "content-type": "application/json"
+      }
+    });
+
+    if (response.status === 200) {
+      // console.log("Success");
+      this.setState({ following: true });
+    }
+  };
+
+  unfollowStock = async () => {
+    console.log(UNFOLLOW_STOCK_URL);
+    var response = await fetch(UNFOLLOW_STOCK_URL, {
+      method: "POST",
+      body: JSON.stringify({ stock_id: this.state.stockSymbol }),
+      headers: {
+        "content-type": "application/json"
+      }
+    });
+
+    if (response.status === 200) {
+      // console.log("Success");
+      this.setState({ following: false });
     }
   };
 
@@ -159,22 +194,42 @@ class StockInfo extends Component {
   };
 
   renderFollowButton = () => {
-    console.log(this.state.isLoggedIn);
+    // console.log(this.state.isLoggedIn);
 
     if (this.state.isLoggedIn == true) {
       // TODO: render unfollow if already following
       return (
-        <Button variant="success" className={classes.followButton}>
-          {" "}
-          +{" "}
-        </Button>
+        <div>
+          <Button
+            variant="success"
+            onClick={this.followStock}
+            className={classes.followButton}
+          >
+            {" "}
+            +{" "}
+          </Button>
+          <Button
+            variant="danger"
+            onClick={this.unfollowStock}
+            className={classes.followButton}
+          >
+            {" "}
+            -{" "}
+          </Button>
+        </div>
       );
     }
     return (
-      <Button variant="success" disabled className={classes.followButton}>
-        {" "}
-        +{" "}
-      </Button>
+      <div>
+        <Button variant="success" disabled className={classes.followButton}>
+          {" "}
+          +{" "}
+        </Button>
+        <Button variant="danger" disabled className={classes.followButton}>
+          {" "}
+          -{" "}
+        </Button>
+      </div>
     );
   };
 
@@ -240,6 +295,7 @@ class StockInfo extends Component {
           </div>
           <div className={classes.dataColumn}>
             <p>{this.state.volume}</p>
+            <p>{this.state.following + ""}</p>
           </div>
         </div>
       </div>

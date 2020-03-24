@@ -41,3 +41,5 @@ export const GET_INCOME_LIST = BASE + "/finance/income";
 export const GET_CATEGORY_BUDGET = BASE + "/finance/budget";
 export const PUT_RESET_PASSWORD = BASE + "/auth/resetPassword";
 export const PUT_UPDATE_PASSWORD = BASE + "/auth/updatePassword";
+export const FOLLOW_STOCK_URL = BASE + "/stock/addStock";
+export const UNFOLLOW_STOCK_URL = BASE + "/stock/removeStock";
