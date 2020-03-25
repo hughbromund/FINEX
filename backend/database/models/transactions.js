@@ -10,6 +10,7 @@ const transactionSchema = new Schema({
 	username: { type: String, unique: true, required: false },
     cost: { type: Number, min: 0, unique: false, required: false},
     type: { type: String, unique: false, required: false},
+    category: { type: String, unique: false, required: false},
     name: { type: String, unique: false, required: false},
     month: { type: Number, min: 0, unique: false, required: false},
     year: { type: Number, min: 0, unique: false, required: false},
@@ -20,9 +21,6 @@ const transactionSchema = new Schema({
 transactionSchema.methods = {
 	
 }
-
-
-
 
 const Transaction = mongoose.model('Transaction', transactionSchema)
 module.exports = Transaction

@@ -10,6 +10,12 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import history from "../routing/History";
 import classes from "./IncomeItemForm.module.css";
+import DatePicker from "react-datepicker";
+import { CREATE_TRANSACTION } from "../constants/Constants";
+
+import { DarkModeContext } from "../contexts/DarkModeContext";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class IncomeItemForm extends Component {
   constructor(props) {
@@ -18,7 +24,8 @@ export default class IncomeItemForm extends Component {
     this.state = {
       amount: "",
       name: "",
-      type: "Rent"
+      type: "Rent",
+      startDate: ""
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -29,7 +36,20 @@ export default class IncomeItemForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+    fetch(CREATE_TRANSACTION, {
+      method: "POST",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        type: "income",
+        category: this.state.type,
+        cost: this.state.amount,
+        name: this.state.name,
+        date: this.state.date
+      })
+    }).then(res => console.log(res));
   }
 
   handleNameChange(event) {
@@ -44,12 +64,20 @@ export default class IncomeItemForm extends Component {
     this.setState({ type: event.target.value });
   }
 
+  handleDateChange = date => {
+    this.setState({
+      startDate: date
+    });
+  };
+
   render() {
     return (
       <div className={classes.wrapper}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "50rem" }}>
-            <Jumbotron className={classes.jumbo}>
+            <Jumbotron
+              className={this.context.isDarkMode ? "bg-dark" : classes.jumbo}
+            >
               <h1>Welcome to FINEX's Add Income Form!</h1>
               <p>Below, you may input a new income to your budget!</p>
             </Jumbotron>
@@ -91,6 +119,14 @@ export default class IncomeItemForm extends Component {
                   <option>Gift</option>
                 </Form.Control>
               </Form.Group>
+              <Form.Group>
+                <Form.Label>Date</Form.Label>
+                <br />
+                <DatePicker
+                  selected={this.state.startDate}
+                  onChange={this.handleDateChange}
+                />
+              </Form.Group>
 
               <Button variant="success" type="submit">
                 Submit
@@ -102,3 +138,4 @@ export default class IncomeItemForm extends Component {
     );
   }
 }
+IncomeItemForm.contextType = DarkModeContext;
