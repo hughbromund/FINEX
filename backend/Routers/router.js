@@ -59,6 +59,9 @@ router.get('/api/stock/macd/:code/:interval/:series_type', cors(), stockControll
 router.post('/stock/addStock', cors(), stockController.addStockToUser);
 router.post('/stock/removeStock', cors(), stockController.removeStockFromUser);
 
+//get user's stock array
+router.get('/stock/getStocks', cors(), stockController.getStocks);
+
 //STUBS
 
 

@@ -175,3 +175,20 @@ exports.removeStockFromUser = async function (req, res, next) {
         res.status(400).json({status: "No user logged in."})
     }
 }
+
+//get stock array for a user
+exports.getStocks = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let stock_array = await stockService.getStocks(req)
+            res.status(200).json(stock_array)
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({status: "An error occured."})
+        }
+    }
+    else {
+        res.status(400).json({status: "No user logged in."})
+    }
+}
