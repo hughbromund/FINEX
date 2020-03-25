@@ -124,13 +124,20 @@ class LineAndScatterChartGrid extends React.Component {
           id={1}
           yExtents={d => [Math.max(d.high, d.low), Math.min(d.high, d.low)]}
         >
-          <XAxis axisAt="bottom" orient="bottom" {...gridProps} {...xGrid} />
+          <XAxis
+            axisAt="bottom"
+            orient="bottom"
+            {...gridProps}
+            {...xGrid}
+            tickStroke={this.context.isDarkMode ? "white" : ""}
+          />
           <YAxis
             axisAt="right"
             orient="right"
             ticks={5}
             {...gridProps}
             {...yGrid}
+            tickStroke={this.context.isDarkMode ? "white" : ""}
           />
           <MouseCoordinateX
             at="bottom"
