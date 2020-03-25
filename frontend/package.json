@@ -23,6 +23,7 @@
     "react-scripts": "3.3.1",
     "react-stockcharts": "^0.7.8",
     "react-test-renderer": "^16.13.1",
+    "recharts": "^1.8.5",
     "styled-components": "^5.0.1",
     "zxcvbn": "^4.4.2"
   },
