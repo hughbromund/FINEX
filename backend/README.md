@@ -66,7 +66,8 @@ JSON Format:
 ### /api/stock/sma/:code/:interval/:series_type
 
 GET  
-This represents the endpoint to get SMA (Simple moving average) data  
+This represents the endpoint to get SMA (Simple moving average) data.  
+Blurb: SMA (simple moving average) shows the average price of an index over a period of time.  
 Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
@@ -82,7 +83,8 @@ JSON Format:
 ### /api/stock/ema/:code/:interval/:series_type
 
 GET  
-This represents the endpoint to get SMA (Exponential moving average) data  
+This represents the endpoint to get EMA (Exponential moving average) data.  
+Blurb: EMA (exponential moving average) shows the average price of an index over a period of time, but places a greater weight and significance on the most recent data points.  
 Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
@@ -99,6 +101,7 @@ JSON Format:
 
 GET  
 This represents the endpoint to get RSI (relative strength index) data  
+Blurb: RSI (relative strength index) measures the momentum of recent price changes. It ranges from 0-100 and at the low end signifies an index that is being oversold while at the high end signifies an overbought index.  
 Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
@@ -115,6 +118,7 @@ JSON Format:
 
 GET  
 This represents the endpoint to get Bollinger Bands data  
+Blurb: Bollinger Bands are two lines, above and below the index plot, that expand when the index is volatile and contract when it is less volatile. They can be used to measure where the market will be headed, but not necessarily when, or with what severity it will occur.  
 Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
@@ -133,6 +137,7 @@ JSON Format:
 
 GET  
 This represents the endpoint to get MACD (moving average convergence / divergence) data  
+Blurb: MACD (moving average convergence / divergence) shows momemntum in an index. Positive momentum signifies continued gains while negative momentim signifies the opposite.   
 Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
