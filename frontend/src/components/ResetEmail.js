@@ -46,14 +46,14 @@ export default class ResetEmail extends Component {
     })
       .then(res => {
         if (res.status == 200) {
-          console.log("Success");
+          //console.log("Success");
           this.setState({
             success: true,
             error: false,
             email: ""
           });
         } else {
-          console.log("Failure");
+          //console.log("Failure");
           this.setState({
             error: true,
             success: false,
@@ -62,7 +62,7 @@ export default class ResetEmail extends Component {
         }
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         this.setState({
           error: true,
           success: false,

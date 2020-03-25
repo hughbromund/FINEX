@@ -11,6 +11,11 @@ import Table from "react-bootstrap/Table";
 import classes from "./CreateBudget.module.css";
 import { DarkModeContext } from "../contexts/DarkModeContext";
 
+import { FINANCE_DASHBOARD } from "../constants/Constants";
+import history from "../routing/History";
+
+import { POST_CREATE_BUDGET } from "../constants/Constants";
+
 export default class CreateBudget extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +36,9 @@ export default class CreateBudget extends Component {
       entertainmentBudget: 0,
       otherBudget: 0,
       currentMonth: month,
-      currentYear: year
+      currentYear: year,
+      error: false,
+      success: false
     };
     this.handleTotalBudgetChange = this.handleTotalBudgetChange.bind(this);
     this.getBudgetUsed = this.getBudgetUsed.bind(this);
@@ -74,7 +81,53 @@ export default class CreateBudget extends Component {
 
     this.isOverBudget = this.isOverBudget.bind(this);
     this.isMoneyLeftOver = this.isMoneyLeftOver.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleSubmit = async () => {
+    // console.log("TEST");
+
+    // Check if the budget Used is greater than total Budget
+    if (this.getBudgetUsed() > this.state.totalBudget) {
+      return;
+    }
+    const date = new Date();
+
+    const monthNumber = date.getMonth();
+    const yearNumber = date.getFullYear();
+
+    var response = await fetch(POST_CREATE_BUDGET, {
+      method: "POST",
+      body: JSON.stringify({
+        month: Number(monthNumber),
+        year: Number(yearNumber),
+        total: Number(this.state.totalBudget),
+        housing: Number(this.state.housingBudget),
+        utilities: Number(this.state.utilitiesBudget),
+        transportation: Number(this.state.transportationBudget),
+        food: Number(this.state.foodBudget),
+        medical: Number(this.state.medicalBudget),
+        savings: Number(this.state.savingsBudget),
+        personal: Number(this.state.personalBudget),
+        entertainment: Number(this.state.entertainmentBudget),
+        other:
+          Number(this.state.otherBudget) +
+          Number(this.state.totalBudget) -
+          Number(this.getBudgetUsed())
+      }),
+      headers: {
+        "content-type": "application/json"
+      }
+    });
+
+    if (response.status === 200) {
+      this.setState({ error: false, success: true });
+    }
+    if (response.status === 400) {
+      this.setState({ error: true, success: false });
+    }
+  };
 
   getBudgetUsed() {
     //console.log(this.state)
@@ -249,9 +302,7 @@ export default class CreateBudget extends Component {
           }
         >
           <div className={classes.inner}>
-            <Jumbotron
-              className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
-            >
+            <Jumbotron className={this.context.isDarkMode ? "bg-dark" : ""}>
               <h1>Let's Create Your Budget</h1>
               <p>
                 Using <b>FINEX</b> you can budget your month in categories and
@@ -596,10 +647,43 @@ export default class CreateBudget extends Component {
                 </Alert>
               </div>
             </Collapse>
+            <Collapse in={this.state.success}>
+              <div>
+                <Alert variant="success">
+                  <Alert.Heading>Success</Alert.Heading>
+                  <p>Your Budget has been successfully created!</p>
+                  <p>
+                    If you don't need to change it again, you can navigate back
+                    to the Finance Dashboard
+                  </p>
+                  <div className="d-flex justify-content-end">
+                    <Button
+                      variant="outline-success"
+                      onClick={() => history.push(FINANCE_DASHBOARD)}
+                    >
+                      Finance Dashboard
+                    </Button>
+                  </div>
+                </Alert>
+              </div>
+            </Collapse>
+            <Collapse in={this.state.error}>
+              <div>
+                <Alert variant="danger">
+                  <Alert.Heading>Error</Alert.Heading>
+                  <p>
+                    Something went wrong. Please try submiting again. If this
+                    error continues please try checking your internet connection
+                    or try restarting your Web Browser.
+                  </p>
+                </Alert>
+              </div>
+            </Collapse>
             <Button
               disabled={this.getButtonActive()}
               active={this.getButtonActive()}
               variant={this.getVariant()}
+              onClick={this.handleSubmit}
             >
               Submit
             </Button>

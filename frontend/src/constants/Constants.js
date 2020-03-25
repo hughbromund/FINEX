@@ -48,3 +48,4 @@ export const GET_BAD_COLOR = BASE + "/user/getBadColor";
 export const FOLLOW_STOCK_URL = BASE + "/stock/addStock";
 export const UNFOLLOW_STOCK_URL = BASE + "/stock/removeStock";
 export const CREATE_TRANSACTION = BASE + "/transaction/newTransaction";
+export const POST_CREATE_BUDGET = BASE + "/budget/createBudget";

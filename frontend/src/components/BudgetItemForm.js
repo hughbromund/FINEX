@@ -12,10 +12,12 @@ import history from "../routing/History";
 import classes from "./BudgetItemForm.module.css";
 import { CREATE_TRANSACTION } from "../constants/Constants";
 import DatePicker from "react-datepicker";
+import Collapse from "react-bootstrap/Collapse";
 
 import { DarkModeContext } from "../contexts/DarkModeContext";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { Col } from "react-bootstrap";
 
 export default class BudgetItemForm extends Component {
   constructor(props) {
@@ -25,7 +27,9 @@ export default class BudgetItemForm extends Component {
       cost: "",
       name: "",
       type: "Housing",
-      startDate: ""
+      startDate: "",
+      success: false,
+      error: false
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -49,7 +53,23 @@ export default class BudgetItemForm extends Component {
         name: this.state.name,
         date: this.state.date
       })
-    }).then(res => console.log(res));
+    }).then(res => {
+      // console.log(res);
+      if (res.status == 200) {
+        this.setState({
+          success: true,
+          error: false,
+          cost: "",
+          name: ""
+        });
+      }
+      if (res.status == 400) {
+        this.setState({
+          success: false,
+          error: true
+        });
+      }
+    });
   }
 
   handleNameChange(event) {
@@ -78,9 +98,34 @@ export default class BudgetItemForm extends Component {
             <Jumbotron
               className={this.context.isDarkMode ? "bg-dark" : classes.jumbo}
             >
-              <h1>Welcome to FINEX's Add Budget Form!</h1>
+              <h1>
+                Welcome to <b>FINEX's</b> Add Budget Form!
+              </h1>
               <p>Below, you may input a new item to your budget!</p>
             </Jumbotron>
+            <Collapse in={this.state.success}>
+              <div>
+                <Alert variant="success">
+                  <Alert.Heading>Success</Alert.Heading>
+                  <p>
+                    You successfully added a new item to your expenses for this
+                    month
+                  </p>
+                </Alert>
+              </div>
+            </Collapse>
+            <Collapse in={this.state.error}>
+              <div>
+                <Alert variant="danger">
+                  <Alert.Heading>Error</Alert.Heading>
+                  <p>
+                    Something went wrong. Please try submitting again. If this
+                    error continues please try checking your internet connection
+                    or try restarting your Web Browser.
+                  </p>
+                </Alert>
+              </div>
+            </Collapse>
             <Form onSubmit={this.handleSubmit}>
               <Form.Group>
                 <Form.Label>Cost</Form.Label>
@@ -94,6 +139,7 @@ export default class BudgetItemForm extends Component {
                     placeholder="e.g. 50"
                     onChange={this.handleCostChange}
                     value={this.state.cost}
+                    required
                   />
                 </InputGroup>
               </Form.Group>
@@ -105,6 +151,7 @@ export default class BudgetItemForm extends Component {
                     placeholder="e.g. water bill"
                     onChange={this.handleNameChange}
                     value={this.state.name}
+                    required
                   />
                 </InputGroup>
               </Form.Group>
@@ -114,6 +161,7 @@ export default class BudgetItemForm extends Component {
                   as="select"
                   onChange={this.handleTypeChange}
                   value={this.state.type}
+                  required
                 >
                   <option>Housing</option>
                   <option>Utilities</option>
