@@ -22,6 +22,28 @@ exports.budgetStub = async function (req, res, next) {
     }
 }
 
+exports.getBudget = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let budget = await budgetService.getBudget(req)
+
+            if (budget.status != null) {
+                res.status(400).json({message: budget.message})
+            }
+            else {
+                res.status(200).json(budget)
+            }
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({message: "An error occured"})
+        }
+    }
+    else {
+        res.status(400).json({message: "No user logged in."})
+    }
+}
+
 exports.insertTransaction = async function (req, res, next) {
     const { type, category, cost, name, date } = req.body
     //console.log(req.user.username)
@@ -123,5 +145,27 @@ exports.totalStub = async function (req, res, next) {
     }
     else {
         res.status(400).json({status: "No user logged in."})
+    }
+}
+
+exports.getTotal = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let total = await budgetService.getTotal(req)
+
+            if (total.status != null) {
+                res.status(400).json({message: total.message})
+            }
+            else {
+                res.status(200).json(total)
+            }
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({message: "An error occured"})
+        }
+    }
+    else {
+        res.status(400).json({message: "No user logged in."})
     }
 }

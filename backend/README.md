@@ -513,8 +513,9 @@ GET
 This represents obtaining current budget  
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list with budget categories, with budgeted amount and spent amount  
-Status: STUB  
-Bugs: ??
+Status: Working  
+Bugs: ??  
+
 
 JSON Format (Output):
 [
@@ -592,8 +593,9 @@ GET
 This represents obtaining totals for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a "budgeted" amount and "spent" amount  
-Status: STUB  
-Bugs: ??
+Status: Working  
+Bugs: ??  
+
 
 JSON Format (Output):
 {
