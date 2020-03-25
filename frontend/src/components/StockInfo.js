@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import classes from "./StockInfo.module.css";
 import Chart from "./Chart";
 import { Button, ButtonGroup } from "react-bootstrap";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import {
   YOUR_STOCKS_PATH,
   STOCK_DAILY_URL,
@@ -9,9 +11,11 @@ import {
   CRYPTO_DAILY_URL,
   USER_INFO_URL,
   FOLLOW_STOCK_URL,
-  UNFOLLOW_STOCK_URL
+  UNFOLLOW_STOCK_URL,
+  GET_FOLLOWED_STOCKS_URL
 } from "../constants/Constants";
 import history from "../routing/History";
+import { DarkModeContext } from "../contexts/DarkModeContext";
 
 /**
  * This page displays a chart and other basic information about a stock.
@@ -32,7 +36,8 @@ class StockInfo extends Component {
     isValid: true,
     daily: true,
     isLoggedIn: false,
-    following: false
+    following: false,
+    followedStocks: []
   };
 
   /**
@@ -60,7 +65,6 @@ class StockInfo extends Component {
       searchedSymbol = currPath.slice(pathLength);
     }
 
-    // TODO: call backend based on path on load
     this.callDataAPI(searchedSymbol).catch(err => {
       console.log(err);
       history.push("/stocknotfound");
@@ -68,6 +72,10 @@ class StockInfo extends Component {
     });
     searchedSymbol = searchedSymbol.toUpperCase();
     this.setState({ stockSymbol: searchedSymbol });
+
+    this.getFollowedStocks().catch(err => {
+      console.log(err);
+    });
   };
 
   /**
@@ -148,6 +156,10 @@ class StockInfo extends Component {
       // console.log("Success");
       this.setState({ following: true });
     }
+
+    this.getFollowedStocks().catch(err => {
+      console.log(err);
+    });
   };
 
   unfollowStock = async () => {
@@ -163,6 +175,28 @@ class StockInfo extends Component {
     if (response.status === 200) {
       // console.log("Success");
       this.setState({ following: false });
+    }
+
+    this.getFollowedStocks().catch(err => {
+      console.log(err);
+    });
+  };
+
+  getFollowedStocks = async () => {
+    console.log(GET_FOLLOWED_STOCKS_URL);
+    let response;
+    response = await fetch(GET_FOLLOWED_STOCKS_URL);
+    const body = await response.json();
+    console.log(body);
+
+    if (response.status == 200) {
+      // console.log("false");
+      this.setState({ followedStocks: body["stocks"] });
+      if (body["stocks"].indexOf(this.state.stockSymbol) == -1) {
+        this.setState({ following: false });
+      } else {
+        this.setState({ following: true });
+      }
     }
   };
 
@@ -196,46 +230,98 @@ class StockInfo extends Component {
   renderFollowButton = () => {
     // console.log(this.state.isLoggedIn);
 
-    if (this.state.isLoggedIn == true) {
+    if (this.state.isLoggedIn == true && !this.state.isCrypto) {
       // TODO: render unfollow if already following
-      return (
-        <div>
-          <Button
-            variant="success"
-            onClick={this.followStock}
-            className={classes.followButton}
-          >
-            {" "}
-            +{" "}
-          </Button>
+      if (this.state.following) {
+        return (
           <Button
             variant="danger"
             onClick={this.unfollowStock}
             className={classes.followButton}
           >
-            {" "}
-            -{" "}
+            Unfollow
           </Button>
-        </div>
-      );
+        );
+      } else {
+        return (
+          <Button
+            variant="success"
+            onClick={this.followStock}
+            className={classes.followButton}
+          >
+            Follow
+          </Button>
+        );
+      }
     }
     return (
       <div>
-        <Button variant="success" disabled className={classes.followButton}>
-          {" "}
-          +{" "}
+        <OverlayTrigger
+          overlay={
+            <Tooltip id="tooltip-disabled">
+              Login or search for a stock to follow!
+            </Tooltip>
+          }
+          placement="right"
+        >
+          <span>
+            <Button
+              variant="success"
+              disabled
+              className={classes.followButtonDisabled}
+            >
+              Follow
+            </Button>
+          </span>
+        </OverlayTrigger>
+      </div>
+    );
+  };
+
+  renderFollowedStocks = () => {
+    if (!this.state.isLoggedIn) {
+      return;
+    }
+
+    let stocksArr = [];
+    for (let i = 0; i < this.state.followedStocks.length; i++) {
+      stocksArr[i] = (
+        <Button
+          key={i}
+          variant={this.context.isDarkMode ? "outline-light" : "outline-dark"}
+          className={classes.followedStockButton}
+          onClick={() => {
+            history.push(YOUR_STOCKS_PATH + "/" + this.state.followedStocks[i]);
+            // this.setState({ stockSymbol: this.state.followedStocks[i] });
+            window.location.reload();
+          }}
+        >
+          {this.state.followedStocks[i]}
         </Button>
-        <Button variant="danger" disabled className={classes.followButton}>
-          {" "}
-          -{" "}
-        </Button>
+      );
+    }
+
+    return (
+      <div
+        className={
+          this.context.isDarkMode
+            ? classes.followedStocksWrapperDark
+            : classes.followedStocksWrapperLight
+        }
+      >
+        <div className={classes.followedTitle}> Followed Stocks: </div>
+        {stocksArr}
       </div>
     );
   };
 
   render() {
     return (
-      <div className={classes.wrapper}>
+      <div
+        className={
+          this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
+        }
+      >
         <div className={classes.infoHeader}>
           <div className={classes.title}>{this.state.stockSymbol}</div>
           <div className={classes.followButtonDiv}>
@@ -295,12 +381,13 @@ class StockInfo extends Component {
           </div>
           <div className={classes.dataColumn}>
             <p>{this.state.volume}</p>
-            <p>{this.state.following + ""}</p>
           </div>
         </div>
+        {this.renderFollowedStocks()}
       </div>
     );
   }
 }
 
+StockInfo.contextType = DarkModeContext;
 export default StockInfo;
