@@ -11,6 +11,7 @@ const spendingSchema = new Schema({
 	username: { type: String, unique: false, required: false},
     month: { type: Number, min: -1, unique: false, required: false},
     year: { type: Number, min: 2019, unique: false, required: false},
+    income: { type: Number, min: -1, unique: false, required: false},
     total: { type: Number, min: -1, unique: false, required: false},
     housing: { type: Number, min: -1, unique: false, required: false},
     utilities: { type: Number, min: -1, unique: false, required: false},

@@ -43,18 +43,31 @@ exports.insertTransaction = async function (req, res, next) {
         const year = date.getFullYear() 
         console.log(year)
 
-        Spending.findOneAndUpdate( {username: req.user.username, month: month, year: year},
-             { $inc: {[category]: cost} }, function(err, response) {
-                if (err) {
-                console.log('error with findoneandupdate');
-               } 
-            })
-        Spending.findOneAndUpdate( {username: req.user.username, month: month, year: year},
-            { $inc: {total: cost} }, function(err, response) {
-                if (err) {
-                console.log('error with findoneandupdate');
-               } 
-            })
+    
+        if (type.localeCompare("expense") == 0) {
+            console.log("is expense");
+            Spending.findOneAndUpdate( {username: req.user.username, month: month, year: year},
+                { $inc: {[category]: cost} }, function(err, response) {
+                   if (err) {
+                   console.log('error with findoneandupdate');
+                  } 
+               })
+           Spending.findOneAndUpdate( {username: req.user.username, month: month, year: year},
+               { $inc: {total: cost} }, function(err, response) {
+                   if (err) {
+                   console.log('error with findoneandupdate');
+                  } 
+               })
+        }
+        else if (type.localeCompare("income") == 0) {
+            Spending.findOneAndUpdate( {username: req.user.username, month: month, year: year},
+                { $inc: {income: cost} }, function(err, response) {
+                   if (err) {
+                   console.log('error with findoneandupdate');
+                  } 
+               }) 
+        }
+        
     } catch (e) {
         console.log(e)
         //return res.status(400).json({ status: 400, message: e.message });

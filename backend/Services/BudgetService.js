@@ -48,6 +48,7 @@ exports.createBudget = async function (req, res, next) {
             month: month,
             year: year,
             total: 0,
+            income: 0,
             housing: 0,
             utilities: 0,
             transportation: 0,
