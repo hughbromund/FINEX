@@ -590,6 +590,7 @@ Bugs: none as of now
 JSON Format (Input):
 {
     "type": "type",
+    "category": "category",
     "cost": cost,
     "name": "name",
     "month": "month",

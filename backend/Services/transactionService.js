@@ -12,7 +12,7 @@ exports.insertTransaction = async function (req, res, next) {
     try {
         console.log('new transaction');
         console.log(req.body)
-        const { username, type, cost, name, date, month, year} = req.body
+        const { type, category, cost, name, date, month, year} = req.body
 
         const newTransaction = new Transaction({
             username: req.user.username,
@@ -33,7 +33,7 @@ exports.insertTransaction = async function (req, res, next) {
         //var yr = date.getYear() + 1990;
 
         Spending.findOneAndUpdate( {username: username, month: month, year: year},
-             { $inc: {[type]: cost} }, function(err, response) {
+             { $inc: {[category]: cost} }, function(err, response) {
                 if (err) {
                 console.log('error with findoneandupdate');
                } 
