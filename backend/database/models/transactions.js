@@ -8,9 +8,11 @@ mongoose.promise = Promise
 const transactionSchema = new Schema({
 
 	username: { type: String, unique: true, required: false },
-    cost: { type: String, unique: false, required: false},
+    cost: { type: Number, min: 0, unique: false, required: false},
     type: { type: String, unique: false, required: false},
     name: { type: String, unique: false, required: false},
+    month: { type: Number, min: 0, unique: false, required: false},
+    year: { type: Number, min: 0, unique: false, required: false},
     date: { type: Date, default: Date.now }
 }, { collection: "Transactions"})
 
