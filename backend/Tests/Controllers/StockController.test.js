@@ -11,16 +11,22 @@ const mockResponse = () => {
     return res
 };
 
-// this mocks the req object
-const mockRequest = (paramData) => {
+// these mock the req object
+const mockRequestBasic = (paramData) => {
     return {
-        params: {code: paramData},
+        params: {code: paramData}
+    };
+};
+
+const mockRequestAnalytics = (paramCode, paramInterval, paramSeriesType) => {
+    return {
+        params: {code: paramCode, interval: paramInterval, series_type: paramSeriesType}
     };
 };
 
 describe("Stock Intraday", () => {
     test("expected path", async () => {
-        const req = mockRequest('msft')
+        const req = mockRequestBasic('msft')
         const res = mockResponse()
 
         const resp = {data: 'yeet'};
@@ -31,7 +37,7 @@ describe("Stock Intraday", () => {
     })
 
     test("code is undefined", async () => {
-        const req = mockRequest(null)
+        const req = mockRequestBasic(null)
         const res = mockResponse()
 
         const resp = {data: 'yeet'};
@@ -42,7 +48,7 @@ describe("Stock Intraday", () => {
     })
 
     test("stock is not found", async () => {
-        const req = mockRequest('cscd')
+        const req = mockRequestBasic('cscd')
         const res = mockResponse()
 
         stockService.getStockIntraday.mockImplementation(() => {
@@ -57,7 +63,7 @@ describe("Stock Intraday", () => {
 
 describe("Stock Daily", () => {
     test("expected path", async () => {
-        const req = mockRequest('msft')
+        const req = mockRequestBasic('msft')
         const res = mockResponse()
 
         const resp = {data: 'yeet'};
@@ -68,7 +74,7 @@ describe("Stock Daily", () => {
     })
 
     test("code is undefined", async () => {
-        const req = mockRequest(null)
+        const req = mockRequestBasic(null)
         const res = mockResponse()
 
         const resp = {data: 'yeet'};
@@ -79,7 +85,7 @@ describe("Stock Daily", () => {
     })
 
     test("stock is not found", async () => {
-        const req = mockRequest('cscd')
+        const req = mockRequestBasic('cscd')
         const res = mockResponse()
 
         stockService.getStockDaily.mockImplementation(() => {
@@ -88,5 +94,115 @@ describe("Stock Daily", () => {
         await stockController.getStockDaily(req, res)
         expect(res.status).toHaveBeenCalledWith(400)
         expect(res.json).toHaveBeenCalledWith({ status: 400, message: 'cscd could not be found'})
+    })
+})
+
+
+describe("Stock SMA", () => {
+    test("expected path", async () => {
+        const req = mockRequestAnalytics('msft', 'daily', 'open')
+        const res = mockResponse()
+
+        const resp = {data: 'yeet'};
+        stockService.getSMA.mockResolvedValue(resp);
+        await stockController.getSMA(req, res)
+        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.json).toHaveBeenCalledWith({data: 'yeet'})
+    })
+
+    test("code is undefined", async () => {
+        const req = mockRequestAnalytics(null, 'daily', 'close')
+        const res = mockResponse()
+
+        const resp = {data: 'yeet'};
+        stockService.getSMA.mockResolvedValue(resp);
+        await stockController.getSMA(req, res)
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ status: 400, message: 'code is undefined'})
+    })
+
+    test("stock is not found", async () => {
+        const req = mockRequestAnalytics('cscd', 'daily', 'close')
+        const res = mockResponse()
+
+        stockService.getSMA.mockImplementation(() => {
+            throw new Error();
+          });
+        await stockController.getSMA(req, res)
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ status: 400, message: 'cscd could not be found'})
+    })
+
+    test("interval is incorrect", async () => {
+        const req = mockRequestAnalytics('msft', 'anytime', 'close')
+        const res = mockResponse()
+
+        await stockController.getSMA(req, res)
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ status: 400, message: 'anytime is not a valid interval.'})
+    })
+
+    test("series_type is incorrect", async () => {
+        const req = mockRequestAnalytics('cscd', 'daily', 'point')
+        const res = mockResponse()
+
+        await stockController.getSMA(req, res)
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ status: 400, message: 'point is not a valid series_type.'})
+    })
+})
+
+
+describe("Stock EMA", () => {
+    test("expected path", async () => {
+        const req = mockRequestAnalytics('msft', 'daily', 'open')
+        const res = mockResponse()
+
+        const resp = {data: 'yeet'};
+        stockService.getEMA.mockResolvedValue(resp);
+        await stockController.getEMA(req, res)
+        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.json).toHaveBeenCalledWith({data: 'yeet'})
+    })
+
+    test("code is undefined", async () => {
+        const req = mockRequestAnalytics(null, 'daily', 'close')
+        const res = mockResponse()
+
+        const resp = {data: 'yeet'};
+        stockService.getEMA.mockResolvedValue(resp);
+        await stockController.getEMA(req, res)
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ status: 400, message: 'code is undefined'})
+    })
+
+    test("stock is not found", async () => {
+        const req = mockRequestAnalytics('cscd', 'daily', 'close')
+        const res = mockResponse()
+
+        stockService.getEMA.mockImplementation(() => {
+            throw new Error();
+          });
+        await stockController.getEMA(req, res)
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ status: 400, message: 'cscd could not be found'})
+    })
+
+    test("interval is incorrect", async () => {
+        const req = mockRequestAnalytics('msft', 'anytime', 'close')
+        const res = mockResponse()
+
+        await stockController.getEMA(req, res)
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ status: 400, message: 'anytime is not a valid interval.'})
+    })
+
+    test("series_type is incorrect", async () => {
+        const req = mockRequestAnalytics('cscd', 'daily', 'point')
+        const res = mockResponse()
+
+        await stockController.getEMA(req, res)
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ status: 400, message: 'point is not a valid series_type.'})
     })
 })

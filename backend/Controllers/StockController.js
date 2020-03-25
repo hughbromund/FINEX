@@ -135,8 +135,8 @@ function verifyAnalyticsParameters(code, interval, series_type) {
     }
 
     //check code
-    if (req.params.code == null) {
-        return code + " is null or undefined";
+    if (code == null) {
+        return "code is undefined";
     }
     return;
 }
