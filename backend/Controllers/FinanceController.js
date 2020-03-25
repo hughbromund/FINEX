@@ -27,8 +27,8 @@ exports.getBudget = async function (req, res, next) {
         try {
             let budget = await budgetService.getBudget(req)
 
-            if (budget.code != null) {
-                res.status(400).json({status: budget.status})
+            if (budget.status != null) {
+                res.status(400).json({message: budget.message})
             }
             else {
                 res.status(200).json(budget)
@@ -36,11 +36,11 @@ exports.getBudget = async function (req, res, next) {
         }
         catch (e) {
             console.log(e)
-            res.status(400).json({status: "An error occured"})
+            res.status(400).json({message: "An error occured"})
         }
     }
     else {
-        res.status(400).json({status: "No user logged in."})
+        res.status(400).json({message: "No user logged in."})
     }
 }
 
@@ -153,8 +153,8 @@ exports.getTotal = async function (req, res, next) {
         try {
             let total = await budgetService.getTotal(req)
 
-            if (total.code != null) {
-                res.status(400).json({status: total.status})
+            if (total.status != null) {
+                res.status(400).json({message: total.message})
             }
             else {
                 res.status(200).json(total)
@@ -162,10 +162,10 @@ exports.getTotal = async function (req, res, next) {
         }
         catch (e) {
             console.log(e)
-            res.status(400).json({status: "An error occured"})
+            res.status(400).json({message: "An error occured"})
         }
     }
     else {
-        res.status(400).json({status: "No user logged in."})
+        res.status(400).json({message: "No user logged in."})
     }
 }

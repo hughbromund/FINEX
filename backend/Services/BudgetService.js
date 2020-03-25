@@ -80,8 +80,8 @@ exports.getBudget = async function(req) {
 
     if (budget == null) {
         return {
-            code: 400,
-            status: "Budget has not been created for this month."
+            status: 400,
+            message: "Budget has not been created for this month."
         }
     }
     return [
@@ -104,8 +104,8 @@ exports.getTotal = async function(req) {
 
     if (budget == null) {
         return {
-            code: 400,
-            status: "Budget has not been created for this month."
+            status: 400,
+            message: "Budget has not been created for this month."
         }
     }
     return {budgeted: budget.total, spent: spending.total}
