@@ -9,6 +9,9 @@ import {
   useDarkModeToggle
 } from "../contexts/DarkModeContext";
 
+import history from "../routing/History";
+import { LOGIN_PATH } from "../constants/Constants";
+
 //Imports for pie chart
 import { PieChart, Pie, ResponsiveContainer, Tooltip, Sector } from "recharts";
 
@@ -21,7 +24,7 @@ import { PieChart, Pie, ResponsiveContainer, Tooltip, Sector } from "recharts";
  */
 class SpentSummary extends Component {
   state = {
-    isLoggedIn: false,
+    isLoggedIn: null,
     spentData: null,
     activeIndex: 0
   };
@@ -78,6 +81,8 @@ class SpentSummary extends Component {
   };
 
   renderCategories = () => {
+    if (this.state.isLoggedIn == null) return null;
+
     let categoriesArr = [];
 
     for (let i = 0; i < this.state.spentData.length; i++) {
@@ -88,6 +93,8 @@ class SpentSummary extends Component {
   };
 
   renderSpending = () => {
+    if (this.state.isLoggedIn == null) return null;
+
     let spendingArr = [];
 
     for (let i = 0; i < this.state.spentData.length; i++) {
@@ -183,19 +190,9 @@ class SpentSummary extends Component {
   };
 
   render() {
-    if (!this.state.isLoggedIn) {
-      return (
-        <div className={classes.jumbotronWrapper}>
-          <div className={classes.jumbotronDiv}>
-            <Jumbotron
-              className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
-            >
-              <h1>No Budget Found</h1>
-              <p>Please login to view your budget information.</p>
-            </Jumbotron>
-          </div>
-        </div>
-      );
+    if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
+      history.push(LOGIN_PATH);
+      return null;
     } else {
       return (
         <div className={classes.contentWrapper}>

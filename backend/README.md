@@ -1,11 +1,12 @@
 ## URLs for Endpoints
 
 Note: ":" represents a variable  
-Note #2: Cryto quote endpoints currently do not have matching keys to the stock endpoints  
+Note #2: Cryto quote endpoints currently do not have matching keys to the stock endpoints
 
 ## Stocks
 
-### /api/stock/auto/:input  
+### /api/stock/auto/:input
+
 GET  
 This represents the autofill endpoint  
 Requirements: some input from search box  
@@ -15,131 +16,139 @@ Bugs: None
 
 JSON Format:  
 [
-    {
-    "CODE",
-    "COMPANY NAME"
-    },
-    ...
+{
+"CODE",
+"COMPANY NAME"
+},
+...
 ]
 
-### /api/stock/intraday/:code  
+### /api/stock/intraday/:code
+
 GET  
 This represents the basic endpoint to get intraday data  
 Requirements: some stock code  
 Returns: JSON object containing quotes on 1 min interval or 400 if not found  
 Status: Working  
-Bugs: None  
+Bugs: None
 
 JSON Format:  
 {  
-    "2020-03-06T21:00:00.000Z": {  
-        "open": "162.2100",  
-        "high": "162.3100",  
-        "low": "159.2400",  
-        "close": "161.5800",  
-        "volume": "1149463"  
-&nbsp;&nbsp;&nbsp;&nbsp;}     
-} 
+ "2020-03-06T21:00:00.000Z": {  
+ "open": "162.2100",  
+ "high": "162.3100",  
+ "low": "159.2400",  
+ "close": "161.5800",  
+ "volume": "1149463"  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+}
 
-### /api/stock/daily/:code  
+### /api/stock/daily/:code
+
 GET  
 This represents the basic endpoint to get daily data  
 Requirements: some stock code  
 Returns: JSON object containing quotes on 1 day interval or 400 if not found  
 Status: Working  
-Bugs: None   
+Bugs: None
 
 JSON Format:  
 {  
-    "2020-03-06T21:00:00.000Z": {  
-        "open": "162.2100",  
-        "high": "162.3100",  
-        "low": "159.2400",  
-        "close": "161.5800",  
-        "volume": "1149463"  
-&nbsp;&nbsp;&nbsp;&nbsp;}     
-} 
+ "2020-03-06T21:00:00.000Z": {  
+ "open": "162.2100",  
+ "high": "162.3100",  
+ "low": "159.2400",  
+ "close": "161.5800",  
+ "volume": "1149463"  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+}
 
-### /api/stock/sma/:code/:interval/:series_type  
+### /api/stock/sma/:code/:interval/:series_type
+
 GET  
 This represents the endpoint to get SMA (Simple moving average) data  
 Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
-Bugs: None   
+Bugs: None
 
 JSON Format:  
 {  
-    "2020-03-12T17:21:00.000Z": {  
-&nbsp;&nbsp;    "SMA": "159.4868"  
-&nbsp;&nbsp;&nbsp;&nbsp;}     
-} 
+ "2020-03-12T17:21:00.000Z": {  
+&nbsp;&nbsp; "SMA": "159.4868"  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+}
 
-### /api/stock/ema/:code/:interval/:series_type  
+### /api/stock/ema/:code/:interval/:series_type
+
 GET  
 This represents the endpoint to get SMA (Exponential moving average) data  
 Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
-Bugs: None   
+Bugs: None
 
 JSON Format:  
 {  
-    "2020-03-12T17:21:00.000Z": {  
-&nbsp;&nbsp;   "EMA": "159.4868"  
-&nbsp;&nbsp;&nbsp;&nbsp;}     
-} 
+ "2020-03-12T17:21:00.000Z": {  
+&nbsp;&nbsp; "EMA": "159.4868"  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+}
 
-### /api/stock/rsi/:code/:interval/:series_type  
+### /api/stock/rsi/:code/:interval/:series_type
+
 GET  
 This represents the endpoint to get RSI (relative strength index) data  
 Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
-Bugs: None   
+Bugs: None
 
 JSON Format:  
 {  
-    "2020-03-12T17:21:00.000Z": {  
-&nbsp;&nbsp;    "RSI": "37.3574"  
-&nbsp;&nbsp;&nbsp;&nbsp;}     
-} 
+ "2020-03-12T17:21:00.000Z": {  
+&nbsp;&nbsp; "RSI": "37.3574"  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+}
 
-### /api/stock/bbands/:code/:interval/:series_type  
+### /api/stock/bbands/:code/:interval/:series_type
+
 GET  
 This represents the endpoint to get Bollinger Bands data  
 Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
-Bugs: None   
+Bugs: None
 
 JSON Format:  
 {  
-    "2020-03-12T17:21:00.000Z": {  
-&nbsp;&nbsp;    "Real Lower Band": "141.6096",
-&nbsp;&nbsp;    "Real Upper Band": "193.3689",
-&nbsp;&nbsp;    "Real Middle Band": "167.4893" 
-&nbsp;&nbsp;&nbsp;&nbsp;}     
-} 
+ "2020-03-12T17:21:00.000Z": {  
+&nbsp;&nbsp; "Real Lower Band": "141.6096",
+&nbsp;&nbsp; "Real Upper Band": "193.3689",
+&nbsp;&nbsp; "Real Middle Band": "167.4893"
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+}
 
-### /api/stock/macd/:code/:interval/:series_type  
+### /api/stock/macd/:code/:interval/:series_type
+
 GET  
 This represents the endpoint to get MACD (moving average convergence / divergence) data  
 Requirements: stock code, an interval (either "intraday" or "daily") and series type ("open", "close", "high", "low")  
 Returns: JSON object containing data on custom interval or 400 if not found/ parameters are wrong  
 Status: Working. Will need work to support crypto  
-Bugs: None   
+Bugs: None
 
 JSON Format:  
 {  
-    "2020-03-12T17:21:00.000Z": {  
-&nbsp;&nbsp;    "MACD_Signal": "-3.2184",
-&nbsp;&nbsp;    "MACD_Hist": "-2.7352",
-&nbsp;&nbsp;    "MACD": "-5.9537" 
-&nbsp;&nbsp;&nbsp;&nbsp;}     
-} 
+ "2020-03-12T17:21:00.000Z": {  
+&nbsp;&nbsp; "MACD_Signal": "-3.2184",
+&nbsp;&nbsp; "MACD_Hist": "-2.7352",
+&nbsp;&nbsp; "MACD": "-5.9537"
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+}
 
 ### /stock/addStock
+
 POST
 This represents adding a stock to the user's stock array
 Requirements: "stock_id" in JSON
@@ -150,14 +159,15 @@ Bugs: none as of now
 
 JSON Format (Input):
 {
-    "stock_id": "some ID"
+"stock_id": "some ID"
 }
 or
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
 ### /stock/removeStock
+
 POST
 This represents removing a stock from the user's stock array
 Requirements: "stock_id" in JSON
@@ -168,14 +178,15 @@ Bugs: none as of now
 
 JSON Format (Input):
 {
-    "stock_id": "some ID"
+"stock_id": "some ID"
 }
 or
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
 ### /stock/getStocks
+
 GET
 This represents getting the stock IDs saved to a user account
 Requirements: none
@@ -185,72 +196,75 @@ Bugs: none as of now
 
 JSON Format (Output):
 {
-    "stocks": [
-        "stock1",
-        "stock2",
-        etc.
-    ]
+"stocks": [
+"stock1",
+"stock2",
+etc.
+]
 }
-
 
 ## Crypto
 
-### /api/crypto/auto/:input    
+### /api/crypto/auto/:input
+
 GET  
 This represents the autofill endpoint  
 Requirements: some input from search box  
 Returns: empty list if can't find anything or list of cryptos  
 Status: Working  
-Bugs: None  
+Bugs: None
 
 JSON Format:  
 [
-    {
-    "CODE",
-    "CRYPTO NAME"
-    },
-    ...
+{
+"CODE",
+"CRYPTO NAME"
+},
+...
 ]
 
-### /api/crypto/daily/:code  
+### /api/crypto/daily/:code
+
 GET  
 This represents the basic endpoint to get daily data for crypto  
 Requirements: some crypto code  
 Returns: JSON object containing quotes on 1 day interval or 400 if not found  
-Status: Working 
-Bugs: None  
+Status: Working
+Bugs: None
 
 {  
-    "2020-03-06T21:00:00.000Z": {  
-        "open": "162.2100",  
-        "high": "162.3100",  
-        "low": "159.2400",  
-        "close": "161.5800",  
-        "volume": "1149463"  
-&nbsp;&nbsp;&nbsp;&nbsp;}     
-} 
+ "2020-03-06T21:00:00.000Z": {  
+ "open": "162.2100",  
+ "high": "162.3100",  
+ "low": "159.2400",  
+ "close": "161.5800",  
+ "volume": "1149463"  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+}
 
-### /api/crypto/weekly/:code  
+### /api/crypto/weekly/:code
+
 GET  
 This represents the basic endpoint to get wekkly data for crypto  
 Requirements: some crypto code  
 Returns: JSON object containing quotes on 1 week interval or 400 if not found  
 Status: Working  
-Bugs: None  
+Bugs: None
 
 {  
-    "2020-03-06T21:00:00.000Z": {  
-        "open": "162.2100",  
-        "high": "162.3100",  
-        "low": "159.2400",  
-        "close": "161.5800",  
-        "volume": "1149463"  
-&nbsp;&nbsp;&nbsp;&nbsp;}     
-} 
+ "2020-03-06T21:00:00.000Z": {  
+ "open": "162.2100",  
+ "high": "162.3100",  
+ "low": "159.2400",  
+ "close": "161.5800",  
+ "volume": "1149463"  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+}
 
 ## Auth
 
-### /auth/login  
+### /auth/login
+
 POST  
 This represents the login endpoint  
 Requirements: "username" and "password" in JSON. Username must be "username" and password must be "password" to succeed in JSON  
@@ -260,99 +274,105 @@ Bugs: ??
 
 JSON Format (Input):
 {
-    "username": "shmem",
-    "password": "shmem"
+"username": "shmem",
+"password": "shmem"
 }
 
-### /auth/register  
+### /auth/register
+
 POST  
 This represents the registration endpoint  
 Requirements: "username", "password", "email", and "name" in JSON. Always works unless username is "exist"  
 Returns: Returns 400 and failure message if username is "exist" and a JSON object with all inputs otherwise  
 Status: Working  
-Bugs: ??  
+Bugs: ??
 
 JSON Format (Input):
 {
-    "username": "shmem",
-    "password": "shmem"
-    "email": "basheescript@purdue.edu",
-    "name": "Sonic"
+"username": "shmem",
+"password": "shmem"
+"email": "basheescript@purdue.edu",
+"name": "Sonic"
 }
 
-### /auth/logout  
+### /auth/logout
+
 POST  
 This represents the logout endpoint  
 Requirements: None  
 Returns: Returns 400 and failure "status" if user not logged in and a JSON object with success "status" otherwise  
 Status: Working  
-Bugs: ??  
+Bugs: ??
 
 JSON Format (Output):
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
-### /auth/user  
+### /auth/user
+
 GET  
 This represents obtaining user info endpoint  
 Requirements: None  
 Returns: Returns 400 and "status": "no user logged in" JSON if user not logged in and a JSON object with correct "username", "name", and "email" otherwise  
 Status: Working  
-Bugs: ??  
+Bugs: ??
 
 JSON Format (Output):
 {
-    "username": "shmem",
-    "email": "basheescript@purdue.edu",
-    "name": "Sonic"
+"username": "shmem",
+"email": "basheescript@purdue.edu",
+"name": "Sonic"
 }
 
-or 
+or
 
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
-### /auth/updateEmail  
+### /auth/updateEmail
+
 PUT  
 This represents updating user email endpoint  
 Requirements: "email" in JSON
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in and a JSON object with "status": "email updated" otherwise  
 Status: Working  
-Bugs: ?? 
+Bugs: ??
 
 JSON Format (Input):
 {
-    "email": "basheescript@purdue.edu"
+"email": "basheescript@purdue.edu"
 }
 
-or 
+or
 
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
-### /auth/updateName  
+### /auth/updateName
+
 PUT  
 This represents updating user name endpoint  
 Requirements: "name" in JSON
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in and a JSON object with "status": "name updated" otherwise  
 Status: Working  
-Bugs: ??  
+Bugs: ??
 
 JSON Format (Input):
 {
-    "name": "Sonic"
+"name": "Sonic"
 }
 
-or 
+or
 
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
 ### /user/updateGoodColor
+
 POST
 This represents updating the good color preference on a user account
 Requirements: "good_color" in JSON
@@ -363,14 +383,15 @@ Bugs: none as of now
 
 JSON Format (Input):
 {
-    "good_color": "some hash value"
+"good_color": "some hash value"
 }
 or
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
 ### /user/updateBadColor
+
 POST
 This represents updating the bad color preference on a user account
 Requirements: "bad_color" in JSON
@@ -381,14 +402,15 @@ Bugs: none as of now
 
 JSON Format (Input):
 {
-    "bad_color": "some hash value"
+"bad_color": "some hash value"
 }
 or
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
 ### /user/lightDarkMode
+
 POST
 This represents updating the light/dark mode preference on a user account
 Requirements: "dark_mode" in JSON
@@ -399,14 +421,15 @@ Bugs: none as of now
 
 JSON Format (Input):
 {
-    "bad_color": true/false
+"bad_color": true/false
 }
 or
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
 ### /user/getGoodColor
+
 GET
 This represents getting the good color preference on a user account
 Requirements: none
@@ -416,10 +439,11 @@ Bugs: none as of now
 
 JSON Format (Output):
 {
-    "good_color": "some hash value"
+"good_color": "some hash value"
 }
 
 ### /user/getBadColor
+
 GET
 This represents getting the bad color preference on a user account
 Requirements: none
@@ -429,59 +453,62 @@ Bugs: none as of now
 
 JSON Format (Output):
 {
-    "bad_color": "some hash value"
+"bad_color": "some hash value"
 }
 or
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
-### /auth/updatePassword  
+### /auth/updatePassword
+
 PUT  
 This represents updating user password endpoint  
 Requirements: "password" in JSON
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in and a JSON object with "status": "password updated" otherwise  
 Status: Working  
-Bugs: ??  
+Bugs: ??
 
 JSON Format (Input):
 {
-    "password": "my-secret-password"
+"password": "my-secret-password"
 }
 
-or 
+or
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
-### /auth/resetPassword  
+### /auth/resetPassword
+
 PUT  
 This represents reseting user password endpoint  
 Requirements: "email" in JSON
 Returns: Returns 400 and "status": "email not passed!" JSON if no email passed and a JSON object with "status": "If there was a user associated with that email address, an email was sent to them" otherwise  
 Status: Working  
-Bugs: ??  
+Bugs: ??
 
 JSON Format (Input):
 {
-    "email": "basheescript@purdue.edu"
+"email": "basheescript@purdue.edu"
 }
 
 JSON Format (Output):
 
 {
-    "status": "If there was a user associated with that email address, an email was sent to them"
+"status": "If there was a user associated with that email address, an email was sent to them"
 }
 
-or 
+or
 
 {
-    "status": "email not passed!"
+"status": "email not passed!"
 }
 
 ## Finance
 
-### /finance/budget  
+### /finance/budget
+
 GET  
 This represents obtaining current budget  
 Requirements: None  
@@ -489,75 +516,79 @@ Returns: Returns 400 and "status": "No user logged in." JSON if user not logged 
 Status: Working  
 Bugs: ??  
 
+
 JSON Format (Output):
 [
-    {
-        "category": "food",
-        "budgeted": "100",
-        "spent": "250"
-    },
-    ...
+{
+"category": "food",
+"budgeted": "100",
+"spent": "250"
+},
+...
 ]
 
-or 
+or
 
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
-### /finance/income  
+### /finance/income
+
 GET  
 This represents obtaining current incomes for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's incomes otherwise  
 Status: Working
-Bugs: ??  
+Bugs: ??
 
 JSON Format (Output):
 [
-    {
-        "username": "shmem",
-        "type": "income",
-        "category": "other",
-        "cost": "250",
-        "name": "paycheck"
-    },
-    ...
+{
+"username": "shmem",
+"type": "income",
+"category": "other",
+"cost": "250",
+"name": "paycheck"
+},
+...
 ]
 
-or 
+or
 
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
-### /finance/expense  
+### /finance/expense
+
 GET  
 This represents obtaining current expenses for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's expenses otherwise  
 Status: Working
-Bugs: ??  
+Bugs: ??
 
 JSON Format (Output):
 [
-    {
-        "username": "shmem",
-        "type": "expense",
-        "category": "Food",
-        "cost": "250",
-        "name": "Apples"
-    },
-    ...
+{
+"username": "shmem",
+"type": "expense",
+"category": "Food",
+"cost": "250",
+"name": "Apples"
+},
+...
 ]
 
-or 
+or
 
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
-### /finance/total  
+### /finance/total
+
 GET  
 This represents obtaining totals for the current month
 Requirements: None  
@@ -565,21 +596,23 @@ Returns: Returns 400 and "status": "No user logged in." JSON if user not logged 
 Status: Working  
 Bugs: ??  
 
+
 JSON Format (Output):
 {
-    "budgeted": "1000",
-    "spent": "625"
+"budgeted": "1000",
+"spent": "625"
 }
 
-or 
+or
 
 {
-    "status": "No user logged in."
+"status": "No user logged in."
 }
 
 ### /transaction/newTransaction
+
 POST
-This represents adding a new transaction 
+This represents adding a new transaction
 Requirements: "username", "type", "cost", "name", and "date" in JSON. If date is not specified, the default
 current date JSON will be added
 MAKE SURE COST IS A NUMBER, IE NOT INSIDE QUOTES ("")
@@ -597,9 +630,10 @@ JSON Format (Input):
 }
 
 ### /budget/createBudget
+
 POST
 This represents creating a new budget
-Requirements: "month", "year", "total", "housing", "utilities", "transportation", "food", "medical", 
+Requirements: "month", "year", "total", "housing", "utilities", "transportation", "food", "medical",
 "savings", "personal", "entertainment", "other"
 USERNAME will default to the currently logged in user, no need to input it
 Returns: Returns 400 and error if an error occurs and a JSON representing the new budget otherwise
@@ -610,16 +644,16 @@ Bugs: none as of now
 
 JSON Format (Input):
 {
-    "month": month, (AS A NUMBER)
-    "year": year,
-    "total": total,
-    "housing": housing,
-    "utilities": utilities,
-    "transportation": transportation,
-    "food": food,
-    "medical": medical,
-    "savings": savings,
-    "personal": personal,
-    "entertainment": entertainment,
-    "other": other
+"month": month, (AS A NUMBER)
+"year": year,
+"total": total,
+"housing": housing,
+"utilities": utilities,
+"transportation": transportation,
+"food": food,
+"medical": medical,
+"savings": savings,
+"personal": personal,
+"entertainment": entertainment,
+"other": other
 }

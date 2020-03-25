@@ -1,6 +1,13 @@
-.wrapper {
+.wrapperLight {
   display: flex;
   flex-direction: column;
+}
+
+.wrapperDark {
+  display: flex;
+  flex-direction: column;
+  background: #121212;
+  height: 100%;
 }
 
 .infoTitle {
@@ -44,13 +51,42 @@
   margin-left: 20px;
 }
 
+.followButtonDisabled {
+  margin-right: 10px;
+  pointer-events: none;
+}
+
 .followButton {
   margin-right: 10px;
-  width: 40px;
 }
 
 .title {
   font-size: 30pt;
   font-weight: bold;
   padding-left: 65px;
+}
+
+.followedStocksWrapperDark {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  padding-bottom: 30px;
+  padding-left: 80px;
+  background-color: #121212;
+}
+
+.followedStocksWrapperLight {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  padding-bottom: 30px;
+  padding-left: 80px;
+}
+
+.followedTitle {
+  font-size: 20pt;
+}
+
+.followedStockButton {
+  margin-left: 20px;
 }

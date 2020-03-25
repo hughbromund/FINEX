@@ -50,3 +50,12 @@ export const FOLLOW_STOCK_URL = BASE + "/stock/addStock";
 export const UNFOLLOW_STOCK_URL = BASE + "/stock/removeStock";
 export const CREATE_TRANSACTION = BASE + "/transaction/newTransaction";
 export const POST_CREATE_BUDGET = BASE + "/budget/createBudget";
+export const GET_FOLLOWED_STOCKS_URL = BASE + "/stock/getStocks";
+
+/* Color Hexes */
+
+export const GREEN_COLOR_HEX = "#34C759";
+export const RED_COLOR_HEX = "#FF3B30";
+export const BLACK_COLOR_HEX = "#FFFFFF";
+export const BLUE_COLOR_HEX = "#0000FF";
+export const YELLOW_COLOR_HEX = "#FFFF00";
