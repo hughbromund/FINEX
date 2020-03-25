@@ -613,17 +613,18 @@ POST
 This represents adding a new transaction
 Requirements: "username", "type", "cost", "name", and "date" in JSON. If date is not specified, the default
 current date JSON will be added
+MAKE SURE COST IS A NUMBER, IE NOT INSIDE QUOTES ("")
 Returns: Returns 400 and error if an error occurs and a JSON representing the new transaction otherwise
 Status: Working
 Bugs: none as of now
 
 JSON Format (Input):
 {
-"type": "type",
-"category": "category",
-"cost": "cost",
-"name": "name",
-"date": "date"
+    "type": "type",
+    "category": "category",
+    "cost": cost,
+    "name": "name",
+    "date": "date" (optional)
 }
 
 ### /budget/createBudget

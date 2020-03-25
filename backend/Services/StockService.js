@@ -7,6 +7,7 @@ exports.helloWorld = async function () {
 
 //This has "realtime" data on a 1 minute interval
 exports.getStockIntraday = async function (code) {
+    console.log("sp");
     return alpha.data.intraday(code).then(data => {
         return alpha.util.polish(data).data;
     });

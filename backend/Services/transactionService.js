@@ -2,6 +2,7 @@
 
 const User = require('../database/models/user');
 const Transaction = require('../database/models/transactions');
+const Spending = require('../database/models/spending');
 
 //var databaseAccess = require('../DatabaseAccess/mongo_commands')  
 
@@ -11,7 +12,7 @@ exports.insertTransaction = async function (req, res, next) {
     try {
         console.log('new transaction');
         console.log(req.body)
-        const {type, category, cost, name, date } = req.body
+        var { type, category, cost, name, date} = req.body
 
         const newTransaction = new Transaction({
             username: req.user.username,
@@ -23,11 +24,53 @@ exports.insertTransaction = async function (req, res, next) {
         })
         newTransaction.save((err, savedTransaction) => {
             if (err) {
-                res.status(200).json(savedTransaction)
-            }
+                console.log(err)
+            }//return res.json(err)
         })
+
+        console.log("saved");
+        //var mon = date.getMonth() + 1;
+        //var yr = date.getYear() + 1990;
+
+        console.log(date)
+        if (date == null) {
+            //console.log("date is undefined")
+            date = new Date() 
+        }
+
+        const month = date.getMonth()
+        console.log(month)
+        const year = date.getFullYear() 
+        console.log(year)
+
+    
+        if (type.localeCompare("expense") == 0) {
+            console.log("is expense");
+            Spending.findOneAndUpdate( {username: req.user.username, month: month, year: year},
+                { $inc: {[category]: cost} }, function(err, response) {
+                   if (err) {
+                   console.log('error with findoneandupdate');
+                  } 
+               })
+           Spending.findOneAndUpdate( {username: req.user.username, month: month, year: year},
+               { $inc: {total: cost} }, function(err, response) {
+                   if (err) {
+                   console.log('error with findoneandupdate');
+                  } 
+               })
+        }
+        else if (type.localeCompare("income") == 0) {
+            Spending.findOneAndUpdate( {username: req.user.username, month: month, year: year},
+                { $inc: {income: cost} }, function(err, response) {
+                   if (err) {
+                   console.log('error with findoneandupdate');
+                  } 
+               }) 
+        }
+        
     } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message });
+        console.log(e)
+        //return res.status(400).json({ status: 400, message: e.message });
     }   
 }
 
