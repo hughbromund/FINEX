@@ -175,6 +175,23 @@ or
     "status": "No user logged in."
 }
 
+### /stock/getStocks
+GET
+This represents getting the stock IDs saved to a user account
+Requirements: none
+Returns: Returns 200 and the user's stock array on success and an error otherwise
+Status: Working
+Bugs: none as of now
+
+JSON Format (Output):
+{
+    "stocks": [
+        "stock1",
+        "stock2",
+        etc.
+    ]
+}
+
 
 ## Crypto
 
@@ -394,7 +411,7 @@ GET
 This represents getting the good color preference on a user account
 Requirements: none
 Returns: Returns 200 and the good color hex value on success and an error otherwise
-Status: Teasting
+Status: Working
 Bugs: none as of now
 
 JSON Format (Output):
@@ -407,7 +424,7 @@ GET
 This represents getting the bad color preference on a user account
 Requirements: none
 Returns: Returns 200 and the bad color hex value on success and an error otherwise
-Status: Testing
+Status: Working
 Bugs: none as of now
 
 JSON Format (Output):
@@ -490,7 +507,7 @@ or
 
 ### /finance/income  
 GET  
-This represents obtaining current incomes  
+This represents obtaining current incomes for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's incomes otherwise  
 Status: Working
@@ -516,7 +533,7 @@ or
 
 ### /finance/expense  
 GET  
-This represents obtaining current expenses  
+This represents obtaining current expenses for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's expenses otherwise  
 Status: Working
@@ -542,7 +559,7 @@ or
 
 ### /finance/total  
 GET  
-This represents obtaining totals  
+This represents obtaining totals for the current month
 Requirements: None  
 Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a "budgeted" amount and "spent" amount  
 Status: STUB  
@@ -581,27 +598,27 @@ JSON Format (Input):
 ### /budget/createBudget
 POST
 This represents creating a new budget
-Requirements: "username", "month", "year", "total", "housing", "utilities", "transportation", "food", "medical", 
-"savings", "personal", "entertainment", "other", "date" in JSON. If date is not specified, the default
-current date JSON will be added
+Requirements: "month", "year", "total", "housing", "utilities", "transportation", "food", "medical", 
+"savings", "personal", "entertainment", "other"
+USERNAME will default to the currently logged in user, no need to input it
 Returns: Returns 400 and error if an error occurs and a JSON representing the new budget otherwise
+CHECKS: MUST enter the JSON input with NUMBERS (no ""), no negative numbers are allowed,
+and all the individual categories must add up to the total value
 Status: Working
 Bugs: none as of now
 
 JSON Format (Input):
 {
-    "username": "username",
-    "month": "month", (AS A NUMBER)
-    "year": "year",
-    "total": "total",
-    "housing": "housing",
-    "utilities": "utilities",
-    "transportation": "transportation",
-    "food": "food",
-    "medical": "medical",
-    "savings": "savings",
-    "personal": "personal",
-    "entertainment": "entertainment",
-    "other": "other",
-    "date": "date"
+    "month": month, (AS A NUMBER)
+    "year": year,
+    "total": total,
+    "housing": housing,
+    "utilities": utilities,
+    "transportation": transportation,
+    "food": food,
+    "medical": medical,
+    "savings": savings,
+    "personal": personal,
+    "entertainment": entertainment,
+    "other": other
 }

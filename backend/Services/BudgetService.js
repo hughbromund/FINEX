@@ -10,12 +10,18 @@ exports.createBudget = async function (req, res, next) {
 
     try {
         console.log('new budget');
-        console.log(req.body)
-        const { username, month, year, total, housing, utilities, transportation, food, medical, 
-            savings, personal, entertainment, other, date } = req.body
+        console.log(req.body);
+        console.log(req.user.username);
+        const { month, year, total, housing, utilities, transportation, food, medical, 
+            savings, personal, entertainment, other } = req.body
+
+        if (housing + utilities + transportation + food + medical + savings + personal
+            + entertainment + other != total) {
+            return res.status(400).json({ status: 400, message: e.message });
+        }
 
         const newBudget = new Budget({
-            username: username,
+            username: req.user.username,
             month: month,
             year: year,
             total: total,
@@ -27,8 +33,7 @@ exports.createBudget = async function (req, res, next) {
             savings: savings,
             personal: personal,
             entertainment: entertainment,
-            other: other,
-            date: date
+            other: other
         })
         newBudget.save((err, savedBudget) => {
             if (err) {

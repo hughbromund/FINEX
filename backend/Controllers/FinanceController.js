@@ -39,11 +39,12 @@ exports.insertTransaction = async function (req, res, next) {
 }
 
 exports.createBudget = async function (req, res, next) {
-    const { username, month, year, total, housing, utilities, transportation, food, medical, 
-        savings, personal, entertainment, other, date } = req.body
+    const { month, year, total, housing, utilities, transportation, food, medical, 
+        savings, personal, entertainment, other } = req.body
     //console.log(req.user.username)
-    if ( username && month && year && total && housing && utilities && transportation && food && medical &&
-        savings && personal && entertainment && other && date ) {
+    if ( month >= 0 && year >= 0 && total >= 0 && housing >= 0 && utilities >= 0 && 
+        transportation >= 0 && food >= 0 && medical >= 0 &&
+        savings >= 0 && personal >= 0 && entertainment >= 0 && other >= 0) {
         try {
             let result = await budgetService.createBudget(req);
             res.status(200).json({status: "new budget created"})
