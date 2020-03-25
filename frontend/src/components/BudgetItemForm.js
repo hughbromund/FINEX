@@ -54,7 +54,7 @@ export default class BudgetItemForm extends Component {
         date: this.state.date
       })
     }).then(res => {
-      console.log(res);
+      // console.log(res);
       if (res.status == 200) {
         this.setState({
           success: true,
