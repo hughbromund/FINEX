@@ -2,6 +2,7 @@
 
 const User = require('../database/models/user');
 const Budget = require('../database/models/budget');
+const Spending = require('../database/models/spending');
 
 //var databaseAccess = require('../DatabaseAccess/mongo_commands')  
 
@@ -17,7 +18,8 @@ exports.createBudget = async function (req, res, next) {
 
         if (housing + utilities + transportation + food + medical + savings + personal
             + entertainment + other != total) {
-            return res.status(400).json({ status: 400, message: e.message });
+            //return res.status(400).json({ status: 400, message: e.message });
+            //this does not work correctly, you cannot return res. 
         }
 
         const newBudget = new Budget({
@@ -38,13 +40,35 @@ exports.createBudget = async function (req, res, next) {
         newBudget.save((err, savedBudget) => {
             if (err) {
                 console.log(err);
-                //return res.json(err);
             }
-            //console.log(res);
-            //res.status(200).json(savedBudget);
         })
+
+        const newSpending = new Spending({
+            username: req.user.username,
+            month: month,
+            year: year,
+            total: 0,
+            income: 0,
+            housing: 0,
+            utilities: 0,
+            transportation: 0,
+            food: 0,
+            medical: 0,
+            savings: 0,
+            personal: 0,
+            entertainment: 0,
+            other: 0
+        })
+        newSpending.save((err, savedSpending) => {
+            if (err) {
+                console.log(err);
+            }
+        })
+
     } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message });
+        //return res.status(400).json({ status: 400, message: e.message });
+         //this does not work correctly, you cannot return res. 
+        console.log(e)
     }   
 }
 
