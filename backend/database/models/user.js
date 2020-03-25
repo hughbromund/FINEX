@@ -16,7 +16,9 @@ const userSchema = new Schema({
 	transaction_ids: { type: String, unique: false, required: false},
 	good_color: { type: String, unique: false, required: false},
 	bad_color: { type: String, unique: false, required: false},
-	dark_mode: { type: Boolean },
+  dark_mode: { type: Boolean },
+  count: { type: Number, unique: false, required: false},
+  lockoutDate: { type: Date, unique: false, required: false},
 }, { collection: "Users"})
 
 // Define schema methods
