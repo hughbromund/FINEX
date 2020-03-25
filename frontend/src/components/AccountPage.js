@@ -12,7 +12,15 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 // import Tooltip from "react-bootstrap/Tooltip";
 import Popover from "react-bootstrap/Popover";
 
-import { HOME_PATH, LOGIN_PATH, RESET_NAME_PATH } from "../constants/Constants";
+import {
+  HOME_PATH,
+  LOGIN_PATH,
+  RESET_NAME_PATH,
+  GREEN_COLOR_HEX,
+  RED_COLOR_HEX,
+  BLUE_COLOR_HEX,
+  YELLOW_COLOR_HEX
+} from "../constants/Constants";
 import { LOGOUT_URL } from "../constants/Constants";
 import { USER_INFO_URL } from "../constants/Constants";
 import { GET_BAD_COLOR } from "../constants/Constants";
@@ -86,6 +94,10 @@ export default class AccountPage extends Component {
   handlePrimaryChangeComplete = color => {
     this.setState({ primaryColor: color.hex });
     console.log(JSON.stringify({ good_color: this.state.primaryColor }));
+    this.updateGoodColor();
+  };
+
+  updateGoodColor = () => {
     fetch(UPDATE_GOOD_COLOR, {
       method: "POST",
       withCredentials: true,
@@ -98,6 +110,10 @@ export default class AccountPage extends Component {
 
   handleSecondaryChangeComplete = color => {
     this.setState({ secondaryColor: color.hex });
+    this.updateBadColor();
+  };
+
+  updateBadColor = () => {
     fetch(UPDATE_BAD_COLOR, {
       method: "POST",
       withCredentials: true,
@@ -294,6 +310,61 @@ export default class AccountPage extends Component {
               </Card.Body>
 
               <Toggles />
+              <div>
+                Preset Themes:&nbsp;&nbsp;
+                <Badge
+                  variant="success"
+                  onClick={() => {
+                    this.setState({
+                      primaryColor: GREEN_COLOR_HEX,
+                      secondaryColor: RED_COLOR_HEX
+                    });
+                    this.updateGoodColor();
+                    this.updateBadColor();
+                  }}
+                >
+                  Standard
+                </Badge>
+                <Badge
+                  variant="success"
+                  onClick={() => {
+                    this.setState({
+                      primaryColor: RED_COLOR_HEX,
+                      secondaryColor: GREEN_COLOR_HEX
+                    });
+                    this.updateGoodColor();
+                    this.updateBadColor();
+                  }}
+                >
+                  Inverse
+                </Badge>
+                <Badge
+                  variant="success"
+                  onClick={() => {
+                    this.setState({
+                      primaryColor: BLUE_COLOR_HEX,
+                      secondaryColor: YELLOW_COLOR_HEX
+                    });
+                    this.updateGoodColor();
+                    this.updateBadColor();
+                  }}
+                >
+                  Blue/Yellow (accessibility mode)
+                </Badge>
+                <Badge
+                  variant="success"
+                  onClick={() => {
+                    this.setState({
+                      primaryColor: GREEN_COLOR_HEX,
+                      secondaryColor: GREEN_COLOR_HEX
+                    });
+                    this.updateGoodColor();
+                    this.updateBadColor();
+                  }}
+                >
+                  Green Only (accessibility mode)
+                </Badge>
+              </div>
             </Card>
           </div>
           <br />
