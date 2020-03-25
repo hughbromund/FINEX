@@ -593,9 +593,7 @@ JSON Format (Input):
     "category": "category",
     "cost": cost,
     "name": "name",
-    "month": "month",
-    "year": "year",
-    "date": "date"
+    "date": "date" (optional)
 }
 
 ### /budget/createBudget

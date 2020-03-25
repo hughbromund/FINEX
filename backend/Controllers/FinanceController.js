@@ -23,13 +23,14 @@ exports.budgetStub = async function (req, res, next) {
 }
 
 exports.insertTransaction = async function (req, res, next) {
-    const { type, category, cost, name, month, year, date } = req.body
+    const { type, category, cost, name, date } = req.body
     //console.log(req.user.username)
-    if ( category && type && cost && name && month && year) {
+    if ( category && type && cost && name) {
         try {
             let result = await transactionService.insertTransaction(req, res);
             res.status(200).json({status: "new transaction inserted"})
         } catch(e) {
+            console.log(e)
             res.status(400).json({status: "an error occurred"})
         }
     }
@@ -49,6 +50,7 @@ exports.createBudget = async function (req, res, next) {
             let result = await budgetService.createBudget(req);
             res.status(200).json({status: "new budget created"})
         } catch(e) {
+            console.log(e)
             res.status(400).json({status: "an error occurred"})
         }
     }

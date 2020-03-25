@@ -18,7 +18,8 @@ exports.createBudget = async function (req, res, next) {
 
         if (housing + utilities + transportation + food + medical + savings + personal
             + entertainment + other != total) {
-            return res.status(400).json({ status: 400, message: e.message });
+            //return res.status(400).json({ status: 400, message: e.message });
+            //this does not work correctly, you cannot return res. 
         }
 
         const newBudget = new Budget({
@@ -64,7 +65,9 @@ exports.createBudget = async function (req, res, next) {
         })
 
     } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message });
+        //return res.status(400).json({ status: 400, message: e.message });
+         //this does not work correctly, you cannot return res. 
+        console.log(e)
     }   
 }
 
