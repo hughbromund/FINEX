@@ -72,3 +72,41 @@ exports.createBudget = async function (req, res, next) {
     }   
 }
 
+exports.getBudget = async function(req) {
+    var currDate = new Date()
+
+    var budget = await Budget.findOne({ username: req.user.username, month: currDate.getMonth(), year: currDate.getFullYear()}, (err, user) => {}).exec();
+    var spending = await Spending.findOne({ username: req.user.username, month: currDate.getMonth(), year: currDate.getFullYear()}, (err, user) => {}).exec();
+
+    if (budget == null) {
+        return {
+            code: 400,
+            status: "Budget has not been created for this month."
+        }
+    }
+    return [
+            {category: "Housing", budgeted: budget.housing, spent: spending.housing},
+            {category: "Utilities", budgeted: budget.utilities, spent: spending.utilities},
+            {category: "Transportation", budgeted: budget.transportation, spent: spending.transportation},
+            {category: "Food", budgeted: budget.food, spent: spending.food},
+            {category: "Medical", budgeted: budget.medical, spent: spending.medical},
+            {category: "Savings", budgeted: budget.savings, spent: spending.savings},
+            {category: "Personal Entertainment", budgeted: budget.entertainment, spent: spending.entertainment},
+            {category: "Other", budgeted: budget.other, spent: spending.other}
+        ]
+}
+
+exports.getTotal = async function(req) {
+    var currDate = new Date()
+
+    var budget = await Budget.findOne({ username: req.user.username, month: currDate.getMonth(), year: currDate.getFullYear()}, (err, user) => {}).exec();
+    var spending = await Spending.findOne({ username: req.user.username, month: currDate.getMonth(), year: currDate.getFullYear()}, (err, user) => {}).exec();
+
+    if (budget == null) {
+        return {
+            code: 400,
+            status: "Budget has not been created for this month."
+        }
+    }
+    return {budgeted: budget.total, spent: spending.total}
+}

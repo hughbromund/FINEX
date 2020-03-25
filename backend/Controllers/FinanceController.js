@@ -22,6 +22,28 @@ exports.budgetStub = async function (req, res, next) {
     }
 }
 
+exports.getBudget = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let budget = await budgetService.getBudget(req)
+
+            if (budget.code != null) {
+                res.status(400).json({status: budget.status})
+            }
+            else {
+                res.status(200).json(budget)
+            }
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({status: "An error occured"})
+        }
+    }
+    else {
+        res.status(400).json({status: "No user logged in."})
+    }
+}
+
 exports.insertTransaction = async function (req, res, next) {
     const { type, category, cost, name, date } = req.body
     //console.log(req.user.username)
@@ -120,6 +142,28 @@ exports.getIncome = async function (req, res, next) {
 exports.totalStub = async function (req, res, next) {
     if (req.user) {
         res.status(200).json({budgeted: "1000", spent: "999999"})
+    }
+    else {
+        res.status(400).json({status: "No user logged in."})
+    }
+}
+
+exports.getTotal = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let total = await budgetService.getTotal(req)
+
+            if (total.code != null) {
+                res.status(400).json({status: total.status})
+            }
+            else {
+                res.status(200).json(total)
+            }
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({status: "An error occured"})
+        }
     }
     else {
         res.status(400).json({status: "No user logged in."})
