@@ -324,7 +324,7 @@ export default class AccountPage extends Component {
                   }}
                 >
                   Standard
-                </Badge>
+                </Badge>&nbsp;&nbsp;
                 <Badge
                   variant="success"
                   onClick={() => {
@@ -337,7 +337,7 @@ export default class AccountPage extends Component {
                   }}
                 >
                   Inverse
-                </Badge>
+                </Badge>&nbsp;&nbsp;
                 <Badge
                   variant="success"
                   onClick={() => {
@@ -350,7 +350,7 @@ export default class AccountPage extends Component {
                   }}
                 >
                   Blue/Yellow (accessibility mode)
-                </Badge>
+                </Badge>&nbsp;&nbsp;
                 <Badge
                   variant="success"
                   onClick={() => {
