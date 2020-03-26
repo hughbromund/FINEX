@@ -615,14 +615,6 @@ class StockInfo extends Component {
                 <Badge>Low:</Badge>
               </OverlayTrigger>
             </p>
-          </div>
-          <div className={classes.dataColumn}>
-            <p>{this.state.open}</p>
-            <p>{this.state.close}</p>
-            <p>{this.state.high}</p>
-            <p>{this.state.low}</p>
-          </div>
-          <div className={classes.headerColumn}>
             <p>
               <OverlayTrigger
                 trigger="click"
@@ -632,6 +624,15 @@ class StockInfo extends Component {
                 <Badge>Volume:</Badge>
               </OverlayTrigger>
             </p>
+          </div>
+          <div className={classes.dataColumn}>
+            <p>{this.state.open}</p>
+            <p>{this.state.close}</p>
+            <p>{this.state.high}</p>
+            <p>{this.state.low}</p>
+            <p>{this.state.volume}</p>
+          </div>
+          <div className={classes.headerColumn}>
             <p>
               <Badge variant="warning" pill>
                 <b>FINEX</b> Deep Analysis Data
@@ -694,7 +695,6 @@ class StockInfo extends Component {
             </p>
           </div>
           <div className={classes.dataColumn}>
-            <p>{this.state.volume}</p>
             <p>
               <Badge pill variant="warning">
                 BETA
