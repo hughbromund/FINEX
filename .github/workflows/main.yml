@@ -42,7 +42,9 @@ jobs:
         with:
           node-version: 12
       - run: npm i
+        working-directory: ./backend
       - run: npm test
+        working-directory: ./backend
   test_backend_syntax:
     runs-on: ubuntu-latest
     env:
