@@ -31,6 +31,20 @@ jobs:
         working-directory: ${{env.frontend}}
       - run: npm run build
         working-directory: ${{env.frontend}}
+  test_backend:
+    runs-on: ubuntu-latest
+    env:
+      frontend: ./frontend
+      backend: ./backend
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm i
+        working-directory: ./backend
+      - run: npm test
+        working-directory: ./backend
   test_backend_syntax:
     runs-on: ubuntu-latest
     env:
