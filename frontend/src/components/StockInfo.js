@@ -4,6 +4,8 @@ import Chart from "./Chart";
 import { Button, ButtonGroup } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import Popover from "react-bootstrap/Popover";
+import Badge from "react-bootstrap/Badge";
 import {
   YOUR_STOCKS_PATH,
   STOCK_DAILY_URL,
@@ -12,7 +14,12 @@ import {
   USER_INFO_URL,
   FOLLOW_STOCK_URL,
   UNFOLLOW_STOCK_URL,
-  GET_FOLLOWED_STOCKS_URL
+  GET_FOLLOWED_STOCKS_URL,
+  GET_BBANDS,
+  GET_RSI,
+  GET_EMA,
+  GET_SMA,
+  GET_MACD
 } from "../constants/Constants";
 import history from "../routing/History";
 import { DarkModeContext } from "../contexts/DarkModeContext";
@@ -32,6 +39,11 @@ class StockInfo extends Component {
     high: "Loading...",
     low: "Loading...",
     volume: "Loading...",
+    bbands: "Loading...",
+    ema: "Loading...",
+    rsi: "Loading...",
+    sma: "Loading...",
+    macd: "Loading...",
     isCrypto: false,
     isValid: true,
     daily: true,
@@ -75,6 +87,105 @@ class StockInfo extends Component {
 
     this.getFollowedStocks().catch(err => {
       console.log(err);
+    });
+
+    this.getDeepAnalytics(searchedSymbol);
+  };
+
+  getDeepAnalytics = async symbol => {
+    var ending = symbol + "/";
+    if (this.state.daily === true) {
+      ending = ending + "daily/";
+    } else {
+      ending = ending + "intraday/";
+    }
+    const seriesType = "high";
+
+    ending = ending + seriesType;
+
+    // console.log(ending);
+
+    // Get BBANDS
+    console.log(GET_BBANDS + ending);
+    var bbands_res = await fetch(GET_BBANDS + ending);
+    var bbands_data = 0;
+    if (bbands_res.status == 200) {
+      const bbands = await bbands_res.json();
+
+      for (var key in bbands) {
+        bbands_data = bbands[key]["Real Middle Band"];
+        // console.log(bbands[key]);
+        break;
+      }
+    } else {
+      bbands_data = "No Data";
+    }
+
+    // console.log(bbands);
+
+    // Get EMA
+
+    var ema_res = await fetch(GET_EMA + ending);
+    var ema_data = 0;
+    if (ema_res.status == 200) {
+      const ema = await ema_res.json();
+
+      for (var key in ema) {
+        ema_data = ema[key]["EMA"];
+        break;
+      }
+    } else {
+      ema_data = "No Data";
+    }
+
+    // Get RSI
+
+    var rsi_res = await fetch(GET_RSI + ending);
+    var rsi_data = 0;
+    if (rsi_res.status == 200) {
+      const rsi = await rsi_res.json();
+      for (var key in rsi) {
+        rsi_data = rsi[key]["RSI"];
+        break;
+      }
+    } else {
+      rsi_data = "No Data";
+    }
+
+    // Get SMA
+
+    var sma_res = await fetch(GET_SMA + ending);
+    var sma_data = 0;
+    if (sma_res.status == 200) {
+      const sma = await sma_res.json();
+      for (var key in sma) {
+        sma_data = sma[key]["SMA"];
+        break;
+      }
+    } else {
+      sma_data = "No Data";
+    }
+
+    // Get MACD
+
+    var macd_res = await fetch(GET_MACD + ending);
+    var macd_data = 0;
+    if (macd_res.status == 200) {
+      const macd = await macd_res.json();
+      for (var key in macd) {
+        macd_data = macd[key]["MACD"];
+        break;
+      }
+    } else {
+      macd_data = "No Data";
+    }
+
+    this.setState({
+      bbands: bbands_data,
+      ema: ema_data,
+      rsi: rsi_data,
+      sma: sma_data,
+      macd: macd_data
     });
   };
 
@@ -316,6 +427,108 @@ class StockInfo extends Component {
   };
 
   render() {
+    const openPopover = (
+      <Popover>
+        <Popover.Title as="h3">Open</Popover.Title>
+        <Popover.Content>
+          <b>Open</b> represents the stock price at the open of the New York
+          Stock Exchange. This is usually 9:30 AM EST.
+        </Popover.Content>
+      </Popover>
+    );
+    const closePopover = (
+      <Popover>
+        <Popover.Title as="h3">Close</Popover.Title>
+        <Popover.Content>
+          <b>Close</b> represents the stock price at the close of the New York
+          Stock Exchange. This is usually 4:00 PM EST.
+        </Popover.Content>
+      </Popover>
+    );
+    const highPopover = (
+      <Popover>
+        <Popover.Title>High</Popover.Title>
+        <Popover.Content>
+          <b>High</b> represents the highest price the stock has been during the
+          current days trading hours.
+        </Popover.Content>
+      </Popover>
+    );
+    const lowPopover = (
+      <Popover>
+        <Popover.Title>Low</Popover.Title>
+        <Popover.Content>
+          <b>Low</b> represents the lowest price the stock has been during the
+          current days trading hours.
+        </Popover.Content>
+      </Popover>
+    );
+    const volumePopover = (
+      <Popover>
+        <Popover.Title>Volume</Popover.Title>
+        <Popover.Content>
+          <b>Volume</b> represents the total number of shares that have changed
+          hands during the course of the current day.
+        </Popover.Content>
+      </Popover>
+    );
+    const smaPopover = (
+      <Popover>
+        <Popover.Title>
+          SMA (<i>Simple Moving Average</i>)
+        </Popover.Title>
+        <Popover.Content>
+          <b>SMA</b> shows the average price of an index over a period of time.
+        </Popover.Content>
+      </Popover>
+    );
+    const emaPopover = (
+      <Popover>
+        <Popover.Title>
+          EMA (<i>Exponential Moving Average</i>)
+        </Popover.Title>
+        <Popover.Content>
+          <b>EMA</b> shows the average price of an index over a period of time,
+          but places a greater weight and significance on the most recent data
+          points.
+        </Popover.Content>
+      </Popover>
+    );
+    const rsiPopover = (
+      <Popover>
+        <Popover.Title>
+          RSI (<i>Relative Strength Index</i>)
+        </Popover.Title>
+        <Popover.Content>
+          <b>RSI</b> measures the momentum of recent price changes. It ranges
+          from 0-100 and at the low end signifies an index that is being
+          oversold while at the high end signifies an overbought index.
+        </Popover.Content>
+      </Popover>
+    );
+    const bbandsPopover = (
+      <Popover>
+        <Popover.Title>Bollinger Bands</Popover.Title>
+        <Popover.Content>
+          <b>Bollinger Bands</b> are two lines, above and below the index plot,
+          that expand when the index is volatile and contract when it is less
+          volatile. They can be used to measure where the market will be headed,
+          but not necessarily when, or with what severity it will occur.
+        </Popover.Content>
+      </Popover>
+    );
+    const macdPopover = (
+      <Popover>
+        <Popover.Title>
+          MACD (<i>Moving Average Convergence / Divergence</i>)
+        </Popover.Title>
+        <Popover.Content>
+          <b>MACD</b> shows momentum in an index. Positive momentum signifies
+          continued gains while negative momentum signifies the opposite.
+        </Popover.Content>
+      </Popover>
+    );
+
     return (
       <div
         className={
@@ -353,6 +566,7 @@ class StockInfo extends Component {
           >
             Daily
           </Button>
+          &nbsp;
           <Button
             variant="success"
             onClick={() => this.setState({ daily: false })}
@@ -365,22 +579,132 @@ class StockInfo extends Component {
         </div>
         <div className={classes.infoBox}>
           <div className={classes.headerColumn}>
-            <p>Open:</p>
-            <p>Close:</p>
-            <p>High:</p>
-            <p>Low:</p>
+            <p>
+              <OverlayTrigger
+                trigger="click"
+                placement="top"
+                overlay={openPopover}
+              >
+                <Badge>Open:</Badge>
+              </OverlayTrigger>
+            </p>
+            <p>
+              <OverlayTrigger
+                trigger="click"
+                placement="top"
+                overlay={closePopover}
+              >
+                <Badge>Close:</Badge>
+              </OverlayTrigger>
+            </p>
+            <p>
+              <OverlayTrigger
+                trigger="click"
+                placement="top"
+                overlay={highPopover}
+              >
+                <Badge>High:</Badge>
+              </OverlayTrigger>
+            </p>
+            <p>
+              <OverlayTrigger
+                trigger="click"
+                placement="top"
+                overlay={lowPopover}
+              >
+                <Badge>Low:</Badge>
+              </OverlayTrigger>
+            </p>
+            <p>
+              <OverlayTrigger
+                trigger="click"
+                placement="top"
+                overlay={volumePopover}
+              >
+                <Badge>Volume:</Badge>
+              </OverlayTrigger>
+            </p>
           </div>
           <div className={classes.dataColumn}>
             <p>{this.state.open}</p>
             <p>{this.state.close}</p>
             <p>{this.state.high}</p>
             <p>{this.state.low}</p>
+            <p>{this.state.volume}</p>
           </div>
           <div className={classes.headerColumn}>
-            <p>Volume:</p>
+            <p>
+              <Badge variant="warning" pill>
+                <b>FINEX</b> Deep Analysis Data
+              </Badge>
+            </p>
+            <p>
+              <OverlayTrigger
+                trigger="click"
+                placement="top"
+                overlay={smaPopover}
+              >
+                <Badge variant="warning" pill>
+                  SMA
+                </Badge>
+              </OverlayTrigger>
+            </p>
+            <p>
+              <OverlayTrigger
+                trigger="click"
+                placement="top"
+                overlay={emaPopover}
+              >
+                <Badge variant="warning" pill>
+                  EMA
+                </Badge>
+              </OverlayTrigger>
+            </p>
+            <p>
+              <OverlayTrigger
+                trigger="click"
+                placement="top"
+                overlay={rsiPopover}
+              >
+                <Badge variant="warning" pill>
+                  RSI
+                </Badge>
+              </OverlayTrigger>
+            </p>
+            <p>
+              <OverlayTrigger
+                trigger="click"
+                placement="top"
+                overlay={bbandsPopover}
+              >
+                <Badge variant="warning" pill>
+                  Bollinger Bands
+                </Badge>
+              </OverlayTrigger>
+            </p>
+            <p>
+              <OverlayTrigger
+                trigger="click"
+                placement="top"
+                overlay={macdPopover}
+              >
+                <Badge variant="warning" pill>
+                  MACD
+                </Badge>
+              </OverlayTrigger>
+            </p>
           </div>
           <div className={classes.dataColumn}>
-            <p>{this.state.volume}</p>
+            <p>
+              <Badge pill variant="warning">
+                BETA
+              </Badge>
+            </p>
+            <p>{this.state.sma}</p>
+            <p>{this.state.ema}</p>
+            <p>{this.state.rsi}</p>
+            <p>{this.state.bbands}</p>
+            <p>{this.state.macd}</p>
           </div>
         </div>
         {this.renderFollowedStocks()}
