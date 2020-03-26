@@ -48,7 +48,7 @@ export default class BudgetItemForm extends Component {
       },
       body: JSON.stringify({
         type: "expense",
-        category: this.state.type,
+        category: this.state.type.toLowerCase(),
         cost: this.state.cost,
         name: this.state.name,
         date: this.state.date
