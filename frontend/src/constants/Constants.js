@@ -51,6 +51,11 @@ export const UNFOLLOW_STOCK_URL = BASE + "/stock/removeStock";
 export const CREATE_TRANSACTION = BASE + "/transaction/newTransaction";
 export const POST_CREATE_BUDGET = BASE + "/budget/createBudget";
 export const GET_FOLLOWED_STOCKS_URL = BASE + "/stock/getStocks";
+export const GET_BBANDS = BASE + "/api/stock/bbands/";
+export const GET_RSI = BASE + "/api/stock/rsi/";
+export const GET_EMA = BASE + "/api/stock/ema/";
+export const GET_SMA = BASE + "/api/stock/sma/";
+export const GET_MACD = BASE + "/api/stock/macd/";
 
 /* Color Hexes */
 
