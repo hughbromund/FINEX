@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Router, Switch, Route, Link } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 
 import history from "./History";
 
@@ -8,7 +8,7 @@ import history from "./History";
 import ResetEmail from "../components/ResetEmail";
 import RegistrationPage from "../components/RegistrationPage";
 import SearchStock from "../components/StockSearch/StockSearch";
-import Chart from "../components/Chart";
+// import Chart from "../components/Chart";
 import HomePage from "../components/HomePage";
 import NotFound from "../components/NotFound";
 import AccountPage from "../components/AccountPage";

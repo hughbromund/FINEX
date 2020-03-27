@@ -42,7 +42,7 @@ export default class MonthProgress extends Component {
 
   getVarient() {
     // console.log(onTrack)
-    if (this.onTrack() == true) {
+    if (this.onTrack() === true) {
       return "success";
     } else {
       return "danger";

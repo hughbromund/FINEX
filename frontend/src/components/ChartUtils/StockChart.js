@@ -24,7 +24,7 @@ import { last } from "react-stockcharts/lib/utils";
 import { GET_GOOD_COLOR, GET_BAD_COLOR } from "../../constants/Constants";
 
 import { DarkModeContext } from "../../contexts/DarkModeContext";
-import classes from "./StockChart.module.css";
+// import classes from "./StockChart.module.css";
 
 class LineAndScatterChartGrid extends React.Component {
   state = {
@@ -39,7 +39,7 @@ class LineAndScatterChartGrid extends React.Component {
     });
     const goodColorBody = await response.json();
 
-    var response = await fetch(GET_BAD_COLOR, {
+    response = await fetch(GET_BAD_COLOR, {
       method: "GET",
       withCredentials: true
     });

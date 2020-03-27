@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import { USER_INFO_URL, GET_CATEGORY_BUDGET } from "../constants/Constants";
-import Jumbotron from "react-bootstrap/Jumbotron";
+// import Jumbotron from "react-bootstrap/Jumbotron";
 import classes from "./SpentSummary.module.css";
-import {
-  DarkModeContext,
-  DarkModeProvider,
-  useDarkModeState,
-  useDarkModeToggle
-} from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../contexts/DarkModeContext";
 
 import history from "../routing/History";
 import { LOGIN_PATH } from "../constants/Constants";

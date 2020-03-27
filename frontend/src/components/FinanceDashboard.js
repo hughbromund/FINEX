@@ -17,7 +17,7 @@ import { ADD_INCOME_ITEM } from "../constants/Constants";
 // import Jumbotron from 'react-bootstrap/Jumbotron'
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import Toast from "react-bootstrap/Toast";
+// import Toast from "react-bootstrap/Toast";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
@@ -54,7 +54,7 @@ export default class FinanceDashboard extends Component {
       console.error(err);
     });
 
-    if (response.status == 400) {
+    if (response.status === 400) {
       // User not logged in
       history.push(LOGIN_PATH);
       return;
@@ -84,7 +84,7 @@ export default class FinanceDashboard extends Component {
       console.error(err);
     });
 
-    if (response.status == 400) {
+    if (response.status === 400) {
       // User not logged in
       history.push(LOGIN_PATH);
       return;

@@ -46,7 +46,7 @@ export default class NavigationBar extends Component {
       withCredentials: true
       // credentials: 'same-origin'
     });
-    if (response.status == 200) {
+    if (response.status === 200) {
       var body = await response.json();
       // console.log(body.user.username)
       this.setState({ username: body.username, name: body.name });

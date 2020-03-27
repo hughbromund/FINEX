@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import styles from "./ResetEmail.module.css";
 
-import {UPDATE_USERNAME_URL} from "../constants/Constants"
+import { UPDATE_USERNAME_URL } from "../constants/Constants";
 
 export default class ResetEmail extends Component {
   constructor(props) {
@@ -23,26 +23,26 @@ export default class ResetEmail extends Component {
   handleSubmit(event) {
     event.preventDefault();
     // const url = "http://httpbin.org/post";
-    
+
     if (!this.validateUsername()) {
-        this.setState({
-            hidden: false,
-            error: "Error. Name must not be empty.",
-            username: ""
-          });
-        return;
+      this.setState({
+        hidden: false,
+        error: "Error. Name must not be empty.",
+        username: ""
+      });
+      return;
     }
 
     fetch(UPDATE_USERNAME_URL, {
       method: "PUT",
-      body: JSON.stringify({name: this.state.name}),
+      body: JSON.stringify({ name: this.state.name }),
       headers: {
         "content-type": "application/json"
       }
     })
       .then(res => {
-          if (res.status == 200) {
-          console.log("Success")
+        if (res.status === 200) {
+          console.log("Success");
           this.setState({
             hidden: false,
             error:
@@ -52,31 +52,29 @@ export default class ResetEmail extends Component {
             name: ""
           });
         } else {
-            console.log("Failure")
-            this.setState(
-                {
-                  error: "An Error Occurred while trying to update your username.",
-                  hidden: false
-                })
+          console.log("Failure");
+          this.setState({
+            error: "An Error Occurred while trying to update your username.",
+            hidden: false
+          });
         }
-        })
+      })
       .catch(err => {
-          console.log(err)
-          this.setState(
-            {
-              error: "An Error Occurred while trying to update your username.",
-              hidden: false
-            })
+        console.log(err);
+        this.setState({
+          error: "An Error Occurred while trying to update your username.",
+          hidden: false
         });
+      });
   }
 
   validateUsername() {
-      console.log(this.state.username.length)
-      if (this.state.username.length === 0) {
-          return false;
-      } else {
-          return true;
-      }
+    console.log(this.state.username.length);
+    if (this.state.username.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   handleUsernameChange(event) {
@@ -85,8 +83,11 @@ export default class ResetEmail extends Component {
 
   render() {
     return (
-      <div className={styles.container} style={{display: 'flex', justifyContent: 'center'}}>
-        <Form onSubmit={this.handleSubmit} style={{ width: '50rem'}}>
+      <div
+        className={styles.container}
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <Form onSubmit={this.handleSubmit} style={{ width: "50rem" }}>
           <Form.Group>
             <Form.Label className={styles.label}>Reset Username</Form.Label>
             <Form.Control

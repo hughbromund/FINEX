@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 // import Card from 'react-bootstrap/Card'
-import Image from "react-bootstrap/Image";
+// import Image from "react-bootstrap/Image";
 import InputGroup from "react-bootstrap/InputGroup";
-import Dropdown from "react-bootstrap/Dropdown";
+// import Dropdown from "react-bootstrap/Dropdown";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import Container from "react-bootstrap/Container";
+// import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
-import history from "../routing/History";
+// import history from "../routing/History";
 import classes from "./BudgetItemForm.module.css";
 import { CREATE_TRANSACTION } from "../constants/Constants";
 import DatePicker from "react-datepicker";
@@ -17,7 +17,7 @@ import Collapse from "react-bootstrap/Collapse";
 import { DarkModeContext } from "../contexts/DarkModeContext";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { Col } from "react-bootstrap";
+// import { Col } from "react-bootstrap";
 
 export default class BudgetItemForm extends Component {
   constructor(props) {
@@ -55,7 +55,7 @@ export default class BudgetItemForm extends Component {
       })
     }).then(res => {
       // console.log(res);
-      if (res.status == 200) {
+      if (res.status === 200) {
         this.setState({
           success: true,
           error: false,
@@ -63,7 +63,7 @@ export default class BudgetItemForm extends Component {
           name: ""
         });
       }
-      if (res.status == 400) {
+      if (res.status === 400) {
         this.setState({
           success: false,
           error: true
