@@ -119,11 +119,13 @@ export default class FinanceDashboard extends Component {
     const inputs = [];
     for (let i = 0; i < body.length; i++) {
       inputs.push(
-        <CategoryProgress
-          category={body[i].category}
-          currentSpending={body[i].spent}
-          budgetedSpending={body[i].budgeted}
-        ></CategoryProgress>
+        <div key={i}>
+          <CategoryProgress
+            category={body[i].category}
+            currentSpending={body[i].spent}
+            budgetedSpending={body[i].budgeted}
+          ></CategoryProgress>
+        </div>
       );
     }
 
