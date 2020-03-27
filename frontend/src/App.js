@@ -1,18 +1,13 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import classes from "./App.module.css";
 import NavigationBar from "./components/NavigationBar";
-import RegistrationPage from "./components/RegistrationPage";
+// import RegistrationPage from "./components/RegistrationPage";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ResetEmail from "./components/ResetEmail";
+// import ResetEmail from "./components/ResetEmail";
 import Routes from "./routing/Routes";
-import AccountPage from "./components/AccountPage";
-import HomePage from "./components/HomePage";
-import {
-  DarkModeContext,
-  DarkModeProvider,
-  useDarkModeState,
-  useDarkModeToggle
-} from "./contexts/DarkModeContext";
+// import AccountPage from "./components/AccountPage";
+// import HomePage from "./components/HomePage";
+import { DarkModeProvider, useDarkModeState } from "./contexts/DarkModeContext";
 
 function BodyWrapper({ children }) {
   const { isDarkMode } = useDarkModeState();

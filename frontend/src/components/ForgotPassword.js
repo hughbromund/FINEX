@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Collapse from "react-bootstrap/Collapse";
-import Container from "react-bootstrap/Container";
+// import Container from "react-bootstrap/Container";
 
 import classes from "../components/ForgotPassword.module.css";
 
@@ -74,9 +74,9 @@ export default class ForgotPassword extends Component {
                 <Alert variant="success">
                   <Alert.Heading>Success</Alert.Heading>
                   <p>
-                    You successfully submited a password reset request. If we
+                    You successfully submitted a password reset request. If we
                     find an account matching the email you provided you will
-                    recieve an email with further steps
+                    receive an email with further steps
                   </p>
                   <p>For now, you can navigate back to the login screen.</p>
                   <hr />

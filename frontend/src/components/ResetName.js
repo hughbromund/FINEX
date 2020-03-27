@@ -44,7 +44,7 @@ export default class ResetEmail extends Component {
       }
     })
       .then(res => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           console.log("Success");
           this.setState({
             error: false,

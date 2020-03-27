@@ -109,7 +109,7 @@ class StockInfo extends Component {
     console.log(GET_BBANDS + ending);
     var bbands_res = await fetch(GET_BBANDS + ending);
     var bbands_data = 0;
-    if (bbands_res.status == 200) {
+    if (bbands_res.status === 200) {
       const bbands = await bbands_res.json();
 
       for (var key in bbands) {
@@ -127,7 +127,7 @@ class StockInfo extends Component {
 
     var ema_res = await fetch(GET_EMA + ending);
     var ema_data = 0;
-    if (ema_res.status == 200) {
+    if (ema_res.status === 200) {
       const ema = await ema_res.json();
 
       for (var key in ema) {
@@ -142,7 +142,7 @@ class StockInfo extends Component {
 
     var rsi_res = await fetch(GET_RSI + ending);
     var rsi_data = 0;
-    if (rsi_res.status == 200) {
+    if (rsi_res.status === 200) {
       const rsi = await rsi_res.json();
       for (var key in rsi) {
         rsi_data = rsi[key]["RSI"];
@@ -156,7 +156,7 @@ class StockInfo extends Component {
 
     var sma_res = await fetch(GET_SMA + ending);
     var sma_data = 0;
-    if (sma_res.status == 200) {
+    if (sma_res.status === 200) {
       const sma = await sma_res.json();
       for (var key in sma) {
         sma_data = sma[key]["SMA"];
@@ -170,7 +170,7 @@ class StockInfo extends Component {
 
     var macd_res = await fetch(GET_MACD + ending);
     var macd_data = 0;
-    if (macd_res.status == 200) {
+    if (macd_res.status === 200) {
       const macd = await macd_res.json();
       for (var key in macd) {
         macd_data = macd[key]["MACD"];
@@ -220,7 +220,7 @@ class StockInfo extends Component {
 
     // console.log(body[key]);
 
-    if (body[key] != undefined) {
+    if (body[key] !== undefined) {
       tmpOpen = "$" + parseFloat(body[key]["open"]).toFixed(2);
       tmpHigh = "$" + parseFloat(body[key]["high"]).toFixed(2);
       tmpLow = "$" + parseFloat(body[key]["low"]).toFixed(2);
@@ -241,10 +241,10 @@ class StockInfo extends Component {
     console.log(USER_INFO_URL);
     let response;
     response = await fetch(USER_INFO_URL);
-    const body = await response.json();
+    // const body = await response.json();
     // console.log(body.status);
 
-    if (response.status != 200) {
+    if (response.status !== 200) {
       // console.log("false");
       this.setState({ isLoggedIn: false });
     } else {
@@ -300,10 +300,10 @@ class StockInfo extends Component {
     const body = await response.json();
     console.log(body);
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       // console.log("false");
       this.setState({ followedStocks: body["stocks"] });
-      if (body["stocks"].indexOf(this.state.stockSymbol) == -1) {
+      if (body["stocks"].indexOf(this.state.stockSymbol) === -1) {
         this.setState({ following: false });
       } else {
         this.setState({ following: true });
@@ -331,7 +331,7 @@ class StockInfo extends Component {
   };
 
   renderChart = () => {
-    if (this.state == null) {
+    if (this.state === null) {
       return;
     } else {
       return <Chart symbol={this.state.stockSymbol} />;
@@ -341,7 +341,7 @@ class StockInfo extends Component {
   renderFollowButton = () => {
     // console.log(this.state.isLoggedIn);
 
-    if (this.state.isLoggedIn == true && !this.state.isCrypto) {
+    if (this.state.isLoggedIn === true && !this.state.isCrypto) {
       // TODO: render unfollow if already following
       if (this.state.following) {
         return (
@@ -541,7 +541,7 @@ class StockInfo extends Component {
             {this.renderFollowButton()}
           </div>
         </div>
-        {this.state.stockSymbol != null && this.state.isValid == true ? (
+        {this.state.stockSymbol !== null && this.state.isValid === true ? (
           this.state.daily ? (
             <Chart
               isCrypto={this.state.isCrypto}
@@ -550,7 +550,7 @@ class StockInfo extends Component {
             />
           ) : null
         ) : null}
-        {this.state.stockSymbol != null && this.state.isValid == true ? (
+        {this.state.stockSymbol !== null && this.state.isValid === true ? (
           !this.state.daily ? (
             <Chart
               isCrypto={this.state.isCrypto}

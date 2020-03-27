@@ -1,6 +1,6 @@
 // Code from example on https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/LineAndScatterChartGrid
 
-import { tsvParse } from "d3-dsv";
+// import { tsvParse } from "d3-dsv";
 import { timeParse } from "d3-time-format";
 import {
   CRYPTO_DAILY_URL,
@@ -8,7 +8,7 @@ import {
   CRYPTO_INTRADAY_URL,
   STOCK_INTRADAY_URL
 } from "../../constants/Constants";
-
+/*
 function parseData(parse) {
   return function(d) {
     d.date = parse(d.date);
@@ -21,6 +21,7 @@ function parseData(parse) {
     return d;
   };
 }
+*/
 
 const parseDate = timeParse("%Y-%m-%d");
 

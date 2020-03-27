@@ -3,7 +3,7 @@ import classes from "./AccountPage.module.css";
 
 import Image from "react-bootstrap/Image";
 import Card from "react-bootstrap/Card";
-import CardColumns from "react-bootstrap/CardColumns";
+// import CardColumns from "react-bootstrap/CardColumns";
 import Button from "react-bootstrap/Button";
 import history from "../routing/History";
 import Badge from "react-bootstrap/Badge";
@@ -28,11 +28,10 @@ import { GET_GOOD_COLOR } from "../constants/Constants";
 import { UPDATE_BAD_COLOR } from "../constants/Constants";
 import { UPDATE_GOOD_COLOR } from "../constants/Constants";
 import { RESET_EMAIL_PATH } from "../constants/Constants";
-import { RESET_USERNAME_PATH } from "../constants/Constants";
+// import { RESET_USERNAME_PATH } from "../constants/Constants";
 import { RESET_PASSWORD_PATH } from "../constants/Constants";
 import {
   DarkModeContext,
-  DarkModeProvider,
   useDarkModeState,
   useDarkModeToggle
 } from "../contexts/DarkModeContext";
@@ -137,7 +136,7 @@ export default class AccountPage extends Component {
     })
       .then(response => {
         // console.log(response)
-        if (response.status == 200) {
+        if (response.status === 200) {
           history.push(HOME_PATH);
         } else {
           console.log("Unable to Log Out");
@@ -156,7 +155,7 @@ export default class AccountPage extends Component {
       // credentials: 'same-origin'
     });
     // console.log(response)
-    if (response.status != 200) {
+    if (response.status !== 200) {
       history.push(LOGIN_PATH);
     } else {
       this.callUserInfo().catch(err => {
@@ -164,13 +163,13 @@ export default class AccountPage extends Component {
       });
     }
 
-    var response = await fetch(GET_GOOD_COLOR, {
+    response = await fetch(GET_GOOD_COLOR, {
       method: "GET",
       withCredentials: true
     });
     const goodColorBody = await response.json();
 
-    var response = await fetch(GET_BAD_COLOR, {
+    response = await fetch(GET_BAD_COLOR, {
       method: "GET",
       withCredentials: true
     });
@@ -307,64 +306,69 @@ export default class AccountPage extends Component {
                     </div>
                   </div>
                 </div>
+                <div>
+                  <br />
+                  <Toggles />
+                </div>
+                <div>
+                  Preset Themes:&nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => {
+                      this.setState({
+                        primaryColor: GREEN_COLOR_HEX,
+                        secondaryColor: RED_COLOR_HEX
+                      });
+                      this.updateGoodColor();
+                      this.updateBadColor();
+                    }}
+                  >
+                    Standard
+                  </Badge>
+                  &nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => {
+                      this.setState({
+                        primaryColor: RED_COLOR_HEX,
+                        secondaryColor: GREEN_COLOR_HEX
+                      });
+                      this.updateGoodColor();
+                      this.updateBadColor();
+                    }}
+                  >
+                    Inverse
+                  </Badge>
+                  &nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => {
+                      this.setState({
+                        primaryColor: BLUE_COLOR_HEX,
+                        secondaryColor: YELLOW_COLOR_HEX
+                      });
+                      this.updateGoodColor();
+                      this.updateBadColor();
+                    }}
+                  >
+                    Blue/Yellow (accessibility mode)
+                  </Badge>
+                  &nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => {
+                      this.setState({
+                        primaryColor: GREEN_COLOR_HEX,
+                        secondaryColor: GREEN_COLOR_HEX
+                      });
+                      this.updateGoodColor();
+                      this.updateBadColor();
+                    }}
+                  >
+                    Green Only (accessibility mode)
+                  </Badge>
+                </div>
               </Card.Body>
-
-              <Toggles />
-              <div>
-                Preset Themes:&nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => {
-                    this.setState({
-                      primaryColor: GREEN_COLOR_HEX,
-                      secondaryColor: RED_COLOR_HEX
-                    });
-                    this.updateGoodColor();
-                    this.updateBadColor();
-                  }}
-                >
-                  Standard
-                </Badge>&nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => {
-                    this.setState({
-                      primaryColor: RED_COLOR_HEX,
-                      secondaryColor: GREEN_COLOR_HEX
-                    });
-                    this.updateGoodColor();
-                    this.updateBadColor();
-                  }}
-                >
-                  Inverse
-                </Badge>&nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => {
-                    this.setState({
-                      primaryColor: BLUE_COLOR_HEX,
-                      secondaryColor: YELLOW_COLOR_HEX
-                    });
-                    this.updateGoodColor();
-                    this.updateBadColor();
-                  }}
-                >
-                  Blue/Yellow (accessibility mode)
-                </Badge>&nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => {
-                    this.setState({
-                      primaryColor: GREEN_COLOR_HEX,
-                      secondaryColor: GREEN_COLOR_HEX
-                    });
-                    this.updateGoodColor();
-                    this.updateBadColor();
-                  }}
-                >
-                  Green Only (accessibility mode)
-                </Badge>
-              </div>
             </Card>
           </div>
           <br />

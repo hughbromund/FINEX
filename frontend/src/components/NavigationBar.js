@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
+// import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 
 import history from "../routing/History";
@@ -46,7 +46,7 @@ export default class NavigationBar extends Component {
       withCredentials: true
       // credentials: 'same-origin'
     });
-    if (response.status == 200) {
+    if (response.status === 200) {
       var body = await response.json();
       // console.log(body.user.username)
       this.setState({ username: body.username, name: body.name });

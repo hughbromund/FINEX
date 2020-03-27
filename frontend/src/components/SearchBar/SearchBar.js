@@ -10,12 +10,7 @@ import { STOCK_LIST_URL } from "../../constants/Constants";
 import { CRYPTO_LIST_URL } from "../../constants/Constants";
 import history from "../../routing/History";
 import { YOUR_STOCKS_PATH, CRYPTO_EXTENSION } from "../../constants/Constants";
-import {
-  DarkModeContext,
-  DarkModeProvider,
-  useDarkModeState,
-  useDarkModeToggle
-} from "../../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 /**
  * The SearchBar component creates a search bar for stocks,

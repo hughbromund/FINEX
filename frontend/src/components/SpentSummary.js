@@ -1,19 +1,14 @@
 import React, { Component } from "react";
 import { USER_INFO_URL, GET_CATEGORY_BUDGET } from "../constants/Constants";
-import Jumbotron from "react-bootstrap/Jumbotron";
+// import Jumbotron from "react-bootstrap/Jumbotron";
 import classes from "./SpentSummary.module.css";
-import {
-  DarkModeContext,
-  DarkModeProvider,
-  useDarkModeState,
-  useDarkModeToggle
-} from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../contexts/DarkModeContext";
 
 import history from "../routing/History";
 import { LOGIN_PATH } from "../constants/Constants";
 
 //Imports for pie chart
-import { PieChart, Pie, ResponsiveContainer, Tooltip, Sector } from "recharts";
+import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
 
 /**
  * This class displays a summary in the form of a pie chart
@@ -43,10 +38,10 @@ class SpentSummary extends Component {
     console.log(USER_INFO_URL);
     let response;
     response = await fetch(USER_INFO_URL);
-    const body = await response.json();
+    // const body = await response.json();
     // console.log(body.status);
 
-    if (response.status != 200) {
+    if (response.status !== 200) {
       // console.log("false");
       this.setState({ isLoggedIn: false });
     } else {
@@ -116,8 +111,7 @@ class SpentSummary extends Component {
       endAngle,
       fill,
       payload,
-      percent,
-      value
+      percent
     } = props;
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);

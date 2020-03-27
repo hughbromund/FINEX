@@ -15,7 +15,7 @@ import Alert from "react-bootstrap/Alert";
 import Collapse from "react-bootstrap/Collapse";
 
 import history from "../routing/History";
-import { ACCOUNT_PATH } from "../constants/Constants";
+// import { ACCOUNT_PATH } from "../constants/Constants";
 import { REGISTER_URL } from "../constants/Constants";
 import { LOGIN_PATH } from "../constants/Constants";
 import { DarkModeContext } from "../contexts/DarkModeContext";
@@ -65,7 +65,7 @@ export default class RegistrationPage extends Component {
       }
     })
       .then(response => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           history.push(LOGIN_PATH);
         } else {
           this.setState({ registerError: false });
@@ -92,7 +92,7 @@ export default class RegistrationPage extends Component {
 
   checkPassword() {
     // console.log(this.state.password.length)
-    if (this.state.password.length == 0) {
+    if (this.state.password.length === 0) {
       return false;
     } else {
       return true;

@@ -1,17 +1,12 @@
 import React, { Component } from "react";
-import Dropdown from "react-bootstrap/Dropdown";
-import FormControl from "react-bootstrap/FormControl";
+// import Dropdown from "react-bootstrap/Dropdown";
+// import FormControl from "react-bootstrap/FormControl";
 import classes from "./StockSearch.module.css";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import Button from "react-bootstrap/Button";
-import { STOCK_LIST_API } from "../../constants/Constants";
+// import Button from "react-bootstrap/Button";
+// import { STOCK_LIST_API } from "../../constants/Constants";
 import SearchBar from "../SearchBar/SearchBar";
-import {
-  DarkModeContext,
-  DarkModeProvider,
-  useDarkModeState,
-  useDarkModeToggle
-} from "../../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 /**
  * This page is a page where the user may search for a stock.
