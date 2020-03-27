@@ -74,9 +74,9 @@ export default class ForgotPassword extends Component {
                 <Alert variant="success">
                   <Alert.Heading>Success</Alert.Heading>
                   <p>
-                    You successfully submited a password reset request. If we
+                    You successfully submitted a password reset request. If we
                     find an account matching the email you provided you will
-                    recieve an email with further steps
+                    receive an email with further steps
                   </p>
                   <p>For now, you can navigate back to the login screen.</p>
                   <hr />
