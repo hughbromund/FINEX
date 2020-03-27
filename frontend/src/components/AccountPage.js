@@ -3,7 +3,7 @@ import classes from "./AccountPage.module.css";
 
 import Image from "react-bootstrap/Image";
 import Card from "react-bootstrap/Card";
-import CardColumns from "react-bootstrap/CardColumns";
+// import CardColumns from "react-bootstrap/CardColumns";
 import Button from "react-bootstrap/Button";
 import history from "../routing/History";
 import Badge from "react-bootstrap/Badge";
@@ -28,11 +28,10 @@ import { GET_GOOD_COLOR } from "../constants/Constants";
 import { UPDATE_BAD_COLOR } from "../constants/Constants";
 import { UPDATE_GOOD_COLOR } from "../constants/Constants";
 import { RESET_EMAIL_PATH } from "../constants/Constants";
-import { RESET_USERNAME_PATH } from "../constants/Constants";
+// import { RESET_USERNAME_PATH } from "../constants/Constants";
 import { RESET_PASSWORD_PATH } from "../constants/Constants";
 import {
   DarkModeContext,
-  DarkModeProvider,
   useDarkModeState,
   useDarkModeToggle
 } from "../contexts/DarkModeContext";
@@ -137,7 +136,7 @@ export default class AccountPage extends Component {
     })
       .then(response => {
         // console.log(response)
-        if (response.status == 200) {
+        if (response.status === 200) {
           history.push(HOME_PATH);
         } else {
           console.log("Unable to Log Out");
@@ -156,7 +155,7 @@ export default class AccountPage extends Component {
       // credentials: 'same-origin'
     });
     // console.log(response)
-    if (response.status != 200) {
+    if (response.status !== 200) {
       history.push(LOGIN_PATH);
     } else {
       this.callUserInfo().catch(err => {
@@ -164,7 +163,7 @@ export default class AccountPage extends Component {
       });
     }
 
-    var response = await fetch(GET_GOOD_COLOR, {
+    response = await fetch(GET_GOOD_COLOR, {
       method: "GET",
       withCredentials: true
     });

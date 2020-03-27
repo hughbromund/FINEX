@@ -66,7 +66,7 @@ export default class LoginPage extends Component {
     })
       .then(response => {
         // console.log(response.status)
-        if (response.status == 200) {
+        if (response.status === 200) {
           // Success on Login
           // console.log(response)
           history.push(ACCOUNT_PATH);
@@ -95,7 +95,7 @@ export default class LoginPage extends Component {
       withCredentials: true
       // credentials: 'same-origin'
     });
-    if (response.status == 200) {
+    if (response.status === 200) {
       history.push(ACCOUNT_PATH);
     }
   };
