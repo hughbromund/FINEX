@@ -5,8 +5,8 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import history from "../routing/History";
 import { CREATE_NEW_BUDGET } from "../constants/Constants";
-
 import { GET_OVERALL_BUDGET } from "../constants/Constants";
+import { SPENT_SUMMARY_PATH } from "../constants/Constants";
 
 export default class MonthProgress extends Component {
   constructor(props) {
@@ -140,6 +140,12 @@ export default class MonthProgress extends Component {
           <div hidden={!this.onTrack()}>
             Your Budget is Looking Good! <br />
           </div>
+          <Button
+            variant="outline-success"
+            onClick={() => history.push(SPENT_SUMMARY_PATH)}
+          >
+            View Spending Details
+          </Button>
         </div>
       </div>
     );

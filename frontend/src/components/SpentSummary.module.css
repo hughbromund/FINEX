@@ -53,3 +53,15 @@
   margin-left: 10px;
   width: 40%;
 }
+
+.jumboOuter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.jumboInner {
+  margin-top: 20px;
+  width: 70vw;
+}
