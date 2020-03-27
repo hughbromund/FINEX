@@ -307,64 +307,69 @@ export default class AccountPage extends Component {
                     </div>
                   </div>
                 </div>
+                <div>
+                  <br />
+                  <Toggles />
+                </div>
+                <div>
+                  Preset Themes:&nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => {
+                      this.setState({
+                        primaryColor: GREEN_COLOR_HEX,
+                        secondaryColor: RED_COLOR_HEX
+                      });
+                      this.updateGoodColor();
+                      this.updateBadColor();
+                    }}
+                  >
+                    Standard
+                  </Badge>
+                  &nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => {
+                      this.setState({
+                        primaryColor: RED_COLOR_HEX,
+                        secondaryColor: GREEN_COLOR_HEX
+                      });
+                      this.updateGoodColor();
+                      this.updateBadColor();
+                    }}
+                  >
+                    Inverse
+                  </Badge>
+                  &nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => {
+                      this.setState({
+                        primaryColor: BLUE_COLOR_HEX,
+                        secondaryColor: YELLOW_COLOR_HEX
+                      });
+                      this.updateGoodColor();
+                      this.updateBadColor();
+                    }}
+                  >
+                    Blue/Yellow (accessibility mode)
+                  </Badge>
+                  &nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => {
+                      this.setState({
+                        primaryColor: GREEN_COLOR_HEX,
+                        secondaryColor: GREEN_COLOR_HEX
+                      });
+                      this.updateGoodColor();
+                      this.updateBadColor();
+                    }}
+                  >
+                    Green Only (accessibility mode)
+                  </Badge>
+                </div>
               </Card.Body>
-
-              <Toggles />
-              <div>
-                Preset Themes:&nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => {
-                    this.setState({
-                      primaryColor: GREEN_COLOR_HEX,
-                      secondaryColor: RED_COLOR_HEX
-                    });
-                    this.updateGoodColor();
-                    this.updateBadColor();
-                  }}
-                >
-                  Standard
-                </Badge>&nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => {
-                    this.setState({
-                      primaryColor: RED_COLOR_HEX,
-                      secondaryColor: GREEN_COLOR_HEX
-                    });
-                    this.updateGoodColor();
-                    this.updateBadColor();
-                  }}
-                >
-                  Inverse
-                </Badge>&nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => {
-                    this.setState({
-                      primaryColor: BLUE_COLOR_HEX,
-                      secondaryColor: YELLOW_COLOR_HEX
-                    });
-                    this.updateGoodColor();
-                    this.updateBadColor();
-                  }}
-                >
-                  Blue/Yellow (accessibility mode)
-                </Badge>&nbsp;&nbsp;
-                <Badge
-                  variant="success"
-                  onClick={() => {
-                    this.setState({
-                      primaryColor: GREEN_COLOR_HEX,
-                      secondaryColor: GREEN_COLOR_HEX
-                    });
-                    this.updateGoodColor();
-                    this.updateBadColor();
-                  }}
-                >
-                  Green Only (accessibility mode)
-                </Badge>
-              </div>
             </Card>
           </div>
           <br />
