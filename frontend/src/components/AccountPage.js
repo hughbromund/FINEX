@@ -93,33 +93,33 @@ export default class AccountPage extends Component {
   handlePrimaryChangeComplete = color => {
     this.setState({ primaryColor: color.hex });
     console.log(JSON.stringify({ good_color: this.state.primaryColor }));
-    this.updateGoodColor();
+    this.updateGoodColor(color.hex);
   };
 
-  updateGoodColor = () => {
+  updateGoodColor = (newGoodColor) => {
     fetch(UPDATE_GOOD_COLOR, {
       method: "POST",
       withCredentials: true,
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ good_color: this.state.primaryColor })
+      body: JSON.stringify({ good_color: newGoodColor })
     });
   };
 
   handleSecondaryChangeComplete = color => {
     this.setState({ secondaryColor: color.hex });
-    this.updateBadColor();
+    this.updateBadColor(color.hex);
   };
 
-  updateBadColor = () => {
+  updateBadColor = (newBadColor) => {
     fetch(UPDATE_BAD_COLOR, {
       method: "POST",
       withCredentials: true,
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ bad_color: this.state.secondaryColor })
+      body: JSON.stringify({ bad_color: newBadColor })
     });
   };
 
@@ -319,8 +319,8 @@ export default class AccountPage extends Component {
                         primaryColor: GREEN_COLOR_HEX,
                         secondaryColor: RED_COLOR_HEX
                       });
-                      this.updateGoodColor();
-                      this.updateBadColor();
+                      this.updateGoodColor(GREEN_COLOR_HEX);
+                      this.updateBadColor(RED_COLOR_HEX);
                     }}
                   >
                     Standard
@@ -333,8 +333,8 @@ export default class AccountPage extends Component {
                         primaryColor: RED_COLOR_HEX,
                         secondaryColor: GREEN_COLOR_HEX
                       });
-                      this.updateGoodColor();
-                      this.updateBadColor();
+                      this.updateGoodColor(RED_COLOR_HEX);
+                      this.updateBadColor(GREEN_COLOR_HEX);
                     }}
                   >
                     Inverse
@@ -347,8 +347,8 @@ export default class AccountPage extends Component {
                         primaryColor: BLUE_COLOR_HEX,
                         secondaryColor: YELLOW_COLOR_HEX
                       });
-                      this.updateGoodColor();
-                      this.updateBadColor();
+                      this.updateGoodColor(BLUE_COLOR_HEX);
+                      this.updateBadColor(YELLOW_COLOR_HEX);
                     }}
                   >
                     Blue/Yellow (accessibility mode)
@@ -361,8 +361,8 @@ export default class AccountPage extends Component {
                         primaryColor: GREEN_COLOR_HEX,
                         secondaryColor: GREEN_COLOR_HEX
                       });
-                      this.updateGoodColor();
-                      this.updateBadColor();
+                      this.updateGoodColor(GREEN_COLOR_HEX);
+                      this.updateBadColor(GREEN_COLOR_HEX);
                     }}
                   >
                     Green Only (accessibility mode)
