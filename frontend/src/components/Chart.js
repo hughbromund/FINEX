@@ -9,10 +9,12 @@ import {
 } from "./ChartUtils/ChartUtils";
 
 import StockChart from "./ChartUtils/StockChart";
+/*
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import InputGroup from "react-bootstrap/InputGroup";
+*/
 
 export default class Chart extends React.Component {
   constructor(props) {

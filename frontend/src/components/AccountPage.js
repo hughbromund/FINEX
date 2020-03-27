@@ -169,7 +169,7 @@ export default class AccountPage extends Component {
     });
     const goodColorBody = await response.json();
 
-    var response = await fetch(GET_BAD_COLOR, {
+    response = await fetch(GET_BAD_COLOR, {
       method: "GET",
       withCredentials: true
     });
