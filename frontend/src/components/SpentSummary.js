@@ -9,6 +9,7 @@ import { LOGIN_PATH } from "../constants/Constants";
 
 //Imports for pie chart
 import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
+import { Jumbotron } from "react-bootstrap";
 
 /**
  * This class displays a summary in the form of a pie chart
@@ -21,7 +22,8 @@ class SpentSummary extends Component {
   state = {
     isLoggedIn: null,
     spentData: null,
-    activeIndex: 0
+    activeIndex: 0,
+    isDataEmpty: false
   };
 
   componentDidMount = () => {
@@ -57,7 +59,14 @@ class SpentSummary extends Component {
     const body = await response.json();
     console.log(body);
 
+    if (body == null) {
+      this.setState({ isDataEmpty: true });
+      return;
+    }
+
     let dataArray = [];
+
+    let currTotalSpending = 0;
 
     for (let i = 0; i < body.length; i++) {
       if (body[i]["category"] === "Personal Entertainment") {
@@ -68,6 +77,13 @@ class SpentSummary extends Component {
         name: body[i]["category"],
         value: parseInt(body[i]["spent"])
       };
+
+      currTotalSpending += parseInt(body[i]["spent"]);
+    }
+
+    if (currTotalSpending == 0) {
+      this.setState({ isDataEmpty: true });
+      return;
     }
 
     this.setState({ spentData: dataArray });
@@ -187,6 +203,22 @@ class SpentSummary extends Component {
     if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
       history.push(LOGIN_PATH);
       return null;
+    } else if (this.state.isDataEmpty == true || this.state.spentData == null) {
+      return (
+        <div className={classes.jumboOuter}>
+          <div className={classes.jumboInner}>
+            <Jumbotron
+              className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
+            >
+              <h1>No Spending Found!</h1>
+              <p>
+                Try coming back when you have logged some of your spending for
+                this month.
+              </p>
+            </Jumbotron>
+          </div>
+        </div>
+      );
     } else {
       return (
         <div className={classes.contentWrapper}>
