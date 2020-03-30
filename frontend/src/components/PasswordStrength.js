@@ -49,7 +49,7 @@ export default class PasswordStrength extends Component {
     const score = zxcvbn(password).score;
 
     let tip;
-    if (score < 1) {
+    if (score < 2) {
       tip = (
         <div>
           <i>
