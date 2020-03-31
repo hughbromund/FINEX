@@ -1,92 +1,40 @@
-.wrapperLight {
-  display: flex;
-  flex-direction: column;
-}
-
-.wrapperDark {
-  display: flex;
-  flex-direction: column;
-  background: #121212;
-  height: 100%;
-}
-
-.infoTitle {
-  font-size: 20pt;
-  font-weight: bold;
-  padding-left: 80px;
-}
-
-.infoBox {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  margin-top: 20px;
-  font-size: 16pt;
-  padding-left: 80px;
-}
-
-.headerColumn {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  font-weight: bold;
-  width: 20vw;
-}
-
-.dataColumn {
-  display: flex;
-  flex-direction: column;
-  justify-content: right;
-  width: 15vw;
-}
-
-.infoHeader {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
-.followButtonDiv {
-  margin-top: 11px;
-  margin-left: 20px;
-}
-
-.followButtonDisabled {
-  margin-right: 10px;
-  pointer-events: none;
-}
-
-.followButton {
-  margin-right: 10px;
+.wrapper {
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
-  font-size: 30pt;
-  font-weight: bold;
-  padding-left: 65px;
+    font-size: 30pt;
+    font-weight: bold;
+    padding-left: 65px;
 }
 
-.followedStocksWrapperDark {
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-  padding-bottom: 30px;
-  padding-left: 80px;
-  background-color: #121212;
+.infoTitle {
+    font-size: 20pt;
+    font-weight: bold;
+    padding-left: 80px;
 }
 
-.followedStocksWrapperLight {
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-  padding-bottom: 30px;
-  padding-left: 80px;
+.infoBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-top: 20px;
+    font-size: 16pt;
+    padding-left: 80px;
 }
 
-.followedTitle {
-  font-size: 20pt;
+.headerColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    font-weight: bold;
+    width: 20vw;
 }
 
-.followedStockButton {
-  margin-left: 20px;
+.dataColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    width: 15vw;
 }

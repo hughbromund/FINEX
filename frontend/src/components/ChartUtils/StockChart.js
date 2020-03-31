@@ -21,57 +21,7 @@ import { OHLCTooltip } from "react-stockcharts/lib/tooltip";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
 
-import { GET_GOOD_COLOR, GET_BAD_COLOR } from "../../constants/Constants";
-
-import { DarkModeContext } from "../../contexts/DarkModeContext";
-// import classes from "./StockChart.module.css";
-
 class LineAndScatterChartGrid extends React.Component {
-  state = {
-    goodColor: "",
-    badColor: ""
-  };
-
-  async getColors() {
-    var response = await fetch(GET_GOOD_COLOR, {
-      method: "GET",
-      withCredentials: true
-    });
-    const goodColorBody = await response.json();
-
-    response = await fetch(GET_BAD_COLOR, {
-      method: "GET",
-      withCredentials: true
-    });
-    const badColorBody = await response.json();
-
-    this.setState({
-      goodColor: goodColorBody.good_color,
-      badColor: badColorBody.bad_color
-    });
-    // fetch(GET_GOOD_COLOR, {
-    //   method: "GET",
-    //   withCredentials: true
-    // }).then(res =>
-    //   this.setState({
-    //     goodColor: res.json().good_color
-    //   })
-    // );
-    // fetch(GET_BAD_COLOR, {
-    //   method: "GET",
-    //   withCredentials: true
-    // }).then(res =>
-    //   this.setState({
-    //     badColor: res.json().bad_color
-    //   })
-    // );
-  }
-
-  async componentDidMount() {
-    await this.getColors();
-    console.log(this.context.isDarkMode);
-  }
-
   render() {
     const { type, data: initialData, width, ratio, interpolation } = this.props;
     const { gridProps, seriesType } = this.props;
@@ -97,11 +47,6 @@ class LineAndScatterChartGrid extends React.Component {
     const xExtents = [start, end];
 
     const Series = seriesType === "line" ? LineSeries : AreaSeries;
-    console.log(
-      data[data.length - 1]["close"] - data[data.length - 2]["close"]
-    );
-    console.log(this.state.goodColor);
-    console.log(this.state.badColor);
     return (
       <ChartCanvas
         height={height}
@@ -115,29 +60,15 @@ class LineAndScatterChartGrid extends React.Component {
         xAccessor={xAccessor}
         displayXAccessor={displayXAccessor}
         xExtents={xExtents}
-        mouseMoveEvent={true}
-        panEvent={false}
-        zoomEvent={true}
-        clamp={true}
       >
-        <Chart
-          id={1}
-          yExtents={d => [Math.max(d.high, d.low), Math.min(d.high, d.low)]}
-        >
-          <XAxis
-            axisAt="bottom"
-            orient="bottom"
-            {...gridProps}
-            {...xGrid}
-            tickStroke={this.context.isDarkMode ? "white" : ""}
-          />
+        <Chart id={1} yExtents={d => [d.high, d.low]}>
+          <XAxis axisAt="bottom" orient="bottom" {...gridProps} {...xGrid} />
           <YAxis
             axisAt="right"
             orient="right"
             ticks={5}
             {...gridProps}
             {...yGrid}
-            tickStroke={this.context.isDarkMode ? "white" : ""}
           />
           <MouseCoordinateX
             at="bottom"
@@ -154,17 +85,9 @@ class LineAndScatterChartGrid extends React.Component {
             yAccessor={d => d.close}
             interpolation={interpolation}
             stroke="#ff0000" // This is where we can essentially change the color
-            fill={
-              data[data.length - 1]["close"] - data[data.length - 2]["close"] >
-              0
-                ? this.state.goodColor
-                : this.state.badColor
-            }
+            fill="#ff0000"
           />
-          <OHLCTooltip
-            origin={[-40, 0]}
-            textFill={this.context.isDarkMode ? "white" : ""}
-          />
+          <OHLCTooltip origin={[-40, 0]} />
         </Chart>
 
         <CrossHairCursor />
@@ -172,7 +95,6 @@ class LineAndScatterChartGrid extends React.Component {
     );
   }
 }
-LineAndScatterChartGrid.contextType = DarkModeContext;
 
 LineAndScatterChartGrid.propTypes = {
   data: PropTypes.array.isRequired,

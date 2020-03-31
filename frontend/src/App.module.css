@@ -13,22 +13,6 @@
   */ 
 }
 
-.darkMode {
-  transition: 0.3s;
-  font-family: "Montserrat", sans-serif;
-  color: white;
-  background: #121212;
-  height: 100vh;
-}
-
-.lightMode {
-  transition: 0.3s;
-  font-family: "Montserrat", sans-serif;
-  color: black;
-  background: white;
-  height: 100vh;
-}
-
 .navContainer {
   /* margin-bottom: 100px; */
 }

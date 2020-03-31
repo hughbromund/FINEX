@@ -5,20 +5,16 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
-// import FormControl from "react-bootstrap/FormControl";
+import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 
 import history from "../routing/History";
 import { YOUR_STOCKS_PATH, LOGIN_PATH } from "../constants/Constants";
 import { REGISTRATION_PATH } from "../constants/Constants";
 import { SEARCH_STOCK_PATH } from "../constants/Constants";
-import { HOME_PATH } from "../constants/Constants";
-import { ACCOUNT_PATH } from "../constants/Constants";
-import { USER_INFO_URL } from "../constants/Constants";
-import { FINANCE_DASHBOARD } from "../constants/Constants";
-import { ADD_BUDGET_ITEM } from "../constants/Constants";
-import { ADD_INCOME_ITEM } from "../constants/Constants";
-import { CREATE_NEW_BUDGET } from "../constants/Constants";
+import { HOME_PATH } from "../constants/Constants"
+import { ACCOUNT_PATH } from "../constants/Constants"
+import { USER_INFO_URL } from "../constants/Constants"
 // import { LOGIN_PATH } from "../constants/Constants"
 
 /*
@@ -30,63 +26,53 @@ import { CREATE_NEW_BUDGET } from "../constants/Constants";
  */
 
 export default class NavigationBar extends Component {
+
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
-      username: "",
+      username : "",
       name: "",
-      loggedIn: false
-    };
+      loggedIn : false
+    }
   }
 
   callUserInfo = async () => {
-    var response = await fetch(USER_INFO_URL, {
-      method: "GET",
-      withCredentials: true
-      // credentials: 'same-origin'
-    });
-    if (response.status === 200) {
-      var body = await response.json();
+    var response = await fetch(USER_INFO_URL,{
+        method: "GET",
+        withCredentials : true,
+        // credentials: 'same-origin'
+    })
+    if (response.status == 200) {
+      var body = await response.json()
       // console.log(body.user.username)
-      this.setState({ username: body.username, name: body.name });
-      this.setState({ loggedIn: true });
+      this.setState({username : body.username, name: body.name})
+      this.setState({loggedIn:true})
     } else {
-      this.setState({ loggedIn: false });
+      this.setState({loggedIn:false})
     }
-  };
+}
 
   componentDidMount() {
     this.callUserInfo().catch(err => {
-      console.log(err);
-    });
+      console.log(err)
+    })
   }
+
 
   render() {
     const loggedIn = this.state.loggedIn;
     let optional;
     if (loggedIn) {
-      optional = (
-        <Navbar.Text>
-          SIGNED IN AS:{" "}
-          <a onClick={() => history.push(ACCOUNT_PATH)}>{this.state.name}</a>
-        </Navbar.Text>
-      );
+      optional = <Navbar.Text>
+      SIGNED IN AS: <a onClick={() => history.push(ACCOUNT_PATH)} >{this.state.name}</a>
+      </Navbar.Text>
     } else {
-      optional = (
-        <div>
-          <Button variant="success" onClick={() => history.push(LOGIN_PATH)}>
-            Login
-          </Button>
-          &nbsp;&nbsp;&nbsp;
-          <Button
-            variant="outline-success"
-            onClick={() => history.push(REGISTRATION_PATH)}
-          >
-            Sign Up
-          </Button>
+      optional = <div>
+        <Button variant="success" onClick={() => history.push(LOGIN_PATH)}>Login</Button>
+        &nbsp;&nbsp;&nbsp;
+        <Button variant="outline-success" onClick={() => history.push(REGISTRATION_PATH)}>Sign Up</Button>
         </div>
-      );
     }
     return (
       <div>
@@ -113,8 +99,8 @@ export default class NavigationBar extends Component {
                 >
                   YOUR STOCKS
                 </NavDropdown.Item>
-                <NavDropdown.Item
-                  onClick={() => history.push(SEARCH_STOCK_PATH)}
+                <NavDropdown.Item 
+                    onClick={() => history.push(SEARCH_STOCK_PATH)}
                 >
                   FIND A STOCK
                 </NavDropdown.Item>
@@ -122,26 +108,22 @@ export default class NavigationBar extends Component {
                   MARKET TRENDS
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link onClick={() => history.push(FINANCE_DASHBOARD)}>
-                FINANCE
-              </Nav.Link>
+              <Nav.Link href="#link">FINANCE</Nav.Link>
               <NavDropdown title="BUDGETING" id="basic-nav-dropdown">
-                <NavDropdown.Item onClick={() => history.push(ADD_BUDGET_ITEM)}>
+                <NavDropdown.Item href="#action/3.1">
                   ADD A NEW ITEM
                 </NavDropdown.Item>
-                <NavDropdown.Item onClick={() => history.push(ADD_INCOME_ITEM)}>
-                  ADD A NEW INCOME
+                <NavDropdown.Item href="#action/3.2">
+                  VIEW YOUR BUDGET
                 </NavDropdown.Item>
-                <NavDropdown.Item>VIEW YOUR BUDGET</NavDropdown.Item>
-                <NavDropdown.Item
-                  onClick={() => history.push(CREATE_NEW_BUDGET)}
-                >
-                  CREATE A NEW BUDGET
+                <NavDropdown.Item href="#action/3.3">
+                  MAKE YOUR MONEY WORK
                 </NavDropdown.Item>
-                <NavDropdown.Item>MAKE YOUR MONEY WORK</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Form inline>{optional}</Form>
+            <Form inline>
+              {optional}
+            </Form>
           </Navbar.Collapse>
         </Navbar>
       </div>

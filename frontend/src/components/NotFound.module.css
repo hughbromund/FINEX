@@ -1,6 +1,5 @@
-.darkWrapper {
-    transition: 0.3s;
-    background-color: #121212;
+.wrapper {
+    background-color: black;
     background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url("../assets/img/not-found.jpg");
     background-size: contain;
     background-size: cover;
@@ -11,21 +10,6 @@
     display: flex;
     justify-content: center;
     color: white;
-}
-
-.lightWrapper {
-    transition: 0.3s;
-    background-color: white;
-    background-image: linear-gradient( rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6) ), url("../assets/img/not-found.jpg");
-    background-size: contain;
-    background-size: cover;
-    width: 100%;
-    height: 100vh;
-    z-index: -1;
-
-    display: flex;
-    justify-content: center;
-    color: black;
 }
 
 .content {

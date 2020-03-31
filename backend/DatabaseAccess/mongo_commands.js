@@ -57,7 +57,7 @@ MongoClient.connect(uri, function(err, client) {
  * @param {*} name 
  * Return value: void
  */
-function insertNewUser(username, password, email, name) {
+function insert_new_user(username, password, email, name) {
   var new_user = { username: username, password: password, email: email, name: name };
   users.insertOne(new_user, (err, result) => {
     console.log("New user inserted\n");
@@ -72,7 +72,7 @@ function insertNewUser(username, password, email, name) {
  * @param {*} name 
  * Return value: void
  */
-function insertNewTransaction(username, cost, type, name) {
+function insert_new_transaction(username, cost, type, name) {
   var new_transaction = { username: username, cost: cost, type: type, name: name };
   transactions.insertOne(new_transaction, (err, result) => {
     console.log("New transaction inserted\n");
@@ -88,7 +88,7 @@ function insertNewTransaction(username, cost, type, name) {
  * @param {*} name 
  * Return value: int
  */
-function getTransactionId(username, cost, type, name) {
+function get_transaction_id(username, cost, type, name) {
   transactions.findOne( { username: username, cost: cost, type: type, name: name }, 
   { projection: { username: 0, cost: 0, type: 0, name: 0 } }, (err, transaction_id) => {
     console.log("transaction found\n");
@@ -100,7 +100,7 @@ function getTransactionId(username, cost, type, name) {
  * Add transaction ID to user's transaction array
  * @param {*} transaction_id 
  */
-function addTransactionToUser(transaction_id) {
+function add_transaction_to_user(transaction_id) {
   users.updateOne( { username: username }, { $push: { transaction_ids: transaction }}).catch(() => {});
   console.log("user updated\n")
 }
@@ -111,7 +111,7 @@ function addTransactionToUser(transaction_id) {
  * @param {*} username 
  * Return value: user object
  */
-function findUser(username) {
+function find_user(username) {
   users.findOne( { username: username }, (err, user) => {
     console.log("found user\n");
     return user;
@@ -123,7 +123,7 @@ function findUser(username) {
  * @param {*} username 
  * Return value: array of transaction IDs
  */
-function getTransactions(username) {
+function get_transactions(username) {
   users.find( { username: username }, { projection: { _id: 0, username: 0, stocks: 0,
      password: 0, email: 0, good_color: 0, bad_color: 0, name: 0 } }, (err, list) => {
        console.log("found transactions\n");
@@ -138,7 +138,7 @@ function getTransactions(username) {
  * @param {*} password 
  * Return value: boolean
  */
-function checkPassword(username, password) {
+function check_password(username, password) {
   users.findOne( { username: username }, { projection: { _id: 0, username: 0, stocks: 0, 
     email: 0, good_color: 0, bad_color: 0, name: 0, transaction_ids: 0 } }, (err, pass) => {
       if (pass == password) {
@@ -155,7 +155,7 @@ function checkPassword(username, password) {
  * @param {*} stock_id 
  * Return value: void
  */
-function addStock(username, stock_id) {
+function add_stock(username, stock_id) {
   users.updateOne( { username: username }, { $push: { stocks: stock_id } } ).catch(() => {});
   console.log("stock added\n");
 }
@@ -167,7 +167,7 @@ function addStock(username, stock_id) {
  * @param {*} new_password 
  * Return value: void
  */
-function changePassword(username, new_password) {
+function change_password(username, new_password) {
   users.updateOne( { username: username }, { $set: { password: new_password } } ).catch(() => {});
   console.log("password updated\n");
 }
@@ -177,7 +177,7 @@ function changePassword(username, new_password) {
  * @param {*} username 
  * Return value: array of stock IDs
  */
-function getStocks(username) {
+function get_stocks(username) {
   users.find( { username: username }, { projection: { _id: 0, username: 0, transaction_ids: 0,
      password: 0, email: 0, good_color: 0, bad_color: 0, name: 0 } }, (err, list) => {
        console.log("stocks returned");
@@ -192,7 +192,7 @@ function getStocks(username) {
  * @param {*} bad 
  * Return value: void
  */
-function setColors(username, good, bad) {
+function set_colors(username, good, bad) {
   users.updateOne( { username: username }, { $set: { good_color: good, bad_color: bad } } ).catch(() => {});
   console.log("colors updated\n");
 }
