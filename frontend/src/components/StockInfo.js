@@ -60,7 +60,12 @@ class StockInfo extends Component {
       console.log(err);
     });
 
-    let currPath = this.props.location.pathname;
+    let currPath;
+    if (this.props.location == undefined) {
+      currPath = "/AAPL";
+    } else {
+      currPath = this.props.location.pathname;
+    }
     if (currPath.includes(CRYPTO_EXTENSION)) {
       this.state.isCrypto = true;
     } else {
