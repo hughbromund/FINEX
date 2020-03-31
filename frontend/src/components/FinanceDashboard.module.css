@@ -1,0 +1,11 @@
+.navbar,
+.navbar-default {
+  background-color: black;
+}
+
+.wrapperDark {
+  background-color: #121212;
+}
+.wrapperLight {
+  background-color: white;
+}

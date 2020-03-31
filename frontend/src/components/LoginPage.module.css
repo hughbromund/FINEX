@@ -1,0 +1,13 @@
+.wrapperDark {
+  display: flex;
+  justify-content: center;
+  background-color: #121212;
+}
+.wrapperLight {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}
+.inner {
+  width: 50rem;
+}

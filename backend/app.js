@@ -19,11 +19,13 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-app.use(cors({
-  credentials: true,
-  origin: 'http://localhost:3000',
-  preFlightContinue : true, 
-}));
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+    preFlightContinue: true
+  })
+);
 
 const dbConnection = require("./database");
 //const user = require('./routes/user')

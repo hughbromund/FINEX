@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 
 import history from "../routing/History";
 import { REGISTRATION_PATH } from "../constants/Constants";
-import { LOGIN_PATH } from "../constants/Constants"
+import { LOGIN_PATH } from "../constants/Constants";
 
 export default class HomePage extends Component {
   render() {
@@ -20,12 +20,17 @@ export default class HomePage extends Component {
                 <img
                   className={classes.logo}
                   src={require("../assets/img/logo-white.png")}
+                  alt=""
                 ></img>
                 <h2 className={classes.text}>
                   Let's make your money work for you.
                 </h2>
                 <br />
-                <Button variant="success" size="lg" onClick={() => history.push(REGISTRATION_PATH)}>
+                <Button
+                  variant="success"
+                  size="lg"
+                  onClick={() => history.push(REGISTRATION_PATH)}
+                >
                   Get started!
                 </Button>
                 <br />
@@ -33,7 +38,11 @@ export default class HomePage extends Component {
                 <p className={classes.text}>
                   Already have an account, log in below.
                 </p>
-                <Button variant="success" size="lg" onClick={() => history.push(LOGIN_PATH)}>
+                <Button
+                  variant="success"
+                  size="lg"
+                  onClick={() => history.push(LOGIN_PATH)}
+                >
                   Log In
                 </Button>
               </div>

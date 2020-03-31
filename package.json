@@ -23,5 +23,12 @@
   "homepage": "https://github.com/hughbromund/FINEX#readme",
   "devDependencies": {
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "react-color": "^2.18.0",
+    "react-test-renderer": "^16.13.1",
+    "zxcvbn": "^4.4.2"
   }
 }
