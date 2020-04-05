@@ -21,7 +21,7 @@ import {
   GET_SMA,
   GET_MACD
 } from "../constants/Constants";
-import { FacebookShareButton, FacebookIcon } from "react-share";
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, RedditShareButton, RedditIcon } from "react-share";
 import history from "../routing/History";
 import { DarkModeContext } from "../contexts/DarkModeContext";
 
@@ -554,6 +554,18 @@ class StockInfo extends Component {
           >
             <FacebookIcon size={32} round />
           </FacebookShareButton>
+          <TwitterShareButton
+            url={this.state.shareURL}
+            quote={this.state.shareQuote}
+          >
+            <TwitterIcon size={32} round />
+          </TwitterShareButton>
+          <RedditShareButton
+            url={this.state.shareURL}
+            quote={this.state.shareQuote}
+          >
+            <RedditIcon size={32} round />
+          </RedditShareButton>
         </div>
 
         {this.state.stockSymbol !== null && this.state.isValid === true ? (
