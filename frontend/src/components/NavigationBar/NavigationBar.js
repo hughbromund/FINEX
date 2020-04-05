@@ -145,7 +145,8 @@ export default class NavigationBar extends Component {
                 >
                   CREATE A NEW BUDGET
                 </NavDropdown.Item>
-                <NavDropdown.Item>MAKE YOUR MONEY WORK</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => history.push(STOCK_PORTFOLIO_INFO_PATH)}>
+                  MAKE YOUR MONEY WORK</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Form inline>{optional}</Form>
