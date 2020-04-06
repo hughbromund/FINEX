@@ -214,3 +214,75 @@ exports.getStocks = async function (req, res, next) {
         res.status(400).json({status: "No user logged in."})
     }
 }
+
+
+//
+//  sim related functions
+//
+exports.createPortfolio = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let result = await stockService.createPortfolio(req)
+            return res.status(result.status).json(result);
+
+        }
+        catch (e) {
+            console.log(e)
+            e.message = (e.message) ? e.message : req.params.code + errorMessage
+            return res.status(400).json({ status: 400, message: e.message });
+        }
+    }
+    else {
+        res.status(400).json({status: 400, message: "No user logged in."})
+    }
+}
+
+
+exports.getPortfolio = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let result = await stockService.createPortfolio(req)
+            return res.status(result.status).json(result);
+        }
+        catch (e) {
+            console.log(e)
+            e.message = (e.message) ? e.message : req.params.code + errorMessage
+            return res.status(400).json({ status: 400, message: e.message });
+        }
+    }
+    else {
+        res.status(400).json({status: 400, message: "No user logged in."})
+    }
+}
+
+exports.buyStock = async function (req, res, next) {
+    if (req.user) {
+        try {
+
+        }
+        catch (e) {
+            console.log(e)
+            e.message = (e.message) ? e.message : req.params.code + errorMessage
+            return res.status(400).json({ status: 400, message: e.message });
+        }
+    }
+    else {
+        res.status(400).json({status: 400, message: "No user logged in."})
+    }
+}
+
+exports.sellStock = async function (req, res, next) {
+    if (req.user) {
+        try {
+
+        }
+        catch (e) {
+            console.log(e)
+            e.message = (e.message) ? e.message : req.params.code + errorMessage
+            return res.status(400).json({ status: 400, message: e.message });
+        }
+    }
+    else {
+        res.status(400).json({status: 400, message: "No user logged in."})
+    }
+}

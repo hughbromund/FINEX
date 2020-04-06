@@ -1,5 +1,6 @@
 const alpha = require('alphavantage')({ key: '204HFII8A4KASQYO' });
 const User = require('../database/models/user');
+const StockSim = require('../database/models/stocksim');
 
 exports.helloWorld = async function () {
     return {"Hello": "World"};
@@ -112,4 +113,76 @@ exports.getStocks = async function (req) {
           _id: 0,
           stocks: 1
         }, (err, user) => {}).exec()
+}
+
+
+//stock sim functions
+exports.createPortfolio = async function (req) {
+
+    let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
+
+    if (foundPortfolio != null) {
+        return {
+            "status": 400,
+            "message": "Portfolio already created."
+        }
+    }
+
+    const newPortfolio = new StockSim({
+        username: req.user.username,
+        wallet: 5000,
+        investing: 0,
+        stocks: [],
+    })
+    //save user in database
+    await newPortfolio.save((err, savedPortfolio) => {});
+    return {
+        "status": 200,
+        "message": "success!"
+    }
+
+}
+
+
+exports.getSimStocks = async function (req) {
+    let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
+
+    var stocks = foundPortfolio.stocks
+
+    for (let index = 0; index < stocks.length; index++) {
+        //insert getting updated price code.
+    }
+
+    if (foundPortfolio == null) {
+        return {
+            "status": 400,
+            "message": "Portfolio not created!"
+        }
+    }
+    return {
+        "status": 200,
+        "wallet": foundPortfolio.wallet,
+        "investing": foundPortfolio.investing,
+        "stocks": stocks
+    }
+
+}
+
+
+exports.buyStock = async function (req) {
+    const {code, quantity} = req.body;
+
+    let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
+
+    var stocks = foundPortfolio.stocks
+    
+    //insert getting price of stock code
+
+
+
+}
+
+exports.sellStock = async function (req) {
+
+
 }
