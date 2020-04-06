@@ -13,13 +13,16 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
-import history from "../routing/History";
+import history from "../../routing/History";
 
-import { ACCOUNT_PATH } from "../constants/Constants";
-import { LOGIN_URL } from "../constants/Constants";
-import { USER_INFO_URL } from "../constants/Constants";
-import { FORGOT_PASSWORD_PATH } from "../constants/Constants";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import {
+  ACCOUNT_PATH,
+  LOGIN_URL,
+  USER_INFO_URL,
+  FORGOT_PASSWORD_PATH,
+} from "../../constants/Constants";
+
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 // const axios = require('axios').default;
 /*
@@ -39,7 +42,7 @@ export default class LoginPage extends Component {
     this.state = {
       username: "",
       password: "",
-      loginError: true
+      loginError: true,
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -55,16 +58,16 @@ export default class LoginPage extends Component {
       method: "POST",
       // mode: 'no-cors',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
       }),
-      withCredentials: true
+      withCredentials: true,
       // credentials: 'same-origin'
     })
-      .then(response => {
+      .then((response) => {
         // console.log(response.status)
         if (response.status === 200) {
           // Success on Login
@@ -76,7 +79,7 @@ export default class LoginPage extends Component {
           this.setState({ loginError: false });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -92,7 +95,7 @@ export default class LoginPage extends Component {
   componentDidMount = async () => {
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
       // credentials: 'same-origin'
     });
     if (response.status === 200) {
@@ -112,8 +115,8 @@ export default class LoginPage extends Component {
             <Image
               src={
                 this.context.isDarkMode
-                  ? require("../assets/img/logo-white.png")
-                  : require("../assets/img/logo-black.png")
+                  ? require("../../assets/img/logo-white.png")
+                  : require("../../assets/img/logo-black.png")
               }
               fluid
             />

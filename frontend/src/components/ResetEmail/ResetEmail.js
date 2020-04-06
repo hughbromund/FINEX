@@ -5,9 +5,9 @@ import Alert from "react-bootstrap/Alert";
 import classes from "./ResetEmail.module.css";
 import Collapse from "react-bootstrap/Collapse";
 
-import { UPDATE_EMAIL_URL } from "../constants/Constants";
-import { ACCOUNT_PATH } from "../constants/Constants";
-import history from "../routing/History";
+import { UPDATE_EMAIL_URL, ACCOUNT_PATH } from "../../constants/Constants";
+
+import history from "../../routing/History";
 
 export default class ResetEmail extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class ResetEmail extends Component {
     this.state = {
       email: "",
       success: false,
-      error: false
+      error: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -41,32 +41,32 @@ export default class ResetEmail extends Component {
       method: "PUT",
       body: JSON.stringify({ email: this.state.email }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           //console.log("Success");
           this.setState({
             success: true,
             error: false,
-            email: ""
+            email: "",
           });
         } else {
           //console.log("Failure");
           this.setState({
             error: true,
             success: false,
-            email: ""
+            email: "",
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         // console.log(err);
         this.setState({
           error: true,
           success: false,
-          email: ""
+          email: "",
         });
       });
   }

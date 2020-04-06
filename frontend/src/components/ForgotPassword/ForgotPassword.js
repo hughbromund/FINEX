@@ -5,11 +5,11 @@ import Alert from "react-bootstrap/Alert";
 import Collapse from "react-bootstrap/Collapse";
 // import Container from "react-bootstrap/Container";
 
-import classes from "../components/ForgotPassword.module.css";
+import classes from "./ForgotPassword.module.css";
 
-import { PUT_RESET_PASSWORD } from "../constants/Constants";
-import { LOGIN_PATH } from "../constants/Constants";
-import history from "../routing/History";
+import { PUT_RESET_PASSWORD, LOGIN_PATH } from "../../constants/Constants";
+
+import history from "../../routing/History";
 
 export default class ForgotPassword extends Component {
   constructor(props) {
@@ -18,14 +18,14 @@ export default class ForgotPassword extends Component {
     this.state = {
       email: "",
       success: false,
-      error: false
+      error: false,
     };
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
     // console.log(this.state.email);
 
@@ -33,22 +33,22 @@ export default class ForgotPassword extends Component {
       method: "PUT",
       body: JSON.stringify({ email: this.state.email }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
 
     if (response.status === 200) {
       console.log("Success");
       this.setState({
         success: true,
-        error: false
+        error: false,
       });
     }
     if (response.status === 400) {
       console.error("Bad Request");
       this.setState({
         success: false,
-        error: true
+        error: true,
       });
     }
 
@@ -59,7 +59,7 @@ export default class ForgotPassword extends Component {
 
   handleEmailChange(event) {
     this.setState({
-      email: event.target.value
+      email: event.target.value,
     });
   }
 

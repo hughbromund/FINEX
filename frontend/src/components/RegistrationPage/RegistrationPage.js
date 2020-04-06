@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import PasswordStrength from "../components/PasswordStrength";
+import PasswordStrength from "./PasswordStrength";
 
 import classes from "./RegistrationPage.module.css";
 
@@ -14,11 +14,12 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import Collapse from "react-bootstrap/Collapse";
 
-import history from "../routing/History";
+import history from "../../routing/History";
 // import { ACCOUNT_PATH } from "../constants/Constants";
-import { REGISTER_URL } from "../constants/Constants";
-import { LOGIN_PATH } from "../constants/Constants";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+
+import { REGISTER_URL, LOGIN_PATH } from "../../constants/Constants";
+
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 /*
  * Code Snippets borrowed From:
@@ -38,7 +39,7 @@ export default class RegistrationPage extends Component {
       password: "",
       email: "",
       name: "",
-      registerError: true
+      registerError: true,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -58,20 +59,20 @@ export default class RegistrationPage extends Component {
         username: this.state.username,
         password: this.state.password,
         email: this.state.email,
-        name: this.state.name
+        name: this.state.name,
       }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     })
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) {
           history.push(LOGIN_PATH);
         } else {
           this.setState({ registerError: false });
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   handleEmailChange(event) {
@@ -111,8 +112,8 @@ export default class RegistrationPage extends Component {
             <Image
               src={
                 this.context.isDarkMode
-                  ? require("../assets/img/logo-white.png")
-                  : require("../assets/img/logo-black.png")
+                  ? require("../../assets/img/logo-white.png")
+                  : require("../../assets/img/logo-black.png")
               }
               fluid
             />

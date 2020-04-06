@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 
 import FinanceDashboard from "./FinanceDashboard";
-import CreateBudget from "./CreateBudget";
 
 test("renders without crashing", () => {
   shallow(<FinanceDashboard />);

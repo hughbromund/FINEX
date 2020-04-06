@@ -5,23 +5,23 @@ import { Router, Switch, Route } from "react-router-dom";
 import history from "./History";
 
 /* Pages */
-import ResetEmail from "../components/ResetEmail";
-import RegistrationPage from "../components/RegistrationPage";
+import ResetEmail from "../components/ResetEmail/ResetEmail";
+import RegistrationPage from "../components/RegistrationPage/RegistrationPage";
 import SearchStock from "../components/StockSearch/StockSearch";
 // import Chart from "../components/Chart";
 import HomePage from "../components/HomePage";
 import NotFound from "../components/NotFound";
-import AccountPage from "../components/AccountPage";
-import LoginPage from "../components/LoginPage";
+import AccountPage from "../components/AccountPage/AccountPage";
+import LoginPage from "../components/LoginPage/LoginPage";
 import StockInfo from "../components/StockInfo";
-import ResetName from "../components/ResetName";
-import ResteUsername from "../components/ResetUsername";
-import FinanceDashboard from "../components/FinanceDashboard";
+import ResetName from "../components/ResetName/ResetName";
+import ResteUsername from "../components/ResetUsername/ResetUsername";
+import FinanceDashboard from "../components/FinanceDashboard/FinanceDashboard";
 import BudgetItemForm from "../components/BudgetItemForm";
 import IncomeItemForm from "../components/IncomeItemForm";
-import CreateBudget from "../components/CreateBudget";
-import ForgotPassword from "../components/ForgotPassword";
-import ResetPassword from "../components/ResetPassword";
+import CreateBudget from "../components/CreateBudget/CreateBudget";
+import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
+import ResetPassword from "../components/ResetPassword/ResetPassword";
 import SpentSummary from "../components/SpentSummary";
 
 /* Paths */

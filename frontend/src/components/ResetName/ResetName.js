@@ -6,9 +6,9 @@ import Collapse from "react-bootstrap/Collapse";
 
 import classes from "./ResetName.module.css";
 
-import { UPDATE_NAME_URL } from "../constants/Constants";
-import { ACCOUNT_PATH } from "../constants/Constants";
-import history from "../routing/History";
+import { UPDATE_NAME_URL, ACCOUNT_PATH } from "../../constants/Constants";
+
+import history from "../../routing/History";
 
 export default class ResetEmail extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ export default class ResetEmail extends Component {
     this.state = {
       name: "",
       error: false,
-      success: false
+      success: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -31,7 +31,7 @@ export default class ResetEmail extends Component {
     if (!this.validateName()) {
       this.setState({
         error: true,
-        success: false
+        success: false,
       });
       return;
     }
@@ -40,30 +40,30 @@ export default class ResetEmail extends Component {
       method: "PUT",
       body: JSON.stringify({ name: this.state.name }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           console.log("Success");
           this.setState({
             error: false,
             success: true,
-            name: ""
+            name: "",
           });
         } else {
           console.log("Failure");
           this.setState({
             success: false,
-            error: true
+            error: true,
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         this.setState({
           error: true,
-          success: false
+          success: false,
         });
       });
   }

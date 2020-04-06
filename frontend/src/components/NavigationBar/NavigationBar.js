@@ -8,17 +8,22 @@ import Form from "react-bootstrap/Form";
 // import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 
-import history from "../routing/History";
-import { YOUR_STOCKS_PATH, LOGIN_PATH } from "../constants/Constants";
-import { REGISTRATION_PATH } from "../constants/Constants";
-import { SEARCH_STOCK_PATH } from "../constants/Constants";
-import { HOME_PATH } from "../constants/Constants";
-import { ACCOUNT_PATH } from "../constants/Constants";
-import { USER_INFO_URL } from "../constants/Constants";
-import { FINANCE_DASHBOARD } from "../constants/Constants";
-import { ADD_BUDGET_ITEM } from "../constants/Constants";
-import { ADD_INCOME_ITEM } from "../constants/Constants";
-import { CREATE_NEW_BUDGET } from "../constants/Constants";
+import history from "../../routing/History";
+
+import {
+  YOUR_STOCKS_PATH,
+  LOGIN_PATH,
+  REGISTRATION_PATH,
+  SEARCH_STOCK_PATH,
+  HOME_PATH,
+  ACCOUNT_PATH,
+  USER_INFO_URL,
+  FINANCE_DASHBOARD,
+  ADD_BUDGET_ITEM,
+  ADD_INCOME_ITEM,
+  CREATE_NEW_BUDGET,
+} from "../../constants/Constants";
+
 // import { LOGIN_PATH } from "../constants/Constants"
 
 /*
@@ -36,14 +41,14 @@ export default class NavigationBar extends Component {
     this.state = {
       username: "",
       name: "",
-      loggedIn: false
+      loggedIn: false,
     };
   }
 
   callUserInfo = async () => {
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
       // credentials: 'same-origin'
     });
     if (response.status === 200) {
@@ -57,7 +62,7 @@ export default class NavigationBar extends Component {
   };
 
   componentDidMount() {
-    this.callUserInfo().catch(err => {
+    this.callUserInfo().catch((err) => {
       console.log(err);
     });
   }
@@ -98,7 +103,7 @@ export default class NavigationBar extends Component {
         >
           <Navbar.Brand onClick={() => history.push(HOME_PATH)}>
             <img
-              src={require("../assets/img/logo-white.png")}
+              src={require("../../assets/img/logo-white.png")}
               className="d-inline-block align-top"
               width="150"
               alt="FINEX"
