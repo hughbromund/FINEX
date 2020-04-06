@@ -5,14 +5,16 @@ import classes from "./FinanceDashboard.module.css";
 import TransactionToast from "./TransactionToast";
 import MonthProgress from "./MonthProgress";
 import CategoryProgress from "./CategoryProgress";
-import history from "../routing/History";
+import history from "../../routing/History";
 
-import { GET_EXPENSE_LIST } from "../constants/Constants";
-import { LOGIN_PATH } from "../constants/Constants";
-import { GET_INCOME_LIST } from "../constants/Constants";
-import { GET_CATEGORY_BUDGET } from "../constants/Constants";
-import { ADD_BUDGET_ITEM } from "../constants/Constants";
-import { ADD_INCOME_ITEM } from "../constants/Constants";
+import {
+  GET_EXPENSE_LIST,
+  LOGIN_PATH,
+  GET_INCOME_LIST,
+  GET_CATEGORY_BUDGET,
+  ADD_BUDGET_ITEM,
+  ADD_INCOME_ITEM,
+} from "../../constants/Constants";
 
 // import Jumbotron from 'react-bootstrap/Jumbotron'
 import Navbar from "react-bootstrap/Navbar";
@@ -22,7 +24,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 export default class FinanceDashboard extends Component {
   constructor(props) {
@@ -30,7 +32,7 @@ export default class FinanceDashboard extends Component {
     this.state = {
       transactionToasts: "",
       incomeToasts: "",
-      categoryProgresses: ""
+      categoryProgresses: "",
     };
     this.generateTransactions = this.generateTransactions.bind(this);
     this.getTransactions = this.getTransactions.bind(this);
@@ -48,9 +50,9 @@ export default class FinanceDashboard extends Component {
     // console.log(GET_INCOME_LIST)
     var response = await fetch(GET_INCOME_LIST, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
       // credentials: 'same-origin'
-    }).catch(err => {
+    }).catch((err) => {
       console.error(err);
     });
 
@@ -64,13 +66,13 @@ export default class FinanceDashboard extends Component {
     // console.log(body)
 
     this.setState({
-      income: body
+      income: body,
     });
 
     var transactionToasts = this.generateIncomes();
     // console.log(transactionToasts)
     this.setState({
-      incomeToasts: transactionToasts
+      incomeToasts: transactionToasts,
     });
     // console.log(this.state)
   };
@@ -78,9 +80,9 @@ export default class FinanceDashboard extends Component {
   getTransactions = async () => {
     var response = await fetch(GET_EXPENSE_LIST, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
       // credentials: 'same-origin'
-    }).catch(err => {
+    }).catch((err) => {
       console.error(err);
     });
 
@@ -94,13 +96,13 @@ export default class FinanceDashboard extends Component {
     //console.log(body)
 
     this.setState({
-      transactions: body
+      transactions: body,
     });
 
     var transactionToasts = this.generateTransactions();
     // console.log(transactionToasts)
     this.setState({
-      transactionToasts: transactionToasts
+      transactionToasts: transactionToasts,
     });
     // console.log(this.state)
   };
@@ -108,9 +110,9 @@ export default class FinanceDashboard extends Component {
   getBudgetCategories = async () => {
     var response = await fetch(GET_CATEGORY_BUDGET, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
       // credentials: 'same-origin'
-    }).catch(err => {
+    }).catch((err) => {
       console.error(err);
     });
     var body = await response.json();
@@ -130,7 +132,7 @@ export default class FinanceDashboard extends Component {
     }
 
     this.setState({
-      categoryProgresses: inputs
+      categoryProgresses: inputs,
     });
   };
 

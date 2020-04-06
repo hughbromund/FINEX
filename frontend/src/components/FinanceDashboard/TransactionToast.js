@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 // import Toast from "react-bootstrap/Toast";
 import Card from "react-bootstrap/Card";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 export default class TransactionToast extends Component {
   render() {

@@ -5,7 +5,7 @@ import Image from "react-bootstrap/Image";
 import Card from "react-bootstrap/Card";
 // import CardColumns from "react-bootstrap/CardColumns";
 import Button from "react-bootstrap/Button";
-import history from "../routing/History";
+import history from "../../routing/History";
 import Badge from "react-bootstrap/Badge";
 // import Overlay from "react-bootstrap/Overlay";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -19,22 +19,25 @@ import {
   GREEN_COLOR_HEX,
   RED_COLOR_HEX,
   BLUE_COLOR_HEX,
-  YELLOW_COLOR_HEX
-} from "../constants/Constants";
-import { LOGOUT_URL } from "../constants/Constants";
-import { USER_INFO_URL } from "../constants/Constants";
-import { GET_BAD_COLOR } from "../constants/Constants";
-import { GET_GOOD_COLOR } from "../constants/Constants";
-import { UPDATE_BAD_COLOR } from "../constants/Constants";
-import { UPDATE_GOOD_COLOR } from "../constants/Constants";
-import { RESET_EMAIL_PATH } from "../constants/Constants";
-// import { RESET_USERNAME_PATH } from "../constants/Constants";
-import { RESET_PASSWORD_PATH } from "../constants/Constants";
+  YELLOW_COLOR_HEX,
+} from "../../constants/Constants";
+
+import {
+  LOGOUT_URL,
+  USER_INFO_URL,
+  GET_BAD_COLOR,
+  GET_GOOD_COLOR,
+  UPDATE_BAD_COLOR,
+  UPDATE_GOOD_COLOR,
+  RESET_EMAIL_PATH,
+  RESET_PASSWORD_PATH,
+} from "../../constants/Constants";
+
 import {
   DarkModeContext,
   useDarkModeState,
-  useDarkModeToggle
-} from "../contexts/DarkModeContext";
+  useDarkModeToggle,
+} from "../../contexts/DarkModeContext";
 
 // Imports for dark mode toggle
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -62,7 +65,7 @@ export default class AccountPage extends Component {
       primaryColor: "",
       secondaryColor: "",
       isPrimaryPickerHidden: true,
-      isSecondaryPickerHidden: true
+      isSecondaryPickerHidden: true,
     };
 
     this.handlePrimaryChangeComplete = this.handlePrimaryChangeComplete.bind(
@@ -76,7 +79,7 @@ export default class AccountPage extends Component {
   callUserInfo = async () => {
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
       // credentials: 'same-origin'
     });
     // console.log(response)
@@ -85,12 +88,12 @@ export default class AccountPage extends Component {
     this.setState({
       username: body.username,
       email: body.email,
-      name: body.name
+      name: body.name,
     });
     // this.state.user = body.user.username
   };
 
-  handlePrimaryChangeComplete = color => {
+  handlePrimaryChangeComplete = (color) => {
     this.setState({ primaryColor: color.hex });
     console.log(JSON.stringify({ good_color: this.state.primaryColor }));
     this.updateGoodColor(color.hex);
@@ -101,13 +104,13 @@ export default class AccountPage extends Component {
       method: "POST",
       withCredentials: true,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ good_color: newGoodColor })
+      body: JSON.stringify({ good_color: newGoodColor }),
     });
   };
 
-  handleSecondaryChangeComplete = color => {
+  handleSecondaryChangeComplete = (color) => {
     this.setState({ secondaryColor: color.hex });
     this.updateBadColor(color.hex);
   };
@@ -117,9 +120,9 @@ export default class AccountPage extends Component {
       method: "POST",
       withCredentials: true,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ bad_color: newBadColor })
+      body: JSON.stringify({ bad_color: newBadColor }),
     });
   };
 
@@ -130,11 +133,11 @@ export default class AccountPage extends Component {
       method: "POST",
       // mode: 'no-cors',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      withCredentials: true
+      withCredentials: true,
     })
-      .then(response => {
+      .then((response) => {
         // console.log(response)
         if (response.status === 200) {
           history.push(HOME_PATH);
@@ -142,7 +145,7 @@ export default class AccountPage extends Component {
           console.log("Unable to Log Out");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -151,33 +154,33 @@ export default class AccountPage extends Component {
     // console.log("TEST")
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
       // credentials: 'same-origin'
     });
     // console.log(response)
     if (response.status !== 200) {
       history.push(LOGIN_PATH);
     } else {
-      this.callUserInfo().catch(err => {
+      this.callUserInfo().catch((err) => {
         console.log(err);
       });
     }
 
     response = await fetch(GET_GOOD_COLOR, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
     });
     const goodColorBody = await response.json();
 
     response = await fetch(GET_BAD_COLOR, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
     });
     const badColorBody = await response.json();
 
     this.setState({
       primaryColor: goodColorBody.good_color,
-      secondaryColor: badColorBody.bad_color
+      secondaryColor: badColorBody.bad_color,
     });
   };
 
@@ -197,7 +200,7 @@ export default class AccountPage extends Component {
         <div className={classes.inner}>
           <div className={classes.wrapper}>
             <Image
-              src={require("../assets/img/slothlogo.png")}
+              src={require("../../assets/img/slothlogo.png")}
               style={{ width: "10rem" }}
               fluid
               roundedCircle
@@ -317,7 +320,7 @@ export default class AccountPage extends Component {
                     onClick={() => {
                       this.setState({
                         primaryColor: GREEN_COLOR_HEX,
-                        secondaryColor: RED_COLOR_HEX
+                        secondaryColor: RED_COLOR_HEX,
                       });
                       this.updateGoodColor(GREEN_COLOR_HEX);
                       this.updateBadColor(RED_COLOR_HEX);
@@ -331,7 +334,7 @@ export default class AccountPage extends Component {
                     onClick={() => {
                       this.setState({
                         primaryColor: RED_COLOR_HEX,
-                        secondaryColor: GREEN_COLOR_HEX
+                        secondaryColor: GREEN_COLOR_HEX,
                       });
                       this.updateGoodColor(RED_COLOR_HEX);
                       this.updateBadColor(GREEN_COLOR_HEX);
@@ -345,7 +348,7 @@ export default class AccountPage extends Component {
                     onClick={() => {
                       this.setState({
                         primaryColor: BLUE_COLOR_HEX,
-                        secondaryColor: YELLOW_COLOR_HEX
+                        secondaryColor: YELLOW_COLOR_HEX,
                       });
                       this.updateGoodColor(BLUE_COLOR_HEX);
                       this.updateBadColor(YELLOW_COLOR_HEX);
@@ -359,7 +362,7 @@ export default class AccountPage extends Component {
                     onClick={() => {
                       this.setState({
                         primaryColor: GREEN_COLOR_HEX,
-                        secondaryColor: GREEN_COLOR_HEX
+                        secondaryColor: GREEN_COLOR_HEX,
                       });
                       this.updateGoodColor(GREEN_COLOR_HEX);
                       this.updateBadColor(GREEN_COLOR_HEX);

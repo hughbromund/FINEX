@@ -4,11 +4,11 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Collapse from "react-bootstrap/Collapse";
 
-import classes from "../components/ResetPassword.module.css";
+import classes from "./ResetPassword.module.css";
 
-import { PUT_UPDATE_PASSWORD } from "../constants/Constants";
-import { ACCOUNT_PATH } from "../constants/Constants";
-import history from "../routing/History";
+import { PUT_UPDATE_PASSWORD, ACCOUNT_PATH } from "../../constants/Constants";
+
+import history from "../../routing/History";
 
 export default class ResetPassword extends Component {
   constructor(props) {
@@ -17,13 +17,13 @@ export default class ResetPassword extends Component {
     this.state = {
       password: "",
       success: false,
-      error: false
+      error: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
     // console.log(this.state.email);
 
@@ -31,29 +31,29 @@ export default class ResetPassword extends Component {
       method: "PUT",
       body: JSON.stringify({ password: this.state.password }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
 
     if (response.status === 200) {
       console.log("Success");
       this.setState({
         success: true,
-        error: false
+        error: false,
       });
     }
     if (response.status === 400) {
       console.error("Bad Request");
       this.setState({
         success: false,
-        error: true
+        error: true,
       });
     }
   };
 
   handlePasswordChange(event) {
     this.setState({
-      password: event.target.value
+      password: event.target.value,
     });
   }
 

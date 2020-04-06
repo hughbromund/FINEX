@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
-import styles from "./ResetEmail.module.css";
+import styles from "./ResetUsername.module.css";
 
-import { UPDATE_USERNAME_URL } from "../constants/Constants";
+import { UPDATE_USERNAME_URL } from "../../constants/Constants";
 
 export default class ResetEmail extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export default class ResetEmail extends Component {
     this.state = {
       username: "",
       error: "",
-      hidden: true
+      hidden: true,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -28,7 +28,7 @@ export default class ResetEmail extends Component {
       this.setState({
         hidden: false,
         error: "Error. Name must not be empty.",
-        username: ""
+        username: "",
       });
       return;
     }
@@ -37,10 +37,10 @@ export default class ResetEmail extends Component {
       method: "PUT",
       body: JSON.stringify({ name: this.state.name }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           console.log("Success");
           this.setState({
@@ -49,21 +49,21 @@ export default class ResetEmail extends Component {
               "Success! Your account username is now " +
               this.state.username +
               ".",
-            name: ""
+            name: "",
           });
         } else {
           console.log("Failure");
           this.setState({
             error: "An Error Occurred while trying to update your username.",
-            hidden: false
+            hidden: false,
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         this.setState({
           error: "An Error Occurred while trying to update your username.",
-          hidden: false
+          hidden: false,
         });
       });
   }

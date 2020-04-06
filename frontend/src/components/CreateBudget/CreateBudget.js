@@ -9,12 +9,14 @@ import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 
 import classes from "./CreateBudget.module.css";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
-import { FINANCE_DASHBOARD } from "../constants/Constants";
-import history from "../routing/History";
+import history from "../../routing/History";
 
-import { POST_CREATE_BUDGET } from "../constants/Constants";
+import {
+  POST_CREATE_BUDGET,
+  FINANCE_DASHBOARD,
+} from "../../constants/Constants";
 
 export default class CreateBudget extends Component {
   constructor(props) {
@@ -38,7 +40,7 @@ export default class CreateBudget extends Component {
       currentMonth: month,
       currentYear: year,
       error: false,
-      success: false
+      success: false,
     };
     this.handleTotalBudgetChange = this.handleTotalBudgetChange.bind(this);
     this.getBudgetUsed = this.getBudgetUsed.bind(this);
@@ -114,11 +116,11 @@ export default class CreateBudget extends Component {
         other:
           Number(this.state.otherBudget) +
           Number(this.state.totalBudget) -
-          Number(this.getBudgetUsed())
+          Number(this.getBudgetUsed()),
       }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
 
     if (response.status === 200) {

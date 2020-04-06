@@ -3,10 +3,13 @@ import React, { Component } from "react";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
-import history from "../routing/History";
-import { CREATE_NEW_BUDGET } from "../constants/Constants";
-import { GET_OVERALL_BUDGET } from "../constants/Constants";
-import { SPENT_SUMMARY_PATH } from "../constants/Constants";
+import history from "../../routing/History";
+
+import {
+  CREATE_NEW_BUDGET,
+  GET_OVERALL_BUDGET,
+  SPENT_SUMMARY_PATH,
+} from "../../constants/Constants";
 
 export default class MonthProgress extends Component {
   constructor(props) {
@@ -22,7 +25,7 @@ export default class MonthProgress extends Component {
       budgeted: 0,
       spent: 0,
       serverError: false,
-      noBudget: true
+      noBudget: true,
     };
     // console.log(this.state)
 
@@ -71,11 +74,11 @@ export default class MonthProgress extends Component {
   getBudgetProgress = async () => {
     var response = await fetch(GET_OVERALL_BUDGET, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
       // credentials: 'same-origin'
-    }).catch(err => {
+    }).catch((err) => {
       this.setState({
-        serverError: true
+        serverError: true,
       });
       console.error(err);
       return;
@@ -92,7 +95,7 @@ export default class MonthProgress extends Component {
     this.setState({
       budgeted: body.budgeted,
       spent: body.spent,
-      noBudget: isBudget
+      noBudget: isBudget,
     });
     // console.log(this.state)
   };
