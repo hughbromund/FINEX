@@ -1,9 +1,9 @@
-const alpha = require('alphavantage')({ key: '204HFII8A4KASQYO' });
+const alpha = require('alphavantage')({ key: 'PIL8EASGF14AB1M6' });
 const User = require('../database/models/user');
 const StockSim = require('../database/models/stocksim');
 
 exports.helloWorld = async function () {
-    return {"Hello": "World"};
+    return { "Hello": "World" };
 }
 
 //This has "realtime" data on a 1 minute interval
@@ -96,19 +96,19 @@ exports.getMACD = async function (code, interval, series_type) {
 
 //add a stock ID to the user's stock array
 exports.addStockToUser = async function (req) {
-    return await User.updateOne({username: req.user.username}, {$addToSet: {stocks: req.body.stock_id}}, 
-    (err, user) => {}).exec();
+    return await User.updateOne({ username: req.user.username }, { $addToSet: { stocks: req.body.stock_id } },
+        (err, user) => { }).exec();
 }
 
 //remove a stock ID from the user's stock array
 exports.removeStockFromUser = async function (req) {
-    return await User.updateOne({username: req.user.username}, {$pull: {stocks: req.body.stock_id}},
-        (err,user) => {}).exec();
+    return await User.updateOne({ username: req.user.username }, { $pull: { stocks: req.body.stock_id } },
+        (err, user) => { }).exec();
 }
 
 //get all stock IDs for a given user
 exports.getStocks = async function (req) {
-    return await User.findOne({username: req.user.username},
+    return await User.findOne({ username: req.user.username },
         {
           _id: 0,
           stocks: 1
