@@ -131,7 +131,6 @@ exports.createPortfolio = async function (req) {
     const newPortfolio = new StockSim({
         username: req.user.username,
         wallet: 5000,
-        investing: 0,
         stocks: [],
     })
     //save user in database
@@ -144,13 +143,26 @@ exports.createPortfolio = async function (req) {
 }
 
 
-exports.getSimStocks = async function (req) {
+exports.getPortfolio = async function (req) {
     let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
 
-    var stocks = foundPortfolio.stocks
+    let stocks = foundPortfolio.stocks
+
+    let investing = 0;
 
     for (let index = 0; index < stocks.length; index++) {
-        //insert getting updated price code.
+        let stockData = await alpha.data.intraday(stocks[index].code).then(data => {
+            return alpha.util.polish(data).data;
+        });
+    
+        //console.log(stockData)
+        //console.log(stockData[Object.keys(stockData)[0]].open)
+    
+        let stockPrice = stockData[Object.keys(stockData)[0]].open;
+
+        stocks[index].price = stockPrice;
+        stocks[index].value = stockPrice * stocks[index].quantity;
+        investing += stocks[index].value
     }
 
     if (foundPortfolio == null) {
@@ -162,7 +174,7 @@ exports.getSimStocks = async function (req) {
     return {
         "status": 200,
         "wallet": foundPortfolio.wallet,
-        "investing": foundPortfolio.investing,
+        "investing": investing,
         "stocks": stocks
     }
 
@@ -174,15 +186,111 @@ exports.buyStock = async function (req) {
 
     let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
 
-    var stocks = foundPortfolio.stocks
+    let stocks = foundPortfolio.stocks
+    let found = false;
+
+    for (let index = 0; index < stocks.length; index++) {
+        if (code == stocks[index].code) {
+            stocks[index].quantity = quantity + stocks[index].quantity;
+            found = true;
+        }
+    }
+    if (!found) {
+        stocks.push({
+            "code": code,
+            "quantity": quantity
+        })
+    }
+    //insert getting price of stock code
+    let newWallet = foundPortfolio.wallet
+
+    let stockData = await alpha.data.intraday(code).then(data => {
+        return alpha.util.polish(data).data;
+    });
+
+    //console.log(stockData)
+    //console.log(stockData[Object.keys(stockData)[0]].open)
+
+    let stockPrice = stockData[Object.keys(stockData)[0]].open;
+    let cost = stockPrice * quantity;
+    newWallet -= cost;
+
+    if (newWallet < 0) {
+        return {
+            "status": 400,
+            "message": "not enough money"
+        }
+    }
+
+    StockSim.updateOne({username: req.user.username}, {stocks: stocks, wallet: newWallet}, (err, user) => {}).exec();
+    //remove money from wallet, if not enough then dont update database
     
     //insert getting price of stock code
 
-
+    return {
+        "status" : 200,
+        "message" : "Successfully bought for $" + cost
+    }
 
 }
 
 exports.sellStock = async function (req) {
+    const {code, quantity} = req.body;
 
+    let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
 
+    let stocks = foundPortfolio.stocks
+    let found = false;
+    console.log(stocks)
+
+    for (let index = 0; index < stocks.length; index++) {
+
+        if (code == stocks[index].code) {
+            found = true;
+
+            if (quantity > stocks[index].quantity) {
+                return {
+                    "status": 400,
+                    "message": "You only own " + stocks[index].quantity + " shares of " + code
+                }
+            }
+            else if (quantity == stocks[index].quantity) {
+                //stocks.spice(index, 1)
+                //delete stocks.index;
+
+                stocks = stocks.filter( (stock) => {stock.code != code})
+                //console.log(stocks)
+            }
+            else {
+                stocks[index].quantity -= quantity;         
+            }
+        }
+    }
+    if (!found) {
+        return {
+            "status": 400,
+            "message": code + " not found in portfolio"
+        }
+    }
+
+    let newWallet = foundPortfolio.wallet
+
+    let stockData = await alpha.data.intraday(code).then(data => {
+        return alpha.util.polish(data).data;
+    });
+
+    //console.log(stockData)
+    //console.log(stockData[Object.keys(stockData)[0]].open)
+
+    let stockPrice = stockData[Object.keys(stockData)[0]].open;
+    let value = stockPrice * quantity;
+
+    newWallet += value;
+
+    StockSim.updateOne({username: req.user.username}, {stocks: stocks, wallet: newWallet}, (err, user) => {}).exec();
+
+    return {
+        "status" : 200,
+        "message" : "Successfully sold for $" + value
+    }
 }

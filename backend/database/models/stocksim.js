@@ -6,7 +6,6 @@ mongoose.promise = Promise
 const simSchema = new Schema({
 	username: { type: String, unique: true, required: false},
     wallet: { type: Number, min: -1, unique: false, required: false},
-    investing: { type: Number, min: -1, unique: false, required: false},
     stocks: { type: Array, unique: false, required: false},
 }, {collection: "StockSim"})
 

@@ -241,7 +241,7 @@ exports.createPortfolio = async function (req, res, next) {
 exports.getPortfolio = async function (req, res, next) {
     if (req.user) {
         try {
-            let result = await stockService.createPortfolio(req)
+            let result = await stockService.getPortfolio(req)
             return res.status(result.status).json(result);
         }
         catch (e) {
@@ -258,6 +258,8 @@ exports.getPortfolio = async function (req, res, next) {
 exports.buyStock = async function (req, res, next) {
     if (req.user) {
         try {
+            let result = await stockService.buyStock(req)
+            return res.status(result.status).json({ status: result.status, message: result.message });
 
         }
         catch (e) {
@@ -274,7 +276,8 @@ exports.buyStock = async function (req, res, next) {
 exports.sellStock = async function (req, res, next) {
     if (req.user) {
         try {
-
+            let result = await stockService.sellStock(req)
+            return res.status(result.status).json({ status: result.status, message: result.message });
         }
         catch (e) {
             console.log(e)
