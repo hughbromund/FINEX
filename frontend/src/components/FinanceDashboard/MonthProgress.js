@@ -4,11 +4,13 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import history from "../../routing/History";
+import classes from "./MonthProgress.module.css";
 
 import {
   CREATE_NEW_BUDGET,
   GET_OVERALL_BUDGET,
   SPENT_SUMMARY_PATH,
+  FINANCE_DOC_PATH,
 } from "../../constants/Constants";
 
 export default class MonthProgress extends Component {
@@ -147,7 +149,14 @@ export default class MonthProgress extends Component {
             variant="outline-success"
             onClick={() => history.push(SPENT_SUMMARY_PATH)}
           >
-            View Spending Details
+            Spending Details
+          </Button>
+          <Button
+            variant="outline-success"
+            onClick={() => history.push(FINANCE_DOC_PATH)}
+            className={classes.docButton}
+          >
+            Generate Document
           </Button>
         </div>
       </div>
