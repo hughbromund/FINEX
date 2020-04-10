@@ -23,6 +23,7 @@ import CreateBudget from "../components/CreateBudget/CreateBudget";
 import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
 import ResetPassword from "../components/ResetPassword/ResetPassword";
 import SpentSummary from "../components/SpentSummary";
+import FinanceDoc from "../components/FinanceDoc/FinanceDoc";
 
 /* Paths */
 import { RESET_EMAIL_PATH } from "../constants/Constants";
@@ -41,6 +42,7 @@ import { CREATE_NEW_BUDGET } from "../constants/Constants";
 import { FORGOT_PASSWORD_PATH } from "../constants/Constants";
 import { RESET_PASSWORD_PATH } from "../constants/Constants";
 import { SPENT_SUMMARY_PATH } from "../constants/Constants";
+import { FINANCE_DOC_PATH } from "../constants/Constants";
 
 function Routes() {
   return (
@@ -62,6 +64,7 @@ function Routes() {
         <Route path={FORGOT_PASSWORD_PATH} component={ForgotPassword} />
         <Route path={RESET_PASSWORD_PATH} component={ResetPassword} />
         <Route path={SPENT_SUMMARY_PATH} component={SpentSummary} />
+        <Route path={FINANCE_DOC_PATH} component={FinanceDoc} />
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
