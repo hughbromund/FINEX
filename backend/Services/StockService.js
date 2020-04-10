@@ -229,7 +229,8 @@ exports.buyStock = async function (req) {
 
     return {
         "status" : 200,
-        "message" : "Successfully bought for $" + cost
+        "message" : "Successfully bought for $" + cost,
+        "cost" : cost
     }
 
 }
@@ -291,6 +292,7 @@ exports.sellStock = async function (req) {
 
     return {
         "status" : 200,
-        "message" : "Successfully sold for $" + value
+        "message" : "Successfully sold for $" + value,
+        "value" : value
     }
 }
