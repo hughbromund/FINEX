@@ -17,6 +17,7 @@ export const RESET_PASSWORD_PATH = "/updatepassword";
 export const CRYPTO_EXTENSION = "/crypto/";
 export const SPENT_SUMMARY_PATH = "/spendingsummary";
 export const FINANCE_DOC_PATH = "/financedoc";
+export const RESET_PROFILE_PICTURE_PATH = "/resetpic";
 
 /* Base URL for Backend */
 export const BASE = "http://localhost:5000";
