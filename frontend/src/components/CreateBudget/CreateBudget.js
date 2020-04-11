@@ -303,7 +303,7 @@ export default class CreateBudget extends Component {
   render() {
     return (
       <div>
-        <Container>
+        <Container fluid>
           <Row>
             <Col>
               <div
