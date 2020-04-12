@@ -62,6 +62,13 @@ router.post('/stock/removeStock', cors(), stockController.removeStockFromUser);
 //get user's stock array
 router.get('/stock/getStocks', cors(), stockController.getStocks);
 
+
+
+//stock sims
+router.post('/stock/sim/createPortfolio', cors(), stockController.createPortfolio);
+router.get('/stock/sim/getPortfolio', cors(), stockController.getPortfolio);
+router.post('/stock/sim/buyStock', cors(), stockController.buyStock);
+router.post('/stock/sim/sellStock', cors(), stockController.sellStock);
 //STUBS
 
 
