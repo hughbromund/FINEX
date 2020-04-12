@@ -85,6 +85,10 @@ class StockInfo extends Component {
       searchedSymbol = currPath.slice(pathLength);
     }
 
+    if (this.props.symbol != null) {
+      searchedSymbol = this.props.symbol;
+    }
+
     this.callDataAPI(searchedSymbol).catch(err => {
       console.log(err);
       history.push("/stocknotfound");
