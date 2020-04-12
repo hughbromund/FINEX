@@ -19,9 +19,16 @@ import {
   GET_RSI,
   GET_EMA,
   GET_SMA,
-  GET_MACD
+  GET_MACD,
 } from "../constants/Constants";
-import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, RedditShareButton, RedditIcon } from "react-share";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  RedditShareButton,
+  RedditIcon,
+} from "react-share";
 import history from "../routing/History";
 import { DarkModeContext } from "../contexts/DarkModeContext";
 
@@ -35,6 +42,7 @@ import { DarkModeContext } from "../contexts/DarkModeContext";
 class StockInfo extends Component {
   state = {
     stockSymbol: null,
+    loadedDate: "Loading...",
     open: "Loading...",
     close: "Loading...",
     high: "Loading...",
@@ -52,14 +60,14 @@ class StockInfo extends Component {
     following: false,
     followedStocks: [],
     shareURL: "finex.com",
-    shareQuote: "I am following stocks using FINEX! Come join me!"
+    shareQuote: "I am following stocks using FINEX! Come join me!",
   };
 
   /**
    * Gets stock information from backend.
    */
   componentDidMount = () => {
-    this.callAuthAPI().catch(err => {
+    this.callAuthAPI().catch((err) => {
       console.log(err);
     });
 
@@ -85,7 +93,7 @@ class StockInfo extends Component {
       searchedSymbol = currPath.slice(pathLength);
     }
 
-    this.callDataAPI(searchedSymbol).catch(err => {
+    this.callDataAPI(searchedSymbol).catch((err) => {
       console.log(err);
       history.push("/stocknotfound");
       this.setState({ isValid: false });
@@ -93,14 +101,14 @@ class StockInfo extends Component {
     searchedSymbol = searchedSymbol.toUpperCase();
     this.setState({ stockSymbol: searchedSymbol });
 
-    this.getFollowedStocks().catch(err => {
+    this.getFollowedStocks().catch((err) => {
       console.log(err);
     });
 
     this.getDeepAnalytics(searchedSymbol);
   };
 
-  getDeepAnalytics = async symbol => {
+  getDeepAnalytics = async (symbol) => {
     var ending = symbol + "/";
     if (this.state.daily === true) {
       ending = ending + "daily/";
@@ -193,7 +201,7 @@ class StockInfo extends Component {
       ema: ema_data,
       rsi: rsi_data,
       sma: sma_data,
-      macd: macd_data
+      macd: macd_data,
     });
   };
 
@@ -201,7 +209,7 @@ class StockInfo extends Component {
    * Makes a call to backend requesting stock data based on
    * input provided.
    */
-  callDataAPI = async symbol => {
+  callDataAPI = async (symbol) => {
     console.log(STOCK_DAILY_URL + symbol);
     let response;
 
@@ -213,7 +221,13 @@ class StockInfo extends Component {
 
     const body = await response.json();
 
-    // console.log(body);
+    console.log(body);
+
+    let key = "";
+    for (let k in body) {
+      key = k + "";
+      break;
+    }
 
     let tmpOpen = "No Data";
     let tmpHigh = "No Data";
@@ -221,8 +235,8 @@ class StockInfo extends Component {
     let tmpClose = "No Data";
     let tmpVol = "No Data";
 
-    let dateStr = this.getCurrentDate();
-    let key = dateStr + "T00:00:00.000Z";
+    // let dateStr = this.getCurrentDate();
+    // let key = dateStr + "T00:00:00.000Z";
 
     // console.log("KEY: " + key);
 
@@ -236,6 +250,7 @@ class StockInfo extends Component {
       tmpVol = body[key]["volume"];
     }
 
+    this.setState({ loadedDate: key.substring(0, 10) });
     this.setState({ open: tmpOpen });
     this.setState({ high: tmpHigh });
     this.setState({ low: tmpLow });
@@ -267,8 +282,8 @@ class StockInfo extends Component {
       method: "POST",
       body: JSON.stringify({ stock_id: this.state.stockSymbol }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
 
     if (response.status === 200) {
@@ -276,7 +291,7 @@ class StockInfo extends Component {
       this.setState({ following: true });
     }
 
-    this.getFollowedStocks().catch(err => {
+    this.getFollowedStocks().catch((err) => {
       console.log(err);
     });
   };
@@ -287,8 +302,8 @@ class StockInfo extends Component {
       method: "POST",
       body: JSON.stringify({ stock_id: this.state.stockSymbol }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
 
     if (response.status === 200) {
@@ -296,7 +311,7 @@ class StockInfo extends Component {
       this.setState({ following: false });
     }
 
-    this.getFollowedStocks().catch(err => {
+    this.getFollowedStocks().catch((err) => {
       console.log(err);
     });
   };
@@ -306,7 +321,7 @@ class StockInfo extends Component {
     let response;
     response = await fetch(GET_FOLLOWED_STOCKS_URL);
     const body = await response.json();
-    console.log(body);
+    // console.log(body);
 
     if (response.status === 200) {
       // console.log("false");
@@ -317,25 +332,6 @@ class StockInfo extends Component {
         this.setState({ following: true });
       }
     }
-  };
-
-  /**
-   * Returns current date in the format yyyy-mm-dd.
-   */
-  getCurrentDate = () => {
-    let d = new Date();
-    let month = "" + (d.getMonth() + 1);
-    let day = "" + d.getDate();
-    let year = d.getFullYear();
-
-    if (month.length < 2) {
-      month = "0" + month;
-    }
-    if (day.length < 2) {
-      day = "0" + day;
-    }
-
-    return [year, month, day].join("-");
   };
 
   renderChart = () => {
@@ -602,7 +598,7 @@ class StockInfo extends Component {
           </Button>
         </ButtonGroup>
         <div className={classes.infoTitle}>
-          Daily Summary ({this.getCurrentDate()}):
+          Daily Summary ({this.state.loadedDate}):
         </div>
         <div className={classes.infoBox}>
           <div className={classes.headerColumn}>
