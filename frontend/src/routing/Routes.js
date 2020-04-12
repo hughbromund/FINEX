@@ -8,6 +8,7 @@ import history from "./History";
 import ResetEmail from "../components/ResetEmail/ResetEmail";
 import RegistrationPage from "../components/RegistrationPage/RegistrationPage";
 import SearchStock from "../components/StockSearch/StockSearch";
+import CompareStocks from "../components/CompareStocks/CompareStocks";
 // import Chart from "../components/Chart";
 import HomePage from "../components/HomePage";
 import NotFound from "../components/NotFound";
@@ -30,6 +31,7 @@ import { RESET_EMAIL_PATH } from "../constants/Constants";
 import { SEARCH_STOCK_PATH } from "../constants/Constants";
 import { REGISTRATION_PATH } from "../constants/Constants";
 import { YOUR_STOCKS_PATH } from "../constants/Constants";
+import { COMPARE_STOCKS_PATH } from "../constants/Constants";
 import { HOME_PATH } from "../constants/Constants";
 import { ACCOUNT_PATH } from "../constants/Constants";
 import { LOGIN_PATH } from "../constants/Constants";
@@ -55,6 +57,7 @@ function Routes() {
         <Route path={RESET_NAME_PATH} component={ResetName} />
         <Route path={SEARCH_STOCK_PATH} component={SearchStock} />
         <Route path={YOUR_STOCKS_PATH} component={StockInfo} />
+        <Route path={COMPARE_STOCKS_PATH} component={CompareStocks} />
         <Route path={ACCOUNT_PATH} component={AccountPage} />
         <Route path={LOGIN_PATH} component={LoginPage} />
         <Route path={FINANCE_DASHBOARD} component={FinanceDashboard} />

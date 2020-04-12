@@ -93,6 +93,10 @@ class StockInfo extends Component {
       searchedSymbol = currPath.slice(pathLength);
     }
 
+
+    if (this.props.symbol != null) {
+      searchedSymbol = this.props.symbol;
+    }
     this.callDataAPI(searchedSymbol).catch((err) => {
       console.log(err);
       history.push("/stocknotfound");
@@ -107,6 +111,12 @@ class StockInfo extends Component {
 
     this.getDeepAnalytics(searchedSymbol);
   };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.symbol !== prevProps.symbol) {
+      this.setState({ stockSymbol: this.props.symbol });
+    }
+  }
 
   getDeepAnalytics = async (symbol) => {
     var ending = symbol + "/";
@@ -538,10 +548,14 @@ class StockInfo extends Component {
         className={
           this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
         }
+        key={this.state.stockSymbol}
       >
         <div className={classes.infoHeader}>
           <div className={classes.title}>{this.state.stockSymbol}</div>
-          <div className={classes.followButtonDiv}>
+          <div
+            hidden={this.props.hideFollowed}
+            className={classes.followButtonDiv}
+          >
             {this.renderFollowButton()}
           </div>
           <FacebookShareButton
@@ -730,7 +744,9 @@ class StockInfo extends Component {
             <p>{this.state.macd}</p>
           </div>
         </div>
-        {this.renderFollowedStocks()}
+        <div hidden={this.props.hideFollowed}>
+          {this.renderFollowedStocks()}
+        </div>
       </div>
     );
   }

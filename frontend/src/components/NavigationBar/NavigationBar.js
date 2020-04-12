@@ -15,6 +15,7 @@ import {
   LOGIN_PATH,
   REGISTRATION_PATH,
   SEARCH_STOCK_PATH,
+  COMPARE_STOCKS_PATH,
   HOME_PATH,
   ACCOUNT_PATH,
   USER_INFO_URL,
@@ -123,8 +124,9 @@ export default class NavigationBar extends Component {
                 >
                   FIND A STOCK
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  MARKET TRENDS
+                <NavDropdown.Item
+                  onClick={() => history.push(COMPARE_STOCKS_PATH)}>
+                  COMPARE STOCKS
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link onClick={() => history.push(FINANCE_DASHBOARD)}>
