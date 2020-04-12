@@ -19,9 +19,16 @@ import {
   GET_RSI,
   GET_EMA,
   GET_SMA,
-  GET_MACD
+  GET_MACD,
 } from "../constants/Constants";
-import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, RedditShareButton, RedditIcon } from "react-share";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  RedditShareButton,
+  RedditIcon,
+} from "react-share";
 import history from "../routing/History";
 import { DarkModeContext } from "../contexts/DarkModeContext";
 
@@ -52,14 +59,14 @@ class StockInfo extends Component {
     following: false,
     followedStocks: [],
     shareURL: "finex.com",
-    shareQuote: "I am following stocks using FINEX! Come join me!"
+    shareQuote: "I am following stocks using FINEX! Come join me!",
   };
 
   /**
    * Gets stock information from backend.
    */
   componentDidMount = () => {
-    this.callAuthAPI().catch(err => {
+    this.callAuthAPI().catch((err) => {
       console.log(err);
     });
 
@@ -85,7 +92,11 @@ class StockInfo extends Component {
       searchedSymbol = currPath.slice(pathLength);
     }
 
-    this.callDataAPI(searchedSymbol).catch(err => {
+    if (this.props.symbol != null) {
+      searchedSymbol = this.props.symbol;
+    }
+
+    this.callDataAPI(searchedSymbol).catch((err) => {
       console.log(err);
       history.push("/stocknotfound");
       this.setState({ isValid: false });
@@ -93,14 +104,20 @@ class StockInfo extends Component {
     searchedSymbol = searchedSymbol.toUpperCase();
     this.setState({ stockSymbol: searchedSymbol });
 
-    this.getFollowedStocks().catch(err => {
+    this.getFollowedStocks().catch((err) => {
       console.log(err);
     });
 
     this.getDeepAnalytics(searchedSymbol);
   };
 
-  getDeepAnalytics = async symbol => {
+  componentDidUpdate(prevProps) {
+    if (this.props.symbol !== prevProps.symbol) {
+      this.setState({ stockSymbol: this.props.symbol });
+    }
+  }
+
+  getDeepAnalytics = async (symbol) => {
     var ending = symbol + "/";
     if (this.state.daily === true) {
       ending = ending + "daily/";
@@ -193,7 +210,7 @@ class StockInfo extends Component {
       ema: ema_data,
       rsi: rsi_data,
       sma: sma_data,
-      macd: macd_data
+      macd: macd_data,
     });
   };
 
@@ -201,7 +218,7 @@ class StockInfo extends Component {
    * Makes a call to backend requesting stock data based on
    * input provided.
    */
-  callDataAPI = async symbol => {
+  callDataAPI = async (symbol) => {
     console.log(STOCK_DAILY_URL + symbol);
     let response;
 
@@ -267,8 +284,8 @@ class StockInfo extends Component {
       method: "POST",
       body: JSON.stringify({ stock_id: this.state.stockSymbol }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
 
     if (response.status === 200) {
@@ -276,7 +293,7 @@ class StockInfo extends Component {
       this.setState({ following: true });
     }
 
-    this.getFollowedStocks().catch(err => {
+    this.getFollowedStocks().catch((err) => {
       console.log(err);
     });
   };
@@ -287,8 +304,8 @@ class StockInfo extends Component {
       method: "POST",
       body: JSON.stringify({ stock_id: this.state.stockSymbol }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
 
     if (response.status === 200) {
@@ -296,7 +313,7 @@ class StockInfo extends Component {
       this.setState({ following: false });
     }
 
-    this.getFollowedStocks().catch(err => {
+    this.getFollowedStocks().catch((err) => {
       console.log(err);
     });
   };
@@ -542,10 +559,14 @@ class StockInfo extends Component {
         className={
           this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
         }
+        key={this.state.stockSymbol}
       >
         <div className={classes.infoHeader}>
           <div className={classes.title}>{this.state.stockSymbol}</div>
-          <div className={classes.followButtonDiv}>
+          <div
+            hidden={this.props.hideFollowed}
+            className={classes.followButtonDiv}
+          >
             {this.renderFollowButton()}
           </div>
           <FacebookShareButton
@@ -734,7 +755,9 @@ class StockInfo extends Component {
             <p>{this.state.macd}</p>
           </div>
         </div>
-        {this.renderFollowedStocks()}
+        <div hidden={this.props.hideFollowed}>
+          {this.renderFollowedStocks()}
+        </div>
       </div>
     );
   }
