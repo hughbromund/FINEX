@@ -124,6 +124,9 @@ Font.register({
  * This class generates a PDF document that displays the user's current
  * finances and budgetary information. This includes the spending and budgeting
  * per category as well as some summary statistics.
+ *
+ * Code snippets from:
+ * https://react-pdf.org/
  */
 class FinanceDoc extends Component {
   state = {
