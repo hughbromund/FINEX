@@ -23,6 +23,7 @@ import {
   ADD_BUDGET_ITEM,
   ADD_INCOME_ITEM,
   CREATE_NEW_BUDGET,
+  RISK_MANAGEMENT_PATH
 } from "../../constants/Constants";
 
 // import { LOGIN_PATH } from "../constants/Constants"
