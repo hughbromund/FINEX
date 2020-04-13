@@ -23,6 +23,7 @@ import {
   ADD_BUDGET_ITEM,
   ADD_INCOME_ITEM,
   CREATE_NEW_BUDGET,
+  RISK_MANAGEMENT_PATH
 } from "../../constants/Constants";
 
 // import { LOGIN_PATH } from "../constants/Constants"
@@ -145,7 +146,8 @@ export default class NavigationBar extends Component {
                 >
                   CREATE A NEW BUDGET
                 </NavDropdown.Item>
-                <NavDropdown.Item>MAKE YOUR MONEY WORK</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => history.push(RISK_MANAGEMENT_PATH)}>
+                  RISK MANAGEMENT</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Form inline>{optional}</Form>
