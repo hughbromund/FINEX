@@ -15,6 +15,7 @@ import {
   LOGIN_PATH,
   REGISTRATION_PATH,
   SEARCH_STOCK_PATH,
+  COMPARE_STOCKS_PATH,
   HOME_PATH,
   ACCOUNT_PATH,
   USER_INFO_URL,
@@ -22,6 +23,7 @@ import {
   ADD_BUDGET_ITEM,
   ADD_INCOME_ITEM,
   CREATE_NEW_BUDGET,
+  RISK_MANAGEMENT_PATH
 } from "../../constants/Constants";
 
 // import { LOGIN_PATH } from "../constants/Constants"
@@ -123,8 +125,9 @@ export default class NavigationBar extends Component {
                 >
                   FIND A STOCK
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  MARKET TRENDS
+                <NavDropdown.Item
+                  onClick={() => history.push(COMPARE_STOCKS_PATH)}>
+                  COMPARE STOCKS
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link onClick={() => history.push(FINANCE_DASHBOARD)}>
@@ -143,7 +146,8 @@ export default class NavigationBar extends Component {
                 >
                   CREATE A NEW BUDGET
                 </NavDropdown.Item>
-                <NavDropdown.Item>MAKE YOUR MONEY WORK</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => history.push(RISK_MANAGEMENT_PATH)}>
+                  RISK MANAGEMENT</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Form inline>{optional}</Form>
