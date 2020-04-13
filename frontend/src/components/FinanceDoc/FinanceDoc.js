@@ -8,11 +8,14 @@ import {
   USER_INFO_URL,
   LOGIN_PATH,
   GET_CATEGORY_BUDGET,
+  GREEN_COLOR_HEX,
+  RED_COLOR_HEX,
 } from "../../constants/Constants";
 import history from "../../routing/History";
 import { Jumbotron } from "react-bootstrap";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 
+// imports for PDF library
 import {
   Page,
   Text,
@@ -24,6 +27,7 @@ import {
   Font,
 } from "@react-pdf/renderer";
 
+// Object containing styles for each of the PDF components
 const styles = StyleSheet.create({
   image: {
     paddingTop: 20,
@@ -42,7 +46,7 @@ const styles = StyleSheet.create({
     fontSize: "20pt",
     marginBottom: 10,
     marginLeft: 40,
-    color: "#34C759",
+    color: GREEN_COLOR_HEX,
   },
   category: {
     fontFamily: "Montserrat",
@@ -96,16 +100,17 @@ const styles = StyleSheet.create({
     fontSize: "15pt",
     marginRight: 20,
     marginBottom: 5,
-    color: "#34C759",
+    color: GREEN_COLOR_HEX,
   },
   amountRed: {
     fontFamily: "Montserrat",
     fontSize: "15pt",
     marginBottom: 5,
-    color: "#FF3B30",
+    color: RED_COLOR_HEX,
   },
 });
 
+// Register the font for the site for the PDF to be able to use
 Font.register({
   family: "Montserrat",
   fonts: [
@@ -115,14 +120,27 @@ Font.register({
   ],
 });
 
+/**
+ * This class generates a PDF document that displays the user's current
+ * finances and budgetary information. This includes the spending and budgeting
+ * per category as well as some summary statistics.
+ *
+ * Code snippets from:
+ * https://react-pdf.org/
+ */
 class FinanceDoc extends Component {
   state = {
     isLoggedIn: null,
     data: null,
     spentTotal: 0,
     budgetedTotal: 0,
+    dataLoaded: false,
   };
 
+  /**
+   * Performs all neccessary operations prior to
+   * rendering the page.
+   */
   componentDidMount() {
     this.callAuthAPI().catch((err) => {
       console.log(err);
@@ -133,6 +151,10 @@ class FinanceDoc extends Component {
     });
   }
 
+  /**
+   * Checks to make sure the client trying to access
+   * the page is a logged in user.
+   */
   callAuthAPI = async () => {
     console.log(USER_INFO_URL);
     let response;
@@ -149,6 +171,11 @@ class FinanceDoc extends Component {
     }
   };
 
+  /**
+   * Loads the user's budget information. The retured json
+   * is expected to contain a list of objects each containing
+   * a category, current spending and budgeted amounts.
+   */
   callBudgetAPI = async () => {
     console.log(GET_CATEGORY_BUDGET);
     let response;
@@ -174,8 +201,13 @@ class FinanceDoc extends Component {
     this.setState({ spentTotal: tempSpending });
     this.setState({ budgetedTotal: tempBudgeting });
     this.setState({ data: body });
+    this.setState({ dataLoaded: true });
   };
 
+  /**
+   * Renders the categories as subtitles
+   * to be displayed to the user.
+   */
   renderCategories = () => {
     if (this.state.data == null) return null;
 
@@ -198,14 +230,18 @@ class FinanceDoc extends Component {
     return <View>{categoriesArr}</View>;
   };
 
+  /**
+   * Renders the user's current spending per category
+   * this month.
+   */
   renderSpending = () => {
     if (this.state.data == null) return null;
 
     let spendingArr = [];
 
+    // loop through data and render quantities
     for (let i = 0; i < this.state.data.length; i++) {
       let isOver = this.state.data[i]["spent"] > this.state.data[i]["budgeted"];
-
       spendingArr[i] = (
         <Text key={i} style={isOver ? styles.amountRed : styles.amount}>
           {"$" + this.state.data[i]["spent"].toFixed(2)}
@@ -213,6 +249,7 @@ class FinanceDoc extends Component {
       );
     }
 
+    // render total
     let isNeg = false;
     if (this.state.budgetedTotal - this.state.spentTotal < 0) {
       isNeg = true;
@@ -227,11 +264,16 @@ class FinanceDoc extends Component {
     return <View>{spendingArr}</View>;
   };
 
+  /**
+   * Renders the user's budgeted amounts per
+   * category.
+   */
   renderBudget = () => {
     if (this.state.data == null) return null;
 
     let budgetArr = [];
 
+    // loop through data and render quantities
     for (let i = 0; i < this.state.data.length; i++) {
       budgetArr[i] = (
         <Text key={i} style={styles.amount}>
@@ -240,6 +282,7 @@ class FinanceDoc extends Component {
       );
     }
 
+    // render total
     budgetArr.push(
       <Text key={"total"} style={styles.amount}>
         {"$" + this.state.budgetedTotal.toFixed(2)}
@@ -249,6 +292,10 @@ class FinanceDoc extends Component {
     return <View>{budgetArr}</View>;
   };
 
+  /**
+   * Renders the percent of their overall budget the
+   * user has spent for the given month.
+   */
   renderPercent = () => {
     if (
       this.state.budgetedTotal == 0 ||
@@ -269,6 +316,10 @@ class FinanceDoc extends Component {
     );
   };
 
+  /**
+   * Renders the remaining amount of money the
+   * logged in user has left to spend.
+   */
   renderRemaining = () => {
     let isNeg = false;
     if (this.state.budgetedTotal - this.state.spentTotal < 0) {
@@ -281,11 +332,19 @@ class FinanceDoc extends Component {
     );
   };
 
+  /**
+   * Main render functions renders components conditionally
+   * based on data that has been loaded.
+   */
   render() {
     if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
       history.push(LOGIN_PATH);
       return null;
-    } else if (this.state.isLoggedIn && this.state.data == null) {
+    } else if (
+      this.state.dataLoaded &&
+      this.state.isLoggedIn &&
+      this.state.data == null
+    ) {
       return (
         <div className={classes.jumboOuter}>
           <div className={classes.jumboInner}>
@@ -301,7 +360,11 @@ class FinanceDoc extends Component {
           </div>
         </div>
       );
-    } else {
+    } else if (
+      this.state.isLoggedIn &&
+      this.state.dataLoaded &&
+      this.state.data != null
+    ) {
       return (
         <div>
           <PDFViewer className={classes.wrapper}>
@@ -351,6 +414,8 @@ class FinanceDoc extends Component {
           </PDFViewer>
         </div>
       );
+    } else {
+      return <h1>Loading...</h1>;
     }
   }
 }

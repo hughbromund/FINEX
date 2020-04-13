@@ -5,7 +5,7 @@ import classes from "./SpentSummary.module.css";
 import { DarkModeContext } from "../contexts/DarkModeContext";
 
 import history from "../routing/History";
-import { LOGIN_PATH } from "../constants/Constants";
+import { LOGIN_PATH, GREEN_COLOR_HEX } from "../constants/Constants";
 
 //Imports for pie chart
 import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
@@ -23,15 +23,15 @@ class SpentSummary extends Component {
     isLoggedIn: null,
     spentData: null,
     activeIndex: 0,
-    isDataEmpty: false
+    isDataEmpty: false,
   };
 
   componentDidMount = () => {
-    this.callAuthAPI().catch(err => {
+    this.callAuthAPI().catch((err) => {
       console.log(err);
     });
 
-    this.callBudgetAPI().catch(err => {
+    this.callBudgetAPI().catch((err) => {
       console.log(err);
     });
   };
@@ -75,7 +75,7 @@ class SpentSummary extends Component {
 
       dataArray[i] = {
         name: body[i]["category"],
-        value: parseInt(body[i]["spent"])
+        value: parseInt(body[i]["spent"]),
       };
 
       currTotalSpending += parseInt(body[i]["spent"]);
@@ -109,13 +109,15 @@ class SpentSummary extends Component {
     let spendingArr = [];
 
     for (let i = 0; i < this.state.spentData.length; i++) {
-      spendingArr[i] = <p key={i}>{"$" + this.state.spentData[i]["value"]}</p>;
+      spendingArr[i] = (
+        <p key={i}>{"$" + this.state.spentData[i]["value"].toFixed(2)}</p>
+      );
     }
 
     return <div>{spendingArr}</div>;
   };
 
-  renderActiveShape = props => {
+  renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
     const {
       cx,
@@ -127,7 +129,7 @@ class SpentSummary extends Component {
       endAngle,
       fill,
       payload,
-      percent
+      percent,
     } = props;
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);
@@ -189,13 +191,13 @@ class SpentSummary extends Component {
 
   getInitialState = () => {
     return {
-      activeIndex: 0
+      activeIndex: 0,
     };
   };
 
   onPieEnter = (data, index) => {
     this.setState({
-      activeIndex: index
+      activeIndex: index,
     });
   };
 
@@ -240,7 +242,7 @@ class SpentSummary extends Component {
                   innerRadius="45%"
                   outerRadius="90%"
                   cx="50%"
-                  fill="#34C759"
+                  fill={GREEN_COLOR_HEX}
                   activeShape={this.renderActiveShape}
                   onMouseEnter={this.onPieEnter}
                   activeIndex={this.state.activeIndex}
