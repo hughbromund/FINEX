@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classes from "./StockInfo.module.css";
-import Chart from "./Chart";
+import Chart from "../Chart";
 import { Button, ButtonGroup } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -20,7 +20,7 @@ import {
   GET_EMA,
   GET_SMA,
   GET_MACD,
-} from "../constants/Constants";
+} from "../../constants/Constants";
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -29,8 +29,8 @@ import {
   RedditShareButton,
   RedditIcon,
 } from "react-share";
-import history from "../routing/History";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import history from "../../routing/History";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 /**
  * This page displays a chart and other basic information about a stock.

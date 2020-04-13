@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import StockInfo from "../StockInfo";
+import StockInfo from "../StockInfo/StockInfo";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
