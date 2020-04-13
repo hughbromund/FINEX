@@ -31,6 +31,7 @@ import {
   UPDATE_GOOD_COLOR,
   RESET_EMAIL_PATH,
   RESET_PASSWORD_PATH,
+  RESET_PROFILE_PICTURE_PATH,
 } from "../../constants/Constants";
 
 import {
@@ -217,6 +218,13 @@ export default class AccountPage extends Component {
                     onClick={() => history.push(RESET_NAME_PATH)}
                   >
                     Update Name
+                  </Badge>
+                  &nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => history.push(RESET_PROFILE_PICTURE_PATH)}
+                  >
+                    Update Profile Picture
                   </Badge>
                 </Card.Title>
                 <Card.Subtitle>
