@@ -672,6 +672,34 @@ or
 "status": "No user logged in."
 }
 
+### /finance/expense/:category
+
+GET  
+This represents obtaining current expenses for the current month in specified category
+Requirements: correct category in place of ":category"
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's expenses in category otherwise  
+Status: Working
+Bugs: ??
+
+JSON Format (Output):
+[
+{
+"username": "shmem",
+"type": "expense",
+"category": "Food",
+"cost": "250",
+"name": "Apples"
+},
+...
+]
+
+or
+
+{
+"status": "No user logged in."
+}
+
+
 ### /finance/total
 
 GET  
