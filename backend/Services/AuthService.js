@@ -207,8 +207,8 @@ exports.updateMode = async function (req) {
 
 
 const s3 = new AWS.S3({
-    accessKeyId: AKIAJ5ET2JWPPGRITWZA,
-    secretAccessKey: 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
+    accessKeyId: "AKIAJ5ET2JWPPGRITWZA",
+    secretAccessKey: "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"
 });
 
 exports.setProfilePicture = async function (req) {
