@@ -3,6 +3,8 @@
 const User = require('../database/models/user');
 const nodemailer = require('nodemailer');
 const randomstring = require("randomstring");
+const fs = require('fs');
+const AWS = require('aws-sdk');
  
 
 var transporter = nodemailer.createTransport({
@@ -202,3 +204,45 @@ exports.updateMode = async function (req) {
     return await User.updateOne({username: req.user.username},
         {dark_mode: req.body.dark_mode}, (err, user) => {}).exec();
     }
+
+
+const s3 = new AWS.S3({
+    accessKeyId: AKIAJ5ET2JWPPGRITWZA,
+    secretAccessKey: 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
+});
+
+exports.setProfilePicture = async function (req) {
+    // Read content from the file
+    fs.readFile(filePath, (err, data) => {
+        if (err) console.error(err);
+        var base64data = new Buffer(data, 'binary');
+        // Setting up S3 upload parameters
+        const Key = req.user.username + '.jpg';
+        var params = {
+          Bucket: bucketName,
+          Key: Key, //file name to save as in S3
+          Body: base64data
+        };
+        // Uploading files to the bucket
+        s3.upload(params, function(err, data) {
+            if (err) {
+                throw err;
+            }
+            console.log(`File uploaded successfully. ${data.Location}`);
+        });
+    });
+};
+
+exports.getProfilePicture = async function (req) {
+    const Key = req.user.username + '.jpg';
+    const params = {
+      Bucket: finexprofilepictures,
+      Key: Key
+    };
+    s3.getObject(params, (err, data) => {
+      if (err) console.error(err);
+      fs.writeFileSync(filePath, data.Body.toString());
+      console.log(`${filePath} has been created!`);
+    });
+  };
+  

@@ -276,3 +276,42 @@ exports.updateMode = async function (req, res, next) {
         res.status(400).json({status: "not logged in!"})
     }
 }
+
+exports.setProfilePicture = async function (req, res, next) {
+    const { profilePicture } = req.body;
+    //console.log(req.user.username)
+    if ( profilePicture == null ) {
+        res.status(400).json({status: "image not passed!"})
+    }
+    else if (req.user) {
+        try {
+            let result = await authService.setProfilePicture(req);
+            //console.log(result)
+            res.status(200).json({status: "profile picture set"})
+        }
+        catch(e) {
+            res.status(400).json({status: "an error occurred"})
+        }
+        
+    }
+    else {
+        res.status(400).json({status: "not logged in!"})
+    }
+}
+
+exports.getProfilePicture = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let filepath = await authService.getProfilePicture(req)
+            res.status(200).json(filepath)
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({status: "An error occured."})
+        }
+    }
+    else {
+        res.status(400).json({status: "No user logged in."})
+    }
+}
+
