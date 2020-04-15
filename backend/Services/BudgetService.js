@@ -91,7 +91,8 @@ exports.getBudget = async function(req) {
             {category: "Food", budgeted: budget.food, spent: spending.food},
             {category: "Medical", budgeted: budget.medical, spent: spending.medical},
             {category: "Savings", budgeted: budget.savings, spent: spending.savings},
-            {category: "Personal Entertainment", budgeted: budget.entertainment, spent: spending.entertainment},
+            {category: "Personal", budgeted: budget.personal, spent: spending.personal},
+            {category: "Entertainment", budgeted: budget.entertainment, spent: spending.entertainment},
             {category: "Other", budgeted: budget.other, spent: spending.other}
         ]
 }
