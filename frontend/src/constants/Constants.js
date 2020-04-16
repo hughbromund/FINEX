@@ -20,6 +20,7 @@ export const SPENT_SUMMARY_PATH = "/spendingsummary";
 export const FINANCE_DOC_PATH = "/financedoc";
 export const RESET_PROFILE_PICTURE_PATH = "/resetpic";
 export const RISK_MANAGEMENT_PATH = "/riskmanagement";
+export const CATEGORY_SUMMARY_PATH = "/categorysummary";
 
 /* Base URL for Backend */
 export const BASE = "http://localhost:5000";
@@ -60,6 +61,7 @@ export const GET_RSI = BASE + "/api/stock/rsi/";
 export const GET_EMA = BASE + "/api/stock/ema/";
 export const GET_SMA = BASE + "/api/stock/sma/";
 export const GET_MACD = BASE + "/api/stock/macd/";
+export const CATEGORY_DATA_URL = BASE + "/finance/expense/";
 
 /* Color Hexes */
 
