@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Jumbotron from "react-bootstrap/Jumbotron";
 import { GET_FOLLOWED_STOCKS_URL } from "../../constants/Constants";
 import classes from "./CompareStocks.module.css";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
@@ -80,6 +81,21 @@ class CompareStocks extends Component {
         }
       >
         <Container fluid>
+          <Row>
+            <Col>
+              <Jumbotron
+                className={this.context.isDarkMode ? "bg-dark" : classes.jumbo}
+              >
+                <h1>
+                  Welcome to <b>FINEX's</b> Stock Comparison Feature!
+                </h1>
+                <p>
+                  Below, you may choose two stocks to compare using our deep
+                  analytics!
+                </p>
+              </Jumbotron>
+            </Col>
+          </Row>
           <Row>
             <Col md={6}>
               {this.renderDropdown(
