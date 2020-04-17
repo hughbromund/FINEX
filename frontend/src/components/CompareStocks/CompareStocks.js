@@ -79,9 +79,9 @@ class CompareStocks extends Component {
           this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
         }
       >
-        <Container>
+        <Container fluid>
           <Row>
-            <Col>
+            <Col md={6}>
               {this.renderDropdown(
                 1,
                 this.handleLeftTickerChange,
@@ -93,7 +93,7 @@ class CompareStocks extends Component {
                 hideFollowed
               ></StockInfo>
             </Col>
-            <Col>
+            <Col md={6}>
               {this.renderDropdown(
                 2,
                 this.handleRightTickerChange,
