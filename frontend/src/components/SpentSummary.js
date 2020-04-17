@@ -5,11 +5,13 @@ import classes from "./SpentSummary.module.css";
 import { DarkModeContext } from "../contexts/DarkModeContext";
 
 import history from "../routing/History";
+import { CATEGORY_SUMMARY_PATH } from "../constants/Constants";
 import { LOGIN_PATH, GREEN_COLOR_HEX } from "../constants/Constants";
 
 //Imports for pie chart
 import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
-import { Jumbotron } from "react-bootstrap";
+
+import { Jumbotron, Button } from "react-bootstrap";
 
 /**
  * This class displays a summary in the form of a pie chart
@@ -99,6 +101,18 @@ class SpentSummary extends Component {
     for (let i = 0; i < this.state.spentData.length; i++) {
       categoriesArr[i] = <p key={i}>{this.state.spentData[i]["name"] + ":"}</p>;
     }
+
+    categoriesArr.push(
+      <Button
+        variant="success"
+        key="button"
+        onClick={() => {
+          history.push(CATEGORY_SUMMARY_PATH);
+        }}
+      >
+        More Details
+      </Button>
+    );
 
     return <div>{categoriesArr}</div>;
   };
@@ -235,12 +249,12 @@ class SpentSummary extends Component {
           </div>
           <div className={classes.chartWrapper}>
             <ResponsiveContainer aspect={1.8} width="100%">
-              <PieChart margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
+              <PieChart margin={{ top: 20, right: 0, left: 0, bottom: 20 }}>
                 <Pie
                   dataKey="value"
                   data={this.state.spentData}
-                  innerRadius="45%"
-                  outerRadius="90%"
+                  innerRadius="40%"
+                  outerRadius="80%"
                   cx="50%"
                   fill={GREEN_COLOR_HEX}
                   activeShape={this.renderActiveShape}
