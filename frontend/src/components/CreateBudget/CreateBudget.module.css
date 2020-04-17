@@ -3,12 +3,26 @@
   /*justify-content: center;*/
   background-color: #121212;
   transition: 0.3s;
+  position: absolute;
 }
 .wrapperLight {
   display: flex;
   justify-content: center;
   transition: 0.3s;
+  position: absolute;
 }
 .inner {
-  /*width: 50rem;*/
+  width: 50rem;
+}
+
+.stackTop {
+  z-index: 9;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50rem;
+}
+
+.container {
+  position: relative;
 }
