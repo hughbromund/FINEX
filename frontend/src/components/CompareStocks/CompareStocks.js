@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { GET_FOLLOWED_STOCKS_URL } from "../../constants/Constants";
 import classes from "./CompareStocks.module.css";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 class CompareStocks extends Component {
   state = {
@@ -78,9 +79,9 @@ class CompareStocks extends Component {
           this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
         }
       >
-        <Container fluid>
+        <Container>
           <Row>
-            <div style={{ width: "50%" }}>
+            <Col>
               {this.renderDropdown(
                 1,
                 this.handleLeftTickerChange,
@@ -91,8 +92,8 @@ class CompareStocks extends Component {
                 symbol={this.state.leftTicker}
                 hideFollowed
               ></StockInfo>
-            </div>
-            <div style={{ width: "50%" }}>
+            </Col>
+            <Col>
               {this.renderDropdown(
                 2,
                 this.handleRightTickerChange,
@@ -102,7 +103,7 @@ class CompareStocks extends Component {
                 symbol={this.state.rightTicker}
                 hideFollowed
               ></StockInfo>
-            </div>
+            </Col>
           </Row>
           {/* <Row>
             Currently, {this.state.leftTicker} is outperforming{" "}
@@ -113,5 +114,6 @@ class CompareStocks extends Component {
     );
   }
 }
-
 export default CompareStocks;
+
+CompareStocks.contextType = DarkModeContext;
