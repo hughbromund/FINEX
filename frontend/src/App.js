@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classes from "./App.module.css";
-import NavigationBar from "./components/NavigationBar";
+import NavigationBar from "./components/NavigationBar/NavigationBar";
 // import RegistrationPage from "./components/RegistrationPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import ResetEmail from "./components/ResetEmail";

@@ -1,0 +1,16 @@
+.wrapperDark {
+  display: flex;
+  justify-content: center;
+  background-color: #121212;
+  transition: 0.3s;
+  height: 1vh;
+}
+.wrapperLight {
+  display: flex;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.inner {
+  width: 50rem;
+}
