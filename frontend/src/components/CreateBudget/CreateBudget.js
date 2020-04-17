@@ -12,6 +12,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import BudgetGraph from "./BudgetGraph";
+import BudgetAdvice from "./BudgetAdvice";
 
 import classes from "./CreateBudget.module.css";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
@@ -304,7 +305,8 @@ export default class CreateBudget extends Component {
     return (
       <div className={classes.container}>
         <div className={classes.stackTop}>
-          <BudgetGraph></BudgetGraph>
+          <BudgetGraph budget={this.state}></BudgetGraph>
+          <BudgetAdvice budget={this.state}></BudgetAdvice>
         </div>
         <div
           className={

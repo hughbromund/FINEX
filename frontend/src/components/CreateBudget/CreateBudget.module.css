@@ -18,7 +18,7 @@
 .stackTop {
   z-index: 9;
   position: fixed;
-  top: 0;
+  top: 50;
   right: 0;
   width: 50rem;
 }
