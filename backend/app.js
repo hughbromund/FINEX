@@ -15,15 +15,15 @@ app.use(express.json());
 
 app.use(
   bodyParser.urlencoded({
-    extended: false
+    extended: false,
   })
 );
 app.use(bodyParser.json());
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
-    preFlightContinue: true
+    origin: "https://frontend-dot-finex-purdue.uc.r.appspot.com",
+    preFlightContinue: true,
   })
 );
 
@@ -36,7 +36,7 @@ app.use(
     secret: "super-secret-secret",
     store: new MongoStore({ mongooseConnection: dbConnection }),
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
   })
 );
 

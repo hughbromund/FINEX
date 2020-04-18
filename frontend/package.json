@@ -2,6 +2,7 @@
   "name": "finex-app",
   "version": "0.1.0",
   "private": true,
+  "main": "app.js",
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
@@ -30,11 +31,13 @@
     "react-stockcharts": "^0.7.8",
     "react-test-renderer": "^16.13.1",
     "recharts": "^1.8.5",
+    "serve": "^11.3.0",
     "styled-components": "^5.0.1",
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "local": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject"
