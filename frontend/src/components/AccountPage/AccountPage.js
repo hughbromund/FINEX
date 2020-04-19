@@ -81,7 +81,6 @@ export default class AccountPage extends Component {
     console.log("MADE IT TO CALL USER INFO");
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
-      withCredentials: true,
       credentials: "include",
       // credentials: 'same-origin'
     });
@@ -159,7 +158,6 @@ export default class AccountPage extends Component {
     // console.log("TEST")
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
-      withCredentials: true,
       credentials: "include",
     });
     // console.log(response)

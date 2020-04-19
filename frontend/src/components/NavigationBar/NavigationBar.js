@@ -50,7 +50,6 @@ export default class NavigationBar extends Component {
   callUserInfo = async () => {
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
-      withCredentials: true,
       credentials: "include",
       // credentials: 'same-origin'
     });
