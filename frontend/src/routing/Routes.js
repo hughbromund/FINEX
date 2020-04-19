@@ -28,6 +28,8 @@ import FinanceDoc from "../components/FinanceDoc/FinanceDoc";
 import ResetProfilePicture from "../components/ResetProfilePicture/ResetProfilePicture";
 import RiskManagement from "../components/RiskManagement/RiskManagement";
 import CategorySummary from "../components/CategorySummary/CategorySummary";
+import InvestmentTactics from "../components/InvestmentTactics/InvestmentTactics";
+
 
 /* Paths */
 import { RESET_EMAIL_PATH } from "../constants/Constants";
@@ -51,6 +53,8 @@ import { FINANCE_DOC_PATH } from "../constants/Constants";
 import { RESET_PROFILE_PICTURE_PATH } from "../constants/Constants";
 import { RISK_MANAGEMENT_PATH } from "../constants/Constants";
 import { CATEGORY_SUMMARY_PATH } from "../constants/Constants";
+import { INVESTMENT_TACTICS_PATH } from "../constants/Constants";
+
 
 function Routes() {
   return (
@@ -79,6 +83,7 @@ function Routes() {
           component={ResetProfilePicture}
         />
         <Route path={RISK_MANAGEMENT_PATH} component={RiskManagement} />
+        <Route path={INVESTMENT_TACTICS_PATH} component={InvestmentTactics} />
         <Route path={CATEGORY_SUMMARY_PATH} component={CategorySummary} />
         <Route path="*" component={NotFound} />
       </Switch>

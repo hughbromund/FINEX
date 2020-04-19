@@ -23,7 +23,8 @@ import {
   ADD_BUDGET_ITEM,
   ADD_INCOME_ITEM,
   CREATE_NEW_BUDGET,
-  RISK_MANAGEMENT_PATH
+  RISK_MANAGEMENT_PATH,
+  INVESTMENT_TACTICS_PATH
 } from "../../constants/Constants";
 
 // import { LOGIN_PATH } from "../constants/Constants"
@@ -116,18 +117,20 @@ export default class NavigationBar extends Component {
             <Nav className="mr-auto">
               <NavDropdown title="STOCKS" id="basic-nav-dropdown">
                 <NavDropdown.Item
-                  onClick={() => history.push(YOUR_STOCKS_PATH)}
-                >
-                  YOUR STOCKS
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                  onClick={() => history.push(SEARCH_STOCK_PATH)}
-                >
+                  onClick={() => history.push(SEARCH_STOCK_PATH)}>
                   FIND A STOCK
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   onClick={() => history.push(COMPARE_STOCKS_PATH)}>
                   COMPARE STOCKS
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={() => history.push(YOUR_STOCKS_PATH)}>
+                  YOUR STOCKS
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={() => history.push(INVESTMENT_TACTICS_PATH)}>
+                  INVESTMENT TACTICS
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link onClick={() => history.push(FINANCE_DASHBOARD)}>

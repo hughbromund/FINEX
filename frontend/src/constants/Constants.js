@@ -21,6 +21,7 @@ export const FINANCE_DOC_PATH = "/financedoc";
 export const RESET_PROFILE_PICTURE_PATH = "/resetpic";
 export const RISK_MANAGEMENT_PATH = "/riskmanagement";
 export const CATEGORY_SUMMARY_PATH = "/categorysummary";
+export const INVESTMENT_TACTICS_PATH = "/investmenttactics";
 
 /* Base URL for Backend */
 export const BASE = "http://localhost:5000";
