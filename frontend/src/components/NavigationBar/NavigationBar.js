@@ -23,7 +23,7 @@ import {
   ADD_BUDGET_ITEM,
   ADD_INCOME_ITEM,
   CREATE_NEW_BUDGET,
-  RISK_MANAGEMENT_PATH
+  RISK_MANAGEMENT_PATH,
 } from "../../constants/Constants";
 
 // import { LOGIN_PATH } from "../constants/Constants"
@@ -51,9 +51,10 @@ export default class NavigationBar extends Component {
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
       // credentials: 'same-origin'
     });
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 304) {
       var body = await response.json();
       // console.log(body.user.username)
       this.setState({ username: body.username, name: body.name });
@@ -126,7 +127,8 @@ export default class NavigationBar extends Component {
                   FIND A STOCK
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  onClick={() => history.push(COMPARE_STOCKS_PATH)}>
+                  onClick={() => history.push(COMPARE_STOCKS_PATH)}
+                >
                   COMPARE STOCKS
                 </NavDropdown.Item>
               </NavDropdown>
@@ -146,8 +148,11 @@ export default class NavigationBar extends Component {
                 >
                   CREATE A NEW BUDGET
                 </NavDropdown.Item>
-                <NavDropdown.Item onClick={() => history.push(RISK_MANAGEMENT_PATH)}>
-                  RISK MANAGEMENT</NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={() => history.push(RISK_MANAGEMENT_PATH)}
+                >
+                  RISK MANAGEMENT
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Form inline>{optional}</Form>
