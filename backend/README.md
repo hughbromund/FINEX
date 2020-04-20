@@ -236,7 +236,9 @@ stocks: [
     "code": "aapl",
     "quantity": 4,
     "price": 250,
-    "value": 1000
+    "value": 1000,
+    "buyPrice": 150,
+    "buyValue": 600
     },
     ...
     ]
