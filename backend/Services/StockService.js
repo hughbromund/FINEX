@@ -269,7 +269,7 @@ exports.sellStock = async function (req) {
                 //stocks.spice(index, 1)
                 //delete stocks.index;
 
-                stocks = stocks.filter( (stock) => {stock.code != code})
+                stocks = stocks.filter( (stock) => {return stock.code != code})
                 //console.log(stocks)
             }
             else {
