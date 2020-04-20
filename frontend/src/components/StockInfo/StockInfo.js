@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./StockInfo.module.css";
 import Chart from "../Chart";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, ButtonGroup, InputGroup, FormControl } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Popover from "react-bootstrap/Popover";
@@ -20,6 +20,7 @@ import {
   GET_EMA,
   GET_SMA,
   GET_MACD,
+  GET_PORTFOLIO_URL,
 } from "../../constants/Constants";
 import {
   FacebookShareButton,
@@ -61,6 +62,7 @@ class StockInfo extends Component {
     followedStocks: [],
     shareURL: "finex.com",
     shareQuote: "I am following stocks using FINEX! Come join me!",
+    hasPortfolio: false,
   };
 
   /**
@@ -93,7 +95,6 @@ class StockInfo extends Component {
       searchedSymbol = currPath.slice(pathLength);
     }
 
-
     if (this.props.symbol != null) {
       searchedSymbol = this.props.symbol;
     }
@@ -110,6 +111,10 @@ class StockInfo extends Component {
     });
 
     this.getDeepAnalytics(searchedSymbol);
+
+    this.getPortfolio().catch((err) => {
+      console.log(err);
+    });
   };
 
   componentDidUpdate(prevProps) {
@@ -344,11 +349,53 @@ class StockInfo extends Component {
     }
   };
 
+  /**
+   * Get the portfolio information
+   * via a backend call.
+   */
+  getPortfolio = async () => {
+    console.log(GET_PORTFOLIO_URL);
+    let response;
+    response = await fetch(GET_PORTFOLIO_URL);
+
+    if (response.status == 200) {
+      // console.log("false");
+      this.setState({ hasPortfolio: true });
+    }
+  };
+
   renderChart = () => {
     if (this.state === null) {
       return;
     } else {
       return <Chart symbol={this.state.stockSymbol} />;
+    }
+  };
+
+  renderBuyAndSell = () => {
+    if (!this.state.isLoggedIn || !this.state.hasPortfolio) {
+      return null;
+    } else {
+      return (
+        <div className={classes.buySellDiv}>
+          <div className={classes.buySellField}>
+            <InputGroup>
+              <FormControl placeholder="Shares" />
+              <InputGroup.Append>
+                <Button variant="success">Buy</Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </div>
+          <div className={classes.buySellField}>
+            <InputGroup>
+              <FormControl placeholder="Shares" />
+              <InputGroup.Append>
+                <Button variant="danger">Sell</Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </div>
+        </div>
+      );
     }
   };
 
@@ -558,6 +605,7 @@ class StockInfo extends Component {
           >
             {this.renderFollowButton()}
           </div>
+          {this.renderBuyAndSell()}
           <FacebookShareButton
             url={this.state.shareURL}
             quote={this.state.shareQuote}
