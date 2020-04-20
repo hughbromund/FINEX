@@ -4,24 +4,26 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
 
-import history from "../routing/History";
-import { REGISTRATION_PATH } from "../constants/Constants";
-import { LOGIN_PATH } from "../constants/Constants";
+import history from "../../routing/History";
+import { REGISTRATION_PATH } from "../../constants/Constants";
+import { LOGIN_PATH } from "../../constants/Constants";
 
 export default class HomePage extends Component {
   render() {
     return (
       <div className={classes.container}>
         <Container>
-          <Row noGutters={true}>
+          <Row noGutters>
             <Col className={classes.mycol}>
               <div className={classes.cont}>
-                <img
+                <Image
                   className={classes.logo}
-                  src={require("../assets/img/logo-white.png")}
+                  src={require("../../assets/img/logo-white.png")}
                   alt=""
-                ></img>
+                  fluid
+                ></Image>
                 <h2 className={classes.text}>
                   Let's make your money work for you.
                 </h2>

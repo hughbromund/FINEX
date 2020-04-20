@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classes from "./StockInfo.module.css";
-import Chart from "../Chart";
+import Chart from "../Chart/Chart";
 import { Button, ButtonGroup } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -92,7 +92,6 @@ class StockInfo extends Component {
       pathLength = (YOUR_STOCKS_PATH + CRYPTO_EXTENSION).length;
       searchedSymbol = currPath.slice(pathLength);
     }
-
 
     if (this.props.symbol != null) {
       searchedSymbol = this.props.symbol;
