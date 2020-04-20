@@ -11,6 +11,13 @@ const passport = require("./passport");
 const port = process.env.PORT || 5000;
 const app = express();
 
+app.use(
+  cors({
+    origin: "https://frontend-dot-finex-purdue.uc.r.appspot.com",
+    credentials: true
+  })
+);
+
 app.use(express.json());
 
 app.use(
@@ -19,13 +26,6 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-app.use(
-  cors({
-    credentials: true,
-    origin: "https://frontend-dot-finex-purdue.uc.r.appspot.com",
-    preFlightContinue: true,
-  })
-);
 
 const dbConnection = require("./database");
 //const user = require('./routes/user')

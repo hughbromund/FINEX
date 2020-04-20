@@ -82,6 +82,7 @@ export default class AccountPage extends Component {
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
       credentials: "include",
+      withCredentials: true,
       // credentials: 'same-origin'
     });
     // console.log(response)
@@ -159,6 +160,7 @@ export default class AccountPage extends Component {
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
       credentials: "include",
+      withCredentials: true,
     });
     // console.log(response)
     if (response.status === 200 || response.status === 304) {

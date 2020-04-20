@@ -132,7 +132,6 @@ router.post("/auth/register", cors(), authController.register);
 //login account
 router.post(
   "/auth/login",
-  cors(),
   passport.authenticate("local"),
   authController.login
 );
@@ -141,7 +140,7 @@ router.post(
 router.post("/auth/logout", cors(), authController.logout);
 
 //get username of logged in account
-router.get("/auth/user", cors(), authController.user);
+router.get("/auth/user", authController.user);
 
 //update email
 router.put("/auth/updateEmail", cors(), authController.updateEmail);
