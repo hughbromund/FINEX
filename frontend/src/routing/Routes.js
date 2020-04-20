@@ -10,7 +10,7 @@ import RegistrationPage from "../components/RegistrationPage/RegistrationPage";
 import SearchStock from "../components/StockSearch/StockSearch";
 import CompareStocks from "../components/CompareStocks/CompareStocks";
 // import Chart from "../components/Chart";
-import HomePage from "../components/HomePage";
+import HomePage from "../components/HomePage/HomePage";
 import NotFound from "../components/NotFound";
 import AccountPage from "../components/AccountPage/AccountPage";
 import LoginPage from "../components/LoginPage/LoginPage";
@@ -29,7 +29,6 @@ import ResetProfilePicture from "../components/ResetProfilePicture/ResetProfileP
 import RiskManagement from "../components/RiskManagement/RiskManagement";
 import CategorySummary from "../components/CategorySummary/CategorySummary";
 import InvestmentTactics from "../components/InvestmentTactics/InvestmentTactics";
-
 
 /* Paths */
 import { RESET_EMAIL_PATH } from "../constants/Constants";
@@ -54,7 +53,6 @@ import { RESET_PROFILE_PICTURE_PATH } from "../constants/Constants";
 import { RISK_MANAGEMENT_PATH } from "../constants/Constants";
 import { CATEGORY_SUMMARY_PATH } from "../constants/Constants";
 import { INVESTMENT_TACTICS_PATH } from "../constants/Constants";
-
 
 function Routes() {
   return (
