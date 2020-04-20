@@ -1,7 +1,6 @@
 /* Paths for frontend routing */
 export const HOME_PATH = "/";
 export const YOUR_STOCKS_PATH = "/stocks";
-export const COMPARE_STOCKS_PATH = "/comparestocks";
 export const SEARCH_STOCK_PATH = "/searchstock";
 export const REGISTRATION_PATH = "/registration";
 export const RESET_EMAIL_PATH = "/resetemail";
@@ -17,9 +16,6 @@ export const CREATE_NEW_BUDGET = "/newbudget";
 export const RESET_PASSWORD_PATH = "/updatepassword";
 export const CRYPTO_EXTENSION = "/crypto/";
 export const SPENT_SUMMARY_PATH = "/spendingsummary";
-export const FINANCE_DOC_PATH = "/financedoc";
-export const RESET_PROFILE_PICTURE_PATH = "/resetpic";
-export const RISK_MANAGEMENT_PATH = "/riskmanagement";
 
 /* Base URL for Backend */
 export const BASE = "http://localhost:5000";
