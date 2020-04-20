@@ -12,9 +12,9 @@ import Alert from "react-bootstrap/Alert";
 import classes from "./IncomeItemForm.module.css";
 import DatePicker from "react-datepicker";
 import Collapse from "react-bootstrap/Collapse";
-import { CREATE_TRANSACTION } from "../constants/Constants";
+import { CREATE_TRANSACTION } from "../../constants/Constants";
 
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -28,7 +28,7 @@ export default class IncomeItemForm extends Component {
       type: "Income",
       startDate: "",
       success: false,
-      error: false
+      error: false,
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -43,29 +43,29 @@ export default class IncomeItemForm extends Component {
       method: "POST",
       withCredentials: true,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         type: "income",
         category: this.state.type,
         cost: this.state.amount,
         name: this.state.name,
-        date: this.state.date
-      })
-    }).then(res => {
+        date: this.state.date,
+      }),
+    }).then((res) => {
       //console.log(res)
       if (res.status === 200) {
         this.setState({
           success: true,
           error: false,
           amount: "",
-          name: ""
+          name: "",
         });
       }
       if (res.status === 400) {
         this.setState({
           success: false,
-          error: true
+          error: true,
         });
       }
     });
@@ -83,9 +83,9 @@ export default class IncomeItemForm extends Component {
     this.setState({ type: event.target.value });
   }
 
-  handleDateChange = date => {
+  handleDateChange = (date) => {
     this.setState({
-      startDate: date
+      startDate: date,
     });
   };
 

@@ -10,11 +10,11 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Alert from "react-bootstrap/Alert";
 // import history from "../routing/History";
 import classes from "./BudgetItemForm.module.css";
-import { CREATE_TRANSACTION } from "../constants/Constants";
+import { CREATE_TRANSACTION } from "../../constants/Constants";
 import DatePicker from "react-datepicker";
 import Collapse from "react-bootstrap/Collapse";
 
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 import "react-datepicker/dist/react-datepicker.css";
 // import { Col } from "react-bootstrap";
@@ -29,7 +29,7 @@ export default class BudgetItemForm extends Component {
       type: "Housing",
       startDate: "",
       success: false,
-      error: false
+      error: false,
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -44,29 +44,29 @@ export default class BudgetItemForm extends Component {
       method: "POST",
       withCredentials: true,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         type: "expense",
         category: this.state.type.toLowerCase(),
         cost: this.state.cost,
         name: this.state.name,
-        date: this.state.date
-      })
-    }).then(res => {
+        date: this.state.date,
+      }),
+    }).then((res) => {
       // console.log(res);
       if (res.status === 200) {
         this.setState({
           success: true,
           error: false,
           cost: "",
-          name: ""
+          name: "",
         });
       }
       if (res.status === 400) {
         this.setState({
           success: false,
-          error: true
+          error: true,
         });
       }
     });
@@ -84,9 +84,9 @@ export default class BudgetItemForm extends Component {
     this.setState({ type: event.target.value });
   }
 
-  handleDateChange = date => {
+  handleDateChange = (date) => {
     this.setState({
-      startDate: date
+      startDate: date,
     });
   };
 
