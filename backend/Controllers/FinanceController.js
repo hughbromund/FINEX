@@ -44,6 +44,26 @@ exports.getBudget = async function (req, res, next) {
     }
 }
 
+
+exports.getCategory = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let result = await transactionService.getCategory(req)
+
+            res.status(200).json(result)
+        
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({message: "An error occured"})
+        }
+    }
+    else {
+        res.status(400).json({message: "No user logged in."})
+    }
+}
+
+
 exports.insertTransaction = async function (req, res, next) {
     const { type, category, cost, name, date } = req.body
     //console.log(req.user.username)
@@ -159,6 +179,28 @@ exports.getTotal = async function (req, res, next) {
             else {
                 res.status(200).json(total)
             }
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({message: "An error occured"})
+        }
+    }
+    else {
+        res.status(400).json({message: "No user logged in."})
+    }
+}
+
+exports.getAdvice = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let result = await budgetService.getAdvice(req);
+            if (result.status == 400) {
+                res.status(400).json({message: result.message})
+            }
+            else {
+                res.status(200).json(result)
+            }
+
         }
         catch (e) {
             console.log(e)

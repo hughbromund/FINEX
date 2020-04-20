@@ -131,6 +131,9 @@ router.get('/finance/income', cors(), financeController.getIncome);
 //get the user's recent expense transactions
 router.get('/finance/expense', cors(), financeController.getExpenses);
 
+//get the user's recent expenses in specified category
+router.get('/finance/expense/:category', cors(), financeController.getCategory)
+
 //get the user's predicted and spent total
 router.get('/finance/total', cors(), financeController.getTotal);
 
@@ -139,6 +142,9 @@ router.post('/transaction/newTransaction', cors(), financeController.insertTrans
 
 //create new budget
 router.post('/budget/createBudget', cors(), financeController.createBudget);
+
+//generate advice
+router.get('/finance/advice', cors(), financeController.getAdvice);
 
 
 module.exports = router;

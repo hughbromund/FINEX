@@ -672,6 +672,34 @@ or
 "status": "No user logged in."
 }
 
+### /finance/expense/:category
+
+GET  
+This represents obtaining current expenses for the current month in specified category
+Requirements: correct category in place of ":category"
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's expenses in category otherwise  
+Status: Working
+Bugs: ??
+
+JSON Format (Output):
+[
+{
+"username": "shmem",
+"type": "expense",
+"category": "Food",
+"cost": "250",
+"name": "Apples"
+},
+...
+]
+
+or
+
+{
+"status": "No user logged in."
+}
+
+
 ### /finance/total
 
 GET  
@@ -693,6 +721,29 @@ or
 {
 "status": "No user logged in."
 }
+
+
+### /finance/advice
+
+GET  
+This represents obtaining financial advice for the user
+Requirements: None  
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's advice otherwise. Empty if no advice
+Status: Working
+Bugs: ??
+
+JSON Format (Output):
+[
+    {
+    "trigger": "Budgeted savings less than 20%.",
+    "advice": "Save at least 20% of your income for emergencies and large purchases.",
+    "isBudget": true
+    },
+    {},
+    ...
+]
+
+
 
 ### /transaction/newTransaction
 

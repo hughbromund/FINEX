@@ -42,6 +42,7 @@ import { DarkModeContext } from "../../contexts/DarkModeContext";
 class StockInfo extends Component {
   state = {
     stockSymbol: null,
+    loadedDate: "Loading...",
     open: "Loading...",
     close: "Loading...",
     high: "Loading...",
@@ -92,10 +93,10 @@ class StockInfo extends Component {
       searchedSymbol = currPath.slice(pathLength);
     }
 
+
     if (this.props.symbol != null) {
       searchedSymbol = this.props.symbol;
     }
-
     this.callDataAPI(searchedSymbol).catch((err) => {
       console.log(err);
       history.push("/stocknotfound");
@@ -230,7 +231,13 @@ class StockInfo extends Component {
 
     const body = await response.json();
 
-    // console.log(body);
+    console.log(body);
+
+    let key = "";
+    for (let k in body) {
+      key = k + "";
+      break;
+    }
 
     let tmpOpen = "No Data";
     let tmpHigh = "No Data";
@@ -238,8 +245,8 @@ class StockInfo extends Component {
     let tmpClose = "No Data";
     let tmpVol = "No Data";
 
-    let dateStr = this.getCurrentDate();
-    let key = dateStr + "T00:00:00.000Z";
+    // let dateStr = this.getCurrentDate();
+    // let key = dateStr + "T00:00:00.000Z";
 
     // console.log("KEY: " + key);
 
@@ -253,6 +260,7 @@ class StockInfo extends Component {
       tmpVol = body[key]["volume"];
     }
 
+    this.setState({ loadedDate: key.substring(0, 10) });
     this.setState({ open: tmpOpen });
     this.setState({ high: tmpHigh });
     this.setState({ low: tmpLow });
@@ -323,7 +331,7 @@ class StockInfo extends Component {
     let response;
     response = await fetch(GET_FOLLOWED_STOCKS_URL);
     const body = await response.json();
-    console.log(body);
+    // console.log(body);
 
     if (response.status === 200) {
       // console.log("false");
@@ -334,25 +342,6 @@ class StockInfo extends Component {
         this.setState({ following: true });
       }
     }
-  };
-
-  /**
-   * Returns current date in the format yyyy-mm-dd.
-   */
-  getCurrentDate = () => {
-    let d = new Date();
-    let month = "" + (d.getMonth() + 1);
-    let day = "" + d.getDate();
-    let year = d.getFullYear();
-
-    if (month.length < 2) {
-      month = "0" + month;
-    }
-    if (day.length < 2) {
-      day = "0" + day;
-    }
-
-    return [year, month, day].join("-");
   };
 
   renderChart = () => {
@@ -623,7 +612,7 @@ class StockInfo extends Component {
           </Button>
         </ButtonGroup>
         <div className={classes.infoTitle}>
-          Daily Summary ({this.getCurrentDate()}):
+          Daily Summary ({this.state.loadedDate}):
         </div>
         <div className={classes.infoBox}>
           <div className={classes.headerColumn}>
