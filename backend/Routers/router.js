@@ -119,6 +119,11 @@ router.post('/user/lightDarkMode', cors(), authController.updateMode);
 router.get('/user/getGoodColor', cors(), authController.getGoodColor);
 router.get('/user/getBadColor', cors(), authController.getBadColor);
 
+//get/set profile picture
+router.get('/user/getProfilePicture', cors(), authController.getProfilePicture);
+router.post('/user/setProfilePicture', cors(), authController.setProfilePicture);
+
+
 
 //FINANCE
 

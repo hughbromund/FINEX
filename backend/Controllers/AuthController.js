@@ -278,8 +278,8 @@ exports.updateMode = async function (req, res, next) {
 }
 
 exports.setProfilePicture = async function (req, res, next) {
-    const { profilePicture } = req.body;
-    //console.log(req.user.username)
+    const profilePicture = req.body.filepath;
+    //console.log(profilePicture)
     if ( profilePicture == null ) {
         res.status(400).json({status: "image not passed!"})
     }
