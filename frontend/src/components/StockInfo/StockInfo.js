@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import classes from "./StockInfo.module.css";
-import Chart from "../Chart";
 import {
   Button,
   ButtonGroup,
@@ -9,6 +8,7 @@ import {
   Collapse,
   Alert,
 } from "react-bootstrap";
+import Chart from "../Chart/Chart";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Popover from "react-bootstrap/Popover";

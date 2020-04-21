@@ -10,7 +10,7 @@ import RegistrationPage from "../components/RegistrationPage/RegistrationPage";
 import SearchStock from "../components/StockSearch/StockSearch";
 import CompareStocks from "../components/CompareStocks/CompareStocks";
 // import Chart from "../components/Chart";
-import HomePage from "../components/HomePage";
+import HomePage from "../components/HomePage/HomePage";
 import NotFound from "../components/NotFound";
 import AccountPage from "../components/AccountPage/AccountPage";
 import LoginPage from "../components/LoginPage/LoginPage";

@@ -146,6 +146,13 @@ exports.createPortfolio = async function (req) {
 exports.getPortfolio = async function (req) {
     let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
 
+    if (foundPortfolio == null) {
+        return {
+            "status": 400,
+            "message": "Portfolio not created!"
+        }
+    }
+
     let stocks = foundPortfolio.stocks
 
     let investing = 0;
@@ -165,12 +172,7 @@ exports.getPortfolio = async function (req) {
         investing += stocks[index].value
     }
 
-    if (foundPortfolio == null) {
-        return {
-            "status": 400,
-            "message": "Portfolio not created!"
-        }
-    }
+    
     return {
         "status": 200,
         "wallet": foundPortfolio.wallet,
@@ -189,20 +191,6 @@ exports.buyStock = async function (req) {
     let stocks = foundPortfolio.stocks
     let found = false;
 
-    for (let index = 0; index < stocks.length; index++) {
-        if (code == stocks[index].code) {
-            stocks[index].quantity = quantity + stocks[index].quantity;
-            found = true;
-        }
-    }
-    if (!found) {
-        stocks.push({
-            "code": code,
-            "quantity": quantity
-        })
-    }
-    //insert getting price of stock code
-    let newWallet = foundPortfolio.wallet
 
     let stockData = await alpha.data.intraday(code).then(data => {
         return alpha.util.polish(data).data;
@@ -213,6 +201,28 @@ exports.buyStock = async function (req) {
 
     let stockPrice = stockData[Object.keys(stockData)[0]].open;
     let cost = stockPrice * quantity;
+
+
+    for (let index = 0; index < stocks.length; index++) {
+        if (code == stocks[index].code) {
+            stocks[index].buyPrice = ((stocks[index].buyValue * stocks[index].quantity) + (cost) ) / (stocks[index].quantity + quantity)
+            stocks[index].quantity = quantity + stocks[index].quantity;
+            stocks[index].buyValue = stocks[index].buyPrice * stocks[index].quantity
+            found = true;
+        }
+    }
+    if (!found) {
+        stocks.push({
+            "code": code,
+            "quantity": quantity,
+            "buyPrice": stockPrice,
+            "buyValue": cost
+        })
+    }
+    //insert getting price of stock code
+    let newWallet = foundPortfolio.wallet
+
+    
     newWallet -= cost;
 
     if (newWallet < 0) {
@@ -259,11 +269,12 @@ exports.sellStock = async function (req) {
                 //stocks.spice(index, 1)
                 //delete stocks.index;
 
-                stocks = stocks.filter( (stock) => {stock.code != code})
+                stocks = stocks.filter( (stock) => {return stock.code != code})
                 //console.log(stocks)
             }
             else {
-                stocks[index].quantity -= quantity;         
+                stocks[index].quantity -= quantity;  
+                stocks[index].buyValue = stocks[index].buyPrice * stocks[index].quantity    
             }
         }
     }
