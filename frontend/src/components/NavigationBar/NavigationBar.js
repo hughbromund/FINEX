@@ -25,7 +25,8 @@ import {
   CREATE_NEW_BUDGET,
   RISK_MANAGEMENT_PATH,
   INVESTMENT_TACTICS_PATH,
-  STOCKS_PAGE_PATH
+  STOCKS_PAGE_PATH,
+  ALERT_RISK,
 } from "../../constants/Constants";
 
 // import { LOGIN_PATH } from "../constants/Constants"
@@ -132,9 +133,7 @@ export default class NavigationBar extends Component {
                 >
                   YOUR STOCKS
                 </NavDropdown.Item>
-                <NavDropdown.Item
-                  onClick={() => history.push(INVESTMENT_TACTICS_PATH)}
-                >
+                <NavDropdown.Item onClick={() => history.push(ALERT_RISK)}>
                   INVESTMENT TACTICS
                 </NavDropdown.Item>
               </NavDropdown>
