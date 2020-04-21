@@ -30,3 +30,14 @@
 tr {
   cursor: pointer;
 }
+
+.green {
+  color: #34c759;
+}
+
+.red {
+  color: #ff3b30;
+}
+
+.none {
+}
