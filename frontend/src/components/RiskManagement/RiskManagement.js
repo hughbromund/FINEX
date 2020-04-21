@@ -7,6 +7,7 @@ import Tab from "react-bootstrap/Tab";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import classes from "./RiskManagement.module.css";
 
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import { Carousel } from "react-bootstrap";
@@ -14,7 +15,11 @@ import { Carousel } from "react-bootstrap";
 class RiskManagement extends Component {
   render() {
     return (
-      <div>
+      <div
+        className={
+          this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
+        }
+      >
         <Container>
           <div>
             <Jumbotron
