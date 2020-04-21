@@ -219,144 +219,111 @@ exports.getPortfolio = async function (req) {
 };
 
 exports.buyStock = async function (req) {
-  const { code, quantity } = req.body;
+  const {code, quantity} = req.body;
 
-  let foundPortfolio = await StockSim.findOne(
-    { username: req.user.username },
-    (err, user) => {}
-  ).exec();
+  let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
 
-  let stocks = foundPortfolio.stocks;
+  let stocks = foundPortfolio.stocks
   let found = false;
 
 
-    let stockData = await alpha.data.intraday(code).then(data => {
-        return alpha.util.polish(data).data;
-    });
-
-    //console.log(stockData)
-    //console.log(stockData[Object.keys(stockData)[0]].open)
-
-    let stockPrice = stockData[Object.keys(stockData)[0]].open;
-    let cost = stockPrice * quantity;
-
-
-    for (let index = 0; index < stocks.length; index++) {
-        if (code == stocks[index].code) {
-            stocks[index].buyPrice = ((stocks[index].buyValue * stocks[index].quantity) + (cost) ) / (stocks[index].quantity + quantity)
-            stocks[index].quantity = quantity + stocks[index].quantity;
-            stocks[index].buyValue = stocks[index].buyPrice * stocks[index].quantity
-            found = true;
-        }
-    }
-    if (!found) {
-        stocks.push({
-            "code": code,
-            "quantity": quantity,
-            "buyPrice": stockPrice,
-            "buyValue": cost
-        })
-    }
-    //insert getting price of stock code
-    let newWallet = foundPortfolio.wallet
-
-    
-    newWallet -= cost;
+  let stockData = await alpha.data.intraday(code).then(data => {
+      return alpha.util.polish(data).data;
+  });
 
   //console.log(stockData)
   //console.log(stockData[Object.keys(stockData)[0]].open)
 
   let stockPrice = stockData[Object.keys(stockData)[0]].open;
   let cost = stockPrice * quantity;
+
+
+  for (let index = 0; index < stocks.length; index++) {
+      if (code == stocks[index].code) {
+          stocks[index].buyPrice = ((stocks[index].buyValue * stocks[index].quantity) + (cost) ) / (stocks[index].quantity + quantity)
+          stocks[index].quantity = quantity + stocks[index].quantity;
+          stocks[index].buyValue = stocks[index].buyPrice * stocks[index].quantity
+          found = true;
+      }
+  }
+  if (!found) {
+      stocks.push({
+          "code": code,
+          "quantity": quantity,
+          "buyPrice": stockPrice,
+          "buyValue": cost
+      })
+  }
+  //insert getting price of stock code
+  let newWallet = foundPortfolio.wallet
+
+  
   newWallet -= cost;
 
   if (newWallet < 0) {
-    return {
-      status: 400,
-      message: "not enough money",
-    };
+      return {
+          "status": 400,
+          "message": "not enough money"
+      }
   }
 
-  StockSim.updateOne(
-    { username: req.user.username },
-    { stocks: stocks, wallet: newWallet },
-    (err, user) => {}
-  ).exec();
+  StockSim.updateOne({username: req.user.username}, {stocks: stocks, wallet: newWallet}, (err, user) => {}).exec();
   //remove money from wallet, if not enough then dont update database
-
+  
   //insert getting price of stock code
 
   return {
-    status: 200,
-    message: "Successfully bought for $" + cost,
-    cost: cost,
-  };
-};
+      "status" : 200,
+      "message" : "Successfully bought for $" + cost,
+      "cost" : cost
+  }
+
+}
 
 exports.sellStock = async function (req) {
+  const {code, quantity} = req.body;
 
-    const {code, quantity} = req.body;
+  let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
 
-    let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
+  let stocks = foundPortfolio.stocks
+  let found = false;
+  console.log(stocks)
 
-    let stocks = foundPortfolio.stocks
-    let found = false;
-    console.log(stocks)
+  for (let index = 0; index < stocks.length; index++) {
 
-    for (let index = 0; index < stocks.length; index++) {
+      if (code == stocks[index].code) {
+          found = true;
 
-        if (code == stocks[index].code) {
-            found = true;
+          if (quantity > stocks[index].quantity) {
+              return {
+                  "status": 400,
+                  "message": "You only own " + stocks[index].quantity + " shares of " + code
+              }
+          }
+          else if (quantity == stocks[index].quantity) {
+              //stocks.spice(index, 1)
+              //delete stocks.index;
 
-            if (quantity > stocks[index].quantity) {
-                return {
-                    "status": 400,
-                    "message": "You only own " + stocks[index].quantity + " shares of " + code
-                }
-            }
-            else if (quantity == stocks[index].quantity) {
-                //stocks.spice(index, 1)
-                //delete stocks.index;
-
-                stocks = stocks.filter( (stock) => {return stock.code != code})
-                //console.log(stocks)
-            }
-            else {
-                stocks[index].quantity -= quantity;  
-                stocks[index].buyValue = stocks[index].buyPrice * stocks[index].quantity    
-            }
-        }
-    }
-    if (!found) {
-        return {
-          status: 400,
-          message:
-            "You only own " + stocks[index].quantity + " shares of " + code,
-        };
-      } else if (quantity == stocks[index].quantity) {
-        //stocks.spice(index, 1)
-        //delete stocks.index;
-
-        stocks = stocks.filter((stock) => {
-          stock.code != code;
-        });
-        //console.log(stocks)
-      } else {
-        stocks[index].quantity -= quantity;
+              stocks = stocks.filter( (stock) => {return stock.code != code})
+              //console.log(stocks)
+          }
+          else {
+              stocks[index].quantity -= quantity;  
+              stocks[index].buyValue = stocks[index].buyPrice * stocks[index].quantity    
+          }
       }
-    }
   }
   if (!found) {
-    return {
-      status: 400,
-      message: code + " not found in portfolio",
-    };
+      return {
+          "status": 400,
+          "message": code + " not found in portfolio"
+      }
   }
 
-  let newWallet = foundPortfolio.wallet;
+  let newWallet = foundPortfolio.wallet
 
-  let stockData = await alpha.data.intraday(code).then((data) => {
-    return alpha.util.polish(data).data;
+  let stockData = await alpha.data.intraday(code).then(data => {
+      return alpha.util.polish(data).data;
   });
 
   //console.log(stockData)
@@ -367,15 +334,11 @@ exports.sellStock = async function (req) {
 
   newWallet += value;
 
-  StockSim.updateOne(
-    { username: req.user.username },
-    { stocks: stocks, wallet: newWallet },
-    (err, user) => {}
-  ).exec();
+  StockSim.updateOne({username: req.user.username}, {stocks: stocks, wallet: newWallet}, (err, user) => {}).exec();
 
   return {
-    status: 200,
-    message: "Successfully sold for $" + value,
-    value: value,
-  };
-};
+      "status" : 200,
+      "message" : "Successfully sold for $" + value,
+      "value" : value
+  }
+}
