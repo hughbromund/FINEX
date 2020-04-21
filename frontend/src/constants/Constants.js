@@ -22,13 +22,14 @@ export const RESET_PROFILE_PICTURE_PATH = "/resetpic";
 export const RISK_MANAGEMENT_PATH = "/riskmanagement";
 export const CATEGORY_SUMMARY_PATH = "/categorysummary";
 export const INVESTMENT_TACTICS_PATH = "/investmenttactics";
+export const ALERT_RISK = "/alertrisk";
 export const STOCKS_PAGE_PATH = "/mystocks";
 
 /* Base URL for Backend */
 export var BASE = "https://backend-dot-finex-purdue.uc.r.appspot.com";
-console.log("NODE_ENV: " + process.env.NODE_ENV)
+console.log("NODE_ENV: " + process.env.NODE_ENV);
 if (process.env.NODE_ENV === "development") {
-    BASE = "http://localhost:5000"
+  BASE = "http://localhost:5000";
 }
 
 /* Paths to Call Backend */
