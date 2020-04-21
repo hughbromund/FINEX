@@ -3,6 +3,7 @@ import Dropzone from "react-dropzone";
 import ReactCrop from "react-image-crop";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Collapse from "react-bootstrap/Collapse";
 
 import classes from "./ResetProfilePicture.module.css";
 import "react-image-crop/dist/ReactCrop.css";
@@ -54,7 +55,8 @@ export default class ResetProfilePicture extends Component {
   onCropComplete = (crop) => {
     if (this.imageRef && crop.width && crop.height) {
       const croppedImageUrl = this.getCroppedImg(this.imageRef, crop);
-      this.setState({ croppedImageUrl });
+      //console.log(croppedImageUrl)
+      // this.setState({ croppedImageUrl: croppedImageUrl });
     }
   };
 
@@ -98,7 +100,12 @@ export default class ResetProfilePicture extends Component {
       u8arr[n] = bstr.charCodeAt(n);
     }
     let croppedImage = new File([u8arr], filename, { type: mime });
-    this.setState({ croppedImage: croppedImage });
+    //console.log(croppedImage)
+    this.setState({
+      croppedImage: croppedImage,
+      croppedImageUrl: URL.createObjectURL(croppedImage),
+    });
+    //console.log(croppedImage.type)
   }
 
   render() {
@@ -128,6 +135,12 @@ export default class ResetProfilePicture extends Component {
               Submit
             </Button>
           </Form>
+          <Collapse in={this.state.croppedImageUrl}>
+            <div>
+              <h1>Profile Picture Preview</h1>
+              <img src={this.state.croppedImageUrl}></img>
+            </div>
+          </Collapse>
         </div>
       </div>
     );
