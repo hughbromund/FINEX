@@ -101,7 +101,14 @@ class StocksPage extends Component {
 
     for (let i = 0; i < dataArr.length; i++) {
       tableArr.push(
-        <tr key={i}>
+        <tr
+          key={i}
+          onClick={() => {
+            history.push(
+              YOUR_STOCKS_PATH + "/" + dataArr[i]["code"].toUpperCase()
+            );
+          }}
+        >
           <td>{dataArr[i]["code"].toUpperCase()}</td>
           <td>{dataArr[i]["quantity"]}</td>
           <td>{"$" + parseFloat(dataArr[i]["price"]).toFixed(2)}</td>
@@ -113,7 +120,7 @@ class StocksPage extends Component {
     }
 
     return (
-      <Table responsive variant={this.context.isDarkMode ? "dark" : ""}>
+      <Table responsive hover variant={this.context.isDarkMode ? "dark" : ""}>
         <tbody>{tableArr}</tbody>
       </Table>
     );

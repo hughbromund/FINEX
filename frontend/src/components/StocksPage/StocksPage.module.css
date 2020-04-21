@@ -26,3 +26,7 @@
 .contentWrapper {
   margin-top: 20px;
 }
+
+tr {
+  cursor: pointer;
+}
