@@ -90,3 +90,18 @@
 .followedStockButton {
   margin-left: 20px;
 }
+
+.buySellDiv {
+  display: flex;
+  flex-direction: row;
+  margin-top: 11px;
+}
+
+.buySellField {
+  margin-right: 10px;
+}
+
+.alertDiv {
+  margin-left: 40px;
+  margin-right: 40px;
+}

@@ -51,6 +51,7 @@ export default class FinanceDashboard extends Component {
     var response = await fetch(GET_INCOME_LIST, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
       // credentials: 'same-origin'
     }).catch((err) => {
       console.error(err);
@@ -81,6 +82,7 @@ export default class FinanceDashboard extends Component {
     var response = await fetch(GET_EXPENSE_LIST, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
       // credentials: 'same-origin'
     }).catch((err) => {
       console.error(err);
@@ -111,6 +113,7 @@ export default class FinanceDashboard extends Component {
     var response = await fetch(GET_CATEGORY_BUDGET, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
       // credentials: 'same-origin'
     }).catch((err) => {
       console.error(err);

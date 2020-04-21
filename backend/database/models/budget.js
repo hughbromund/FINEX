@@ -1,4 +1,4 @@
-//from https://github.com/b-bly/simple-mern-passport
+    //from https://github.com/b-bly/simple-mern-passport
 
 const User = require('./user');
 const mongoose = require('mongoose')
