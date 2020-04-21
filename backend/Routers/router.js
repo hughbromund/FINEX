@@ -186,6 +186,11 @@ router.post(
 );
 
 //create new budget
-router.post("/budget/createBudget", cors(), financeController.createBudget);
+
+router.post('/budget/createBudget', cors(), financeController.createBudget);
+
+//generate advice
+router.get('/finance/advice', cors(), financeController.getAdvice);
+
 
 module.exports = router;

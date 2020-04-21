@@ -171,7 +171,14 @@ exports.getPortfolio = async function (req) {
     (err, user) => {}
   ).exec();
 
-  let stocks = foundPortfolio.stocks;
+    if (foundPortfolio == null) {
+        return {
+            "status": 400,
+            "message": "Portfolio not created!"
+        }
+    }
+
+    let stocks = foundPortfolio.stocks
 
   let investing = 0;
 
@@ -182,8 +189,13 @@ exports.getPortfolio = async function (req) {
         return alpha.util.polish(data).data;
       });
 
-    //console.log(stockData)
-    //console.log(stockData[Object.keys(stockData)[0]].open)
+    
+    return {
+        "status": 200,
+        "wallet": foundPortfolio.wallet,
+        "investing": investing,
+        "stocks": stocks
+    }
 
     let stockPrice = stockData[Object.keys(stockData)[0]].open;
 
@@ -217,24 +229,39 @@ exports.buyStock = async function (req) {
   let stocks = foundPortfolio.stocks;
   let found = false;
 
-  for (let index = 0; index < stocks.length; index++) {
-    if (code == stocks[index].code) {
-      stocks[index].quantity = quantity + stocks[index].quantity;
-      found = true;
-    }
-  }
-  if (!found) {
-    stocks.push({
-      code: code,
-      quantity: quantity,
-    });
-  }
-  //insert getting price of stock code
-  let newWallet = foundPortfolio.wallet;
 
-  let stockData = await alpha.data.intraday(code).then((data) => {
-    return alpha.util.polish(data).data;
-  });
+    let stockData = await alpha.data.intraday(code).then(data => {
+        return alpha.util.polish(data).data;
+    });
+
+    //console.log(stockData)
+    //console.log(stockData[Object.keys(stockData)[0]].open)
+
+    let stockPrice = stockData[Object.keys(stockData)[0]].open;
+    let cost = stockPrice * quantity;
+
+
+    for (let index = 0; index < stocks.length; index++) {
+        if (code == stocks[index].code) {
+            stocks[index].buyPrice = ((stocks[index].buyValue * stocks[index].quantity) + (cost) ) / (stocks[index].quantity + quantity)
+            stocks[index].quantity = quantity + stocks[index].quantity;
+            stocks[index].buyValue = stocks[index].buyPrice * stocks[index].quantity
+            found = true;
+        }
+    }
+    if (!found) {
+        stocks.push({
+            "code": code,
+            "quantity": quantity,
+            "buyPrice": stockPrice,
+            "buyValue": cost
+        })
+    }
+    //insert getting price of stock code
+    let newWallet = foundPortfolio.wallet
+
+    
+    newWallet -= cost;
 
   //console.log(stockData)
   //console.log(stockData[Object.keys(stockData)[0]].open)
@@ -267,22 +294,40 @@ exports.buyStock = async function (req) {
 };
 
 exports.sellStock = async function (req) {
-  const { code, quantity } = req.body;
 
-  let foundPortfolio = await StockSim.findOne(
-    { username: req.user.username },
-    (err, user) => {}
-  ).exec();
+    const {code, quantity} = req.body;
 
-  let stocks = foundPortfolio.stocks;
-  let found = false;
-  console.log(stocks);
+    let foundPortfolio = await StockSim.findOne({ username: req.user.username}, (err, user) => {}).exec();
 
-  for (let index = 0; index < stocks.length; index++) {
-    if (code == stocks[index].code) {
-      found = true;
+    let stocks = foundPortfolio.stocks
+    let found = false;
+    console.log(stocks)
 
-      if (quantity > stocks[index].quantity) {
+    for (let index = 0; index < stocks.length; index++) {
+
+        if (code == stocks[index].code) {
+            found = true;
+
+            if (quantity > stocks[index].quantity) {
+                return {
+                    "status": 400,
+                    "message": "You only own " + stocks[index].quantity + " shares of " + code
+                }
+            }
+            else if (quantity == stocks[index].quantity) {
+                //stocks.spice(index, 1)
+                //delete stocks.index;
+
+                stocks = stocks.filter( (stock) => {return stock.code != code})
+                //console.log(stocks)
+            }
+            else {
+                stocks[index].quantity -= quantity;  
+                stocks[index].buyValue = stocks[index].buyPrice * stocks[index].quantity    
+            }
+        }
+    }
+    if (!found) {
         return {
           status: 400,
           message:

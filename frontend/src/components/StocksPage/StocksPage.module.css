@@ -1,0 +1,43 @@
+.jumboWrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.wrapper {
+  margin-top: 20px;
+  margin-left: 40px;
+}
+
+.investmentDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.contentWrapper {
+  margin-top: 20px;
+}
+
+tr {
+  cursor: pointer;
+}
+
+.green {
+  color: #34c759;
+}
+
+.red {
+  color: #ff3b30;
+}
+
+.none {
+}
