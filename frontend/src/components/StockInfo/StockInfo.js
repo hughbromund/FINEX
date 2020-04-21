@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import classes from "./StockInfo.module.css";
 import Chart from "../Chart";
-import { Button, ButtonGroup, InputGroup, FormControl } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  InputGroup,
+  FormControl,
+  Collapse,
+  Alert,
+} from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Popover from "react-bootstrap/Popover";
@@ -21,6 +28,8 @@ import {
   GET_SMA,
   GET_MACD,
   GET_PORTFOLIO_URL,
+  BUY_STOCK_URL,
+  SELL_STOCK_URL,
 } from "../../constants/Constants";
 import {
   FacebookShareButton,
@@ -63,6 +72,11 @@ class StockInfo extends Component {
     shareURL: "finex.com",
     shareQuote: "I am following stocks using FINEX! Come join me!",
     hasPortfolio: false,
+    buyShares: 0,
+    sellShares: 0,
+    alertBuy: false,
+    alertSell: false,
+    alertError: false,
   };
 
   /**
@@ -372,6 +386,108 @@ class StockInfo extends Component {
     }
   };
 
+  buyStock = () => {
+    fetch(BUY_STOCK_URL, {
+      method: "POST",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        code: this.state.stockSymbol,
+        quantity: parseFloat(this.state.buyShares, 10),
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          this.setState({ alertError: false });
+          this.setState({ alertBuy: true });
+          this.setState({ alertSell: false });
+        } else {
+          this.setState({ alertError: true });
+          this.setState({ alertBuy: false });
+          this.setState({ alertSell: false });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  sellStock = () => {
+    fetch(SELL_STOCK_URL, {
+      method: "POST",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        code: this.state.stockSymbol,
+        quantity: parseFloat(this.state.sellShares, 10),
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          this.setState({ alertError: false });
+          this.setState({ alertBuy: false });
+          this.setState({ alertSell: true });
+        } else {
+          this.setState({ alertError: true });
+          this.setState({ alertBuy: false });
+          this.setState({ alertSell: false });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  handleBuyChange = (event) => {
+    this.setState({ buyShares: event.target.value });
+  };
+
+  handleSellChange = (event) => {
+    this.setState({ sellShares: event.target.value });
+  };
+
+  renderAlerts = () => {
+    return (
+      <div className={classes.alertDiv}>
+        <Collapse in={this.state.alertBuy && this.state.buyShares > 0}>
+          <div>
+            <Alert
+              variant="success"
+              onClose={() => this.setState({ alertBuy: false })}
+              dismissible
+            >
+              <Alert.Heading>Stock successfully bought!</Alert.Heading>
+            </Alert>
+          </div>
+        </Collapse>
+        <Collapse in={this.state.alertSell && this.state.sellShares > 0}>
+          <div>
+            <Alert
+              variant="danger"
+              onClose={() => this.setState({ alertSell: false })}
+              dismissible
+            >
+              <Alert.Heading>Stock successfully sold!</Alert.Heading>
+            </Alert>
+          </div>
+        </Collapse>
+        <Collapse in={this.state.alertError}>
+          <div>
+            <Alert
+              variant="danger"
+              onClose={() => this.setState({ alertError: false })}
+              dismissible
+            >
+              <Alert.Heading>
+                Could not perform the requested operation!
+              </Alert.Heading>
+            </Alert>
+          </div>
+        </Collapse>
+      </div>
+    );
+  };
+
   renderBuyAndSell = () => {
     if (!this.state.isLoggedIn || !this.state.hasPortfolio) {
       return null;
@@ -380,17 +496,31 @@ class StockInfo extends Component {
         <div className={classes.buySellDiv}>
           <div className={classes.buySellField}>
             <InputGroup>
-              <FormControl placeholder="Shares" />
+              <FormControl
+                value={this.state.buyShares}
+                type="number"
+                placeholder="Shares"
+                onChange={this.handleBuyChange}
+              />
               <InputGroup.Append>
-                <Button variant="success">Buy</Button>
+                <Button variant="success" onClick={() => this.buyStock()}>
+                  Buy
+                </Button>
               </InputGroup.Append>
             </InputGroup>
           </div>
           <div className={classes.buySellField}>
             <InputGroup>
-              <FormControl placeholder="Shares" />
+              <FormControl
+                value={this.state.sellShares}
+                type="number"
+                placeholder="Shares"
+                onChange={this.handleSellChange}
+              />
               <InputGroup.Append>
-                <Button variant="danger">Sell</Button>
+                <Button variant="danger" onClick={() => this.sellStock()}>
+                  Sell
+                </Button>
               </InputGroup.Append>
             </InputGroup>
           </div>
@@ -625,7 +755,7 @@ class StockInfo extends Component {
             <RedditIcon size={32} round />
           </RedditShareButton>
         </div>
-
+        {this.renderAlerts()}
         {this.state.stockSymbol !== null && this.state.isValid === true ? (
           this.state.daily ? (
             <Chart

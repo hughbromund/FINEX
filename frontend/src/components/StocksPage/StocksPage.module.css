@@ -5,3 +5,24 @@
   margin-left: 20px;
   margin-right: 20px;
 }
+
+.wrapper {
+  margin-top: 20px;
+  margin-left: 40px;
+}
+
+.investmentDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.contentWrapper {
+  margin-top: 20px;
+}

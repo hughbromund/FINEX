@@ -4,9 +4,10 @@ import {
   USER_INFO_URL,
   GET_PORTFOLIO_URL,
   CREATE_PORTFOLIO_URL,
+  YOUR_STOCKS_PATH,
 } from "../../constants/Constants";
 import history from "../../routing/History";
-import { Jumbotron, Button } from "react-bootstrap";
+import { Jumbotron, Button, Table } from "react-bootstrap";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import classes from "./StocksPage.module.css";
 
@@ -83,13 +84,51 @@ class StocksPage extends Component {
     this.setState({ portfolio: defaultPortfolio });
   };
 
+  renderStockTable = () => {
+    let dataArr = this.state.portfolio["stocks"];
+    let tableArr = [];
+
+    tableArr.push(
+      <tr key={"header"}>
+        <th>Stock</th>
+        <th>Shares</th>
+        <th>Current Price</th>
+        <th>Purchase Price</th>
+        <th>Current Value</th>
+        <th>Purchase Value</th>
+      </tr>
+    );
+
+    for (let i = 0; i < dataArr.length; i++) {
+      tableArr.push(
+        <tr key={i}>
+          <td>{dataArr[i]["code"].toUpperCase()}</td>
+          <td>{dataArr[i]["quantity"]}</td>
+          <td>{"$" + parseFloat(dataArr[i]["price"]).toFixed(2)}</td>
+          <td>{"$" + parseFloat(dataArr[i]["price"]).toFixed(2)}</td>
+          <td>{"$" + parseFloat(dataArr[i]["value"]).toFixed(2)}</td>
+          <td>{"$" + parseFloat(dataArr[i]["value"]).toFixed(2)}</td>
+        </tr>
+      );
+    }
+
+    return (
+      <Table responsive variant={this.context.isDarkMode ? "dark" : ""}>
+        <tbody>{tableArr}</tbody>
+      </Table>
+    );
+  };
+
   render() {
     if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
       history.push(LOGIN_PATH);
       return null;
     } else if (this.state.isLoggedIn == null) {
       return <h1>Loading...</h1>;
-    } else if (this.state.portfolio == null) {
+    } else if (
+      this.state.portfolio == null ||
+      this.state.portfolio == undefined
+    ) {
       return (
         <div className={classes.jumboWrapper}>
           <Jumbotron
@@ -107,9 +146,32 @@ class StocksPage extends Component {
           </Jumbotron>
         </div>
       );
+    } else {
+      return (
+        <div className={classes.wrapper}>
+          <div className={classes.investmentDiv}>
+            <div>
+              <h1>Simulated Portfolio:</h1>
+            </div>
+            <div className={classes.contentWrapper}>
+              <div>
+                <h3>
+                  {"Remaining Money: $" +
+                    this.state.portfolio["wallet"].toFixed(2)}
+                </h3>
+              </div>
+              <div>
+                <h3>
+                  {"Invested Money: $" +
+                    this.state.portfolio["investing"].toFixed(2)}
+                </h3>
+              </div>
+              <div className={classes.table}>{this.renderStockTable()}</div>
+            </div>
+          </div>
+        </div>
+      );
     }
-
-    return <div></div>;
   }
 }
 

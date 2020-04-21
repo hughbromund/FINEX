@@ -66,6 +66,8 @@ export const GET_MACD = BASE + "/api/stock/macd/";
 export const CATEGORY_DATA_URL = BASE + "/finance/expense/";
 export const GET_PORTFOLIO_URL = BASE + "/stock/sim/getPortfolio";
 export const CREATE_PORTFOLIO_URL = BASE + "/stock/sim/createPortfolio";
+export const BUY_STOCK_URL = BASE + "/stock/sim/buyStock";
+export const SELL_STOCK_URL = BASE + "/stock/sim/sellStock";
 
 /* Color Hexes */
 
