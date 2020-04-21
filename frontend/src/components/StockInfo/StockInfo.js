@@ -489,7 +489,11 @@ class StockInfo extends Component {
   };
 
   renderBuyAndSell = () => {
-    if (!this.state.isLoggedIn || !this.state.hasPortfolio) {
+    if (
+      !this.state.isLoggedIn ||
+      !this.state.hasPortfolio ||
+      this.state.isCrypto
+    ) {
       return null;
     } else {
       return (

@@ -76,8 +76,8 @@ class StocksPage extends Component {
 
     let defaultPortfolio = {
       status: 200,
-      wallet: 4000,
-      investing: 1000,
+      wallet: 5000,
+      investing: 0,
       stocks: [],
     };
 
@@ -88,18 +88,50 @@ class StocksPage extends Component {
     let dataArr = this.state.portfolio["stocks"];
     let tableArr = [];
 
+    if (dataArr.length == 0) {
+      return (
+        <div className={classes.jumboWrapper}>
+          <Jumbotron
+            className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
+          >
+            <h1>No Stocks Purchased</h1>
+            <p>
+              You haven't invested any of your money! Do some research on which
+              stocks you want to buy and come back when you have.
+            </p>
+          </Jumbotron>
+        </div>
+      );
+    }
+
     tableArr.push(
       <tr key={"header"}>
         <th>Stock</th>
         <th>Shares</th>
-        <th>Current Price</th>
         <th>Purchase Price</th>
-        <th>Current Value</th>
+        <th>Current Price</th>
         <th>Purchase Value</th>
+        <th>Current Value</th>
+        <th>Percent Change</th>
       </tr>
     );
 
     for (let i = 0; i < dataArr.length; i++) {
+      let totalChange =
+        parseFloat(dataArr[i]["price"]) - parseFloat(dataArr[i]["buyPrice"]);
+      let percentChange =
+        (totalChange * 100.0) / parseFloat(dataArr[i]["buyPrice"]);
+
+      let color = classes.none;
+
+      if (totalChange > 0) {
+        color = classes.green;
+      }
+
+      if (totalChange < 0) {
+        color = classes.red;
+      }
+
       tableArr.push(
         <tr
           key={i}
@@ -111,10 +143,11 @@ class StocksPage extends Component {
         >
           <td>{dataArr[i]["code"].toUpperCase()}</td>
           <td>{dataArr[i]["quantity"]}</td>
+          <td>{"$" + parseFloat(dataArr[i]["buyPrice"]).toFixed(2)}</td>
           <td>{"$" + parseFloat(dataArr[i]["price"]).toFixed(2)}</td>
-          <td>{"$" + parseFloat(dataArr[i]["price"]).toFixed(2)}</td>
+          <td>{"$" + parseFloat(dataArr[i]["buyValue"]).toFixed(2)}</td>
           <td>{"$" + parseFloat(dataArr[i]["value"]).toFixed(2)}</td>
-          <td>{"$" + parseFloat(dataArr[i]["value"]).toFixed(2)}</td>
+          <td className={color}>{"%" + percentChange.toFixed(2)}</td>
         </tr>
       );
     }
@@ -171,6 +204,15 @@ class StocksPage extends Component {
                 <h3>
                   {"Invested Money: $" +
                     this.state.portfolio["investing"].toFixed(2)}
+                </h3>
+              </div>
+              <div>
+                <h3>
+                  {"Total Portfolio Value: $" +
+                    (
+                      this.state.portfolio["investing"] +
+                      this.state.portfolio["wallet"]
+                    ).toFixed(2)}
                 </h3>
               </div>
               <div className={classes.table}>{this.renderStockTable()}</div>
