@@ -547,6 +547,30 @@ or
 "status": "No user logged in."
 }
 
+### /user/setProfilePicture
+
+POST
+This represents adding a user profile picture to the s3 bucket to save for future use
+On success, image will be uploaded to s3 bucket as "<username>.jpg"
+Requirements: absolute local path to image
+Status: Working
+Bugs: None
+JSON Format (Input) :
+{
+    "filepath": "absolute local path to image"
+}
+
+### /user/getProfilePicture
+
+GET
+This represents getting a user profile picture from the s3 bucket and writing 
+the data in  binary form to a file, FINEX/backend/ProfilePictures/downloaded.jpg
+Requirements: none
+Status: working
+Bugs: None
+Output: binary image data written to FINEX/backend/ProfilePictures/downloaded.jpg
+
+
 ### /auth/updatePassword
 
 PUT  

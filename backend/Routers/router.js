@@ -150,8 +150,12 @@ router.post("/user/updateBadColor", authController.updateBadColor);
 router.post("/user/lightDarkMode", authController.updateMode);
 
 //get good/bad color hex value
-router.get("/user/getGoodColor", authController.getGoodColor);
-router.get("/user/getBadColor", authController.getBadColor);
+router.get('/user/getGoodColor', cors(), authController.getGoodColor);
+router.get('/user/getBadColor', cors(), authController.getBadColor);
+
+//get/set profile picture
+router.get('/user/getProfilePicture', cors(), authController.getProfilePicture);
+router.post('/user/setProfilePicture', cors(), authController.setProfilePicture);
 
 //FINANCE
 

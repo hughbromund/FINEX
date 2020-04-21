@@ -4,6 +4,8 @@ const path = require("path");
 const User = require(path.resolve(__dirname, "../database/models/user"));
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
+const fs = require('fs');
+const AWS = require('aws-sdk');
 
 var transporter = nodemailer.createTransport({
   service: "gmail",
@@ -223,9 +225,62 @@ exports.updateBadColor = async function (req) {
 };
 
 exports.updateMode = async function (req) {
-  return await User.updateOne(
-    { username: req.user.username },
-    { dark_mode: req.body.dark_mode },
-    (err, user) => {}
-  ).exec();
+    return await User.updateOne({username: req.user.username},
+        {dark_mode: req.body.dark_mode}, (err, user) => {}).exec();
+    }
+
+
+const s3 = new AWS.S3({
+    accessKeyId: "AKIAJ5ET2JWPPGRITWZA",
+    secretAccessKey: "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"
+});
+
+exports.setProfilePicture = async function (req) {
+    // Read content from the file
+    //const filePath = req.body.filepath;
+    //console.log(filePath);
+    //fs.readFile(filePath, (err, data) => {
+        //if (err) console.error(err);
+        //var base64data = new Buffer(data, 'binary');
+        // Setting up S3 upload parameters
+        const Key = req.user.username + '.jpg';
+        const file = (req.body.imageUpload);
+        var params = {
+          Bucket: "finexprofilepictures",
+          Key: Key, //file name to save as in S3
+          Body: file //base64data
+        };
+        // Uploading files to the bucket
+        s3.putObject(params, function (err, data) {
+            if (err) {
+              console.log("Error: ", err);
+            } else {
+                console.log(`File uploaded successfully. ${data.Location}`);
+            }
+          });
+        /*
+        s3.upload(params, function(err, data) {
+            if (err) {
+                throw err;
+            }
+            console.log(`File uploaded successfully. ${data.Location}`);
+        });
+        */
 };
+
+exports.getProfilePicture = async function (req) {
+    const Key = req.user.username + '.jpg';
+    const params = {
+      Bucket: "finexprofilepictures",
+      Key: Key
+    };
+    const filePath = "./ProfilePictures/downloaded.json"
+    s3.getObject(params, (err, data) => {
+      if (err) console.error(err);
+      fs.writeFileSync(filePath, data.Body.toString());
+    });
+  };
+  
+  /*https://stackoverflow.com/questions/25869017
+  /how-to-convert-binary-data-and-mime-to-image-in-javascript
+  */
