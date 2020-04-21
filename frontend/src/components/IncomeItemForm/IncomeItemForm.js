@@ -42,6 +42,7 @@ export default class IncomeItemForm extends Component {
     fetch(CREATE_TRANSACTION, {
       method: "POST",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

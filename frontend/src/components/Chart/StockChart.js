@@ -13,7 +13,7 @@ import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import {
   CrossHairCursor,
   MouseCoordinateX,
-  MouseCoordinateY
+  MouseCoordinateY,
 } from "react-stockcharts/lib/coordinates";
 
 import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
@@ -29,25 +29,27 @@ import { DarkModeContext } from "../../contexts/DarkModeContext";
 class LineAndScatterChartGrid extends React.Component {
   state = {
     goodColor: "",
-    badColor: ""
+    badColor: "",
   };
 
   async getColors() {
     var response = await fetch(GET_GOOD_COLOR, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
+      credentials: "include",
     });
     const goodColorBody = await response.json();
 
     response = await fetch(GET_BAD_COLOR, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
+      credentials: "include",
     });
     const badColorBody = await response.json();
 
     this.setState({
       goodColor: goodColorBody.good_color,
-      badColor: badColorBody.bad_color
+      badColor: badColorBody.bad_color,
     });
     // fetch(GET_GOOD_COLOR, {
     //   method: "GET",
@@ -86,7 +88,7 @@ class LineAndScatterChartGrid extends React.Component {
     const xGrid = showGrid ? { innerTickSize: -1 * gridHeight } : {};
 
     const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(
-      d => d.date
+      (d) => d.date
     );
     const { data, xScale, xAccessor, displayXAccessor } = xScaleProvider(
       initialData
@@ -122,7 +124,7 @@ class LineAndScatterChartGrid extends React.Component {
       >
         <Chart
           id={1}
-          yExtents={d => [Math.max(d.high, d.low), Math.min(d.high, d.low)]}
+          yExtents={(d) => [Math.max(d.high, d.low), Math.min(d.high, d.low)]}
         >
           <XAxis
             axisAt="bottom"
@@ -151,7 +153,7 @@ class LineAndScatterChartGrid extends React.Component {
           />
 
           <Series
-            yAccessor={d => d.close}
+            yAccessor={(d) => d.close}
             interpolation={interpolation}
             stroke="#ff0000" // This is where we can essentially change the color
             fill={
@@ -178,11 +180,11 @@ LineAndScatterChartGrid.propTypes = {
   data: PropTypes.array.isRequired,
   width: PropTypes.number.isRequired,
   ratio: PropTypes.number.isRequired,
-  type: PropTypes.oneOf(["svg", "hybrid"]).isRequired
+  type: PropTypes.oneOf(["svg", "hybrid"]).isRequired,
 };
 
 LineAndScatterChartGrid.defaultProps = {
-  type: "svg"
+  type: "svg",
 };
 LineAndScatterChartGrid = fitWidth(LineAndScatterChartGrid);
 
