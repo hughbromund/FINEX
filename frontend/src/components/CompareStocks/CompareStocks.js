@@ -32,7 +32,10 @@ class CompareStocks extends Component {
   getFollowedStocks = async () => {
     console.log(GET_FOLLOWED_STOCKS_URL);
     let response;
-    response = await fetch(GET_FOLLOWED_STOCKS_URL);
+    response = await fetch(GET_FOLLOWED_STOCKS_URL, {
+      credentials: "include",
+      withCredentials: true,
+    });
     const body = await response.json();
     console.log(body);
 

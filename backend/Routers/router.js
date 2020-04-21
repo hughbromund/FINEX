@@ -29,94 +29,86 @@ router.use(function timeLog(req, res, next) {
 });
 
 //test endpoint
-router.get("/hi", cors(), stockController.getHello);
+router.get("/hi", stockController.getHello);
 
 //autofill stock search list endpoint
-router.get("/api/stock/auto/:input", cors(), stockController.getAutoComplete);
-router.get("/api/stock/auto/", cors(), stockController.getAutoCompleteEmpty);
+router.get("/api/stock/auto/:input", stockController.getAutoComplete);
+router.get("/api/stock/auto/", stockController.getAutoCompleteEmpty);
 
 //autofill crypto search list endpoint
-router.get("/api/crypto/auto/:input", cors(), cryptoController.getAutoComplete);
-router.get("/api/crypto/auto/", cors(), cryptoController.getAutoCompleteEmpty);
+router.get("/api/crypto/auto/:input", cryptoController.getAutoComplete);
+router.get("/api/crypto/auto/", cryptoController.getAutoCompleteEmpty);
 
 //retrieve stock intraday data endpoint
 router.get(
   "/api/stock/intraday/:code",
-  cors(),
   stockController.getStockIntraday
 );
 
 //retrieve stock daily data endpoint
-router.get("/api/stock/daily/:code", cors(), stockController.getStockDaily);
+router.get("/api/stock/daily/:code", stockController.getStockDaily);
 
 //retrieve crypto daily data endpoint
-router.get("/api/crypto/daily/:code", cors(), cryptoController.getCryptoDaily);
+router.get("/api/crypto/daily/:code", cryptoController.getCryptoDaily);
 
 //retrieve crypto daily data endpoint
 router.get(
   "/api/crypto/weekly/:code",
-  cors(),
   cryptoController.getCryptoWeekly
 );
 
 //retrieve SMA data endpoint
 router.get(
   "/api/stock/sma/:code/:interval/:series_type",
-  cors(),
   stockController.getSMA
 );
 
 //retrieve EMA data endpoint
 router.get(
   "/api/stock/ema/:code/:interval/:series_type",
-  cors(),
   stockController.getEMA
 );
 
 //retrieve EMA data endpoint
 router.get(
   "/api/stock/rsi/:code/:interval/:series_type",
-  cors(),
   stockController.getRSI
 );
 
 //retrieve EMA data endpoint
 router.get(
   "/api/stock/bbands/:code/:interval/:series_type",
-  cors(),
   stockController.getBbands
 );
 
 //retrieve EMA data endpoint
 router.get(
   "/api/stock/macd/:code/:interval/:series_type",
-  cors(),
   stockController.getMACD
 );
 
 //update user's stock array
-router.post("/stock/addStock", cors(), stockController.addStockToUser);
-router.post("/stock/removeStock", cors(), stockController.removeStockFromUser);
+router.post("/stock/addStock", stockController.addStockToUser);
+router.post("/stock/removeStock", stockController.removeStockFromUser);
 
 //get user's stock array
-router.get("/stock/getStocks", cors(), stockController.getStocks);
+router.get("/stock/getStocks", stockController.getStocks);
 
 //stock sims
 router.post(
   "/stock/sim/createPortfolio",
-  cors(),
   stockController.createPortfolio
 );
-router.get("/stock/sim/getPortfolio", cors(), stockController.getPortfolio);
-router.post("/stock/sim/buyStock", cors(), stockController.buyStock);
-router.post("/stock/sim/sellStock", cors(), stockController.sellStock);
+router.get("/stock/sim/getPortfolio", stockController.getPortfolio);
+router.post("/stock/sim/buyStock", stockController.buyStock);
+router.post("/stock/sim/sellStock", stockController.sellStock);
 //STUBS
 
 //register account stub
-router.post("/auth_stub/register", cors(), authController.registerStub);
+router.post("/auth_stub/register", authController.registerStub);
 
 //login account stub
-router.post("/auth_stub/login", cors(), authController.loginStub);
+router.post("/auth_stub/login", authController.loginStub);
 
 //logout account stub
 //router.post('/auth_stub/logout', cors(), authController.logout_stub);
@@ -127,7 +119,7 @@ router.post("/auth_stub/login", cors(), authController.loginStub);
 //AUTHENTICATION
 
 //register account
-router.post("/auth/register", cors(), authController.register);
+router.post("/auth/register", authController.register);
 
 //login account
 router.post(
@@ -137,25 +129,25 @@ router.post(
 );
 
 //logout account
-router.post("/auth/logout", cors(), authController.logout);
+router.post("/auth/logout", authController.logout);
 
 //get username of logged in account
 router.get("/auth/user", authController.user);
 
 //update email
-router.put("/auth/updateEmail", cors(), authController.updateEmail);
-router.put("/auth/updateName", cors(), authController.updateName);
-router.put("/auth/updatePassword", cors(), authController.updatePassword);
+router.put("/auth/updateEmail", authController.updateEmail);
+router.put("/auth/updateName", authController.updateName);
+router.put("/auth/updatePassword", authController.updatePassword);
 
 //reset password
-router.put("/auth/resetPassword", cors(), authController.resetPassword);
+router.put("/auth/resetPassword", authController.resetPassword);
 
 //change color preferences
-router.post("/user/updateGoodColor", cors(), authController.updateGoodColor);
-router.post("/user/updateBadColor", cors(), authController.updateBadColor);
+router.post("/user/updateGoodColor", authController.updateGoodColor);
+router.post("/user/updateBadColor", authController.updateBadColor);
 
 //update dark/light mode
-router.post("/user/lightDarkMode", cors(), authController.updateMode);
+router.post("/user/lightDarkMode", authController.updateMode);
 
 //get good/bad color hex value
 router.get('/user/getGoodColor', cors(), authController.getGoodColor);
@@ -168,33 +160,32 @@ router.post('/user/setProfilePicture', cors(), authController.setProfilePicture)
 //FINANCE
 
 //get the user's predicted and spent budget
-router.get("/finance/budget", cors(), financeController.getBudget);
+router.get("/finance/budget", financeController.getBudget);
 
 //get the user's recent income transactions
-router.get("/finance/income", cors(), financeController.getIncome);
+router.get("/finance/income", financeController.getIncome);
 
 //get the user's recent expense transactions
-router.get("/finance/expense", cors(), financeController.getExpenses);
+router.get("/finance/expense", financeController.getExpenses);
 
 //get the user's recent expenses in specified category
-router.get("/finance/expense/:category", cors(), financeController.getCategory);
+router.get("/finance/expense/:category", financeController.getCategory);
 
 //get the user's predicted and spent total
-router.get("/finance/total", cors(), financeController.getTotal);
+router.get("/finance/total", financeController.getTotal);
 
 //insert new transaction
 router.post(
   "/transaction/newTransaction",
-  cors(),
   financeController.insertTransaction
 );
 
 //create new budget
 
-router.post('/budget/createBudget', cors(), financeController.createBudget);
+router.post('/budget/createBudget', financeController.createBudget);
 
 //generate advice
-router.get('/finance/advice', cors(), financeController.getAdvice);
+router.get('/finance/advice', financeController.getAdvice);
 
 
 module.exports = router;
