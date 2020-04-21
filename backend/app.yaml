@@ -14,4 +14,7 @@
 # [START app_yaml]
 service: backend
 runtime: nodejs10
+env_variables:
+  REACT_APP_RUNTIME: "production"
+
 # [END app_yaml]

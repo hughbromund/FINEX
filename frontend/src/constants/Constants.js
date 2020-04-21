@@ -23,7 +23,11 @@ export const RISK_MANAGEMENT_PATH = "/riskmanagement";
 export const CATEGORY_SUMMARY_PATH = "/categorysummary";
 
 /* Base URL for Backend */
-export const BASE = "https://backend-dot-finex-purdue.uc.r.appspot.com";
+export var BASE = "https://backend-dot-finex-purdue.uc.r.appspot.com";
+console.log("NODE_ENV: " + process.env.NODE_ENV)
+if (process.env.NODE_ENV === "development") {
+    BASE = "http://localhost:5000"
+}
 
 /* Paths to Call Backend */
 
