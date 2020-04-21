@@ -8,7 +8,10 @@ export default class AlertRisk extends Component {
   render() {
     return (
       <div>
-        <Container fluid>
+        <Container>
+          <Row>
+            <Col className={classes.mycol}></Col>
+          </Row>
           <Row>
             <Col>
               <div className={classes.cont}>
@@ -18,6 +21,7 @@ export default class AlertRisk extends Component {
                   FINEX or its developers liable for any losses incurred by
                   advice given in this website. We are not a financial advisor
                   and do not attempt to be.
+                  <br />
                   <br />
                   <Button
                     variant={"success"}
