@@ -39,6 +39,7 @@ export default class ResetEmail extends Component {
     }
     fetch(UPDATE_EMAIL_URL, {
       method: "PUT",
+      credentials: "include",
       body: JSON.stringify({ email: this.state.email }),
       headers: {
         "content-type": "application/json",

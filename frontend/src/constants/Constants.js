@@ -25,7 +25,11 @@ export const INVESTMENT_TACTICS_PATH = "/investmenttactics";
 export const STOCKS_PAGE_PATH = "/mystocks";
 
 /* Base URL for Backend */
-export const BASE = "http://localhost:5000";
+export var BASE = "https://backend-dot-finex-purdue.uc.r.appspot.com";
+console.log("NODE_ENV: " + process.env.NODE_ENV)
+if (process.env.NODE_ENV === "development") {
+    BASE = "http://localhost:5000"
+}
 
 /* Paths to Call Backend */
 

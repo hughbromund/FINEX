@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "frontend": "cd frontend && npm run start",
+    "frontend": "cd frontend && npm run local",
     "backend": "cd backend && nodemon index.js",
     "start": "concurrently \"npm run frontend\" \"npm run backend\""
   },
