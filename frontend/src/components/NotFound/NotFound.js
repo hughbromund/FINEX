@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./NotFound.module.css";
-import SearchBar from "./SearchBar/SearchBar";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import SearchBar from "../SearchBar/SearchBar";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 /**
  * This class displays the page navigated to by a user entering

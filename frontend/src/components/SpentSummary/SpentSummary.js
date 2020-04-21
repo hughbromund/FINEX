@@ -1,12 +1,16 @@
 import React, { Component } from "react";
-import { USER_INFO_URL, GET_CATEGORY_BUDGET } from "../constants/Constants";
 // import Jumbotron from "react-bootstrap/Jumbotron";
 import classes from "./SpentSummary.module.css";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
-import history from "../routing/History";
-import { CATEGORY_SUMMARY_PATH } from "../constants/Constants";
-import { LOGIN_PATH, GREEN_COLOR_HEX } from "../constants/Constants";
+import history from "../../routing/History";
+import {
+  LOGIN_PATH,
+  GREEN_COLOR_HEX,
+  CATEGORY_SUMMARY_PATH,
+  USER_INFO_URL,
+  GET_CATEGORY_BUDGET,
+} from "../../constants/Constants";
 
 //Imports for pie chart
 import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
