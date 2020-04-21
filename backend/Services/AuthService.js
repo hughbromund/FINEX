@@ -213,26 +213,35 @@ const s3 = new AWS.S3({
 
 exports.setProfilePicture = async function (req) {
     // Read content from the file
-    const filePath = req.body.filepath;
-    console.log(filePath);
-    fs.readFile(filePath, (err, data) => {
-        if (err) console.error(err);
-        var base64data = new Buffer(data, 'binary');
+    //const filePath = req.body.filepath;
+    //console.log(filePath);
+    //fs.readFile(filePath, (err, data) => {
+        //if (err) console.error(err);
+        //var base64data = new Buffer(data, 'binary');
         // Setting up S3 upload parameters
         const Key = req.user.username + '.jpg';
+        const file = (req.body.imageUpload);
         var params = {
           Bucket: "finexprofilepictures",
           Key: Key, //file name to save as in S3
-          Body: base64data
+          Body: file //base64data
         };
         // Uploading files to the bucket
+        s3.putObject(params, function (err, data) {
+            if (err) {
+              console.log("Error: ", err);
+            } else {
+                console.log(`File uploaded successfully. ${data.Location}`);
+            }
+          });
+        /*
         s3.upload(params, function(err, data) {
             if (err) {
                 throw err;
             }
             console.log(`File uploaded successfully. ${data.Location}`);
         });
-    });
+        */
 };
 
 exports.getProfilePicture = async function (req) {
@@ -245,7 +254,9 @@ exports.getProfilePicture = async function (req) {
     s3.getObject(params, (err, data) => {
       if (err) console.error(err);
       fs.writeFileSync(filePath, data.Body.toString());
-      console.log(`${filePath} has been created!`);
     });
   };
   
+  /*https://stackoverflow.com/questions/25869017
+  /how-to-convert-binary-data-and-mime-to-image-in-javascript
+  */
