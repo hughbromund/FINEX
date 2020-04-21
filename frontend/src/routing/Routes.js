@@ -29,6 +29,7 @@ import ResetProfilePicture from "../components/ResetProfilePicture/ResetProfileP
 import RiskManagement from "../components/RiskManagement/RiskManagement";
 import CategorySummary from "../components/CategorySummary/CategorySummary";
 import InvestmentTactics from "../components/InvestmentTactics/InvestmentTactics";
+import StocksPage from "../components/StocksPage/StocksPage";
 
 /* Paths */
 import { RESET_EMAIL_PATH } from "../constants/Constants";
@@ -53,6 +54,7 @@ import { RESET_PROFILE_PICTURE_PATH } from "../constants/Constants";
 import { RISK_MANAGEMENT_PATH } from "../constants/Constants";
 import { CATEGORY_SUMMARY_PATH } from "../constants/Constants";
 import { INVESTMENT_TACTICS_PATH } from "../constants/Constants";
+import { STOCKS_PAGE_PATH } from "../constants/Constants";
 
 function Routes() {
   return (
@@ -83,6 +85,7 @@ function Routes() {
         <Route path={RISK_MANAGEMENT_PATH} component={RiskManagement} />
         <Route path={INVESTMENT_TACTICS_PATH} component={InvestmentTactics} />
         <Route path={CATEGORY_SUMMARY_PATH} component={CategorySummary} />
+        <Route path={STOCKS_PAGE_PATH} component={StocksPage} />
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
