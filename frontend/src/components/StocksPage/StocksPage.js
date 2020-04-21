@@ -34,7 +34,11 @@ class StocksPage extends Component {
   callAuthAPI = async () => {
     console.log(USER_INFO_URL);
     let response;
-    response = await fetch(USER_INFO_URL);
+    response = await fetch(USER_INFO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     // const body = await response.json();
     // console.log(body.status);
 
@@ -54,7 +58,11 @@ class StocksPage extends Component {
   getPortfolio = async () => {
     console.log(GET_PORTFOLIO_URL);
     let response;
-    response = await fetch(GET_PORTFOLIO_URL);
+    response = await fetch(GET_PORTFOLIO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     console.log(body);
 
@@ -68,10 +76,7 @@ class StocksPage extends Component {
     fetch(CREATE_PORTFOLIO_URL, {
       method: "POST",
       withCredentials: true,
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
-      // body: JSON.stringify({ good_color: newGoodColor }),
+      credentials: "include",
     });
 
     let defaultPortfolio = {

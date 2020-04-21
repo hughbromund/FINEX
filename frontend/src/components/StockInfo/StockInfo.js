@@ -152,7 +152,11 @@ class StockInfo extends Component {
 
     // Get BBANDS
     console.log(GET_BBANDS + ending);
-    var bbands_res = await fetch(GET_BBANDS + ending);
+    var bbands_res = await fetch(GET_BBANDS + ending, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     var bbands_data = 0;
     if (bbands_res.status === 200) {
       const bbands = await bbands_res.json();
@@ -170,7 +174,11 @@ class StockInfo extends Component {
 
     // Get EMA
 
-    var ema_res = await fetch(GET_EMA + ending);
+    var ema_res = await fetch(GET_EMA + ending, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     var ema_data = 0;
     if (ema_res.status === 200) {
       const ema = await ema_res.json();
@@ -185,7 +193,11 @@ class StockInfo extends Component {
 
     // Get RSI
 
-    var rsi_res = await fetch(GET_RSI + ending);
+    var rsi_res = await fetch(GET_RSI + ending, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     var rsi_data = 0;
     if (rsi_res.status === 200) {
       const rsi = await rsi_res.json();
@@ -199,7 +211,11 @@ class StockInfo extends Component {
 
     // Get SMA
 
-    var sma_res = await fetch(GET_SMA + ending);
+    var sma_res = await fetch(GET_SMA + ending, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     var sma_data = 0;
     if (sma_res.status === 200) {
       const sma = await sma_res.json();
@@ -213,7 +229,11 @@ class StockInfo extends Component {
 
     // Get MACD
 
-    var macd_res = await fetch(GET_MACD + ending);
+    var macd_res = await fetch(GET_MACD + ending, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     var macd_data = 0;
     if (macd_res.status === 200) {
       const macd = await macd_res.json();
@@ -243,9 +263,17 @@ class StockInfo extends Component {
     let response;
 
     if (!this.state.isCrypto) {
-      response = await fetch(STOCK_DAILY_URL + symbol);
+      response = await fetch(STOCK_DAILY_URL + symbol, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+      });
     } else {
-      response = await fetch(CRYPTO_DAILY_URL + symbol);
+      response = await fetch(CRYPTO_DAILY_URL + symbol, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+      });
     }
 
     const body = await response.json();
@@ -292,7 +320,11 @@ class StockInfo extends Component {
   callAuthAPI = async () => {
     console.log(USER_INFO_URL);
     let response;
-    response = await fetch(USER_INFO_URL);
+    response = await fetch(USER_INFO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     // const body = await response.json();
     // console.log(body.status);
 
@@ -309,6 +341,8 @@ class StockInfo extends Component {
     console.log(FOLLOW_STOCK_URL);
     var response = await fetch(FOLLOW_STOCK_URL, {
       method: "POST",
+      withCredentials: true,
+      credentials: "include",
       body: JSON.stringify({ stock_id: this.state.stockSymbol }),
       headers: {
         "content-type": "application/json",
@@ -329,6 +363,8 @@ class StockInfo extends Component {
     console.log(UNFOLLOW_STOCK_URL);
     var response = await fetch(UNFOLLOW_STOCK_URL, {
       method: "POST",
+      withCredentials: true,
+      credentials: "include",
       body: JSON.stringify({ stock_id: this.state.stockSymbol }),
       headers: {
         "content-type": "application/json",
@@ -348,7 +384,11 @@ class StockInfo extends Component {
   getFollowedStocks = async () => {
     console.log(GET_FOLLOWED_STOCKS_URL);
     let response;
-    response = await fetch(GET_FOLLOWED_STOCKS_URL);
+    response = await fetch(GET_FOLLOWED_STOCKS_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     // console.log(body);
 
@@ -370,7 +410,11 @@ class StockInfo extends Component {
   getPortfolio = async () => {
     console.log(GET_PORTFOLIO_URL);
     let response;
-    response = await fetch(GET_PORTFOLIO_URL);
+    response = await fetch(GET_PORTFOLIO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
 
     if (response.status == 200) {
       // console.log("false");
@@ -390,6 +434,7 @@ class StockInfo extends Component {
     fetch(BUY_STOCK_URL, {
       method: "POST",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -416,6 +461,7 @@ class StockInfo extends Component {
     fetch(SELL_STOCK_URL, {
       method: "POST",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

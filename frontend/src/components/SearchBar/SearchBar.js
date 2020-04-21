@@ -81,7 +81,11 @@ class SearchBar extends Component {
    */
   callStockListAPI = async (currInputVal) => {
     console.log(STOCK_LIST_URL + currInputVal);
-    const response = await fetch(STOCK_LIST_URL + currInputVal);
+    const response = await fetch(STOCK_LIST_URL + currInputVal, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     this.setState({ stockList: body });
 
@@ -97,7 +101,11 @@ class SearchBar extends Component {
    */
   callCryptoListAPI = async (currInputVal) => {
     console.log(CRYPTO_LIST_URL + currInputVal);
-    const response = await fetch(CRYPTO_LIST_URL + currInputVal);
+    const response = await fetch(CRYPTO_LIST_URL + currInputVal, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     this.setState({ stockList: body });
 

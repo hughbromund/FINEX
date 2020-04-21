@@ -41,7 +41,11 @@ class CategorySummary extends Component {
   callAuthAPI = async () => {
     console.log(USER_INFO_URL);
     let response;
-    response = await fetch(USER_INFO_URL);
+    response = await fetch(USER_INFO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     // const body = await response.json();
     // console.log(body.status);
 
@@ -57,7 +61,11 @@ class CategorySummary extends Component {
   callBudgetAPI = async (cat) => {
     console.log(CATEGORY_DATA_URL + cat);
     let response;
-    response = await fetch(CATEGORY_DATA_URL + cat);
+    response = await fetch(CATEGORY_DATA_URL + cat, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     console.log(body);
 

@@ -45,7 +45,11 @@ class SpentSummary extends Component {
   callAuthAPI = async () => {
     console.log(USER_INFO_URL);
     let response;
-    response = await fetch(USER_INFO_URL);
+    response = await fetch(USER_INFO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     // const body = await response.json();
     // console.log(body.status);
 
@@ -61,7 +65,11 @@ class SpentSummary extends Component {
   callBudgetAPI = async () => {
     console.log(GET_CATEGORY_BUDGET);
     let response;
-    response = await fetch(GET_CATEGORY_BUDGET);
+    response = await fetch(GET_CATEGORY_BUDGET, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     console.log(body);
 
