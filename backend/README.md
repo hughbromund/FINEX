@@ -236,7 +236,9 @@ stocks: [
     "code": "aapl",
     "quantity": 4,
     "price": 250,
-    "value": 1000
+    "value": 1000,
+    "buyPrice": 150,
+    "buyValue": 600
     },
     ...
     ]
@@ -721,6 +723,29 @@ or
 {
 "status": "No user logged in."
 }
+
+
+### /finance/advice
+
+GET  
+This represents obtaining financial advice for the user
+Requirements: None  
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's advice otherwise. Empty if no advice
+Status: Working
+Bugs: ??
+
+JSON Format (Output):
+[
+    {
+    "trigger": "Budgeted savings less than 20%.",
+    "advice": "Save at least 20% of your income for emergencies and large purchases.",
+    "isBudget": true
+    },
+    {},
+    ...
+]
+
+
 
 ### /transaction/newTransaction
 

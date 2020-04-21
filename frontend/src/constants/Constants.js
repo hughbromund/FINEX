@@ -21,6 +21,8 @@ export const FINANCE_DOC_PATH = "/financedoc";
 export const RESET_PROFILE_PICTURE_PATH = "/resetpic";
 export const RISK_MANAGEMENT_PATH = "/riskmanagement";
 export const CATEGORY_SUMMARY_PATH = "/categorysummary";
+export const INVESTMENT_TACTICS_PATH = "/investmenttactics";
+export const STOCKS_PAGE_PATH = "/mystocks";
 
 /* Base URL for Backend */
 export var BASE = "https://backend-dot-finex-purdue.uc.r.appspot.com";
@@ -66,6 +68,10 @@ export const GET_EMA = BASE + "/api/stock/ema/";
 export const GET_SMA = BASE + "/api/stock/sma/";
 export const GET_MACD = BASE + "/api/stock/macd/";
 export const CATEGORY_DATA_URL = BASE + "/finance/expense/";
+export const GET_PORTFOLIO_URL = BASE + "/stock/sim/getPortfolio";
+export const CREATE_PORTFOLIO_URL = BASE + "/stock/sim/createPortfolio";
+export const BUY_STOCK_URL = BASE + "/stock/sim/buyStock";
+export const SELL_STOCK_URL = BASE + "/stock/sim/sellStock";
 
 /* Color Hexes */
 

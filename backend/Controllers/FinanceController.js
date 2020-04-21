@@ -222,20 +222,46 @@ exports.totalStub = async function (req, res, next) {
 };
 
 exports.getTotal = async function (req, res, next) {
-  if (req.user) {
-    try {
-      let total = await budgetService.getTotal(req);
 
-      if (total.status != null) {
-        res.status(400).json({ message: total.message });
-      } else {
-        res.status(200).json(total);
-      }
-    } catch (e) {
-      console.log(e);
-      res.status(400).json({ message: "An error occured" });
+    if (req.user) {
+        try {
+            let total = await budgetService.getTotal(req)
+
+            if (total.status != null) {
+                res.status(400).json({message: total.message})
+            }
+            else {
+                res.status(200).json(total)
+            }
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({message: "An error occured"})
+        }
     }
-  } else {
-    res.status(400).json({ message: "No user logged in." });
-  }
-};
+    else {
+        res.status(400).json({message: "No user logged in."})
+    }
+}
+
+exports.getAdvice = async function (req, res, next) {
+    if (req.user) {
+        try {
+            let result = await budgetService.getAdvice(req);
+            if (result.status == 400) {
+                res.status(400).json({message: result.message})
+            }
+            else {
+                res.status(200).json(result)
+            }
+
+        }
+        catch (e) {
+            console.log(e)
+            res.status(400).json({message: "An error occured"})
+        }
+    }
+    else {
+        res.status(400).json({message: "No user logged in."})
+    }
+}
