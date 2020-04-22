@@ -236,6 +236,38 @@ exports.updateMode = async function (req, res, next) {
   }
 };
 
+exports.acceptWarnings = async function (req, res, next) {
+    const { accepted_warnings } = req.body;
+   //console.log(req.user.username)
+   if (accepted_warnings == null) {
+     res.status(400).json({ status: "acceptance status not passed!" });
+   } else if (req.user) {
+     try {
+       let result = await authService.acceptWarnings(req);
+       //console.log(result)
+       res.status(200).json({ status: "warnings accepted" });
+     } catch (e) {
+       res.status(400).json({ status: "an error occurred" });
+     }
+   } else {
+     res.status(400).json({ status: "not logged in!" });
+   }
+ };
+
+ exports.warningStatus = async function (req, res, next) {
+    if (req.user) {
+      try {
+        let warning_status = await authService.warningStatus(req);
+        res.status(200).json(warning_status);
+      } catch (e) {
+        console.log(e);
+        res.status(400).json({ status: "An error occured." });
+      }
+    } else {
+      res.status(400).json({ status: "No user logged in." });
+    }
+  };
+
 exports.setProfilePicture = async function (req, res, next) {
     const profilePicture = req.body.filepath;
     //console.log(profilePicture)
