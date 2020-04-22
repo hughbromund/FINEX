@@ -1,6 +1,7 @@
 $theme-colors: (
   "danger": #ff3b30,
   "success": #34c759,
+  "warning": rgb(255, 205, 0),
 );
 
 @import "~bootstrap/scss/bootstrap";
