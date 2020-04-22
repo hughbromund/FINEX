@@ -41,8 +41,8 @@ export default class BudgetGraph extends Component {
       datasets: [
         {
           label: "Budgeted",
-          backgroundColor: "rgba(255,99,132,0.2)",
-          borderColor: "rgba(255,99,132,1)",
+          backgroundColor: "rgba(52,199,89,0.75)",
+          borderColor: "rgba(52,199,89,0.2)",
           borderWidth: 1,
           hoverBackgroundColor: "rgba(255,99,132,0.4)",
           hoverBorderColor: "rgba(255,99,132,1)",
