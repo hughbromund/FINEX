@@ -7,12 +7,13 @@ import {
   FormControl,
   Collapse,
   Alert,
+  Spinner,
+  OverlayTrigger,
+  Tooltip,
+  Badge,
+  Popover,
 } from "react-bootstrap";
 import Chart from "../Chart/Chart";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-import Popover from "react-bootstrap/Popover";
-import Badge from "react-bootstrap/Badge";
 import {
   YOUR_STOCKS_PATH,
   STOCK_DAILY_URL,
@@ -88,7 +89,7 @@ class StockInfo extends Component {
     });
 
     let currPath;
-    if (this.props.location == undefined) {
+    if (this.props.location === undefined) {
       currPath = "/AAPL";
     } else {
       currPath = this.props.location.pathname;
@@ -416,7 +417,7 @@ class StockInfo extends Component {
       credentials: "include",
     });
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       // console.log("false");
       this.setState({ hasPortfolio: true });
     }
@@ -635,6 +636,10 @@ class StockInfo extends Component {
       return;
     }
 
+    if (this.state.followedStocks.length === 0) {
+      return;
+    }
+
     let stocksArr = [];
     for (let i = 0; i < this.state.followedStocks.length; i++) {
       stocksArr[i] = (
@@ -840,7 +845,11 @@ class StockInfo extends Component {
           </Button>
         </ButtonGroup>
         <div className={classes.infoTitle}>
-          Daily Summary ({this.state.loadedDate}):
+          {this.state.loadedDate === "Loading..." ? (
+            <Spinner animation="border" variant="success" />
+          ) : (
+            "Daily Summary " + this.state.loadedDate + ":"
+          )}
         </div>
         <div className={classes.infoBox}>
           <div className={classes.infoBlock}>
@@ -892,11 +901,41 @@ class StockInfo extends Component {
               </p>
             </div>
             <div className={classes.dataColumn}>
-              <p>{this.state.open}</p>
-              <p>{this.state.close}</p>
-              <p>{this.state.high}</p>
-              <p>{this.state.low}</p>
-              <p>{this.state.volume}</p>
+              <p>
+                {this.state.open === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.open
+                )}
+              </p>
+              <p>
+                {this.state.close === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.close
+                )}
+              </p>
+              <p>
+                {this.state.high === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.high
+                )}
+              </p>
+              <p>
+                {this.state.low === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.low
+                )}
+              </p>
+              <p>
+                {this.state.volume === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.volume
+                )}
+              </p>
             </div>
           </div>
           <div className={classes.infoBlock}>
@@ -968,11 +1007,41 @@ class StockInfo extends Component {
                   BETA
                 </Badge>
               </p>
-              <p>{this.state.sma}</p>
-              <p>{this.state.ema}</p>
-              <p>{this.state.rsi}</p>
-              <p>{this.state.bbands}</p>
-              <p>{this.state.macd}</p>
+              <p>
+                {this.state.sma === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.sma
+                )}
+              </p>
+              <p>
+                {this.state.ema === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.ema
+                )}
+              </p>
+              <p>
+                {this.state.rsi === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.rsi
+                )}
+              </p>
+              <p>
+                {this.state.bbands === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.bbands
+                )}
+              </p>
+              <p>
+                {this.state.macd === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.macd
+                )}
+              </p>
             </div>
           </div>
         </div>

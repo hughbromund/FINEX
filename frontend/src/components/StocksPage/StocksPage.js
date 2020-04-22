@@ -7,7 +7,7 @@ import {
   YOUR_STOCKS_PATH,
 } from "../../constants/Constants";
 import history from "../../routing/History";
-import { Jumbotron, Button, Table } from "react-bootstrap";
+import { Jumbotron, Button, Table, Spinner } from "react-bootstrap";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import classes from "./StocksPage.module.css";
 
@@ -15,6 +15,7 @@ class StocksPage extends Component {
   state = {
     isLoggedIn: null,
     portfolio: null,
+    dataReceived: false,
   };
 
   componentDidMount = () => {
@@ -66,10 +67,11 @@ class StocksPage extends Component {
     const body = await response.json();
     console.log(body);
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       // console.log("false");
       this.setState({ portfolio: body });
     }
+    this.setState({ dataReceived: true });
   };
 
   createPortfolio = async () => {
@@ -93,7 +95,7 @@ class StocksPage extends Component {
     let dataArr = this.state.portfolio["stocks"];
     let tableArr = [];
 
-    if (dataArr.length == 0) {
+    if (dataArr.length === 0) {
       return (
         <div className={classes.jumboWrapper}>
           <Jumbotron
@@ -168,11 +170,11 @@ class StocksPage extends Component {
     if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
       history.push(LOGIN_PATH);
       return null;
-    } else if (this.state.isLoggedIn == null) {
-      return <h1>Loading...</h1>;
+    } else if (this.state.isLoggedIn == null || !this.state.dataReceived) {
+      return <Spinner animation="border" variant="success" />;
     } else if (
       this.state.portfolio == null ||
-      this.state.portfolio == undefined
+      this.state.portfolio === undefined
     ) {
       return (
         <div className={classes.jumboWrapper}>

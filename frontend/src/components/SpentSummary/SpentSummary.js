@@ -95,7 +95,7 @@ class SpentSummary extends Component {
       currTotalSpending += parseInt(body[i]["spent"]);
     }
 
-    if (currTotalSpending == 0) {
+    if (currTotalSpending === 0) {
       this.setState({ isDataEmpty: true });
       return;
     }
@@ -231,7 +231,7 @@ class SpentSummary extends Component {
     if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
       history.push(LOGIN_PATH);
       return null;
-    } else if (this.state.isDataEmpty == true || this.state.spentData == null) {
+    } else if (this.state.isDataEmpty === true || this.state.spentData == null) {
       return (
         <div className={classes.jumboOuter}>
           <div className={classes.jumboInner}>

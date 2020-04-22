@@ -6,12 +6,7 @@ import {
   CATEGORY_DATA_URL,
   GREEN_COLOR_HEX,
 } from "../../constants/Constants";
-import {
-  ToggleButton,
-  ToggleButtonGroup,
-  Jumbotron,
-  ListGroup,
-} from "react-bootstrap";
+import { Spinner, Jumbotron, ListGroup } from "react-bootstrap";
 import classes from "./CategorySummary.module.css";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 
@@ -246,8 +241,8 @@ class CategorySummary extends Component {
       history.push(LOGIN_PATH);
       return null;
     } else if (this.state.isLoggedIn == null) {
-      return <h1>Loading...</h1>;
-    } else if (this.state.data.length == 0) {
+      return <Spinner animation="border" variant="success" />;
+    } else if (this.state.data.length === 0) {
       return (
         <div className={classes.outerJumbo}>
           {toggles}
