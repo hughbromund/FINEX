@@ -5,11 +5,13 @@ import classes from "./SpentSummary.module.css";
 import { DarkModeContext } from "../contexts/DarkModeContext";
 
 import history from "../routing/History";
-import { LOGIN_PATH } from "../constants/Constants";
+import { CATEGORY_SUMMARY_PATH } from "../constants/Constants";
+import { LOGIN_PATH, GREEN_COLOR_HEX } from "../constants/Constants";
 
 //Imports for pie chart
 import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
-import { Jumbotron } from "react-bootstrap";
+
+import { Jumbotron, Button } from "react-bootstrap";
 
 /**
  * This class displays a summary in the form of a pie chart
@@ -23,15 +25,15 @@ class SpentSummary extends Component {
     isLoggedIn: null,
     spentData: null,
     activeIndex: 0,
-    isDataEmpty: false
+    isDataEmpty: false,
   };
 
   componentDidMount = () => {
-    this.callAuthAPI().catch(err => {
+    this.callAuthAPI().catch((err) => {
       console.log(err);
     });
 
-    this.callBudgetAPI().catch(err => {
+    this.callBudgetAPI().catch((err) => {
       console.log(err);
     });
   };
@@ -75,7 +77,7 @@ class SpentSummary extends Component {
 
       dataArray[i] = {
         name: body[i]["category"],
-        value: parseInt(body[i]["spent"])
+        value: parseInt(body[i]["spent"]),
       };
 
       currTotalSpending += parseInt(body[i]["spent"]);
@@ -100,6 +102,18 @@ class SpentSummary extends Component {
       categoriesArr[i] = <p key={i}>{this.state.spentData[i]["name"] + ":"}</p>;
     }
 
+    categoriesArr.push(
+      <Button
+        variant="success"
+        key="button"
+        onClick={() => {
+          history.push(CATEGORY_SUMMARY_PATH);
+        }}
+      >
+        More Details
+      </Button>
+    );
+
     return <div>{categoriesArr}</div>;
   };
 
@@ -109,13 +123,15 @@ class SpentSummary extends Component {
     let spendingArr = [];
 
     for (let i = 0; i < this.state.spentData.length; i++) {
-      spendingArr[i] = <p key={i}>{"$" + this.state.spentData[i]["value"]}</p>;
+      spendingArr[i] = (
+        <p key={i}>{"$" + this.state.spentData[i]["value"].toFixed(2)}</p>
+      );
     }
 
     return <div>{spendingArr}</div>;
   };
 
-  renderActiveShape = props => {
+  renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
     const {
       cx,
@@ -127,7 +143,7 @@ class SpentSummary extends Component {
       endAngle,
       fill,
       payload,
-      percent
+      percent,
     } = props;
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);
@@ -189,13 +205,13 @@ class SpentSummary extends Component {
 
   getInitialState = () => {
     return {
-      activeIndex: 0
+      activeIndex: 0,
     };
   };
 
   onPieEnter = (data, index) => {
     this.setState({
-      activeIndex: index
+      activeIndex: index,
     });
   };
 
@@ -233,14 +249,14 @@ class SpentSummary extends Component {
           </div>
           <div className={classes.chartWrapper}>
             <ResponsiveContainer aspect={1.8} width="100%">
-              <PieChart margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
+              <PieChart margin={{ top: 20, right: 0, left: 0, bottom: 20 }}>
                 <Pie
                   dataKey="value"
                   data={this.state.spentData}
-                  innerRadius="45%"
-                  outerRadius="90%"
+                  innerRadius="40%"
+                  outerRadius="80%"
                   cx="50%"
-                  fill="#34C759"
+                  fill={GREEN_COLOR_HEX}
                   activeShape={this.renderActiveShape}
                   onMouseEnter={this.onPieEnter}
                   activeIndex={this.state.activeIndex}

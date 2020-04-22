@@ -57,14 +57,15 @@ export default class LoginPage extends Component {
     fetch(LOGIN_URL, {
       method: "POST",
       // mode: 'no-cors',
+      credentials: 'include',
+      withCredentials: true,
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: this.state.username,
         password: this.state.password,
-      }),
-      withCredentials: true,
+      })
       // credentials: 'same-origin'
     })
       .then((response) => {

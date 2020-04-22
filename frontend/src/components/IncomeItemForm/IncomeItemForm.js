@@ -9,31 +9,30 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 // import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 // import history from "../routing/History";
-import classes from "./BudgetItemForm.module.css";
-import { CREATE_TRANSACTION } from "../constants/Constants";
+import classes from "./IncomeItemForm.module.css";
 import DatePicker from "react-datepicker";
 import Collapse from "react-bootstrap/Collapse";
+import { CREATE_TRANSACTION } from "../../constants/Constants";
 
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 import "react-datepicker/dist/react-datepicker.css";
-// import { Col } from "react-bootstrap";
 
-export default class BudgetItemForm extends Component {
+export default class IncomeItemForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      cost: "",
+      amount: "",
       name: "",
-      type: "Housing",
+      type: "Income",
       startDate: "",
       success: false,
-      error: false
+      error: false,
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleCostChange = this.handleCostChange.bind(this);
+    this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -43,30 +42,31 @@ export default class BudgetItemForm extends Component {
     fetch(CREATE_TRANSACTION, {
       method: "POST",
       withCredentials: true,
+      credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        type: "expense",
-        category: this.state.type.toLowerCase(),
-        cost: this.state.cost,
+        type: "income",
+        category: this.state.type,
+        cost: this.state.amount,
         name: this.state.name,
-        date: this.state.date
-      })
-    }).then(res => {
-      // console.log(res);
+        date: this.state.date,
+      }),
+    }).then((res) => {
+      //console.log(res)
       if (res.status === 200) {
         this.setState({
           success: true,
           error: false,
-          cost: "",
-          name: ""
+          amount: "",
+          name: "",
         });
       }
       if (res.status === 400) {
         this.setState({
           success: false,
-          error: true
+          error: true,
         });
       }
     });
@@ -76,17 +76,17 @@ export default class BudgetItemForm extends Component {
     this.setState({ name: event.target.value });
   }
 
-  handleCostChange(event) {
-    this.setState({ cost: event.target.value });
+  handleAmountChange(event) {
+    this.setState({ amount: event.target.value });
   }
 
   handleTypeChange(event) {
     this.setState({ type: event.target.value });
   }
 
-  handleDateChange = date => {
+  handleDateChange = (date) => {
     this.setState({
-      startDate: date
+      startDate: date,
     });
   };
 
@@ -99,17 +99,16 @@ export default class BudgetItemForm extends Component {
               className={this.context.isDarkMode ? "bg-dark" : classes.jumbo}
             >
               <h1>
-                Welcome to <b>FINEX's</b> Add Budget Form!
+                Welcome to <b>FINEX's</b> Add Income Form!
               </h1>
-              <p>Below, you may input a new item to your budget!</p>
+              <p>Below, you may input a new income to your budget!</p>
             </Jumbotron>
             <Collapse in={this.state.success}>
               <div>
                 <Alert variant="success">
                   <Alert.Heading>Success</Alert.Heading>
                   <p>
-                    You successfully added a new item to your expenses for this
-                    month
+                    You successfully added a new income item for this month.
                   </p>
                 </Alert>
               </div>
@@ -128,18 +127,18 @@ export default class BudgetItemForm extends Component {
             </Collapse>
             <Form onSubmit={this.handleSubmit}>
               <Form.Group>
-                <Form.Label>Cost</Form.Label>
+                <Form.Label>Amount</Form.Label>
 
                 <InputGroup>
                   <InputGroup.Prepend>
                     <InputGroup.Text>$</InputGroup.Text>
                   </InputGroup.Prepend>
                   <Form.Control
+                    required
                     type="number"
                     placeholder="e.g. 50"
-                    onChange={this.handleCostChange}
-                    value={this.state.cost}
-                    required
+                    onChange={this.handleAmountChange}
+                    value={this.state.amount}
                   />
                 </InputGroup>
               </Form.Group>
@@ -148,10 +147,10 @@ export default class BudgetItemForm extends Component {
                 <Form.Label>Name</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    placeholder="e.g. water bill"
+                    required
+                    placeholder="e.g. paycheck"
                     onChange={this.handleNameChange}
                     value={this.state.name}
-                    required
                   />
                 </InputGroup>
               </Form.Group>
@@ -161,17 +160,9 @@ export default class BudgetItemForm extends Component {
                   as="select"
                   onChange={this.handleTypeChange}
                   value={this.state.type}
-                  required
                 >
-                  <option>Housing</option>
-                  <option>Utilities</option>
-                  <option>Transportation</option>
-                  <option>Food</option>
-                  <option>Medical</option>
-                  <option>Savings</option>
-                  <option>Personal</option>
-                  <option>Entertainment</option>
-                  <option>Other</option>
+                  <option>Income</option>
+                  <option>Gift</option>
                 </Form.Control>
               </Form.Group>
               <Form.Group>
@@ -193,4 +184,4 @@ export default class BudgetItemForm extends Component {
     );
   }
 }
-BudgetItemForm.contextType = DarkModeContext;
+IncomeItemForm.contextType = DarkModeContext;

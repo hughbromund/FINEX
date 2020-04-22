@@ -9,7 +9,9 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License.# [START app_yaml]
+# limitations under the License.
+# [START app_yaml]
+service: default
 env: flex
 runtime: nodejs
 # [END app_yaml]

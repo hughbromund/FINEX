@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import classes from "./StockInfo.module.css";
-import Chart from "./Chart";
-import { Button, ButtonGroup } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  InputGroup,
+  FormControl,
+  Collapse,
+  Alert,
+} from "react-bootstrap";
+import Chart from "../Chart/Chart";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Popover from "react-bootstrap/Popover";
@@ -19,11 +26,21 @@ import {
   GET_RSI,
   GET_EMA,
   GET_SMA,
-  GET_MACD
-} from "../constants/Constants";
-import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, RedditShareButton, RedditIcon } from "react-share";
-import history from "../routing/History";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+  GET_MACD,
+  GET_PORTFOLIO_URL,
+  BUY_STOCK_URL,
+  SELL_STOCK_URL,
+} from "../../constants/Constants";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  RedditShareButton,
+  RedditIcon,
+} from "react-share";
+import history from "../../routing/History";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 /**
  * This page displays a chart and other basic information about a stock.
@@ -35,6 +52,7 @@ import { DarkModeContext } from "../contexts/DarkModeContext";
 class StockInfo extends Component {
   state = {
     stockSymbol: null,
+    loadedDate: "Loading...",
     open: "Loading...",
     close: "Loading...",
     high: "Loading...",
@@ -52,14 +70,20 @@ class StockInfo extends Component {
     following: false,
     followedStocks: [],
     shareURL: "finex.com",
-    shareQuote: "I am following stocks using FINEX! Come join me!"
+    shareQuote: "I am following stocks using FINEX! Come join me!",
+    hasPortfolio: false,
+    buyShares: 0,
+    sellShares: 0,
+    alertBuy: false,
+    alertSell: false,
+    alertError: false,
   };
 
   /**
    * Gets stock information from backend.
    */
   componentDidMount = () => {
-    this.callAuthAPI().catch(err => {
+    this.callAuthAPI().catch((err) => {
       console.log(err);
     });
 
@@ -85,7 +109,10 @@ class StockInfo extends Component {
       searchedSymbol = currPath.slice(pathLength);
     }
 
-    this.callDataAPI(searchedSymbol).catch(err => {
+    if (this.props.symbol != null) {
+      searchedSymbol = this.props.symbol;
+    }
+    this.callDataAPI(searchedSymbol).catch((err) => {
       console.log(err);
       history.push("/stocknotfound");
       this.setState({ isValid: false });
@@ -93,14 +120,24 @@ class StockInfo extends Component {
     searchedSymbol = searchedSymbol.toUpperCase();
     this.setState({ stockSymbol: searchedSymbol });
 
-    this.getFollowedStocks().catch(err => {
+    this.getFollowedStocks().catch((err) => {
       console.log(err);
     });
 
     this.getDeepAnalytics(searchedSymbol);
+
+    this.getPortfolio().catch((err) => {
+      console.log(err);
+    });
   };
 
-  getDeepAnalytics = async symbol => {
+  componentDidUpdate(prevProps) {
+    if (this.props.symbol !== prevProps.symbol) {
+      this.setState({ stockSymbol: this.props.symbol });
+    }
+  }
+
+  getDeepAnalytics = async (symbol) => {
     var ending = symbol + "/";
     if (this.state.daily === true) {
       ending = ending + "daily/";
@@ -193,7 +230,7 @@ class StockInfo extends Component {
       ema: ema_data,
       rsi: rsi_data,
       sma: sma_data,
-      macd: macd_data
+      macd: macd_data,
     });
   };
 
@@ -201,7 +238,7 @@ class StockInfo extends Component {
    * Makes a call to backend requesting stock data based on
    * input provided.
    */
-  callDataAPI = async symbol => {
+  callDataAPI = async (symbol) => {
     console.log(STOCK_DAILY_URL + symbol);
     let response;
 
@@ -213,7 +250,13 @@ class StockInfo extends Component {
 
     const body = await response.json();
 
-    // console.log(body);
+    console.log(body);
+
+    let key = "";
+    for (let k in body) {
+      key = k + "";
+      break;
+    }
 
     let tmpOpen = "No Data";
     let tmpHigh = "No Data";
@@ -221,8 +264,8 @@ class StockInfo extends Component {
     let tmpClose = "No Data";
     let tmpVol = "No Data";
 
-    let dateStr = this.getCurrentDate();
-    let key = dateStr + "T00:00:00.000Z";
+    // let dateStr = this.getCurrentDate();
+    // let key = dateStr + "T00:00:00.000Z";
 
     // console.log("KEY: " + key);
 
@@ -236,6 +279,7 @@ class StockInfo extends Component {
       tmpVol = body[key]["volume"];
     }
 
+    this.setState({ loadedDate: key.substring(0, 10) });
     this.setState({ open: tmpOpen });
     this.setState({ high: tmpHigh });
     this.setState({ low: tmpLow });
@@ -267,8 +311,8 @@ class StockInfo extends Component {
       method: "POST",
       body: JSON.stringify({ stock_id: this.state.stockSymbol }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
 
     if (response.status === 200) {
@@ -276,7 +320,7 @@ class StockInfo extends Component {
       this.setState({ following: true });
     }
 
-    this.getFollowedStocks().catch(err => {
+    this.getFollowedStocks().catch((err) => {
       console.log(err);
     });
   };
@@ -287,8 +331,8 @@ class StockInfo extends Component {
       method: "POST",
       body: JSON.stringify({ stock_id: this.state.stockSymbol }),
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
 
     if (response.status === 200) {
@@ -296,7 +340,7 @@ class StockInfo extends Component {
       this.setState({ following: false });
     }
 
-    this.getFollowedStocks().catch(err => {
+    this.getFollowedStocks().catch((err) => {
       console.log(err);
     });
   };
@@ -306,7 +350,7 @@ class StockInfo extends Component {
     let response;
     response = await fetch(GET_FOLLOWED_STOCKS_URL);
     const body = await response.json();
-    console.log(body);
+    // console.log(body);
 
     if (response.status === 200) {
       // console.log("false");
@@ -320,22 +364,18 @@ class StockInfo extends Component {
   };
 
   /**
-   * Returns current date in the format yyyy-mm-dd.
+   * Get the portfolio information
+   * via a backend call.
    */
-  getCurrentDate = () => {
-    let d = new Date();
-    let month = "" + (d.getMonth() + 1);
-    let day = "" + d.getDate();
-    let year = d.getFullYear();
+  getPortfolio = async () => {
+    console.log(GET_PORTFOLIO_URL);
+    let response;
+    response = await fetch(GET_PORTFOLIO_URL);
 
-    if (month.length < 2) {
-      month = "0" + month;
+    if (response.status == 200) {
+      // console.log("false");
+      this.setState({ hasPortfolio: true });
     }
-    if (day.length < 2) {
-      day = "0" + day;
-    }
-
-    return [year, month, day].join("-");
   };
 
   renderChart = () => {
@@ -343,6 +383,153 @@ class StockInfo extends Component {
       return;
     } else {
       return <Chart symbol={this.state.stockSymbol} />;
+    }
+  };
+
+  buyStock = () => {
+    fetch(BUY_STOCK_URL, {
+      method: "POST",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        code: this.state.stockSymbol,
+        quantity: parseFloat(this.state.buyShares, 10),
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          this.setState({ alertError: false });
+          this.setState({ alertBuy: true });
+          this.setState({ alertSell: false });
+        } else {
+          this.setState({ alertError: true });
+          this.setState({ alertBuy: false });
+          this.setState({ alertSell: false });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  sellStock = () => {
+    fetch(SELL_STOCK_URL, {
+      method: "POST",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        code: this.state.stockSymbol,
+        quantity: parseFloat(this.state.sellShares, 10),
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          this.setState({ alertError: false });
+          this.setState({ alertBuy: false });
+          this.setState({ alertSell: true });
+        } else {
+          this.setState({ alertError: true });
+          this.setState({ alertBuy: false });
+          this.setState({ alertSell: false });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  handleBuyChange = (event) => {
+    this.setState({ buyShares: event.target.value });
+  };
+
+  handleSellChange = (event) => {
+    this.setState({ sellShares: event.target.value });
+  };
+
+  renderAlerts = () => {
+    return (
+      <div className={classes.alertDiv}>
+        <Collapse in={this.state.alertBuy && this.state.buyShares > 0}>
+          <div>
+            <Alert
+              variant="success"
+              onClose={() => this.setState({ alertBuy: false })}
+              dismissible
+            >
+              <Alert.Heading>Stock successfully bought!</Alert.Heading>
+            </Alert>
+          </div>
+        </Collapse>
+        <Collapse in={this.state.alertSell && this.state.sellShares > 0}>
+          <div>
+            <Alert
+              variant="danger"
+              onClose={() => this.setState({ alertSell: false })}
+              dismissible
+            >
+              <Alert.Heading>Stock successfully sold!</Alert.Heading>
+            </Alert>
+          </div>
+        </Collapse>
+        <Collapse in={this.state.alertError}>
+          <div>
+            <Alert
+              variant="danger"
+              onClose={() => this.setState({ alertError: false })}
+              dismissible
+            >
+              <Alert.Heading>
+                Could not perform the requested operation!
+              </Alert.Heading>
+            </Alert>
+          </div>
+        </Collapse>
+      </div>
+    );
+  };
+
+  renderBuyAndSell = () => {
+    if (
+      !this.state.isLoggedIn ||
+      !this.state.hasPortfolio ||
+      this.state.isCrypto
+    ) {
+      return null;
+    } else {
+      return (
+        <div className={classes.buySellDiv}>
+          <div className={classes.buySellField}>
+            <InputGroup>
+              <FormControl
+                value={this.state.buyShares}
+                type="number"
+                placeholder="Shares"
+                onChange={this.handleBuyChange}
+              />
+              <InputGroup.Append>
+                <Button variant="success" onClick={() => this.buyStock()}>
+                  Buy
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </div>
+          <div className={classes.buySellField}>
+            <InputGroup>
+              <FormControl
+                value={this.state.sellShares}
+                type="number"
+                placeholder="Shares"
+                onChange={this.handleSellChange}
+              />
+              <InputGroup.Append>
+                <Button variant="danger" onClick={() => this.sellStock()}>
+                  Sell
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </div>
+        </div>
+      );
     }
   };
 
@@ -542,12 +729,17 @@ class StockInfo extends Component {
         className={
           this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
         }
+        key={this.state.stockSymbol}
       >
         <div className={classes.infoHeader}>
           <div className={classes.title}>{this.state.stockSymbol}</div>
-          <div className={classes.followButtonDiv}>
+          <div
+            hidden={this.props.hideFollowed}
+            className={classes.followButtonDiv}
+          >
             {this.renderFollowButton()}
           </div>
+          {this.renderBuyAndSell()}
           <FacebookShareButton
             url={this.state.shareURL}
             quote={this.state.shareQuote}
@@ -567,7 +759,7 @@ class StockInfo extends Component {
             <RedditIcon size={32} round />
           </RedditShareButton>
         </div>
-
+        {this.renderAlerts()}
         {this.state.stockSymbol !== null && this.state.isValid === true ? (
           this.state.daily ? (
             <Chart
@@ -602,7 +794,7 @@ class StockInfo extends Component {
           </Button>
         </ButtonGroup>
         <div className={classes.infoTitle}>
-          Daily Summary ({this.getCurrentDate()}):
+          Daily Summary ({this.state.loadedDate}):
         </div>
         <div className={classes.infoBox}>
           <div className={classes.headerColumn}>
@@ -734,7 +926,9 @@ class StockInfo extends Component {
             <p>{this.state.macd}</p>
           </div>
         </div>
-        {this.renderFollowedStocks()}
+        <div hidden={this.props.hideFollowed}>
+          {this.renderFollowedStocks()}
+        </div>
       </div>
     );
   }

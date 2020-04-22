@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 var cors = require("cors");
+require('dotenv').config();
 
 //for user auth
 const session = require("express-session");
@@ -11,21 +12,35 @@ const passport = require("./passport");
 const port = process.env.PORT || 5000;
 const app = express();
 
+console.log(process.env.NODE_ENV)
+
+if (process.env.REACT_APP_RUNTIME === "development") {
+  app.use(cors())
+} else {
+  var whitelist = ["https://finex.money", "https://www.finex.money"]
+
+  app.use(
+    cors({
+      origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
+      },
+      credentials: true
+    })
+  );
+}
+
 app.use(express.json());
 
 app.use(
   bodyParser.urlencoded({
-    extended: false
+    extended: false,
   })
 );
 app.use(bodyParser.json());
-app.use(
-  cors({
-    credentials: true,
-    origin: "http://localhost:3000",
-    preFlightContinue: true
-  })
-);
 
 const dbConnection = require("./database");
 //const user = require('./routes/user')
@@ -36,7 +51,7 @@ app.use(
     secret: "super-secret-secret",
     store: new MongoStore({ mongooseConnection: dbConnection }),
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
   })
 );
 

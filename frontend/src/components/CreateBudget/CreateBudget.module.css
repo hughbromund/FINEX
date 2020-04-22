@@ -4,6 +4,7 @@
   background-color: #121212;
   transition: 0.3s;
   position: absolute;
+  height: 1vh;
 }
 .wrapperLight {
   display: flex;
@@ -11,6 +12,7 @@
   transition: 0.3s;
   position: absolute;
 }
+
 .inner {
   width: 50rem;
 }

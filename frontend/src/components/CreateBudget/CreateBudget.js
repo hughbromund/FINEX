@@ -107,6 +107,7 @@ export default class CreateBudget extends Component {
 
     var response = await fetch(POST_CREATE_BUDGET, {
       method: "POST",
+      credentials: "include",
       body: JSON.stringify({
         month: Number(monthNumber),
         year: Number(yearNumber),

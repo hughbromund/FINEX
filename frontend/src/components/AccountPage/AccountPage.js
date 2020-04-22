@@ -31,6 +31,7 @@ import {
   UPDATE_GOOD_COLOR,
   RESET_EMAIL_PATH,
   RESET_PASSWORD_PATH,
+  RESET_PROFILE_PICTURE_PATH,
 } from "../../constants/Constants";
 
 import {
@@ -77,14 +78,16 @@ export default class AccountPage extends Component {
   }
 
   callUserInfo = async () => {
+    console.log("MADE IT TO CALL USER INFO");
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
+      credentials: "include",
       withCredentials: true,
       // credentials: 'same-origin'
     });
     // console.log(response)
     var body = await response.json();
-    // console.log(body)
+    console.log(body);
     this.setState({
       username: body.username,
       email: body.email,
@@ -105,6 +108,7 @@ export default class AccountPage extends Component {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
+        credentials: "include",
       },
       body: JSON.stringify({ good_color: newGoodColor }),
     });
@@ -119,6 +123,7 @@ export default class AccountPage extends Component {
     fetch(UPDATE_BAD_COLOR, {
       method: "POST",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -154,27 +159,29 @@ export default class AccountPage extends Component {
     // console.log("TEST")
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
+      credentials: "include",
       withCredentials: true,
-      // credentials: 'same-origin'
     });
     // console.log(response)
-    if (response.status !== 200) {
-      history.push(LOGIN_PATH);
-    } else {
+    if (response.status === 200 || response.status === 304) {
       this.callUserInfo().catch((err) => {
         console.log(err);
       });
+    } else {
+      history.push(LOGIN_PATH);
     }
 
     response = await fetch(GET_GOOD_COLOR, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
     });
     const goodColorBody = await response.json();
 
     response = await fetch(GET_BAD_COLOR, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
     });
     const badColorBody = await response.json();
 
@@ -217,6 +224,13 @@ export default class AccountPage extends Component {
                     onClick={() => history.push(RESET_NAME_PATH)}
                   >
                     Update Name
+                  </Badge>
+                  &nbsp;&nbsp;
+                  <Badge
+                    variant="success"
+                    onClick={() => history.push(RESET_PROFILE_PICTURE_PATH)}
+                  >
+                    Update Profile Picture
                   </Badge>
                 </Card.Title>
                 <Card.Subtitle>
