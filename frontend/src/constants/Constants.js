@@ -73,6 +73,7 @@ export const GET_PORTFOLIO_URL = BASE + "/stock/sim/getPortfolio";
 export const CREATE_PORTFOLIO_URL = BASE + "/stock/sim/createPortfolio";
 export const BUY_STOCK_URL = BASE + "/stock/sim/buyStock";
 export const SELL_STOCK_URL = BASE + "/stock/sim/sellStock";
+export const GET_FINANCE_ADVICE = BASE + "/finance/advice";
 
 /* Color Hexes */
 
