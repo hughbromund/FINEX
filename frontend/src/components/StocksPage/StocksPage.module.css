@@ -41,3 +41,13 @@ tr {
 
 .none {
 }
+
+h3 {
+  margin-bottom: 30px;
+  margin-right: 10px;
+}
+
+.netChange {
+  display: flex;
+  flex-direction: row;
+}
