@@ -4,6 +4,7 @@ import history from "../../routing/History";
 import {
   INVESTMENT_TACTICS_PATH,
   RISK_MANAGEMENT_PATH,
+  SET_WARNING_STATUS,
 } from "../../constants/Constants";
 import classes from "./AlertRisk.module.css";
 
@@ -25,7 +26,18 @@ export default class AlertRisk extends Component {
                   <hr />
                   <Button
                     variant={"danger"}
-                    onClick={() => history.push(RISK_MANAGEMENT_PATH)}
+                    onClick={() => {
+                      fetch(SET_WARNING_STATUS, {
+                        method: "POST",
+                        withCredentials: true,
+                        headers: {
+                          "Content-Type": "application/json",
+                          credentials: "include",
+                        },
+                        body: JSON.stringify({ accepted_warnings: true }),
+                      });
+                      history.push(RISK_MANAGEMENT_PATH);
+                    }}
                   >
                     I would like to learn more about the risks involved in
                     investing.
