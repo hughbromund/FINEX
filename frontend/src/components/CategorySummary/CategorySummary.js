@@ -6,7 +6,12 @@ import {
   CATEGORY_DATA_URL,
   GREEN_COLOR_HEX,
 } from "../../constants/Constants";
-import { ToggleButton, ToggleButtonGroup, Jumbotron } from "react-bootstrap";
+import {
+  ToggleButton,
+  ToggleButtonGroup,
+  Jumbotron,
+  ListGroup,
+} from "react-bootstrap";
 import classes from "./CategorySummary.module.css";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 
@@ -92,7 +97,8 @@ class CategorySummary extends Component {
 
     for (let i = 0; i < cats.length; i++) {
       buttonsArr.push(
-        <ToggleButton
+        <ListGroup.Item
+          action
           key={i}
           variant="success"
           value={cats[i]}
@@ -101,14 +107,21 @@ class CategorySummary extends Component {
           }}
         >
           {cats[i]}
-        </ToggleButton>
+        </ListGroup.Item>
       );
     }
 
     return (
-      <ToggleButtonGroup type="radio" name="options" defaultValue={"Housing"}>
-        {buttonsArr}
-      </ToggleButtonGroup>
+      <div className={classes.toggles}>
+        <ListGroup
+          horizontal="lg"
+          type="radio"
+          name="options"
+          defaultValue={"Housing"}
+        >
+          {buttonsArr}
+        </ListGroup>
+      </div>
     );
   };
 
@@ -140,6 +153,7 @@ class CategorySummary extends Component {
    */
   handleToggle = (cat) => {
     this.setState({ currCat: cat });
+    this.setState({ activeIndex: 0 });
     this.callBudgetAPI(cat);
   };
 
@@ -235,7 +249,7 @@ class CategorySummary extends Component {
       return <h1>Loading...</h1>;
     } else if (this.state.data.length == 0) {
       return (
-        <div>
+        <div className={classes.outerJumbo}>
           {toggles}
           <div key="jumbo" className={classes.jumboWrapper}>
             <Jumbotron
@@ -249,7 +263,7 @@ class CategorySummary extends Component {
       );
     } else {
       return (
-        <div>
+        <div className={this.context.isDarkMode ? classes.wrapper : ""}>
           {toggles}
           <div key="content" className={classes.contentWrapper}>
             <div className={classes.textWrapper}>

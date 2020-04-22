@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import Dropdown from "react-bootstrap/Dropdown";
-import Button from "react-bootstrap/Button";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
-import FormControl from "react-bootstrap/FormControl";
+import {
+  Container,
+  FormControl,
+  ButtonToolbar,
+  ToggleButtonGroup,
+  ToggleButton,
+  Button,
+  Dropdown,
+} from "react-bootstrap";
 import classes from "./SearchBar.module.css";
-import { STOCK_LIST_URL } from "../../constants/Constants";
-import { CRYPTO_LIST_URL } from "../../constants/Constants";
+import { STOCK_LIST_URL, CRYPTO_LIST_URL } from "../../constants/Constants";
 import history from "../../routing/History";
 import { YOUR_STOCKS_PATH, CRYPTO_EXTENSION } from "../../constants/Constants";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
@@ -162,7 +164,11 @@ class SearchBar extends Component {
       return;
     }
     return (
-      <Dropdown.Menu ref={this.setWrapperRef} show={this.state.showDropdown}>
+      <Dropdown.Menu
+        className={classes.menu}
+        ref={this.setWrapperRef}
+        show={this.state.showDropdown}
+      >
         {currList}
       </Dropdown.Menu>
     );

@@ -785,7 +785,6 @@ class StockInfo extends Component {
           >
             {this.renderFollowButton()}
           </div>
-          {this.renderBuyAndSell()}
           <FacebookShareButton
             url={this.state.shareURL}
             quote={this.state.shareQuote}
@@ -805,6 +804,7 @@ class StockInfo extends Component {
             <RedditIcon size={32} round />
           </RedditShareButton>
         </div>
+        {this.renderBuyAndSell()}
         {this.renderAlerts()}
         {this.state.stockSymbol !== null && this.state.isValid === true ? (
           this.state.daily ? (
@@ -843,133 +843,137 @@ class StockInfo extends Component {
           Daily Summary ({this.state.loadedDate}):
         </div>
         <div className={classes.infoBox}>
-          <div className={classes.headerColumn}>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={openPopover}
-              >
-                <Badge>Open:</Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={closePopover}
-              >
-                <Badge>Close:</Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={highPopover}
-              >
-                <Badge>High:</Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={lowPopover}
-              >
-                <Badge>Low:</Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={volumePopover}
-              >
-                <Badge>Volume:</Badge>
-              </OverlayTrigger>
-            </p>
+          <div className={classes.infoBlock}>
+            <div className={classes.headerColumn}>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={openPopover}
+                >
+                  <Badge>Open:</Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={closePopover}
+                >
+                  <Badge>Close:</Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={highPopover}
+                >
+                  <Badge>High:</Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={lowPopover}
+                >
+                  <Badge>Low:</Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={volumePopover}
+                >
+                  <Badge>Volume:</Badge>
+                </OverlayTrigger>
+              </p>
+            </div>
+            <div className={classes.dataColumn}>
+              <p>{this.state.open}</p>
+              <p>{this.state.close}</p>
+              <p>{this.state.high}</p>
+              <p>{this.state.low}</p>
+              <p>{this.state.volume}</p>
+            </div>
           </div>
-          <div className={classes.dataColumn}>
-            <p>{this.state.open}</p>
-            <p>{this.state.close}</p>
-            <p>{this.state.high}</p>
-            <p>{this.state.low}</p>
-            <p>{this.state.volume}</p>
-          </div>
-          <div className={classes.headerColumn}>
-            <p>
-              <Badge variant="warning" pill>
-                <b>FINEX</b> Deep Analysis Data
-              </Badge>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={smaPopover}
-              >
+          <div className={classes.infoBlock}>
+            <div className={classes.headerColumn}>
+              <p>
                 <Badge variant="warning" pill>
-                  SMA
+                  <b>FINEX</b> Deep Analysis Data
                 </Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={emaPopover}
-              >
-                <Badge variant="warning" pill>
-                  EMA
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={smaPopover}
+                >
+                  <Badge variant="warning" pill>
+                    SMA
+                  </Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={emaPopover}
+                >
+                  <Badge variant="warning" pill>
+                    EMA
+                  </Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={rsiPopover}
+                >
+                  <Badge variant="warning" pill>
+                    RSI
+                  </Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={bbandsPopover}
+                >
+                  <Badge variant="warning" pill>
+                    Bollinger Bands
+                  </Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={macdPopover}
+                >
+                  <Badge variant="warning" pill>
+                    MACD
+                  </Badge>
+                </OverlayTrigger>
+              </p>
+            </div>
+            <div className={classes.dataColumn}>
+              <p>
+                <Badge pill variant="warning">
+                  BETA
                 </Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={rsiPopover}
-              >
-                <Badge variant="warning" pill>
-                  RSI
-                </Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={bbandsPopover}
-              >
-                <Badge variant="warning" pill>
-                  Bollinger Bands
-                </Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={macdPopover}
-              >
-                <Badge variant="warning" pill>
-                  MACD
-                </Badge>
-              </OverlayTrigger>
-            </p>
-          </div>
-          <div className={classes.dataColumn}>
-            <p>
-              <Badge pill variant="warning">
-                BETA
-              </Badge>
-            </p>
-            <p>{this.state.sma}</p>
-            <p>{this.state.ema}</p>
-            <p>{this.state.rsi}</p>
-            <p>{this.state.bbands}</p>
-            <p>{this.state.macd}</p>
+              </p>
+              <p>{this.state.sma}</p>
+              <p>{this.state.ema}</p>
+              <p>{this.state.rsi}</p>
+              <p>{this.state.bbands}</p>
+              <p>{this.state.macd}</p>
+            </div>
           </div>
         </div>
         <div hidden={this.props.hideFollowed}>

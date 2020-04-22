@@ -249,32 +249,34 @@ class SpentSummary extends Component {
       );
     } else {
       return (
-        <div className={classes.contentWrapper}>
-          <div className={classes.textWrapper}>
-            <div className={classes.headerWrapper}>
-              <h1>Spending Summary</h1>
+        <div className={this.context.isDarkMode ? classes.wrapper : ""}>
+          <div className={classes.contentWrapper}>
+            <div className={classes.textWrapper}>
+              <div className={classes.headerWrapper}>
+                <h1>Spending Summary</h1>
+              </div>
+              <div className={classes.breakdownDiv}>
+                <div className={classes.catDiv}>{this.renderCategories()}</div>
+                <div className={classes.numberDiv}>{this.renderSpending()}</div>
+              </div>
             </div>
-            <div className={classes.breakdownDiv}>
-              <div className={classes.catDiv}>{this.renderCategories()}</div>
-              <div className={classes.numberDiv}>{this.renderSpending()}</div>
+            <div className={classes.chartWrapper}>
+              <ResponsiveContainer aspect={1.8} width="100%">
+                <PieChart margin={{ top: 20, right: 0, left: 0, bottom: 20 }}>
+                  <Pie
+                    dataKey="value"
+                    data={this.state.spentData}
+                    innerRadius="40%"
+                    outerRadius="80%"
+                    cx="50%"
+                    fill={GREEN_COLOR_HEX}
+                    activeShape={this.renderActiveShape}
+                    onMouseEnter={this.onPieEnter}
+                    activeIndex={this.state.activeIndex}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
-          </div>
-          <div className={classes.chartWrapper}>
-            <ResponsiveContainer aspect={1.8} width="100%">
-              <PieChart margin={{ top: 20, right: 0, left: 0, bottom: 20 }}>
-                <Pie
-                  dataKey="value"
-                  data={this.state.spentData}
-                  innerRadius="40%"
-                  outerRadius="80%"
-                  cx="50%"
-                  fill={GREEN_COLOR_HEX}
-                  activeShape={this.renderActiveShape}
-                  onMouseEnter={this.onPieEnter}
-                  activeIndex={this.state.activeIndex}
-                />
-              </PieChart>
-            </ResponsiveContainer>
           </div>
         </div>
       );

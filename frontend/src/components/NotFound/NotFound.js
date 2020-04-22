@@ -24,8 +24,10 @@ class NotFound extends Component {
             In the mean time, feel free to search for a stock you're interested
             in...
           </div>
-          <div className={classes.searchBar}>
-            <SearchBar />
+          <div className={classes.searchBarOuter}>
+            <div className={classes.searchBar}>
+              <SearchBar />
+            </div>
           </div>
         </div>
       </div>

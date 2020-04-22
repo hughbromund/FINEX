@@ -1,22 +1,28 @@
 .wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   font-family: "Montserrat", sans-serif;
-  width: 50rem;
+  width: 100%;
 }
 
 .bar {
-  width: 30rem;
-  padding-right: 1rem;
+  width: 72%;
+  padding-right: 10px;
   border-color: white;
-  padding-left: 1rem;
+  margin-left: 10px;
 }
 
 .searchButton {
-  width: 9rem;
+  width: 18%;
 }
 
 .toggle {
-  width: 9rem;
+  width: 10%;
+}
+
+.menu {
   margin-right: 10px;
+  width: 100%;
+  overflow: scroll;
 }

@@ -66,4 +66,28 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  width: 100%;
+  max-width: 1000px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.searchBarOuter {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+  .message {
+    font-size: 30pt;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .searchBarText {
+    font-size: 20pt;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
