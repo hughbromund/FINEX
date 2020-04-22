@@ -234,6 +234,17 @@ exports.acceptWarnings = async function (req) {
         {accepted_warnings: req.body.accepted_warnings}, (err, user) => {}).exec();
     }
 
+exports.warningStatus = async function (req) {
+    return await User.findOne(
+          { username: req.user.username },
+          {
+            _id: 0,
+            accepted_warnings: 1,
+          },
+          (err, user) => {}
+        ).exec();
+      };
+
 
 const s3 = new AWS.S3({
     accessKeyId: "AKIAJ5ET2JWPPGRITWZA",

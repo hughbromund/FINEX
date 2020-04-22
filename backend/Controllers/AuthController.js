@@ -254,6 +254,20 @@ exports.acceptWarnings = async function (req, res, next) {
    }
  };
 
+ exports.warningStatus = async function (req, res, next) {
+    if (req.user) {
+      try {
+        let warning_status = await authService.warningStatus(req);
+        res.status(200).json(warning_status);
+      } catch (e) {
+        console.log(e);
+        res.status(400).json({ status: "An error occured." });
+      }
+    } else {
+      res.status(400).json({ status: "No user logged in." });
+    }
+  };
+
 exports.setProfilePicture = async function (req, res, next) {
     const profilePicture = req.body.filepath;
     //console.log(profilePicture)

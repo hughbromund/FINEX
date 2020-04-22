@@ -151,6 +151,7 @@ router.post("/user/lightDarkMode", authController.updateMode);
 
 //accept warnings
 router.post("/user/acceptWarnings", authController.acceptWarnings);
+router.get("/user/warningStatus", authController.warningStatus);
 
 //get good/bad color hex value
 router.get('/user/getGoodColor', cors(), authController.getGoodColor);

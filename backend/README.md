@@ -548,6 +548,24 @@ JSON Format (Output):
 "good_color": "some hash value"
 }
 
+### /user/warningStatus
+
+GET
+This represents getting whether or not a user has accepted warnings
+Requirements: none
+Returns: Returns 200 and the acceptance status on success and an error otherwise
+Status: Working
+Bugs: none as of now
+
+JSON Format (Output):
+{
+"accepted_warnings": "true/false"
+}
+or
+{
+"status": "No user logged in."
+}
+
 ### /user/getBadColor
 
 GET
