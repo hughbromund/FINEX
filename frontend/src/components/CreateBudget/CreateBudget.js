@@ -7,6 +7,12 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import BudgetGraph from "./BudgetGraph";
+import BudgetAdvice from "./BudgetAdvice";
 
 import classes from "./CreateBudget.module.css";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
@@ -298,11 +304,16 @@ export default class CreateBudget extends Component {
 
   render() {
     return (
-      <div>
+      <div className={classes.container}>
+        <div className={classes.stackTop}>
+          <BudgetGraph budget={this.state}></BudgetGraph>
+          <BudgetAdvice budget={this.state}></BudgetAdvice>
+        </div>
         <div
           className={
             this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
           }
+          style={{ zIndex: 0 }}
         >
           <div className={classes.inner}>
             <Jumbotron className={this.context.isDarkMode ? "bg-dark" : ""}>
