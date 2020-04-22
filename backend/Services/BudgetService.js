@@ -141,6 +141,7 @@ exports.getAdvice = async function(req) {
     var budget = await Budget.findOne({ username: req.user.username, month: currDate.getMonth(), year: currDate.getFullYear()}, (err, user) => {}).exec();
     var spending = await Spending.findOne({ username: req.user.username, month: currDate.getMonth(), year: currDate.getFullYear()}, (err, user) => {}).exec();
 
+
     if (budget == null || spending == null) {
         return {
             status: 400,
@@ -257,8 +258,9 @@ exports.getAdvice = async function(req) {
         })
     }
 
-    let oldDate = currDate
-    oldDate.setMonth(oldDate.getMonth - 1)
+    let oldDate = new Date(currDate.getTime())
+
+    oldDate.setMonth(oldDate.getMonth() - 1)
 
     var oldBudget = await Budget.findOne({ username: req.user.username, month: oldDate.getMonth(), year: oldDate.getFullYear()}, (err, user) => {}).exec();
     var oldSpending = await Spending.findOne({ username: req.user.username, month: oldDate.getMonth(), year: oldDate.getFullYear()}, (err, user) => {}).exec();
