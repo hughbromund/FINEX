@@ -84,6 +84,24 @@ export default class Advice extends Component {
           </div>
         );
       });
+      //console.log(advices.length);
+      if (advices.length === 0) {
+        // There was no Advice Returned
+        advices.push(
+          <div key={1}>
+            <Alert variant="success">
+              <Alert.Heading>Your financial health is Good!</Alert.Heading>
+              <p>
+                <b>FINEX</b> has no advice for you right now.
+              </p>
+              <p>
+                Keep it up! Your finances are in good shape. Keep tracking your
+                spending in <b>FINEX</b> to receive more detailed advice!
+              </p>
+            </Alert>
+          </div>
+        );
+      }
 
       return <div>{advices}</div>;
     } else {

@@ -22,6 +22,7 @@ import history from "../../routing/History";
 import {
   POST_CREATE_BUDGET,
   FINANCE_DASHBOARD,
+  GET_CATEGORY_BUDGET,
 } from "../../constants/Constants";
 
 export default class CreateBudget extends Component {
@@ -92,6 +93,79 @@ export default class CreateBudget extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount() {
+    this.getBudgetInfo();
+  }
+
+  getBudgetInfo = async () => {
+    var response = await fetch(GET_CATEGORY_BUDGET, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+      // credentials: 'same-origin'
+    }).catch((err) => {
+      console.error(err);
+    });
+    if (response.status !== 200) {
+      return;
+    }
+
+    var body = await response.json();
+    // console.log(body);
+
+    var temp = {
+      housingBudget: 0,
+      utilitiesBudget: 0,
+      transportationBudget: 0,
+      foodBudget: 0,
+      medicalBudget: 0,
+      savingsBudget: 0,
+      personalBudget: 0,
+      entertainmentBudget: 0,
+      otherBudget: 0,
+    };
+    var tempTotalBudget = 0;
+    body.forEach((element) => {
+      // console.log(element);
+      tempTotalBudget += element.budgeted;
+      switch (element.category) {
+        case "Housing":
+          temp.housingBudget = element.budgeted;
+          break;
+        case "Utilities":
+          temp.utilitiesBudget = element.budgeted;
+          break;
+        case "Transportation":
+          temp.transportationBudget = element.budgeted;
+          break;
+        case "Food":
+          temp.foodBudget = element.budgeted;
+          break;
+        case "Medical":
+          temp.medicalBudget = element.budgeted;
+          break;
+        case "Savings":
+          temp.savingsBudget = element.budgeted;
+          break;
+        case "Personal":
+          temp.personalBudget = element.budgeted;
+          break;
+        case "Entertainment":
+          temp.entertainmentBudget = element.budgeted;
+          break;
+        case "Other":
+          temp.otherBudget = element.budgeted;
+          break;
+        default:
+          console.log("Unknown budget category detected!");
+          console.log(element);
+      }
+    });
+    console.log(temp);
+    this.setState(temp);
+    this.setState({ totalBudget: tempTotalBudget });
+  };
 
   handleSubmit = async () => {
     // console.log("TEST");
@@ -343,6 +417,7 @@ export default class CreateBudget extends Component {
                     placeholder="ex. 300"
                     onChange={this.handleTotalBudgetChange}
                     id="total-budget-input"
+                    value={this.state.totalBudget}
                   />
                 </InputGroup>
               </Form.Group>
@@ -381,6 +456,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 200"
                     onChange={this.handleHousingBudgetChange}
+                    value={this.state.housingBudget}
                   />
                 </InputGroup>
               </Form.Group>
@@ -404,6 +480,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 200"
                     onChange={this.handleUtilitiesBudgetChange}
+                    value={this.state.utilitiesBudget}
                   />
                 </InputGroup>
               </Form.Group>
@@ -427,6 +504,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 200"
                     onChange={this.handleTransportationBudgetChange}
+                    value={this.state.transportationBudget}
                   />
                 </InputGroup>
               </Form.Group>
@@ -450,6 +528,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 200"
                     onChange={this.handleFoodBudgetChange}
+                    value={this.state.foodBudget}
                   />
                 </InputGroup>
               </Form.Group>
@@ -473,6 +552,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 200"
                     onChange={this.handleMedicalBudgetChange}
+                    value={this.state.medicalBudget}
                   />
                 </InputGroup>
               </Form.Group>
@@ -496,6 +576,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 200"
                     onChange={this.handleSavingsBudgetChange}
+                    value={this.state.savingsBudget}
                   />
                 </InputGroup>
               </Form.Group>
@@ -519,6 +600,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 200"
                     onChange={this.handlePersonalBudgetChange}
+                    value={this.state.personalBudget}
                   />
                 </InputGroup>
               </Form.Group>
@@ -542,6 +624,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 200"
                     onChange={this.handleEntertainmentBudgetChange}
+                    value={this.state.entertainmentBudget}
                   />
                 </InputGroup>
               </Form.Group>
@@ -565,6 +648,7 @@ export default class CreateBudget extends Component {
                     type="number"
                     placeholder="ex. 200"
                     onChange={this.handleOtherBudgetChange}
+                    value={this.state.otherBudget}
                   />
                 </InputGroup>
               </Form.Group>
