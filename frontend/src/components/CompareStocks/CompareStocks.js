@@ -110,6 +110,7 @@ class CompareStocks extends Component {
                 key="1"
                 symbol={this.state.leftTicker}
                 hideFollowed
+                onCompare
               ></StockInfo>
             </Col>
             <Col md={6}>
@@ -121,6 +122,7 @@ class CompareStocks extends Component {
               <StockInfo
                 symbol={this.state.rightTicker}
                 hideFollowed
+                onCompare
               ></StockInfo>
             </Col>
           </Row>
