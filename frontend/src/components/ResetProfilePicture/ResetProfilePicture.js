@@ -105,7 +105,7 @@ export default class ResetProfilePicture extends Component {
       croppedImage: croppedImage,
       croppedImageUrl: URL.createObjectURL(croppedImage),
     });
-    //console.log(croppedImage.type)
+    console.log(this.state.croppedImageUrl);
   }
 
   render() {
