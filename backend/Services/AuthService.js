@@ -229,6 +229,11 @@ exports.updateMode = async function (req) {
         {dark_mode: req.body.dark_mode}, (err, user) => {}).exec();
     }
 
+exports.acceptWarnings = async function (req) {
+    return await User.updateOne({username: req.user.username},
+        {accepted_warnings: req.body.accepted_warnings}, (err, user) => {}).exec();
+    }
+
 
 const s3 = new AWS.S3({
     accessKeyId: "AKIAJ5ET2JWPPGRITWZA",

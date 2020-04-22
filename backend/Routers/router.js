@@ -149,6 +149,9 @@ router.post("/user/updateBadColor", authController.updateBadColor);
 //update dark/light mode
 router.post("/user/lightDarkMode", authController.updateMode);
 
+//accept warnings
+router.post("/user/acceptWarnings", authController.acceptWarnings);
+
 //get good/bad color hex value
 router.get('/user/getGoodColor', cors(), authController.getGoodColor);
 router.get('/user/getBadColor', cors(), authController.getBadColor);
@@ -181,7 +184,6 @@ router.post(
 );
 
 //create new budget
-
 router.post('/budget/createBudget', financeController.createBudget);
 
 //generate advice
