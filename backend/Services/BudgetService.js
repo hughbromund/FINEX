@@ -209,6 +209,7 @@ exports.getAdvice = async function(req) {
     var budget = await Budget.findOne({ username: req.user.username, month: currDate.getMonth(), year: currDate.getFullYear()}, (err, user) => {}).exec();
     var spending = await Spending.findOne({ username: req.user.username, month: currDate.getMonth(), year: currDate.getFullYear()}, (err, user) => {}).exec();
 
+
     if (budget == null || spending == null) {
         return {
             status: 400,
@@ -323,6 +324,90 @@ exports.getAdvice = async function(req) {
             advice: "Keep spending within your budgeted amount so you don't overspend.",
             isBudget: false
         })
+    }
+
+    let oldDate = new Date(currDate.getTime())
+
+    oldDate.setMonth(oldDate.getMonth() - 1)
+
+    var oldBudget = await Budget.findOne({ username: req.user.username, month: oldDate.getMonth(), year: oldDate.getFullYear()}, (err, user) => {}).exec();
+    var oldSpending = await Spending.findOne({ username: req.user.username, month: oldDate.getMonth(), year: oldDate.getFullYear()}, (err, user) => {}).exec();
+
+    if (oldBudget != null && oldSpending != null) {
+        
+        if (oldSpending.total > oldBudget.total) {
+            advice.push({
+                trigger: "Overspent on total budget last month.",
+                advice: "Try to stay within your budget this month.",
+                isBudget: false
+            })
+        }
+
+        if (oldSpending.housing > oldBudget.housing) {
+            advice.push({
+                trigger: "Overspent on housing last month.",
+                advice: "Try to keep within your housing budget this month.",
+                isBudget: false
+            })
+        }
+    
+        if (oldSpending.utilities > oldBudget.utilities) {
+            advice.push({
+                trigger: "Overspent on utilities last month.",
+                advice: "Try to keep within your utilities budget this month.",
+                isBudget: false
+            })
+        }
+    
+        if (oldSpending.transportation > oldBudget.transportation) {
+            advice.push({
+                trigger: "Overspent on transportation last month.",
+                advice: "Try to keep within your transportation budget this month.",
+                isBudget: false
+            })
+        }
+    
+        if (oldSpending.food > oldBudget.food) {
+            advice.push({
+                trigger: "Overspent on food last month.",
+                advice: "Try to keep within your food budget this month.",
+                isBudget: false
+            })
+        }
+    
+        if (oldSpending.medical > oldBudget.medical) {
+            advice.push({
+                trigger: "Overspent on medical last month.",
+                advice: "Try to keep within your medical budget this month.",
+                isBudget: false
+            })
+        }
+    
+        if (oldSpending.personal > oldBudget.personal) {
+            advice.push({
+                trigger: "Overspent on personal last month.",
+                advice: "Try to keep within your personal budget this month.",
+                isBudget: false
+            })
+        }
+    
+        if (oldSpending.entertainment > oldBudget.entertainment) {
+            advice.push({
+                trigger: "Overspent on entertainment last month.",
+                advice: "Try to keep within your entertainment budget this month.",
+                isBudget: false
+            })
+        }
+    
+        if (oldSpending.other > oldBudget.other) {
+            advice.push({
+                trigger: "Overspent on other last month.",
+                advice: "Try to keep within your other budget this month.",
+                isBudget: false
+            })
+        }
+
+
     }
 
 
