@@ -154,7 +154,7 @@ class StocksPage extends Component {
           <td>{"$" + parseFloat(dataArr[i]["price"]).toFixed(2)}</td>
           <td>{"$" + parseFloat(dataArr[i]["buyValue"]).toFixed(2)}</td>
           <td>{"$" + parseFloat(dataArr[i]["value"]).toFixed(2)}</td>
-          <td className={color}>{"%" + percentChange.toFixed(2)}</td>
+          <td className={color}>{percentChange.toFixed(2) + "%"}</td>
         </tr>
       );
     }
@@ -164,6 +164,32 @@ class StocksPage extends Component {
         <tbody>{tableArr}</tbody>
       </Table>
     );
+  };
+
+  renderNetChange = () => {
+    let change = (
+      this.state.portfolio["wallet"] +
+      this.state.portfolio["investing"] -
+      5000.0
+    ).toFixed(2);
+
+    if (change < 0) {
+      return (
+        <div className={classes.netChange}>
+          <h3>Net Loss: </h3>
+          <h3 className={classes.red}>{"$" + Math.abs(change)}</h3>
+        </div>
+      );
+    } else if (change > 0) {
+      return (
+        <div className={classes.netChange}>
+          <h3 className={classes.red}>Net Gain: </h3>
+          <h3>{"$" + Math.abs(change)}</h3>
+        </div>
+      );
+    } else {
+      return null;
+    }
   };
 
   render() {
@@ -222,6 +248,7 @@ class StocksPage extends Component {
                     ).toFixed(2)}
                 </h3>
               </div>
+              {this.renderNetChange()}
               <div className={classes.table}>{this.renderStockTable()}</div>
             </div>
           </div>
