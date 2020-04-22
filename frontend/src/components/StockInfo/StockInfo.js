@@ -7,12 +7,13 @@ import {
   FormControl,
   Collapse,
   Alert,
+  Spinner,
+  OverlayTrigger,
+  Tooltip,
+  Badge,
+  Popover,
 } from "react-bootstrap";
 import Chart from "../Chart/Chart";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-import Popover from "react-bootstrap/Popover";
-import Badge from "react-bootstrap/Badge";
 import {
   YOUR_STOCKS_PATH,
   STOCK_DAILY_URL,
@@ -88,7 +89,7 @@ class StockInfo extends Component {
     });
 
     let currPath;
-    if (this.props.location == undefined) {
+    if (this.props.location === undefined) {
       currPath = "/AAPL";
     } else {
       currPath = this.props.location.pathname;
@@ -152,7 +153,11 @@ class StockInfo extends Component {
 
     // Get BBANDS
     console.log(GET_BBANDS + ending);
-    var bbands_res = await fetch(GET_BBANDS + ending);
+    var bbands_res = await fetch(GET_BBANDS + ending, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     var bbands_data = 0;
     if (bbands_res.status === 200) {
       const bbands = await bbands_res.json();
@@ -170,7 +175,11 @@ class StockInfo extends Component {
 
     // Get EMA
 
-    var ema_res = await fetch(GET_EMA + ending);
+    var ema_res = await fetch(GET_EMA + ending, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     var ema_data = 0;
     if (ema_res.status === 200) {
       const ema = await ema_res.json();
@@ -185,7 +194,11 @@ class StockInfo extends Component {
 
     // Get RSI
 
-    var rsi_res = await fetch(GET_RSI + ending);
+    var rsi_res = await fetch(GET_RSI + ending, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     var rsi_data = 0;
     if (rsi_res.status === 200) {
       const rsi = await rsi_res.json();
@@ -199,7 +212,11 @@ class StockInfo extends Component {
 
     // Get SMA
 
-    var sma_res = await fetch(GET_SMA + ending);
+    var sma_res = await fetch(GET_SMA + ending, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     var sma_data = 0;
     if (sma_res.status === 200) {
       const sma = await sma_res.json();
@@ -213,7 +230,11 @@ class StockInfo extends Component {
 
     // Get MACD
 
-    var macd_res = await fetch(GET_MACD + ending);
+    var macd_res = await fetch(GET_MACD + ending, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     var macd_data = 0;
     if (macd_res.status === 200) {
       const macd = await macd_res.json();
@@ -243,9 +264,17 @@ class StockInfo extends Component {
     let response;
 
     if (!this.state.isCrypto) {
-      response = await fetch(STOCK_DAILY_URL + symbol);
+      response = await fetch(STOCK_DAILY_URL + symbol, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+      });
     } else {
-      response = await fetch(CRYPTO_DAILY_URL + symbol);
+      response = await fetch(CRYPTO_DAILY_URL + symbol, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+      });
     }
 
     const body = await response.json();
@@ -292,7 +321,11 @@ class StockInfo extends Component {
   callAuthAPI = async () => {
     console.log(USER_INFO_URL);
     let response;
-    response = await fetch(USER_INFO_URL);
+    response = await fetch(USER_INFO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     // const body = await response.json();
     // console.log(body.status);
 
@@ -309,6 +342,8 @@ class StockInfo extends Component {
     console.log(FOLLOW_STOCK_URL);
     var response = await fetch(FOLLOW_STOCK_URL, {
       method: "POST",
+      withCredentials: true,
+      credentials: "include",
       body: JSON.stringify({ stock_id: this.state.stockSymbol }),
       headers: {
         "content-type": "application/json",
@@ -329,6 +364,8 @@ class StockInfo extends Component {
     console.log(UNFOLLOW_STOCK_URL);
     var response = await fetch(UNFOLLOW_STOCK_URL, {
       method: "POST",
+      withCredentials: true,
+      credentials: "include",
       body: JSON.stringify({ stock_id: this.state.stockSymbol }),
       headers: {
         "content-type": "application/json",
@@ -348,7 +385,11 @@ class StockInfo extends Component {
   getFollowedStocks = async () => {
     console.log(GET_FOLLOWED_STOCKS_URL);
     let response;
-    response = await fetch(GET_FOLLOWED_STOCKS_URL);
+    response = await fetch(GET_FOLLOWED_STOCKS_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     // console.log(body);
 
@@ -370,9 +411,13 @@ class StockInfo extends Component {
   getPortfolio = async () => {
     console.log(GET_PORTFOLIO_URL);
     let response;
-    response = await fetch(GET_PORTFOLIO_URL);
+    response = await fetch(GET_PORTFOLIO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       // console.log("false");
       this.setState({ hasPortfolio: true });
     }
@@ -390,6 +435,7 @@ class StockInfo extends Component {
     fetch(BUY_STOCK_URL, {
       method: "POST",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -416,6 +462,7 @@ class StockInfo extends Component {
     fetch(SELL_STOCK_URL, {
       method: "POST",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -589,6 +636,10 @@ class StockInfo extends Component {
       return;
     }
 
+    if (this.state.followedStocks.length === 0) {
+      return;
+    }
+
     let stocksArr = [];
     for (let i = 0; i < this.state.followedStocks.length; i++) {
       stocksArr[i] = (
@@ -739,7 +790,6 @@ class StockInfo extends Component {
           >
             {this.renderFollowButton()}
           </div>
-          {this.renderBuyAndSell()}
           <FacebookShareButton
             url={this.state.shareURL}
             quote={this.state.shareQuote}
@@ -759,6 +809,7 @@ class StockInfo extends Component {
             <RedditIcon size={32} round />
           </RedditShareButton>
         </div>
+        {this.renderBuyAndSell()}
         {this.renderAlerts()}
         {this.state.stockSymbol !== null && this.state.isValid === true ? (
           this.state.daily ? (
@@ -794,136 +845,204 @@ class StockInfo extends Component {
           </Button>
         </ButtonGroup>
         <div className={classes.infoTitle}>
-          Daily Summary ({this.state.loadedDate}):
+          {this.state.loadedDate === "Loading..." ? (
+            <Spinner animation="border" variant="success" />
+          ) : (
+            "Daily Summary " + this.state.loadedDate + ":"
+          )}
         </div>
         <div className={classes.infoBox}>
-          <div className={classes.headerColumn}>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={openPopover}
-              >
-                <Badge>Open:</Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={closePopover}
-              >
-                <Badge>Close:</Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={highPopover}
-              >
-                <Badge>High:</Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={lowPopover}
-              >
-                <Badge>Low:</Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={volumePopover}
-              >
-                <Badge>Volume:</Badge>
-              </OverlayTrigger>
-            </p>
+          <div className={classes.infoBlock}>
+            <div className={classes.headerColumn}>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={openPopover}
+                >
+                  <Badge>Open:</Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={closePopover}
+                >
+                  <Badge>Close:</Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={highPopover}
+                >
+                  <Badge>High:</Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={lowPopover}
+                >
+                  <Badge>Low:</Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={volumePopover}
+                >
+                  <Badge>Volume:</Badge>
+                </OverlayTrigger>
+              </p>
+            </div>
+            <div className={classes.dataColumn}>
+              <p>
+                {this.state.open === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.open
+                )}
+              </p>
+              <p>
+                {this.state.close === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.close
+                )}
+              </p>
+              <p>
+                {this.state.high === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.high
+                )}
+              </p>
+              <p>
+                {this.state.low === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.low
+                )}
+              </p>
+              <p>
+                {this.state.volume === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.volume
+                )}
+              </p>
+            </div>
           </div>
-          <div className={classes.dataColumn}>
-            <p>{this.state.open}</p>
-            <p>{this.state.close}</p>
-            <p>{this.state.high}</p>
-            <p>{this.state.low}</p>
-            <p>{this.state.volume}</p>
-          </div>
-          <div className={classes.headerColumn}>
-            <p>
-              <Badge variant="warning" pill>
-                <b>FINEX</b> Deep Analysis Data
-              </Badge>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={smaPopover}
-              >
+          <div className={classes.infoBlock}>
+            <div className={classes.headerColumn}>
+              <p>
                 <Badge variant="warning" pill>
-                  SMA
+                  <b>FINEX</b> Deep Analysis Data
                 </Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={emaPopover}
-              >
-                <Badge variant="warning" pill>
-                  EMA
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={smaPopover}
+                >
+                  <Badge variant="warning" pill>
+                    SMA
+                  </Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={emaPopover}
+                >
+                  <Badge variant="warning" pill>
+                    EMA
+                  </Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={rsiPopover}
+                >
+                  <Badge variant="warning" pill>
+                    RSI
+                  </Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={bbandsPopover}
+                >
+                  <Badge variant="warning" pill>
+                    Bollinger Bands
+                  </Badge>
+                </OverlayTrigger>
+              </p>
+              <p>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  overlay={macdPopover}
+                >
+                  <Badge variant="warning" pill>
+                    MACD
+                  </Badge>
+                </OverlayTrigger>
+              </p>
+            </div>
+            <div className={classes.dataColumn}>
+              <p>
+                <Badge pill variant="warning">
+                  BETA
                 </Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={rsiPopover}
-              >
-                <Badge variant="warning" pill>
-                  RSI
-                </Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={bbandsPopover}
-              >
-                <Badge variant="warning" pill>
-                  Bollinger Bands
-                </Badge>
-              </OverlayTrigger>
-            </p>
-            <p>
-              <OverlayTrigger
-                trigger="click"
-                placement="top"
-                overlay={macdPopover}
-              >
-                <Badge variant="warning" pill>
-                  MACD
-                </Badge>
-              </OverlayTrigger>
-            </p>
-          </div>
-          <div className={classes.dataColumn}>
-            <p>
-              <Badge pill variant="warning">
-                BETA
-              </Badge>
-            </p>
-            <p>{this.state.sma}</p>
-            <p>{this.state.ema}</p>
-            <p>{this.state.rsi}</p>
-            <p>{this.state.bbands}</p>
-            <p>{this.state.macd}</p>
+              </p>
+              <p>
+                {this.state.sma === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.sma
+                )}
+              </p>
+              <p>
+                {this.state.ema === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.ema
+                )}
+              </p>
+              <p>
+                {this.state.rsi === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.rsi
+                )}
+              </p>
+              <p>
+                {this.state.bbands === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.bbands
+                )}
+              </p>
+              <p>
+                {this.state.macd === "Loading..." ? (
+                  <Spinner animation="border" variant="success" />
+                ) : (
+                  this.state.macd
+                )}
+              </p>
+            </div>
           </div>
         </div>
         <div hidden={this.props.hideFollowed}>

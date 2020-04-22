@@ -7,7 +7,7 @@ import {
   YOUR_STOCKS_PATH,
 } from "../../constants/Constants";
 import history from "../../routing/History";
-import { Jumbotron, Button, Table } from "react-bootstrap";
+import { Jumbotron, Button, Table, Spinner } from "react-bootstrap";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import classes from "./StocksPage.module.css";
 
@@ -15,6 +15,7 @@ class StocksPage extends Component {
   state = {
     isLoggedIn: null,
     portfolio: null,
+    dataReceived: false,
   };
 
   componentDidMount = () => {
@@ -34,7 +35,11 @@ class StocksPage extends Component {
   callAuthAPI = async () => {
     console.log(USER_INFO_URL);
     let response;
-    response = await fetch(USER_INFO_URL);
+    response = await fetch(USER_INFO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     // const body = await response.json();
     // console.log(body.status);
 
@@ -54,24 +59,26 @@ class StocksPage extends Component {
   getPortfolio = async () => {
     console.log(GET_PORTFOLIO_URL);
     let response;
-    response = await fetch(GET_PORTFOLIO_URL);
+    response = await fetch(GET_PORTFOLIO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     console.log(body);
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       // console.log("false");
       this.setState({ portfolio: body });
     }
+    this.setState({ dataReceived: true });
   };
 
   createPortfolio = async () => {
     fetch(CREATE_PORTFOLIO_URL, {
       method: "POST",
       withCredentials: true,
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
-      // body: JSON.stringify({ good_color: newGoodColor }),
+      credentials: "include",
     });
 
     let defaultPortfolio = {
@@ -88,7 +95,7 @@ class StocksPage extends Component {
     let dataArr = this.state.portfolio["stocks"];
     let tableArr = [];
 
-    if (dataArr.length == 0) {
+    if (dataArr.length === 0) {
       return (
         <div className={classes.jumboWrapper}>
           <Jumbotron
@@ -163,11 +170,11 @@ class StocksPage extends Component {
     if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
       history.push(LOGIN_PATH);
       return null;
-    } else if (this.state.isLoggedIn == null) {
-      return <h1>Loading...</h1>;
+    } else if (this.state.isLoggedIn == null || !this.state.dataReceived) {
+      return <Spinner animation="border" variant="success" />;
     } else if (
       this.state.portfolio == null ||
-      this.state.portfolio == undefined
+      this.state.portfolio === undefined
     ) {
       return (
         <div className={classes.jumboWrapper}>

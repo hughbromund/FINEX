@@ -23,3 +23,10 @@
   justify-content: center;
   flex-direction: row;
 }
+
+@media (max-width: 991px) {
+  .wrapper {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

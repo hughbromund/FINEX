@@ -12,7 +12,7 @@ import {
   RED_COLOR_HEX,
 } from "../../constants/Constants";
 import history from "../../routing/History";
-import { Jumbotron } from "react-bootstrap";
+import { Jumbotron, Spinner } from "react-bootstrap";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 // imports for PDF library
@@ -183,7 +183,7 @@ class FinanceDoc extends Component {
     const body = await response.json();
     console.log(body);
 
-    if (body == null || body == undefined) {
+    if (body == null || body === undefined) {
       return;
     }
 
@@ -298,9 +298,9 @@ class FinanceDoc extends Component {
    */
   renderPercent = () => {
     if (
-      this.state.budgetedTotal == 0 ||
+      this.state.budgetedTotal === 0 ||
       this.state.budgetedTotal == null ||
-      this.state.budgetedTotal == undefined
+      this.state.budgetedTotal === undefined
     )
       return <Text style={styles.amount}>100.00%</Text>;
 
@@ -415,7 +415,7 @@ class FinanceDoc extends Component {
         </div>
       );
     } else {
-      return <h1>Loading...</h1>;
+      return <Spinner animation="border" variant="success" />;
     }
   }
 }
