@@ -8,7 +8,10 @@ import Collapse from "react-bootstrap/Collapse";
 import classes from "./ResetProfilePicture.module.css";
 import "react-image-crop/dist/ReactCrop.css";
 
-import { PUT_PROFILE_IMAGE } from "../../constants/Constants";
+import {
+  PUT_PROFILE_IMAGE,
+  POST_CREATE_BUDGET,
+} from "../../constants/Constants";
 
 const imageMaxSize = 1000;
 const acceptedFileTypes = ["png", "jpg"];
@@ -34,7 +37,7 @@ export default class ResetProfilePicture extends Component {
     };
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting");
     if (
@@ -46,6 +49,19 @@ export default class ResetProfilePicture extends Component {
     }
 
     const formData = new FormData();
+
+    formData.append("image", this.state.croppedImage);
+
+    var res = await fetch(PUT_PROFILE_IMAGE, {
+      method: "POST",
+      credentials: "include",
+      withCredentials: true,
+      body: formData,
+    });
+
+    var response = await res.json();
+
+    console.log(response);
   };
 
   handleFile = (e) => {
