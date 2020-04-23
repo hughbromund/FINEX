@@ -78,7 +78,7 @@ export default class AccountPage extends Component {
   }
 
   callUserInfo = async () => {
-    console.log("MADE IT TO CALL USER INFO");
+    // ("MADE IT TO CALL USER INFO");
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
       credentials: "include",
@@ -87,7 +87,7 @@ export default class AccountPage extends Component {
     });
     // console.log(response)
     var body = await response.json();
-    console.log(body);
+    //console.log(body);
     this.setState({
       username: body.username,
       email: body.email,
@@ -98,7 +98,7 @@ export default class AccountPage extends Component {
 
   handlePrimaryChangeComplete = (color) => {
     this.setState({ primaryColor: color.hex });
-    console.log(JSON.stringify({ good_color: this.state.primaryColor }));
+    // console.log(JSON.stringify({ good_color: this.state.primaryColor }));
     this.updateGoodColor(color.hex);
   };
 
@@ -192,24 +192,23 @@ export default class AccountPage extends Component {
   };
 
   render() {
-    const popover = (
-      <Popover>
-        <Popover.Title as="h3">Currently Unavailable</Popover.Title>
-        <Popover.Content>
-          Unfortunately, you can't change your username at this time. We
-          apologize for the inconvenience.
-        </Popover.Content>
-      </Popover>
-    );
-
     return (
-      <div className={classes.wrapper}>
+      <div
+        className={
+          this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
+        }
+      >
         <div className={classes.inner}>
-          <div className={classes.wrapper}>
+          <div
+            className={
+              this.context.isDarkMode
+                ? classes.wrapperDark
+                : classes.wrapperLight
+            }
+          >
             <Image
               src={require("../../assets/img/slothlogo.png")}
               style={{ width: "10rem" }}
-              fluid
               roundedCircle
             />
           </div>
@@ -414,7 +413,13 @@ export default class AccountPage extends Component {
             </Card>
           </div>
           <br />
-          <div className={classes.wrapper}>
+          <div
+            className={
+              this.context.isDarkMode
+                ? classes.wrapperDark
+                : classes.wrapperLight
+            }
+          >
             <Button variant="danger" onClick={this.handleLogout}>
               Logout
             </Button>

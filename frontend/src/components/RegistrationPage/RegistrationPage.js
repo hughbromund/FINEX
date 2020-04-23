@@ -208,9 +208,7 @@ export default class RegistrationPage extends Component {
                 </Collapse>
                 <Form.Text className="text-muted">Make it secure.</Form.Text>
               </Form.Group>
-              <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Keep me Logged In" />
-              </Form.Group>
+              <hr />
               <Button variant="success" type="submit">
                 Sign Up
               </Button>

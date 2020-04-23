@@ -33,7 +33,7 @@ export default class Advice extends Component {
 
     var body = await response.json();
 
-    console.log(body);
+    // console.log(body);
 
     if (response.status === 400) {
       this.setState({ hasAdvice: false, advice: body });
@@ -54,7 +54,7 @@ export default class Advice extends Component {
       var index = 0;
       this.state.advice.forEach((element) => {
         index = index + 1;
-        console.log(element);
+        // console.log(element);
         var budgetButton = [];
         if (element.isBudget === true) {
           budgetButton.push(
@@ -71,7 +71,7 @@ export default class Advice extends Component {
         } else {
           budgetButton.push(<div></div>);
         }
-
+        index = index + 1;
         advices.push(
           <div key={index}>
             <Alert variant="warning">
