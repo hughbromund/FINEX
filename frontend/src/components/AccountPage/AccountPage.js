@@ -32,6 +32,7 @@ import {
   RESET_EMAIL_PATH,
   RESET_PASSWORD_PATH,
   RESET_PROFILE_PICTURE_PATH,
+  GET_PROFILE_IMAGE,
 } from "../../constants/Constants";
 
 import {
@@ -67,6 +68,7 @@ export default class AccountPage extends Component {
       secondaryColor: "",
       isPrimaryPickerHidden: true,
       isSecondaryPickerHidden: true,
+      profilePicURL: "",
     };
 
     this.handlePrimaryChangeComplete = this.handlePrimaryChangeComplete.bind(
@@ -189,6 +191,17 @@ export default class AccountPage extends Component {
       primaryColor: goodColorBody.good_color,
       secondaryColor: badColorBody.bad_color,
     });
+
+    var response = await fetch(GET_PROFILE_IMAGE, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
+
+    var body = await response.json();
+    console.log(body);
+
+    this.setState({ profilePicURL: body });
   };
 
   render() {
@@ -205,12 +218,20 @@ export default class AccountPage extends Component {
     return (
       <div className={classes.wrapper}>
         <div className={classes.inner}>
-          <div className={classes.wrapper}>
+          <div
+            className={
+              this.context.isDarkMode
+                ? classes.wrapperDark
+                : classes.wrapperLight
+            }
+          >
+            <br />
+            <br />
+
             <Image
-              src={require("../../assets/img/slothlogo.png")}
+              rounded
+              src={this.state.profilePicURL}
               style={{ width: "10rem" }}
-              fluid
-              roundedCircle
             />
           </div>
           <div>

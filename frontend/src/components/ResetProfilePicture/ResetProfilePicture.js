@@ -8,6 +8,8 @@ import Collapse from "react-bootstrap/Collapse";
 import classes from "./ResetProfilePicture.module.css";
 import "react-image-crop/dist/ReactCrop.css";
 
+import { PUT_PROFILE_IMAGE } from "../../constants/Constants";
+
 const imageMaxSize = 1000;
 const acceptedFileTypes = ["png", "jpg"];
 
@@ -34,6 +36,16 @@ export default class ResetProfilePicture extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Submitting");
+    if (
+      this.state.croppedImage === null ||
+      this.state.croppedImage === undefined
+    ) {
+      console.log("No Image");
+      return;
+    }
+
+    const formData = new FormData();
   };
 
   handleFile = (e) => {
@@ -135,7 +147,7 @@ export default class ResetProfilePicture extends Component {
               Submit
             </Button>
           </Form>
-          <Collapse in={this.state.croppedImageUrl}>
+          <Collapse in={this.state.croppedImageUrl !== null}>
             <div>
               <h1>Profile Picture Preview</h1>
               <img src={this.state.croppedImageUrl}></img>
