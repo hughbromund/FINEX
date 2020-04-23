@@ -42,7 +42,7 @@
     "local": "react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test --watchAll=false --silent",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
