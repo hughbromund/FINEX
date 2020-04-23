@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "allowJs": true
+    },
+    "database": {
+        "uri": "mongodb+srv://niyatisriram:dPaDZohygKQE8xhb@data-krx7s.mongodb.net/FINEX?retryWrites=true&w=majority"
+    },
+    "s3Bucket": {
+        "accessKeyID": "AKIA3VDH24GNGKDBBJF7",
+        "secretAccessKey": "mongodb+srv://niyatisriram:dPaDZohygKQE8xhb@data-krx7s.mongodb.net/FINEX?retryWrites=true&w=majority"
+    }
+}
