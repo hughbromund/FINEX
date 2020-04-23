@@ -5,7 +5,7 @@ const User = require(path.resolve(__dirname, "../database/models/user"));
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 const AWS = require('aws-sdk');
-const config = require(path.resolve(__dirname, "../config.json"));
+const config = require(path.resolve(__dirname, "../config-sample.json"));
 
 
 var transporter = nodemailer.createTransport({

@@ -1,5 +1,5 @@
 const path = require("path");
-const config = require(path.resolve(__dirname, "../config.json"));
+const config = require(path.resolve(__dirname, "../config-sample.json"));
 
 const alpha = require("alphavantage")({ key: config.alphavantage.key });
 const User = require(path.resolve(__dirname, "../database/models/user"));
