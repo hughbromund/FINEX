@@ -588,24 +588,26 @@ or
 
 POST
 This represents adding a user profile picture to the s3 bucket to save for future use
-On success, image will be uploaded to s3 bucket as "<username>.jpg"
-Requirements: absolute local path to image
+On success, image will be uploaded to s3 bucket as "<username>"
+Requirements: the image itself
 Status: Working
-Bugs: None
-JSON Format (Input) :
+Bugs: Only accepting png for right now
+JSON Format (form-data) :
+    "image": <image>
+
+JSON Format (output) :
 {
-    "filepath": "absolute local path to image"
+    "imageUrl": "url"
 }
 
 ### /user/getProfilePicture
 
 GET
-This represents getting a user profile picture from the s3 bucket and writing 
-the data in  binary form to a file, FINEX/backend/ProfilePictures/downloaded.jpg
+This represents getting a user profile picture from the s3 bucket and returning an image source url
 Requirements: none
 Status: working
 Bugs: None
-Output: binary image data written to FINEX/backend/ProfilePictures/downloaded.jpg
+Output: url to be used in <Image src="url">
 
 
 ### /auth/updatePassword
