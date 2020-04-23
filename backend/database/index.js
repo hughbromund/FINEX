@@ -2,7 +2,7 @@
 
 //needs to be changed to work with our database
 const path = require("path");
-const config = require(path.resolve(__dirname, "../config-sample.json"));
+const config = require(path.resolve(__dirname, "../config.json"));
 
 //Connect to Mongo database
 const mongoose = require('mongoose')
