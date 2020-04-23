@@ -9,6 +9,7 @@ import {
 import classes from "./AlertRisk.module.css";
 
 export default class AlertRisk extends Component {
+  state = {};
   render() {
     return (
       <div>

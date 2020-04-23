@@ -21,3 +21,23 @@ test("initial state values set properly for stock info page", () => {
   expect(componentInstance.state.following).toBe(false);
   expect(componentInstance.state.followedStocks).toStrictEqual([]);
 });
+
+test("initial state values set properly for social media", () => {
+  const wrapper = shallow(<StockInfo />);
+
+  const componentInstance = wrapper.instance();
+
+  const mockState = {
+    shareURL: "https://www.finex.money",
+    shareQuote1: "I am following ",
+    shareQuote2: " stock using FINEX! Come join me!",
+  };
+
+  expect(componentInstance.state.shareURL).toStrictEqual(mockState.shareURL);
+  expect(componentInstance.state.shareQuote1).toStrictEqual(
+    mockState.shareQuote1
+  );
+  expect(componentInstance.state.shareQuote2).toStrictEqual(
+    mockState.shareQuote2
+  );
+});
