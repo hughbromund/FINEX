@@ -8,8 +8,8 @@
     },
     "s3Bucket": {
         "name": "profileimagesfinex",
-        "accessKeyID": "AKIAJFH2VOF5CREPS6LA",
-        "secretAccessKey": "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",
+        "accessKeyID": "AKIAIDO5IZ7MPGQ75WZA",
+        "secretAccessKey": "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",
         "region": "us-east-2"
     },
     "alphavantage": {
