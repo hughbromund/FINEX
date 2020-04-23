@@ -21,7 +21,13 @@ var financeController = require(path.resolve(
   "../Controllers/FinanceController"
 ));
 
+var upload = require(path.resolve(
+  __dirname,
+  "../Services/FileUpload"
+));
+
 const passport = require("../passport");
+const singleUpload = upload.single('image');
 
 router.use(function timeLog(req, res, next) {
   console.log("Time: ", Date.now());
@@ -131,7 +137,17 @@ router.get('/user/getBadColor', authController.getBadColor);
 
 //get/set profile picture
 router.get('/user/getProfilePicture', authController.getProfilePicture);
-router.post('/user/setProfilePicture', authController.setProfilePicture);
+router.post('/user/setProfilePicture', function (req, res) {
+
+  singleUpload(req, res, function (err) {
+
+    if (err) {
+      return res.status(400).send({ error: err.message });
+    }
+
+    return res.status(200).json({ 'imageUrl': req.file.location });
+  });
+});
 
 //FINANCE
 
