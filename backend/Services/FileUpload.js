@@ -1,11 +1,13 @@
 const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const path = require("path");
+const config = require(path.resolve(__dirname, "../config.json"));
 
 const s3 = new aws.S3({
-  accessKeyId: "AKIAJFH2VOF5CREPS6LA",
-  secretAccessKey: "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",
-  region: "us-east-2"
+  accessKeyId: config.s3Bucket.accessKeyId,
+  secretAccessKey: config.s3Bucket.secretAccessKey,
+  region: config.s3Bucket.region
 });
 
 const fileFilter = (req, file, cb) => {
@@ -20,7 +22,7 @@ const upload = multer({
   fileFilter,
   storage: multerS3({
     s3,
-    bucket: 'profileimagesfinex',
+    bucket: config.s3Bucket.name,
     acl: 'public-read',
     metadata: function (req, file, cb) {
       cb(null, { fieldName: 'TESTING_META_DATA!' });

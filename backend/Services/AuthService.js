@@ -4,10 +4,9 @@ const path = require("path");
 const User = require(path.resolve(__dirname, "../database/models/user"));
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
-const fs = require('fs');
 const AWS = require('aws-sdk');
-const multer = require('multer');
-const multers3 = require('multer-s3');
+const config = require(path.resolve(__dirname, "../config.json"));
+
 
 var transporter = nodemailer.createTransport({
   service: "gmail",
@@ -237,30 +236,39 @@ exports.acceptWarnings = async function (req) {
 }
 
 exports.warningStatus = async function (req) {
-    const status = await User.findOne(
-          { username: req.user.username },
-          {
-            _id: 0,
-            accepted_warnings: 1,
-          },
-          (err, user) => {}
-        ).exec();
-        if (JSON.stringify(status) === '{}') {
-            return {"accepted_warnings": "false"};
-        }
-      };
+  const status = await User.findOne(
+    { username: req.user.username },
+    {
+      _id: 0,
+      accepted_warnings: 1,
+    },
+    (err, user) => { }
+  ).exec();
+  if (JSON.stringify(status) === '{}') {
+    return { "accepted_warnings": "false" };
+  }
+};
 
 const s3 = new AWS.S3({
-  accessKeyId: "AKIAJFH2VOF5CREPS6LA",
-  secretAccessKey: "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",
-  region: "us-east-2"
+  accessKeyId: config.s3Bucket.accessKeyId,
+  secretAccessKey: config.s3Bucket.secretAccessKey,
+  region: config.s3Bucket.region
 });
 
 exports.getProfilePicture = async function (req) {
   const params = {
-    Bucket: "profileimagesfinex",
+    Bucket: config.s3Bucket.name,
     Key: req.user.username
   };
-  return await s3.getSignedUrlPromise('getObject', params);
+  const defaultParams = {
+    Bucket: "profileimagesfinex",
+    Key: "DEFAULT_IMAGE.png"
+  };
+  try {
+    await s3.headObject(params).promise()
+    return await s3.getSignedUrlPromise('getObject', params);
+  } catch (err) {
+    console.log("File not found");
+    return await s3.getSignedUrlPromise('getObject', defaultParams);
+  }
 }
-
