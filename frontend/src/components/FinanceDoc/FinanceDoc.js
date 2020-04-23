@@ -12,7 +12,7 @@ import {
   RED_COLOR_HEX,
 } from "../../constants/Constants";
 import history from "../../routing/History";
-import { Jumbotron } from "react-bootstrap";
+import { Jumbotron, Spinner } from "react-bootstrap";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 // imports for PDF library
@@ -135,6 +135,7 @@ class FinanceDoc extends Component {
     spentTotal: 0,
     budgetedTotal: 0,
     dataLoaded: false,
+    loadingError: false,
   };
 
   /**
@@ -180,10 +181,15 @@ class FinanceDoc extends Component {
     console.log(GET_CATEGORY_BUDGET);
     let response;
     response = await fetch(GET_CATEGORY_BUDGET);
+
+    if (response.status !== 200) {
+      this.setState({ loadingError: true });
+    }
+
     const body = await response.json();
     console.log(body);
 
-    if (body == null || body == undefined) {
+    if (body == null || body === undefined) {
       return;
     }
 
@@ -298,9 +304,9 @@ class FinanceDoc extends Component {
    */
   renderPercent = () => {
     if (
-      this.state.budgetedTotal == 0 ||
+      this.state.budgetedTotal === 0 ||
       this.state.budgetedTotal == null ||
-      this.state.budgetedTotal == undefined
+      this.state.budgetedTotal === undefined
     )
       return <Text style={styles.amount}>100.00%</Text>;
 
@@ -340,6 +346,23 @@ class FinanceDoc extends Component {
     if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
       history.push(LOGIN_PATH);
       return null;
+    }
+    if (this.state.loadingError) {
+      return (
+        <div className={classes.jumboOuter}>
+          <div className={classes.jumboInner}>
+            <Jumbotron
+              className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
+            >
+              <h1>No Budget Found!</h1>
+              <p>
+                Try coming back when you have created an budget for your
+                account!
+              </p>
+            </Jumbotron>
+          </div>
+        </div>
+      );
     } else if (
       this.state.dataLoaded &&
       this.state.isLoggedIn &&
@@ -363,7 +386,8 @@ class FinanceDoc extends Component {
     } else if (
       this.state.isLoggedIn &&
       this.state.dataLoaded &&
-      this.state.data != null
+      this.state.data != null &&
+      !this.state.loadingError
     ) {
       return (
         <div>
@@ -415,7 +439,7 @@ class FinanceDoc extends Component {
         </div>
       );
     } else {
-      return <h1>Loading...</h1>;
+      return <Spinner animation="border" variant="success" />;
     }
   }
 }

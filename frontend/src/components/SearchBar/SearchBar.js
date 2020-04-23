@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import Dropdown from "react-bootstrap/Dropdown";
-import Button from "react-bootstrap/Button";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
-import FormControl from "react-bootstrap/FormControl";
+import {
+  FormControl,
+  ButtonToolbar,
+  ToggleButtonGroup,
+  ToggleButton,
+  Button,
+  Dropdown,
+} from "react-bootstrap";
 import classes from "./SearchBar.module.css";
-import { STOCK_LIST_URL } from "../../constants/Constants";
-import { CRYPTO_LIST_URL } from "../../constants/Constants";
+import { STOCK_LIST_URL, CRYPTO_LIST_URL } from "../../constants/Constants";
 import history from "../../routing/History";
 import { YOUR_STOCKS_PATH, CRYPTO_EXTENSION } from "../../constants/Constants";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
@@ -29,7 +30,7 @@ class SearchBar extends Component {
     selected: "Stocks",
     showDropdown: true,
     auto: true,
-    alsoItem: false
+    alsoItem: false,
   };
 
   constructor(props) {
@@ -44,11 +45,11 @@ class SearchBar extends Component {
    */
   componentDidMount = () => {
     if (this.state.selected === "Stocks") {
-      this.callStockListAPI(this.state.inputValue).catch(err =>
+      this.callStockListAPI(this.state.inputValue).catch((err) =>
         console.log(err)
       );
     } else {
-      this.callCryptoListAPI(this.state.inputValue).catch(err =>
+      this.callCryptoListAPI(this.state.inputValue).catch((err) =>
         console.log(err)
       );
     }
@@ -79,9 +80,13 @@ class SearchBar extends Component {
    * Makes a call to backend requesting stock list based on
    * input provided.
    */
-  callStockListAPI = async currInputVal => {
+  callStockListAPI = async (currInputVal) => {
     console.log(STOCK_LIST_URL + currInputVal);
-    const response = await fetch(STOCK_LIST_URL + currInputVal);
+    const response = await fetch(STOCK_LIST_URL + currInputVal, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     this.setState({ stockList: body });
 
@@ -95,9 +100,13 @@ class SearchBar extends Component {
    * Makes a call to backend requesting cryptocurrency list based on
    * input provided.
    */
-  callCryptoListAPI = async currInputVal => {
+  callCryptoListAPI = async (currInputVal) => {
     console.log(CRYPTO_LIST_URL + currInputVal);
-    const response = await fetch(CRYPTO_LIST_URL + currInputVal);
+    const response = await fetch(CRYPTO_LIST_URL + currInputVal, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     this.setState({ stockList: body });
 
@@ -114,9 +123,9 @@ class SearchBar extends Component {
   updateValue = (newVal, stopShowing) => {
     this.setState({ inputValue: newVal });
     if (this.state.selected === "Stocks") {
-      this.callStockListAPI(newVal).catch(err => console.log(err));
+      this.callStockListAPI(newVal).catch((err) => console.log(err));
     } else {
-      this.callCryptoListAPI(newVal).catch(err => console.log(err));
+      this.callCryptoListAPI(newVal).catch((err) => console.log(err));
     }
 
     if (stopShowing) {
@@ -141,7 +150,7 @@ class SearchBar extends Component {
           show={this.state.showDropdown + ""}
           key={i}
           eventKey={i}
-          onSelect={eventKey => {
+          onSelect={(eventKey) => {
             this.setState({ alsoItem: true });
             this.updateValue(this.state.stockList[eventKey][0], true);
           }}
@@ -154,7 +163,11 @@ class SearchBar extends Component {
       return;
     }
     return (
-      <Dropdown.Menu ref={this.setWrapperRef} show={this.state.showDropdown}>
+      <Dropdown.Menu
+        className={classes.menu}
+        ref={this.setWrapperRef}
+        show={this.state.showDropdown}
+      >
         {currList}
       </Dropdown.Menu>
     );
@@ -175,7 +188,9 @@ class SearchBar extends Component {
    */
   handleStocksToggle = () => {
     this.setState({ selected: "Stocks" });
-    this.callStockListAPI(this.state.inputValue).catch(err => console.log(err));
+    this.callStockListAPI(this.state.inputValue).catch((err) =>
+      console.log(err)
+    );
   };
 
   /**
@@ -184,7 +199,7 @@ class SearchBar extends Component {
    */
   handleCryptoToggle = () => {
     this.setState({ selected: "Crypto" });
-    this.callCryptoListAPI(this.state.inputValue).catch(err =>
+    this.callCryptoListAPI(this.state.inputValue).catch((err) =>
       console.log(err)
     );
   };
@@ -211,11 +226,11 @@ class SearchBar extends Component {
           value={this.state.inputValue}
           ref={ref}
           className={classes.form}
-          onChange={e => this.updateValue(e.target.value, false)}
-          onClick={e => {
+          onChange={(e) => this.updateValue(e.target.value, false)}
+          onClick={(e) => {
             this.handleFocus();
           }}
-          onBlur={e => this.handleUnfocus()}
+          onBlur={(e) => this.handleUnfocus()}
           autoFocus={this.state.auto}
         />
         {children}
@@ -225,7 +240,7 @@ class SearchBar extends Component {
     return (
       <div
         className={classes.wrapper}
-        onKeyPress={event => {
+        onKeyPress={(event) => {
           if (event.key === "Enter") {
             history.push(YOUR_STOCKS_PATH + "/" + this.state.inputValue);
           }
@@ -242,32 +257,20 @@ class SearchBar extends Component {
               variant="success"
               onClick={this.handleStocksToggle}
               value="Stocks"
-              className={
-                this.context.isDarkMode
-                  ? classes.toggleButtonDark
-                  : classes.toggleButtonLight
-              }
               type="radio"
               name="radio"
               defaultChecked
             >
-              {" "}
               Stocks
             </ToggleButton>
             <ToggleButton
               variant="success"
               onClick={this.handleCryptoToggle}
               value="Crypto"
-              className={
-                this.context.isDarkMode
-                  ? classes.toggleButtonDark
-                  : classes.toggleButtonLight
-              }
               type="radio"
               name="radio"
             >
-              {" "}
-              Crypto{" "}
+              Crypto
             </ToggleButton>
           </ToggleButtonGroup>
         </ButtonToolbar>
@@ -277,11 +280,7 @@ class SearchBar extends Component {
         </Dropdown>
         <Button
           variant="success"
-          className={
-            this.context.isDarkMode
-              ? classes.searchButtonDark
-              : classes.searchButtonLight
-          }
+          className={classes.searchButton}
           onClick={() => {
             if (this.state.selected === "Crypto") {
               history.push(

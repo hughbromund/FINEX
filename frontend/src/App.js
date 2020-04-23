@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import classes from "./App.module.css";
 import NavigationBar from "./components/NavigationBar/NavigationBar";
+import Footer from "./components/Footer/Footer";
 // import RegistrationPage from "./components/RegistrationPage";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.scss";
 // import ResetEmail from "./components/ResetEmail";
 import Routes from "./routing/Routes";
 // import AccountPage from "./components/AccountPage";
@@ -17,10 +19,7 @@ function BodyWrapper({ children }) {
 }
 
 class App extends Component {
-
-
   render() {
-
     // console.log(process.env.NODE_ENV)
 
     return (
@@ -33,6 +32,7 @@ class App extends Component {
           <div className={classes.bodyDiv}>
             <Routes />
           </div>
+          {/* If we want footer uncomment this. <Footer /> */}
         </BodyWrapper>
       </DarkModeProvider>
     );

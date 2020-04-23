@@ -66,7 +66,7 @@ export default class MonthProgress extends Component {
     //console.log(projectedSpending)
     //console.log(this.state.spent)
 
-    if (projectedSpending > this.state.spent) {
+    if (this.state.budgeted > this.state.spent) {
       return true;
     } else {
       return false;
@@ -77,6 +77,7 @@ export default class MonthProgress extends Component {
     var response = await fetch(GET_OVERALL_BUDGET, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
       // credentials: 'same-origin'
     }).catch((err) => {
       this.setState({
@@ -129,10 +130,13 @@ export default class MonthProgress extends Component {
         <div hidden={this.state.serverError || this.state.noBudget}>
           <b>Current Spending:</b> ${this.state.spent} <br />
           <b>Budgeted Spending:</b> ${this.state.budgeted}
+          <br />
+          <br />
           <ProgressBar
             variant={this.getVarient()}
-            now={this.state.day}
-            max={this.getDaysInMonth()}
+            now={this.state.spent}
+            max={this.state.budgeted}
+            label={"$" + this.state.spent}
           ></ProgressBar>
           <div>
             There are <b>{this.getDaysInMonth() - this.state.day}</b> days left

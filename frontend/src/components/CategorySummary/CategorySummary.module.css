@@ -8,6 +8,8 @@
 .jumboWrapper {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+  height: 50%;
 }
 
 .chartWrapper {
@@ -45,6 +47,7 @@
   display: block;
   text-align: left;
   font-weight: bold;
+  min-width: 200px;
   width: 50%;
 }
 
@@ -53,4 +56,30 @@
   text-align: right;
   margin-left: 10px;
   width: 40%;
+}
+
+.outerJumbo {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggles {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+@media (max-width: 991px) {
+  .contentWrapper {
+    flex-direction: column;
+  }
+
+  .textWrapper {
+    width: 100vw;
+    justify-content: center;
+  }
+
+  .wrapper {
+    height: 100%;
+    background: #121212;
+  }
 }
