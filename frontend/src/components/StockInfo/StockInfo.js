@@ -70,8 +70,9 @@ class StockInfo extends Component {
     isLoggedIn: false,
     following: false,
     followedStocks: [],
-    shareURL: "finex.com",
-    shareQuote: "I am following stocks using FINEX! Come join me!",
+    shareURL: "https://www.finex.money",
+    shareQuote1: "I am following ",
+    shareQuote2: " stock using FINEX! Come join me!",
     hasPortfolio: false,
     buyShares: 0,
     sellShares: 0,
@@ -792,19 +793,36 @@ class StockInfo extends Component {
           </div>
           <FacebookShareButton
             url={this.state.shareURL}
-            quote={this.state.shareQuote}
+            title={
+              this.state.shareQuote1 +
+              this.state.stockSymbol +
+              this.state.shareQuote2
+            }
+            quote={
+              this.state.shareQuote1 +
+              this.state.stockSymbol +
+              this.state.shareQuote2
+            }
           >
             <FacebookIcon size={32} round />
           </FacebookShareButton>
           <TwitterShareButton
             url={this.state.shareURL}
-            quote={this.state.shareQuote}
+            title={
+              this.state.shareQuote1 +
+              this.state.stockSymbol +
+              this.state.shareQuote2
+            }
           >
             <TwitterIcon size={32} round />
           </TwitterShareButton>
           <RedditShareButton
             url={this.state.shareURL}
-            quote={this.state.shareQuote}
+            title={
+              this.state.shareQuote1 +
+              this.state.stockSymbol +
+              this.state.shareQuote2
+            }
           >
             <RedditIcon size={32} round />
           </RedditShareButton>
