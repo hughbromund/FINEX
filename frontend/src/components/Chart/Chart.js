@@ -8,7 +8,9 @@ import {
   getIntradayData,
 } from "./ChartUtils";
 
+import { Spinner } from "react-bootstrap";
 import StockChart from "./StockChart";
+import classes from "./Chart.module.css";
 /*
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -78,9 +80,17 @@ export default class Chart extends React.Component {
   }
   render() {
     if (this.state == null) {
-      return <div>Loading...</div>;
+      return (
+        <div className={classes.spinnerWrapper}>
+          <Spinner animation="border" variant="success" />
+        </div>
+      );
     } else if (this.state.data == null || this.state.data[0]["date"] == null) {
-      return <div>Loading...</div>;
+      return (
+        <div className={classes.spinnerWrapper}>
+          <Spinner animation="border" variant="success" />
+        </div>
+      );
     }
     return (
       <div>

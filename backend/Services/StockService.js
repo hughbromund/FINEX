@@ -189,14 +189,6 @@ exports.getPortfolio = async function (req) {
         return alpha.util.polish(data).data;
       });
 
-    
-    return {
-        "status": 200,
-        "wallet": foundPortfolio.wallet,
-        "investing": investing,
-        "stocks": stocks
-    }
-
     let stockPrice = stockData[Object.keys(stockData)[0]].open;
 
     stocks[index].price = stockPrice;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./NotFound.module.css";
-import SearchBar from "./SearchBar/SearchBar";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import SearchBar from "../SearchBar/SearchBar";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 /**
  * This class displays the page navigated to by a user entering
@@ -24,8 +24,10 @@ class NotFound extends Component {
             In the mean time, feel free to search for a stock you're interested
             in...
           </div>
-          <div className={classes.searchBar}>
-            <SearchBar />
+          <div className={classes.searchBarOuter}>
+            <div className={classes.searchBar}>
+              <SearchBar />
+            </div>
           </div>
         </div>
       </div>

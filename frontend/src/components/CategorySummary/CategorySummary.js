@@ -6,7 +6,7 @@ import {
   CATEGORY_DATA_URL,
   GREEN_COLOR_HEX,
 } from "../../constants/Constants";
-import { ToggleButton, ToggleButtonGroup, Jumbotron } from "react-bootstrap";
+import { Spinner, Jumbotron, ListGroup } from "react-bootstrap";
 import classes from "./CategorySummary.module.css";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 
@@ -41,7 +41,11 @@ class CategorySummary extends Component {
   callAuthAPI = async () => {
     console.log(USER_INFO_URL);
     let response;
-    response = await fetch(USER_INFO_URL);
+    response = await fetch(USER_INFO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     // const body = await response.json();
     // console.log(body.status);
 
@@ -57,7 +61,11 @@ class CategorySummary extends Component {
   callBudgetAPI = async (cat) => {
     console.log(CATEGORY_DATA_URL + cat);
     let response;
-    response = await fetch(CATEGORY_DATA_URL + cat);
+    response = await fetch(CATEGORY_DATA_URL + cat, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     console.log(body);
 
@@ -84,7 +92,8 @@ class CategorySummary extends Component {
 
     for (let i = 0; i < cats.length; i++) {
       buttonsArr.push(
-        <ToggleButton
+        <ListGroup.Item
+          action
           key={i}
           variant="success"
           value={cats[i]}
@@ -93,14 +102,21 @@ class CategorySummary extends Component {
           }}
         >
           {cats[i]}
-        </ToggleButton>
+        </ListGroup.Item>
       );
     }
 
     return (
-      <ToggleButtonGroup type="radio" name="options" defaultValue={"Housing"}>
-        {buttonsArr}
-      </ToggleButtonGroup>
+      <div className={classes.toggles}>
+        <ListGroup
+          horizontal="lg"
+          type="radio"
+          name="options"
+          defaultValue={"Housing"}
+        >
+          {buttonsArr}
+        </ListGroup>
+      </div>
     );
   };
 
@@ -132,6 +148,7 @@ class CategorySummary extends Component {
    */
   handleToggle = (cat) => {
     this.setState({ currCat: cat });
+    this.setState({ activeIndex: 0 });
     this.callBudgetAPI(cat);
   };
 
@@ -224,10 +241,10 @@ class CategorySummary extends Component {
       history.push(LOGIN_PATH);
       return null;
     } else if (this.state.isLoggedIn == null) {
-      return <h1>Loading...</h1>;
-    } else if (this.state.data.length == 0) {
+      return <Spinner animation="border" variant="success" />;
+    } else if (this.state.data.length === 0) {
       return (
-        <div>
+        <div className={classes.outerJumbo}>
           {toggles}
           <div key="jumbo" className={classes.jumboWrapper}>
             <Jumbotron
@@ -241,7 +258,7 @@ class CategorySummary extends Component {
       );
     } else {
       return (
-        <div>
+        <div className={this.context.isDarkMode ? classes.wrapper : ""}>
           {toggles}
           <div key="content" className={classes.contentWrapper}>
             <div className={classes.textWrapper}>

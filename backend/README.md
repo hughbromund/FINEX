@@ -515,6 +515,25 @@ or
 "status": "No user logged in."
 }
 
+### /user/acceptWarnings
+
+POST
+This represents accepting warnings on a user account
+Requirements: "accepted_warnings" in JSON
+Returns: Returns 400 and "status": "acceptance status not passed!" JSON if user does not pass a boolean value
+and 200 "acceptance status updated" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+"accepted_warnings": true/false
+}
+or
+{
+"status": "No user logged in."
+}
+
 ### /user/getGoodColor
 
 GET
@@ -527,6 +546,24 @@ Bugs: none as of now
 JSON Format (Output):
 {
 "good_color": "some hash value"
+}
+
+### /user/warningStatus
+
+GET
+This represents getting whether or not a user has accepted warnings
+Requirements: none
+Returns: Returns 200 and the acceptance status on success and an error otherwise
+Status: Working
+Bugs: none as of now
+
+JSON Format (Output):
+{
+"accepted_warnings": "true/false"
+}
+or
+{
+"status": "No user logged in."
 }
 
 ### /user/getBadColor

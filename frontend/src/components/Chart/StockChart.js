@@ -131,7 +131,7 @@ class LineAndScatterChartGrid extends React.Component {
             orient="bottom"
             {...gridProps}
             {...xGrid}
-            tickStroke={this.context.isDarkMode ? "white" : ""}
+            tickStroke={this.context.isDarkMode ? "white" : "black"}
           />
           <YAxis
             axisAt="right"
@@ -139,7 +139,7 @@ class LineAndScatterChartGrid extends React.Component {
             ticks={5}
             {...gridProps}
             {...yGrid}
-            tickStroke={this.context.isDarkMode ? "white" : ""}
+            tickStroke={this.context.isDarkMode ? "white" : "black"}
           />
           <MouseCoordinateX
             at="bottom"

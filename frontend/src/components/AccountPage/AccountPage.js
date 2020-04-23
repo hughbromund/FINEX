@@ -80,7 +80,7 @@ export default class AccountPage extends Component {
   }
 
   callUserInfo = async () => {
-    console.log("MADE IT TO CALL USER INFO");
+    // ("MADE IT TO CALL USER INFO");
     var response = await fetch(USER_INFO_URL, {
       method: "GET",
       credentials: "include",
@@ -89,7 +89,7 @@ export default class AccountPage extends Component {
     });
     // console.log(response)
     var body = await response.json();
-    console.log(body);
+    //console.log(body);
     this.setState({
       username: body.username,
       email: body.email,
@@ -100,7 +100,7 @@ export default class AccountPage extends Component {
 
   handlePrimaryChangeComplete = (color) => {
     this.setState({ primaryColor: color.hex });
-    console.log(JSON.stringify({ good_color: this.state.primaryColor }));
+    // console.log(JSON.stringify({ good_color: this.state.primaryColor }));
     this.updateGoodColor(color.hex);
   };
 
@@ -205,18 +205,12 @@ export default class AccountPage extends Component {
   };
 
   render() {
-    const popover = (
-      <Popover>
-        <Popover.Title as="h3">Currently Unavailable</Popover.Title>
-        <Popover.Content>
-          Unfortunately, you can't change your username at this time. We
-          apologize for the inconvenience.
-        </Popover.Content>
-      </Popover>
-    );
-
     return (
-      <div className={classes.wrapper}>
+      <div
+        className={
+          this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
+        }
+      >
         <div className={classes.inner}>
           <div
             className={
@@ -225,9 +219,6 @@ export default class AccountPage extends Component {
                 : classes.wrapperLight
             }
           >
-            <br />
-            <br />
-
             <Image
               rounded
               src={this.state.profilePicURL}
@@ -239,22 +230,27 @@ export default class AccountPage extends Component {
               <Card.Header>Your Account</Card.Header>
               <Card.Body>
                 <Card.Title>
-                  Welcome Back, <b>{this.state.name}</b>&nbsp;&nbsp;
-                  <Badge
-                    variant="success"
-                    onClick={() => history.push(RESET_NAME_PATH)}
-                  >
-                    Update Name
-                  </Badge>
-                  &nbsp;&nbsp;
-                  <Badge
-                    variant="success"
-                    onClick={() => history.push(RESET_PROFILE_PICTURE_PATH)}
-                  >
-                    Update Profile Picture
-                  </Badge>
+                  Welcome Back, <b>{this.state.name}</b>
+                  <span style={{ float: "right" }}>
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={() => history.push(RESET_NAME_PATH)}
+                    >
+                      Update Name
+                    </Button>
+                    &nbsp;&nbsp;
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={() => history.push(RESET_PROFILE_PICTURE_PATH)}
+                    >
+                      Update Profile Picture
+                    </Button>
+                  </span>
                 </Card.Title>
                 <Card.Subtitle>
+                  <br />
                   Manage your Info, Privacy, and Security settings to make{" "}
                   <b>FINEX</b> yours.
                 </Card.Subtitle>
@@ -268,90 +264,107 @@ export default class AccountPage extends Component {
               <Card.Body>
                 <div>
                   Username: <b>{this.state.username}</b>&nbsp;&nbsp;
-                  <OverlayTrigger
-                    trigger="click"
-                    placement="top"
-                    overlay={popover}
-                  >
-                    <Badge variant="success">Update Username</Badge>
-                  </OverlayTrigger>
                 </div>
+                <hr />
                 <div>
                   Email: <b>{this.state.email}</b>&nbsp;&nbsp;
-                  <Badge
-                    variant="success"
-                    onClick={() => history.push(RESET_EMAIL_PATH)}
-                  >
-                    Update Email
-                  </Badge>
+                  <span style={{ float: "right" }}>
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={() => history.push(RESET_EMAIL_PATH)}
+                    >
+                      Update Email
+                    </Button>
+                  </span>
                 </div>
+                <hr />
                 <div>
                   Password: <b>{this.state.password}</b>
-                  <Badge
-                    variant="success"
-                    onClick={() => history.push(RESET_PASSWORD_PATH)}
-                  >
-                    Change Password
-                  </Badge>
+                  <span style={{ float: "right" }}>
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={() => history.push(RESET_PASSWORD_PATH)}
+                    >
+                      Change Password
+                    </Button>
+                  </span>
                 </div>
+                <hr />
                 <div>
                   Current Primary Color:<b>{this.state.primaryColor}</b>
-                  <Badge
-                    variant="success"
-                    onClick={() =>
-                      this.setState({ isPrimaryPickerHidden: false })
-                    }
-                  >
-                    Change Primary Color
-                  </Badge>
+                  <span style={{ float: "right" }}>
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={() =>
+                        this.setState({ isPrimaryPickerHidden: false })
+                      }
+                    >
+                      Change Primary Color
+                    </Button>
+                  </span>
                   <div hidden={this.state.isPrimaryPickerHidden}>
                     <SketchPicker
                       color={this.state.primaryColor}
                       onChangeComplete={this.handlePrimaryChangeComplete}
                     />
-                    <Badge
+                    <Button
                       variant="success"
+                      size="sm"
                       onClick={() =>
                         this.setState({ isPrimaryPickerHidden: true })
                       }
                     >
                       Close
-                    </Badge>
+                    </Button>
                   </div>
+                  <hr />
                   <div>
                     Current Secondary Color:<b>{this.state.secondaryColor}</b>
-                    <Badge
-                      variant="success"
-                      onClick={() =>
-                        this.setState({ isSecondaryPickerHidden: false })
-                      }
-                    >
-                      Change Secondary Color
-                    </Badge>
+                    <span style={{ float: "right" }}>
+                      <Button
+                        variant="success"
+                        size="sm"
+                        onClick={() =>
+                          this.setState({ isSecondaryPickerHidden: false })
+                        }
+                      >
+                        Change Secondary Color
+                      </Button>
+                    </span>
                     <div hidden={this.state.isSecondaryPickerHidden}>
                       <SketchPicker
                         color={this.state.secondaryColor}
                         onChangeComplete={this.handleSecondaryChangeComplete}
                       />
-                      <Badge
+                      <Button
                         variant="success"
+                        size="sm"
                         onClick={() =>
                           this.setState({ isSecondaryPickerHidden: true })
                         }
                       >
                         Close
-                      </Badge>
+                      </Button>
                     </div>
                   </div>
                 </div>
+                <hr />
                 <div>
-                  <br />
-                  <Toggles />
+                  Light/Dark Mode Toggle:
+                  <span style={{ float: "right" }}>
+                    <Toggles />
+                  </span>
                 </div>
+                <hr />
                 <div>
                   Preset Themes:&nbsp;&nbsp;
-                  <Badge
+                  <br />
+                  <Button
                     variant="success"
+                    size="sm"
                     onClick={() => {
                       this.setState({
                         primaryColor: GREEN_COLOR_HEX,
@@ -362,10 +375,11 @@ export default class AccountPage extends Component {
                     }}
                   >
                     Standard
-                  </Badge>
-                  &nbsp;&nbsp;
-                  <Badge
+                  </Button>
+                  &nbsp;
+                  <Button
                     variant="success"
+                    size="sm"
                     onClick={() => {
                       this.setState({
                         primaryColor: RED_COLOR_HEX,
@@ -376,10 +390,11 @@ export default class AccountPage extends Component {
                     }}
                   >
                     Inverse
-                  </Badge>
-                  &nbsp;&nbsp;
-                  <Badge
+                  </Button>
+                  &nbsp;
+                  <Button
                     variant="success"
+                    size="sm"
                     onClick={() => {
                       this.setState({
                         primaryColor: BLUE_COLOR_HEX,
@@ -390,10 +405,11 @@ export default class AccountPage extends Component {
                     }}
                   >
                     Blue/Yellow (accessibility mode)
-                  </Badge>
-                  &nbsp;&nbsp;
-                  <Badge
+                  </Button>
+                  &nbsp;
+                  <Button
                     variant="success"
+                    size="sm"
                     onClick={() => {
                       this.setState({
                         primaryColor: GREEN_COLOR_HEX,
@@ -404,13 +420,19 @@ export default class AccountPage extends Component {
                     }}
                   >
                     Green Only (accessibility mode)
-                  </Badge>
+                  </Button>
                 </div>
               </Card.Body>
             </Card>
           </div>
           <br />
-          <div className={classes.wrapper}>
+          <div
+            className={
+              this.context.isDarkMode
+                ? classes.wrapperDark
+                : classes.wrapperLight
+            }
+          >
             <Button variant="danger" onClick={this.handleLogout}>
               Logout
             </Button>

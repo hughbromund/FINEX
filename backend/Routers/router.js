@@ -21,7 +21,13 @@ var financeController = require(path.resolve(
   "../Controllers/FinanceController"
 ));
 
+var upload = require(path.resolve(
+  __dirname,
+  "../Services/FileUpload"
+));
+
 const passport = require("../passport");
+const singleUpload = upload.single('image');
 
 router.use(function timeLog(req, res, next) {
   console.log("Time: ", Date.now());
@@ -40,10 +46,7 @@ router.get("/api/crypto/auto/:input", cryptoController.getAutoComplete);
 router.get("/api/crypto/auto/", cryptoController.getAutoCompleteEmpty);
 
 //retrieve stock intraday data endpoint
-router.get(
-  "/api/stock/intraday/:code",
-  stockController.getStockIntraday
-);
+router.get("/api/stock/intraday/:code", stockController.getStockIntraday);
 
 //retrieve stock daily data endpoint
 router.get("/api/stock/daily/:code", stockController.getStockDaily);
@@ -52,40 +55,22 @@ router.get("/api/stock/daily/:code", stockController.getStockDaily);
 router.get("/api/crypto/daily/:code", cryptoController.getCryptoDaily);
 
 //retrieve crypto daily data endpoint
-router.get(
-  "/api/crypto/weekly/:code",
-  cryptoController.getCryptoWeekly
-);
+router.get("/api/crypto/weekly/:code", cryptoController.getCryptoWeekly);
 
 //retrieve SMA data endpoint
-router.get(
-  "/api/stock/sma/:code/:interval/:series_type",
-  stockController.getSMA
-);
+router.get("/api/stock/sma/:code/:interval/:series_type", stockController.getSMA);
 
 //retrieve EMA data endpoint
-router.get(
-  "/api/stock/ema/:code/:interval/:series_type",
-  stockController.getEMA
-);
+router.get("/api/stock/ema/:code/:interval/:series_type", stockController.getEMA);
 
 //retrieve EMA data endpoint
-router.get(
-  "/api/stock/rsi/:code/:interval/:series_type",
-  stockController.getRSI
-);
+router.get("/api/stock/rsi/:code/:interval/:series_type", stockController.getRSI);
 
 //retrieve EMA data endpoint
-router.get(
-  "/api/stock/bbands/:code/:interval/:series_type",
-  stockController.getBbands
-);
+router.get("/api/stock/bbands/:code/:interval/:series_type", stockController.getBbands);
 
 //retrieve EMA data endpoint
-router.get(
-  "/api/stock/macd/:code/:interval/:series_type",
-  stockController.getMACD
-);
+router.get("/api/stock/macd/:code/:interval/:series_type", stockController.getMACD);
 
 //update user's stock array
 router.post("/stock/addStock", stockController.addStockToUser);
@@ -95,10 +80,7 @@ router.post("/stock/removeStock", stockController.removeStockFromUser);
 router.get("/stock/getStocks", stockController.getStocks);
 
 //stock sims
-router.post(
-  "/stock/sim/createPortfolio",
-  stockController.createPortfolio
-);
+router.post("/stock/sim/createPortfolio", stockController.createPortfolio);
 router.get("/stock/sim/getPortfolio", stockController.getPortfolio);
 router.post("/stock/sim/buyStock", stockController.buyStock);
 router.post("/stock/sim/sellStock", stockController.sellStock);
@@ -122,11 +104,7 @@ router.post("/auth_stub/login", authController.loginStub);
 router.post("/auth/register", authController.register);
 
 //login account
-router.post(
-  "/auth/login",
-  passport.authenticate("local"),
-  authController.login
-);
+router.post("/auth/login", passport.authenticate("local"), authController.login);
 
 //logout account
 router.post("/auth/logout", authController.logout);
@@ -149,13 +127,27 @@ router.post("/user/updateBadColor", authController.updateBadColor);
 //update dark/light mode
 router.post("/user/lightDarkMode", authController.updateMode);
 
+//accept warnings
+router.post("/user/acceptWarnings", authController.acceptWarnings);
+router.get("/user/warningStatus", authController.warningStatus);
+
 //get good/bad color hex value
-router.get('/user/getGoodColor', cors(), authController.getGoodColor);
-router.get('/user/getBadColor', cors(), authController.getBadColor);
+router.get('/user/getGoodColor', authController.getGoodColor);
+router.get('/user/getBadColor', authController.getBadColor);
 
 //get/set profile picture
-router.get('/user/getProfilePicture', cors(), authController.getProfilePicture);
-router.post('/user/setProfilePicture', cors(), authController.setProfilePicture);
+router.get('/user/getProfilePicture', authController.getProfilePicture);
+router.post('/user/setProfilePicture', function (req, res) {
+
+  singleUpload(req, res, function (err) {
+
+    if (err) {
+      return res.status(400).send({ error: err.message });
+    }
+
+    return res.status(200).json({ 'imageUrl': req.file.location });
+  });
+});
 
 //FINANCE
 
@@ -175,13 +167,9 @@ router.get("/finance/expense/:category", financeController.getCategory);
 router.get("/finance/total", financeController.getTotal);
 
 //insert new transaction
-router.post(
-  "/transaction/newTransaction",
-  financeController.insertTransaction
-);
+router.post("/transaction/newTransaction", financeController.insertTransaction);
 
 //create new budget
-
 router.post('/budget/createBudget', financeController.createBudget);
 
 //generate advice

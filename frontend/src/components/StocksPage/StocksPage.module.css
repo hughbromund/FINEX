@@ -8,7 +8,15 @@
 
 .wrapper {
   margin-top: 20px;
-  margin-left: 40px;
+  padding-left: 40px;
+  height: 100%;
+}
+
+.wrapperDark {
+  margin-top: 20px;
+  padding-left: 40px;
+  height: 100%;
+  background: #121212;
 }
 
 .investmentDiv {
@@ -40,4 +48,18 @@ tr {
 }
 
 .none {
+}
+
+h3 {
+  margin-bottom: 30px;
+  margin-right: 10px;
+}
+
+.netChange {
+  display: flex;
+  flex-direction: row;
+}
+
+.alertDiv {
+  margin-right: 20px;
 }

@@ -27,6 +27,7 @@ import {
   INVESTMENT_TACTICS_PATH,
   STOCKS_PAGE_PATH,
   ALERT_RISK,
+  GET_WARNING_STATUS,
 } from "../../constants/Constants";
 
 // import { LOGIN_PATH } from "../constants/Constants"
@@ -133,7 +134,23 @@ export default class NavigationBar extends Component {
                 >
                   YOUR STOCKS
                 </NavDropdown.Item>
-                <NavDropdown.Item onClick={() => history.push(ALERT_RISK)}>
+                <NavDropdown.Item
+                  onClick={async () => {
+                    var res = await fetch(GET_WARNING_STATUS, {
+                      method: "GET",
+                      credentials: "include",
+                      withCredentials: true,
+                    });
+                    const body = await res.json();
+                    console.log(body);
+                    console.log(res);
+                    if (body.accepted_warnings) {
+                      history.push(INVESTMENT_TACTICS_PATH);
+                    } else {
+                      history.push(ALERT_RISK);
+                    }
+                  }}
+                >
                   INVESTMENT TACTICS
                 </NavDropdown.Item>
               </NavDropdown>

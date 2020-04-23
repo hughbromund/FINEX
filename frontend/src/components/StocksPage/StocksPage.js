@@ -5,9 +5,10 @@ import {
   GET_PORTFOLIO_URL,
   CREATE_PORTFOLIO_URL,
   YOUR_STOCKS_PATH,
+  INVESTMENT_TACTICS_PATH,
 } from "../../constants/Constants";
 import history from "../../routing/History";
-import { Jumbotron, Button, Table } from "react-bootstrap";
+import { Jumbotron, Button, Table, Spinner, Alert } from "react-bootstrap";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import classes from "./StocksPage.module.css";
 
@@ -15,6 +16,8 @@ class StocksPage extends Component {
   state = {
     isLoggedIn: null,
     portfolio: null,
+    dataReceived: false,
+    showAlert: true,
   };
 
   componentDidMount = () => {
@@ -34,7 +37,11 @@ class StocksPage extends Component {
   callAuthAPI = async () => {
     console.log(USER_INFO_URL);
     let response;
-    response = await fetch(USER_INFO_URL);
+    response = await fetch(USER_INFO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     // const body = await response.json();
     // console.log(body.status);
 
@@ -54,24 +61,26 @@ class StocksPage extends Component {
   getPortfolio = async () => {
     console.log(GET_PORTFOLIO_URL);
     let response;
-    response = await fetch(GET_PORTFOLIO_URL);
+    response = await fetch(GET_PORTFOLIO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     console.log(body);
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       // console.log("false");
       this.setState({ portfolio: body });
     }
+    this.setState({ dataReceived: true });
   };
 
   createPortfolio = async () => {
     fetch(CREATE_PORTFOLIO_URL, {
       method: "POST",
       withCredentials: true,
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
-      // body: JSON.stringify({ good_color: newGoodColor }),
+      credentials: "include",
     });
 
     let defaultPortfolio = {
@@ -88,7 +97,7 @@ class StocksPage extends Component {
     let dataArr = this.state.portfolio["stocks"];
     let tableArr = [];
 
-    if (dataArr.length == 0) {
+    if (dataArr.length === 0) {
       return (
         <div className={classes.jumboWrapper}>
           <Jumbotron
@@ -147,7 +156,7 @@ class StocksPage extends Component {
           <td>{"$" + parseFloat(dataArr[i]["price"]).toFixed(2)}</td>
           <td>{"$" + parseFloat(dataArr[i]["buyValue"]).toFixed(2)}</td>
           <td>{"$" + parseFloat(dataArr[i]["value"]).toFixed(2)}</td>
-          <td className={color}>{"%" + percentChange.toFixed(2)}</td>
+          <td className={color}>{percentChange.toFixed(2) + "%"}</td>
         </tr>
       );
     }
@@ -159,15 +168,41 @@ class StocksPage extends Component {
     );
   };
 
+  renderNetChange = () => {
+    let change = (
+      this.state.portfolio["wallet"] +
+      this.state.portfolio["investing"] -
+      5000.0
+    ).toFixed(2);
+
+    if (change < 0) {
+      return (
+        <div className={classes.netChange}>
+          <h3>Net Loss: </h3>
+          <h3 className={classes.red}>{"$" + Math.abs(change)}</h3>
+        </div>
+      );
+    } else if (change > 0) {
+      return (
+        <div className={classes.netChange}>
+          <h3 className={classes.red}>Net Gain: </h3>
+          <h3>{"$" + Math.abs(change)}</h3>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  };
+
   render() {
     if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
       history.push(LOGIN_PATH);
       return null;
-    } else if (this.state.isLoggedIn == null) {
-      return <h1>Loading...</h1>;
+    } else if (this.state.isLoggedIn == null || !this.state.dataReceived) {
+      return <Spinner animation="border" variant="success" />;
     } else if (
       this.state.portfolio == null ||
-      this.state.portfolio == undefined
+      this.state.portfolio === undefined
     ) {
       return (
         <div className={classes.jumboWrapper}>
@@ -188,7 +223,38 @@ class StocksPage extends Component {
       );
     } else {
       return (
-        <div className={classes.wrapper}>
+        <div
+          className={
+            this.context.isDarkMode ? classes.wrapperDark : classes.wrapper
+          }
+        >
+          <div className={classes.alertDiv}>
+            <Alert
+              show={this.state.showAlert}
+              onClose={() => {
+                this.setState({ showAlert: false });
+              }}
+              variant="warning"
+              dismissible
+            >
+              <Alert.Heading>Don't know how to make a portfolio?</Alert.Heading>
+              <p>
+                Visit our investment tactics page to learn more about how to
+                manage your money wisely.
+              </p>
+              <hr />
+              <div className="d-flex justify-content-end">
+                <Button
+                  onClick={() => {
+                    history.push(INVESTMENT_TACTICS_PATH);
+                  }}
+                  variant="outline-warning"
+                >
+                  Learn More
+                </Button>
+              </div>
+            </Alert>
+          </div>
           <div className={classes.investmentDiv}>
             <div>
               <h1>Simulated Portfolio:</h1>
@@ -215,6 +281,7 @@ class StocksPage extends Component {
                     ).toFixed(2)}
                 </h3>
               </div>
+              {this.renderNetChange()}
               <div className={classes.table}>{this.renderStockTable()}</div>
             </div>
           </div>

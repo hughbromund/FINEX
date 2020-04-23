@@ -1,16 +1,25 @@
 .wrapperDark {
-  display: flex;
-  justify-content: center;
   background-color: #121212;
+  display: flex;
   transition: 0.3s;
-  height: 1vh;
 }
 .wrapperLight {
   display: flex;
   justify-content: center;
   transition: 0.3s;
+  position: relative;
 }
 
 .inner {
   width: 50rem;
+  justify-content: center;
+}
+
+.stackTop {
+  width: 30rem;
+  justify-content: center;
+}
+
+.container {
+  position: relative;
 }
