@@ -2,17 +2,5 @@
     "compilerOptions": {
         "experimentalDecorators": true,
         "allowJs": true
-    },
-    "database": {
-        "uri": "mongodb+srv://niyatisriram:e4FnVugwNF7jGRSv@data-krx7s.mongodb.net/FINEX?retryWrites=true&w=majority"
-    },
-    "s3Bucket": {
-        "name": "profileimagesfinex",
-        "accessKeyID": "AKIAID5CVQGA73OVX2HQ",
-        "secretAccessKey": "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",
-        "region": "us-east-2"
-    },
-    "alphavantage": {
-        "key": "PIL8EASGF14AB1M6"
     }
 }
