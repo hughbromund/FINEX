@@ -3,9 +3,15 @@ import Dropzone from "react-dropzone";
 import ReactCrop from "react-image-crop";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Collapse from "react-bootstrap/Collapse";
 
 import classes from "./ResetProfilePicture.module.css";
 import "react-image-crop/dist/ReactCrop.css";
+
+import {
+  PUT_PROFILE_IMAGE,
+  POST_CREATE_BUDGET,
+} from "../../constants/Constants";
 
 const imageMaxSize = 1000;
 const acceptedFileTypes = ["png", "jpg"];
@@ -31,8 +37,31 @@ export default class ResetProfilePicture extends Component {
     };
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting");
+    if (
+      this.state.croppedImage === null ||
+      this.state.croppedImage === undefined
+    ) {
+      console.log("No Image");
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("image", this.state.croppedImage);
+
+    var res = await fetch(PUT_PROFILE_IMAGE, {
+      method: "POST",
+      credentials: "include",
+      withCredentials: true,
+      body: formData,
+    });
+
+    var response = await res.json();
+
+    console.log(response);
   };
 
   handleFile = (e) => {
@@ -54,7 +83,8 @@ export default class ResetProfilePicture extends Component {
   onCropComplete = (crop) => {
     if (this.imageRef && crop.width && crop.height) {
       const croppedImageUrl = this.getCroppedImg(this.imageRef, crop);
-      this.setState({ croppedImageUrl });
+      //console.log(croppedImageUrl)
+      // this.setState({ croppedImageUrl: croppedImageUrl });
     }
   };
 
@@ -98,7 +128,12 @@ export default class ResetProfilePicture extends Component {
       u8arr[n] = bstr.charCodeAt(n);
     }
     let croppedImage = new File([u8arr], filename, { type: mime });
-    this.setState({ croppedImage: croppedImage });
+    //console.log(croppedImage)
+    this.setState({
+      croppedImage: croppedImage,
+      croppedImageUrl: URL.createObjectURL(croppedImage),
+    });
+    console.log(this.state.croppedImageUrl);
   }
 
   render() {
@@ -128,6 +163,12 @@ export default class ResetProfilePicture extends Component {
               Submit
             </Button>
           </Form>
+          <Collapse in={this.state.croppedImageUrl !== null}>
+            <div>
+              <h1>Profile Picture Preview</h1>
+              <img src={this.state.croppedImageUrl}></img>
+            </div>
+          </Collapse>
         </div>
       </div>
     );
