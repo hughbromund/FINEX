@@ -8,7 +8,7 @@
 }
 .wrapperLight {
   display: flex;
-  justify-content: center;
+  /*justify-content: center;*/
   transition: 0.3s;
   position: absolute;
 }
@@ -17,12 +17,44 @@
   width: 50rem;
 }
 
+@media only screen and (max-width: 1600px) {
+  .stackTop {
+    display: none;
+    z-index: 9;
+    position: fixed;
+    top: 50;
+    right: 0;
+    width: 50rem;
+  }
+  .container {
+    position: relative;
+  }
+  .wrapperDark {
+    display: flex;
+    /*justify-content: center;*/
+    background-color: #121212;
+    transition: 0.3s;
+    position: absolute;
+    height: 1vh;
+  }
+  .wrapperLight {
+    display: flex;
+    /*justify-content: center;*/
+    transition: 0.3s;
+    position: absolute;
+  }
+
+  .inner {
+    width: 50rem;
+  }
+}
+
 .stackTop {
   z-index: 9;
   position: fixed;
   top: 50;
-  right: 0;
-  width: 50rem;
+  right: 20rem;
+  width: 30rem;
 }
 
 .container {

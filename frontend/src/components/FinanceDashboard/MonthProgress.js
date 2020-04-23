@@ -77,6 +77,7 @@ export default class MonthProgress extends Component {
     var response = await fetch(GET_OVERALL_BUDGET, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
       // credentials: 'same-origin'
     }).catch((err) => {
       this.setState({

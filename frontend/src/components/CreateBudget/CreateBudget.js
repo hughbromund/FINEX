@@ -387,7 +387,6 @@ export default class CreateBudget extends Component {
           className={
             this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
           }
-          style={{ zIndex: 0 }}
         >
           <div className={classes.inner}>
             <Jumbotron className={this.context.isDarkMode ? "bg-dark" : ""}>

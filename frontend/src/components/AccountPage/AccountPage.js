@@ -192,16 +192,6 @@ export default class AccountPage extends Component {
   };
 
   render() {
-    const popover = (
-      <Popover>
-        <Popover.Title as="h3">Currently Unavailable</Popover.Title>
-        <Popover.Content>
-          Unfortunately, you can't change your username at this time. We
-          apologize for the inconvenience.
-        </Popover.Content>
-      </Popover>
-    );
-
     return (
       <div className={classes.wrapper}>
         <div className={classes.inner}>
