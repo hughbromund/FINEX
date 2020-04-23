@@ -5,9 +5,10 @@ import {
   GET_PORTFOLIO_URL,
   CREATE_PORTFOLIO_URL,
   YOUR_STOCKS_PATH,
+  INVESTMENT_TACTICS_PATH,
 } from "../../constants/Constants";
 import history from "../../routing/History";
-import { Jumbotron, Button, Table, Spinner } from "react-bootstrap";
+import { Jumbotron, Button, Table, Spinner, Alert } from "react-bootstrap";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import classes from "./StocksPage.module.css";
 
@@ -16,6 +17,7 @@ class StocksPage extends Component {
     isLoggedIn: null,
     portfolio: null,
     dataReceived: false,
+    showAlert: true,
   };
 
   componentDidMount = () => {
@@ -221,7 +223,38 @@ class StocksPage extends Component {
       );
     } else {
       return (
-        <div className={classes.wrapper}>
+        <div
+          className={
+            this.context.isDarkMode ? classes.wrapperDark : classes.wrapper
+          }
+        >
+          <div className={classes.alertDiv}>
+            <Alert
+              show={this.state.showAlert}
+              onClose={() => {
+                this.setState({ showAlert: false });
+              }}
+              variant="warning"
+              dismissible
+            >
+              <Alert.Heading>Don't know how to make a portfolio?</Alert.Heading>
+              <p>
+                Visit our investment tactics page to learn more about how to
+                manage your money wisely.
+              </p>
+              <hr />
+              <div className="d-flex justify-content-end">
+                <Button
+                  onClick={() => {
+                    history.push(INVESTMENT_TACTICS_PATH);
+                  }}
+                  variant="outline-warning"
+                >
+                  Learn More
+                </Button>
+              </div>
+            </Alert>
+          </div>
           <div className={classes.investmentDiv}>
             <div>
               <h1>Simulated Portfolio:</h1>
