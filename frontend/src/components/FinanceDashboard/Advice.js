@@ -33,7 +33,7 @@ export default class Advice extends Component {
 
     var body = await response.json();
 
-    console.log(body);
+    // console.log(body);
 
     if (response.status === 400) {
       this.setState({ hasAdvice: false, advice: body });

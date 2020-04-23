@@ -23,6 +23,7 @@ import {
   POST_CREATE_BUDGET,
   FINANCE_DASHBOARD,
   GET_CATEGORY_BUDGET,
+  LOGIN_PATH,
 } from "../../constants/Constants";
 
 export default class CreateBudget extends Component {
@@ -108,6 +109,7 @@ export default class CreateBudget extends Component {
       console.error(err);
     });
     if (response.status !== 200) {
+      history.push(LOGIN_PATH);
       return;
     }
 
