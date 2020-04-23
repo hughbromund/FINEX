@@ -4,13 +4,17 @@ import ReactCrop from "react-image-crop";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
+import Alert from "react-bootstrap/Alert";
 
 import classes from "./ResetProfilePicture.module.css";
 import "react-image-crop/dist/ReactCrop.css";
 
+import history from "../../routing/History";
+
 import {
   PUT_PROFILE_IMAGE,
   POST_CREATE_BUDGET,
+  ACCOUNT_PATH,
 } from "../../constants/Constants";
 
 const imageMaxSize = 1000;
@@ -34,6 +38,8 @@ export default class ResetProfilePicture extends Component {
         aspect: 1 / 1,
       },
       croppedImageUrl: null,
+      success: false,
+      error: false,
     };
   }
 
@@ -61,7 +67,12 @@ export default class ResetProfilePicture extends Component {
 
     var response = await res.json();
 
-    console.log(response);
+    if (res.status === 200) {
+      this.setState({ error: false, success: true });
+    } else {
+      this.setState({ error: true, success: false });
+      console.log(response);
+    }
   };
 
   handleFile = (e) => {
@@ -142,6 +153,39 @@ export default class ResetProfilePicture extends Component {
       <div className={classes.wrapper}>
         <div className={classes.inner}>
           <h1>Update Profile Picture</h1>
+          <Collapse in={this.state.success}>
+            <div>
+              <Alert variant="success">
+                <Alert.Heading>Success</Alert.Heading>
+                <p>You successfully updated your Profile Picture!</p>
+                <p>
+                  If you don't need to change it again, you can navigate back to
+                  the Account Screen
+                </p>
+                <hr />
+                <div className="d-flex justify-content-end">
+                  <Button
+                    variant="outline-success"
+                    onClick={() => history.push(ACCOUNT_PATH)}
+                  >
+                    Account
+                  </Button>
+                </div>
+              </Alert>
+            </div>
+          </Collapse>
+          <Collapse in={this.state.error}>
+            <div>
+              <Alert variant="danger">
+                <Alert.Heading>Error</Alert.Heading>
+                <p>
+                  Something went wrong. Please try submitting again. If this
+                  error continues please try checking your internet connection
+                  or try restarting your Web Browser.
+                </p>
+              </Alert>
+            </div>
+          </Collapse>
           <Form onSubmit={this.handleSubmit}>
             <label htmlFor="profile_pic"></label>
             <input
@@ -159,6 +203,7 @@ export default class ResetProfilePicture extends Component {
                 onChange={this.onCropChange}
               />
             )}
+            <hr />
             <Button variant="primary" type="submit">
               Submit
             </Button>
