@@ -1,74 +1,28 @@
 .wrapper {
-    display: flex;
-    flex-direction: row;
-    font-family: "Montserrat", sans-serif;
-    width: 50rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
 }
 
 .bar {
-    width: 30rem;
-    padding-right: 1rem;
-    border-color: white;
-    padding-left: 1rem;
+  width: 72%;
+  padding-right: 10px;
+  border-color: white;
+  margin-left: 10px;
 }
 
-.searchButtonDark {
-    color: white !important;
-    width: 9rem;
-    background-color: #34c759;
-}
-
-.searchButtonDark:hover {
-    color: white !important;
-    opacity: 100%;
-    background-color: #34c7599f;
-    border: none;
-}
-
-.searchButtonLight {
-    color: black !important;
-    width: 9rem;
-    background-color: #34c759;
-}
-
-.searchButtonLight:hover {
-    color: black !important;
-    opacity: 100%;
-    background-color: #34c7599f;
-    border: none;
+.searchButton {
+  width: 18%;
 }
 
 .toggle {
-    width: 9rem;
+  width: 10%;
 }
 
-.toggleButtonDark {
-    color: white;
-    background-color: #34c759;
-    border: none;
-}
-
-.toggleButtonDark:hover {
-    color: white;
-    background-color: #34c7599f;
-    opacity: 100%;
-    border: none;
-}
-
-.toggleButtonLight {
-    color: black !important;
-    background-color: #34c759;
-    border: none;
-}
-
-.toggleButtonLight:hover {
-    color: black !important;
-    background-color: #34c7599f;
-    opacity: 100%;
-    border: none;
-}
-
-.toggleButtonLight:active {
-    color: black !important;
-    
+.menu {
+  margin-right: 10px;
+  width: 100%;
+  overflow: scroll;
 }

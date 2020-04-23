@@ -5,6 +5,7 @@ import classes from "./FinanceDashboard.module.css";
 import TransactionToast from "./TransactionToast";
 import MonthProgress from "./MonthProgress";
 import CategoryProgress from "./CategoryProgress";
+import Advice from "./Advice";
 import history from "../../routing/History";
 
 import {
@@ -198,7 +199,7 @@ export default class FinanceDashboard extends Component {
         </Navbar>
         <Container fluid>
           <Row>
-            <Col>
+            <Col sm>
               <Card
                 className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
                 style={{ flex: 1 }}
@@ -225,7 +226,7 @@ export default class FinanceDashboard extends Component {
               </Card>
               {this.state.transactionToasts}
             </Col>
-            <Col>
+            <Col sm>
               <Card
                 className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
                 style={{ flex: 1 }}
@@ -252,7 +253,8 @@ export default class FinanceDashboard extends Component {
               </Card>
               {this.state.incomeToasts}
             </Col>
-            <Col>
+
+            <Col sm>
               <Row>
                 <Card
                   className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
@@ -263,6 +265,22 @@ export default class FinanceDashboard extends Component {
                   </Card.Header>
                   <Card.Body>
                     <MonthProgress onTrack={false}></MonthProgress>
+                  </Card.Body>
+                </Card>
+              </Row>
+              <br />
+              <Row>
+                <Card
+                  className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
+                  style={{ flex: 1 }}
+                >
+                  <Card.Header>
+                    <b>FINEX</b> Advice
+                  </Card.Header>
+                  <Card.Body>
+                    <div>
+                      <Advice></Advice>
+                    </div>
                   </Card.Body>
                 </Card>
               </Row>

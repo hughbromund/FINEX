@@ -65,3 +65,19 @@
   margin-top: 20px;
   width: 70vw;
 }
+
+@media (max-width: 991px) {
+  .contentWrapper {
+    flex-direction: column;
+  }
+
+  .textWrapper {
+    width: 100vw;
+    justify-content: center;
+  }
+
+  .wrapper {
+    height: 100%;
+    background: #121212;
+  }
+}

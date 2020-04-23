@@ -1,12 +1,16 @@
 import React, { Component } from "react";
-import { USER_INFO_URL, GET_CATEGORY_BUDGET } from "../constants/Constants";
 // import Jumbotron from "react-bootstrap/Jumbotron";
 import classes from "./SpentSummary.module.css";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
-import history from "../routing/History";
-import { CATEGORY_SUMMARY_PATH } from "../constants/Constants";
-import { LOGIN_PATH, GREEN_COLOR_HEX } from "../constants/Constants";
+import history from "../../routing/History";
+import {
+  LOGIN_PATH,
+  GREEN_COLOR_HEX,
+  CATEGORY_SUMMARY_PATH,
+  USER_INFO_URL,
+  GET_CATEGORY_BUDGET,
+} from "../../constants/Constants";
 
 //Imports for pie chart
 import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
@@ -41,7 +45,11 @@ class SpentSummary extends Component {
   callAuthAPI = async () => {
     console.log(USER_INFO_URL);
     let response;
-    response = await fetch(USER_INFO_URL);
+    response = await fetch(USER_INFO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     // const body = await response.json();
     // console.log(body.status);
 
@@ -57,7 +65,11 @@ class SpentSummary extends Component {
   callBudgetAPI = async () => {
     console.log(GET_CATEGORY_BUDGET);
     let response;
-    response = await fetch(GET_CATEGORY_BUDGET);
+    response = await fetch(GET_CATEGORY_BUDGET, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
     const body = await response.json();
     console.log(body);
 
@@ -83,7 +95,7 @@ class SpentSummary extends Component {
       currTotalSpending += parseInt(body[i]["spent"]);
     }
 
-    if (currTotalSpending == 0) {
+    if (currTotalSpending === 0) {
       this.setState({ isDataEmpty: true });
       return;
     }
@@ -219,7 +231,7 @@ class SpentSummary extends Component {
     if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
       history.push(LOGIN_PATH);
       return null;
-    } else if (this.state.isDataEmpty == true || this.state.spentData == null) {
+    } else if (this.state.isDataEmpty === true || this.state.spentData == null) {
       return (
         <div className={classes.jumboOuter}>
           <div className={classes.jumboInner}>
@@ -237,32 +249,34 @@ class SpentSummary extends Component {
       );
     } else {
       return (
-        <div className={classes.contentWrapper}>
-          <div className={classes.textWrapper}>
-            <div className={classes.headerWrapper}>
-              <h1>Spending Summary</h1>
+        <div className={this.context.isDarkMode ? classes.wrapper : ""}>
+          <div className={classes.contentWrapper}>
+            <div className={classes.textWrapper}>
+              <div className={classes.headerWrapper}>
+                <h1>Spending Summary</h1>
+              </div>
+              <div className={classes.breakdownDiv}>
+                <div className={classes.catDiv}>{this.renderCategories()}</div>
+                <div className={classes.numberDiv}>{this.renderSpending()}</div>
+              </div>
             </div>
-            <div className={classes.breakdownDiv}>
-              <div className={classes.catDiv}>{this.renderCategories()}</div>
-              <div className={classes.numberDiv}>{this.renderSpending()}</div>
+            <div className={classes.chartWrapper}>
+              <ResponsiveContainer aspect={1.8} width="100%">
+                <PieChart margin={{ top: 20, right: 0, left: 0, bottom: 20 }}>
+                  <Pie
+                    dataKey="value"
+                    data={this.state.spentData}
+                    innerRadius="40%"
+                    outerRadius="80%"
+                    cx="50%"
+                    fill={GREEN_COLOR_HEX}
+                    activeShape={this.renderActiveShape}
+                    onMouseEnter={this.onPieEnter}
+                    activeIndex={this.state.activeIndex}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
-          </div>
-          <div className={classes.chartWrapper}>
-            <ResponsiveContainer aspect={1.8} width="100%">
-              <PieChart margin={{ top: 20, right: 0, left: 0, bottom: 20 }}>
-                <Pie
-                  dataKey="value"
-                  data={this.state.spentData}
-                  innerRadius="40%"
-                  outerRadius="80%"
-                  cx="50%"
-                  fill={GREEN_COLOR_HEX}
-                  activeShape={this.renderActiveShape}
-                  onMouseEnter={this.onPieEnter}
-                  activeIndex={this.state.activeIndex}
-                />
-              </PieChart>
-            </ResponsiveContainer>
           </div>
         </div>
       );

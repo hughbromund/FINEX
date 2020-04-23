@@ -38,6 +38,7 @@
   flex-direction: column;
   justify-content: right;
   width: 15vw;
+  margin-left: 20px;
 }
 
 .infoHeader {
@@ -64,6 +65,7 @@
   font-size: 30pt;
   font-weight: bold;
   padding-left: 65px;
+  margin-right: 10px;
 }
 
 .followedStocksWrapperDark {
@@ -73,6 +75,7 @@
   padding-bottom: 30px;
   padding-left: 80px;
   background-color: #121212;
+  overflow: scroll;
 }
 
 .followedStocksWrapperLight {
@@ -81,6 +84,7 @@
   margin-top: 20px;
   padding-bottom: 30px;
   padding-left: 80px;
+  overflow: scroll;
 }
 
 .followedTitle {
@@ -95,6 +99,7 @@
   display: flex;
   flex-direction: row;
   margin-top: 11px;
+  margin-left: 65px;
 }
 
 .buySellField {
@@ -104,4 +109,41 @@
 .alertDiv {
   margin-left: 40px;
   margin-right: 40px;
+  margin-top: 10px;
+}
+
+.infoBlock {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 991px) {
+  .infoTitle {
+    padding-left: 20px;
+  }
+
+  .infoBox {
+    padding-left: 20px;
+    flex-direction: column;
+  }
+
+  .headerColumn {
+    width: 50%;
+  }
+
+  .followedStocksWrapperDark {
+    padding-left: 20px;
+  }
+
+  .followedStocksWrapperLight {
+    padding-left: 20px;
+  }
+
+  .title {
+    padding-left: 20px;
+  }
+
+  .buySellDiv {
+    margin-left: 20px;
+  }
 }

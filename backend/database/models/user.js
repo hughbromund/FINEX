@@ -20,6 +20,7 @@ const userSchema = new Schema({
   dark_mode: { type: Boolean },
   count: { type: Number, unique: false, required: false},
   lockoutDate: { type: Date, unique: false, required: false},
+  accepted_warnings: {type: Boolean}
 }, { collection: "Users"})
 
 // Define schema methods
