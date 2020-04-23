@@ -235,7 +235,7 @@ exports.acceptWarnings = async function (req) {
     }
 
 exports.warningStatus = async function (req) {
-    return await User.findOne(
+    const status = await User.findOne(
           { username: req.user.username },
           {
             _id: 0,
@@ -243,6 +243,9 @@ exports.warningStatus = async function (req) {
           },
           (err, user) => {}
         ).exec();
+        if (JSON.stringify(status) === '{}') {
+            return {"accepted_warnings": "false"};
+        }
       };
 
 
