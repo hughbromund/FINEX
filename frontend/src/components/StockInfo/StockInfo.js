@@ -851,7 +851,9 @@ class StockInfo extends Component {
             "Daily Summary " + this.state.loadedDate + ":"
           )}
         </div>
-        <div className={classes.infoBox}>
+        <div
+          className={this.props.onCompare ? classes.onCompare : classes.infoBox}
+        >
           <div className={classes.infoBlock}>
             <div className={classes.headerColumn}>
               <p>
