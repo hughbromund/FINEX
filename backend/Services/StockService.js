@@ -1,11 +1,13 @@
 const path = require("path");
+const config = require(path.resolve(__dirname, "../config.json"));
 
-const alpha = require("alphavantage")({ key: "PIL8EASGF14AB1M6" });
+const alpha = require("alphavantage")({ key: config.alphavantage.key });
 const User = require(path.resolve(__dirname, "../database/models/user"));
 const StockSim = require(path.resolve(
   __dirname,
   "../database/models/stocksim"
 ));
+
 
 exports.helloWorld = async function () {
   return { Hello: "World" };
