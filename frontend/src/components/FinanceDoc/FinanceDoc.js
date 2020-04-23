@@ -135,6 +135,7 @@ class FinanceDoc extends Component {
     spentTotal: 0,
     budgetedTotal: 0,
     dataLoaded: false,
+    loadingError: false,
   };
 
   /**
@@ -180,6 +181,11 @@ class FinanceDoc extends Component {
     console.log(GET_CATEGORY_BUDGET);
     let response;
     response = await fetch(GET_CATEGORY_BUDGET);
+
+    if (response.status !== 200) {
+      this.setState({ loadingError: true });
+    }
+
     const body = await response.json();
     console.log(body);
 
@@ -340,6 +346,23 @@ class FinanceDoc extends Component {
     if (this.state.isLoggedIn != null && !this.state.isLoggedIn) {
       history.push(LOGIN_PATH);
       return null;
+    }
+    if (this.state.loadingError) {
+      return (
+        <div className={classes.jumboOuter}>
+          <div className={classes.jumboInner}>
+            <Jumbotron
+              className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
+            >
+              <h1>No Budget Found!</h1>
+              <p>
+                Try coming back when you have created an budget for your
+                account!
+              </p>
+            </Jumbotron>
+          </div>
+        </div>
+      );
     } else if (
       this.state.dataLoaded &&
       this.state.isLoggedIn &&
@@ -363,7 +386,8 @@ class FinanceDoc extends Component {
     } else if (
       this.state.isLoggedIn &&
       this.state.dataLoaded &&
-      this.state.data != null
+      this.state.data != null &&
+      !this.state.loadingError
     ) {
       return (
         <div>
