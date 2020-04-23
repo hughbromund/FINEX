@@ -23,7 +23,7 @@ const upload = multer({
     bucket: 'profileimagesfinex',
     acl: 'public-read',
     metadata: function (req, file, cb) {
-      cb(null, { fieldName: file.fieldName });
+      cb(null, { fieldName: 'TESTING_META_DATA!' });
     },
     key: function (req, file, cb) {
       cb(null, req.user.username)
