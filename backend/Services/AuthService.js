@@ -6,6 +6,8 @@ const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 const fs = require('fs');
 const AWS = require('aws-sdk');
+const multer = require('multer');
+const multers3 = require('multer-s3');
 
 var transporter = nodemailer.createTransport({
   service: "gmail",
@@ -52,11 +54,11 @@ exports.register = async function (req) {
 
   let foundUser = await User.findOne(
     { username: username },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
   let foundEmail = await User.findOne(
     { email: email },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
   console.log(foundUser);
   if (foundUser) {
@@ -77,7 +79,7 @@ exports.register = async function (req) {
       name: name,
     });
     //save user in database
-    await newUser.save((err, savedUser) => {});
+    await newUser.save((err, savedUser) => { });
     return {
       status: "Registered.",
       code: 200,
@@ -96,7 +98,7 @@ exports.login = async function (req) {
 exports.user = async function (req) {
   return await User.findOne(
     { username: req.user.username },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
 };
 
@@ -108,7 +110,7 @@ exports.getGoodColor = async function (req) {
       _id: 0,
       good_color: 1,
     },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
 };
 
@@ -119,7 +121,7 @@ exports.getBadColor = async function (req) {
       _id: 0,
       bad_color: 1,
     },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
 };
 
@@ -142,7 +144,7 @@ exports.updateEmail = async function (req) {
   return await User.updateOne(
     { username: req.user.username },
     { email: req.body.email },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
 };
 
@@ -150,7 +152,7 @@ exports.updateName = async function (req) {
   return await User.updateOne(
     { username: req.user.username },
     { name: req.body.name },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
 };
 
@@ -159,7 +161,7 @@ exports.updatePassword = async function (req) {
   return await User.updateOne(
     { username: req.user.username },
     { password: newPassword },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
 };
 
@@ -168,7 +170,7 @@ exports.resetPassword = async function (req) {
 
   let resetUser = await User.findOne(
     { email: req.body.email },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
   if (resetUser) {
     //generate random password
@@ -179,7 +181,7 @@ exports.resetPassword = async function (req) {
     await User.updateOne(
       { username: resetUser.username },
       { password: newPassword },
-      (err, user) => {}
+      (err, user) => { }
     ).exec();
 
     const mailOptions = {
@@ -212,7 +214,7 @@ exports.updateGoodColor = async function (req) {
   return await User.updateOne(
     { username: req.user.username },
     { good_color: req.body.good_color },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
 };
 
@@ -220,83 +222,42 @@ exports.updateBadColor = async function (req) {
   return await User.updateOne(
     { username: req.user.username },
     { bad_color: req.body.bad_color },
-    (err, user) => {}
+    (err, user) => { }
   ).exec();
 };
 
 exports.updateMode = async function (req) {
-    return await User.updateOne({username: req.user.username},
-        {dark_mode: req.body.dark_mode}, (err, user) => {}).exec();
-    }
+  return await User.updateOne({ username: req.user.username },
+    { dark_mode: req.body.dark_mode }, (err, user) => { }).exec();
+}
 
 exports.acceptWarnings = async function (req) {
-    return await User.updateOne({username: req.user.username},
-        {accepted_warnings: req.body.accepted_warnings}, (err, user) => {}).exec();
-    }
+  return await User.updateOne({ username: req.user.username },
+    { accepted_warnings: req.body.accepted_warnings }, (err, user) => { }).exec();
+}
 
 exports.warningStatus = async function (req) {
-    return await User.findOne(
-          { username: req.user.username },
-          {
-            _id: 0,
-            accepted_warnings: 1,
-          },
-          (err, user) => {}
-        ).exec();
-      };
-
-
-const s3 = new AWS.S3({
-    accessKeyId: "AKIAJ5ET2JWPPGRITWZA",
-    secretAccessKey: "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"
-});
-
-exports.setProfilePicture = async function (req) {
-    // Read content from the file
-    //const filePath = req.body.filepath;
-    //console.log(filePath);
-    //fs.readFile(filePath, (err, data) => {
-        //if (err) console.error(err);
-        //var base64data = new Buffer(data, 'binary');
-        // Setting up S3 upload parameters
-        const Key = req.user.username + '.jpg';
-        const file = (req.body.imageUpload);
-        var params = {
-          Bucket: "finexprofilepictures",
-          Key: Key, //file name to save as in S3
-          Body: file //base64data
-        };
-        // Uploading files to the bucket
-        s3.putObject(params, function (err, data) {
-            if (err) {
-              console.log("Error: ", err);
-            } else {
-                console.log(`File uploaded successfully. ${data.Location}`);
-            }
-          });
-        /*
-        s3.upload(params, function(err, data) {
-            if (err) {
-                throw err;
-            }
-            console.log(`File uploaded successfully. ${data.Location}`);
-        });
-        */
+  return await User.findOne(
+    { username: req.user.username },
+    {
+      _id: 0,
+      accepted_warnings: 1,
+    },
+    (err, user) => { }
+  ).exec();
 };
 
+const s3 = new AWS.S3({
+  accessKeyId: "AKIAJFH2VOF5CREPS6LA",
+  secretAccessKey: "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",
+  region: "us-east-2"
+});
+
 exports.getProfilePicture = async function (req) {
-    const Key = req.user.username + '.jpg';
-    const params = {
-      Bucket: "finexprofilepictures",
-      Key: Key
-    };
-    const filePath = "./ProfilePictures/downloaded.json"
-    s3.getObject(params, (err, data) => {
-      if (err) console.error(err);
-      fs.writeFileSync(filePath, data.Body.toString());
-    });
+  const params = {
+    Bucket: "profileimagesfinex",
+    Key: req.user.username
   };
-  
-  /*https://stackoverflow.com/questions/25869017
-  /how-to-convert-binary-data-and-mime-to-image-in-javascript
-  */
+  return await s3.getSignedUrlPromise('getObject', params);
+}
+
