@@ -7,7 +7,12 @@
         "uri": "mongodb+srv://niyatisriram:dPaDZohygKQE8xhb@data-krx7s.mongodb.net/FINEX?retryWrites=true&w=majority"
     },
     "s3Bucket": {
-        "accessKeyID": "AKIA3VDH24GNGKDBBJF7",
-        "secretAccessKey": "mongodb+srv://niyatisriram:dPaDZohygKQE8xhb@data-krx7s.mongodb.net/FINEX?retryWrites=true&w=majority"
+        "name": "profileimagesfinex",
+        "accessKeyID": "AKIAJFH2VOF5CREPS6LA",
+        "secretAccessKey": "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",
+        "region": "us-east-2"
+    },
+    "alphavantage": {
+        "key": "PIL8EASGF14AB1M6"
     }
 }
