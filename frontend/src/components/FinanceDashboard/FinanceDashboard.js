@@ -199,7 +199,7 @@ export default class FinanceDashboard extends Component {
         </Navbar>
         <Container fluid>
           <Row>
-            <Col>
+            <Col sm>
               <Card
                 className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
                 style={{ flex: 1 }}
@@ -226,7 +226,7 @@ export default class FinanceDashboard extends Component {
               </Card>
               {this.state.transactionToasts}
             </Col>
-            <Col>
+            <Col sm>
               <Card
                 className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
                 style={{ flex: 1 }}
@@ -253,7 +253,8 @@ export default class FinanceDashboard extends Component {
               </Card>
               {this.state.incomeToasts}
             </Col>
-            <Col>
+
+            <Col sm>
               <Row>
                 <Card
                   className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
