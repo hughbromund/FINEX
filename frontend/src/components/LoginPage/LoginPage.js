@@ -73,6 +73,7 @@ export default class LoginPage extends Component {
         if (response.status === 200) {
           // Success on Login
           // console.log(response)
+          window.location.reload(false);
           history.push(ACCOUNT_PATH);
         } else {
           // Failure to login

@@ -87,7 +87,7 @@ export default class NavigationBar extends Component {
       optional = (
         <div>
           <Button variant="success" onClick={() => history.push(LOGIN_PATH)}>
-            Login
+            Log In
           </Button>
           &nbsp;&nbsp;&nbsp;
           <Button
