@@ -197,7 +197,7 @@ export default class FinanceDashboard extends Component {
             </Navbar.Brand>
           </Container>
         </Navbar>
-        <Container fluid>
+        <Container className={classes.newMargin} fluid>
           <Row>
             <Col sm>
               <Card

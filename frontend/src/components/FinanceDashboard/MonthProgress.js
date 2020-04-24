@@ -186,6 +186,7 @@ export default class MonthProgress extends Component {
         </Alert>
         <div hidden={this.state.serverError || this.state.noBudget}>
           {this.renderNetChange()}
+          <hr />
           <b>Current Spending:</b> ${this.state.spent} <br />
           <b>Budgeted Spending:</b> ${this.state.budgeted}
           <br />
