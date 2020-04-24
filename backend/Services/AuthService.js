@@ -252,6 +252,7 @@ exports.warningStatus = async function (req) {
         }
       };
 
+
 const s3 = new AWS.S3({
   accessKeyId: config.s3Bucket.accessKeyId,
   secretAccessKey: config.s3Bucket.secretAccessKey,
@@ -263,6 +264,15 @@ exports.getProfilePicture = async function (req) {
     Bucket: config.s3Bucket.name,
     Key: req.user.username
   };
-  return await s3.getSignedUrlPromise('getObject', params);
+  const defaultParams = {
+    Bucket: "profileimagesfinex",
+    Key: "DEFAULT_IMAGE.png"
+  };
+  try {
+    await s3.headObject(params).promise()
+    return await s3.getSignedUrlPromise('getObject', params);
+  } catch (err) {
+    console.log("File not found");
+    return await s3.getSignedUrlPromise('getObject', defaultParams);
+  }
 }
-

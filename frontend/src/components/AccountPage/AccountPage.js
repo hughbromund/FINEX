@@ -108,6 +108,7 @@ export default class AccountPage extends Component {
     fetch(UPDATE_GOOD_COLOR, {
       method: "POST",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         credentials: "include",
@@ -139,7 +140,7 @@ export default class AccountPage extends Component {
     fetch(LOGOUT_URL, {
       method: "POST",
       // mode: 'no-cors',
-      method: "POST",
+      credentials: "include",
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
