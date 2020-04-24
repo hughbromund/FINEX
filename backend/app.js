@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const request = require("request");
 var cors = require("cors");
 require('dotenv').config();
+const path = require("path");
+const config = require(path.resolve(__dirname, "../config.json"));
 
 //for user auth
 const session = require("express-session");
@@ -48,7 +50,7 @@ const dbConnection = require("./database");
 //session setup to save session info
 app.use(
   session({
-    secret: "super-secret-secret",
+    secret: config.app.secret,
     store: new MongoStore({ mongooseConnection: dbConnection }),
     resave: false,
     saveUninitialized: false,
