@@ -4,7 +4,7 @@ const request = require("request");
 var cors = require("cors");
 require('dotenv').config();
 const path = require("path");
-const config = require(path.resolve(__dirname, "../config.json"));
+const config = require(path.resolve(__dirname, "./config.json"));
 
 //for user auth
 const session = require("express-session");
