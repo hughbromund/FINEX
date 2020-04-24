@@ -38,12 +38,13 @@ Personal finance tools are very segmented and can be difficult to navigate. We w
 5) Navigate to `localhost:3000`
 
 ## Structure
-FINEX is currently hosted on Google App Engine and built in NodeJS with a MongoDB database and Amazon S3 storage bucket. We are structured as a thin-client application, with most tasks being completed on the backend and sent to the frontend via http request. We use the AlphaVantage API for our stock prices, which currently supports X requests per minute. 
+FINEX is currently hosted on Google App Engine and built in NodeJS with a MongoDB database and Amazon S3 storage bucket. We are structured as a thin-client application, with most tasks being completed on the backend and sent to the frontend via http request. We use the AlphaVantage API for our stock prices, which currently supports 75 requests per minute with an unlimited daily limit. 
 The backend is structured as follows:
 - database/models: mongoose schemas for all collections in the database, including user, budget, and transaction
 - Service: functions that call the database and return or update requested information
 - Controller: receives JSON objects from Services and returns them via http request to the frontend
 - Router: includes all http endpoints 
+
 The frontend is structured as follows:
 - src/components: all website pages
 - src/assets: all constant images used on the site
