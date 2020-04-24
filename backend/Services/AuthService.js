@@ -9,10 +9,10 @@ const config = require(path.resolve(__dirname, "../config.json"));
 
 
 var transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: config.email.service,
   auth: {
-    user: "mail.finex.finex@gmail.com",
-    pass: "cosk.fuss9VOR",
+    user: config.email.user,
+    pass: config.email.pass
   },
 });
 
