@@ -245,7 +245,10 @@ exports.warningStatus = async function (req) {
           (err, user) => {}
         ).exec();
         if (JSON.stringify(status) === '{}') {
-            return {"accepted_warnings": "false"};
+            return {"accepted_warnings": false};
+        }
+        else {
+          return status;
         }
       };
 
