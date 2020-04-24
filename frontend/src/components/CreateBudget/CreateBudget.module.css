@@ -2,12 +2,14 @@
   background-color: #121212;
   display: flex;
   transition: 0.3s;
+  padding-bottom: 10px;
 }
 .wrapperLight {
   display: flex;
   justify-content: center;
   transition: 0.3s;
   position: relative;
+  padding-bottom: 10px;
 }
 
 .inner {
