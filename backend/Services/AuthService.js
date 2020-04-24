@@ -236,18 +236,22 @@ exports.acceptWarnings = async function (req) {
 }
 
 exports.warningStatus = async function (req) {
-  const status = await User.findOne(
-    { username: req.user.username },
-    {
-      _id: 0,
-      accepted_warnings: 1,
-    },
-    (err, user) => { }
-  ).exec();
-  if (JSON.stringify(status) === '{}') {
-    return { "accepted_warnings": "false" };
-  }
-};
+    const status = await User.findOne(
+          { username: req.user.username },
+          {
+            _id: 0,
+            accepted_warnings: 1,
+          },
+          (err, user) => {}
+        ).exec();
+        if (JSON.stringify(status) === '{}') {
+            return {"accepted_warnings": false};
+        }
+        else {
+          return status;
+        }
+      };
+
 
 const s3 = new AWS.S3({
   accessKeyId: config.s3Bucket.accessKeyId,
