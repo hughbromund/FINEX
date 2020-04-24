@@ -17,6 +17,12 @@ import {
   ACCOUNT_PATH,
 } from "../../constants/Constants";
 
+import {
+  DarkModeContext,
+  useDarkModeState,
+  useDarkModeToggle,
+} from "../../contexts/DarkModeContext";
+
 const imageMaxSize = 1000;
 const acceptedFileTypes = ["png", "jpg"];
 
@@ -150,7 +156,11 @@ export default class ResetProfilePicture extends Component {
   render() {
     const { crop, profile_pic, src } = this.state;
     return (
-      <div className={classes.wrapper}>
+      <div
+        className={
+          this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
+        }
+      >
         <div className={classes.inner}>
           <h1>Update Profile Picture</h1>
           <Collapse in={this.state.success}>
@@ -219,3 +229,5 @@ export default class ResetProfilePicture extends Component {
     );
   }
 }
+
+ResetProfilePicture.contextType = DarkModeContext;

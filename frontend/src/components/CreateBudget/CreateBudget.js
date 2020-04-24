@@ -108,8 +108,10 @@ export default class CreateBudget extends Component {
     }).catch((err) => {
       console.error(err);
     });
+    // console.log(await response.json);
+
     if (response.status !== 200) {
-      history.push(LOGIN_PATH);
+      // history.push(LOGIN_PATH);
       return;
     }
 

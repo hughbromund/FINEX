@@ -6,7 +6,7 @@ import { Col } from "react-bootstrap";
 
 export default class BudgetAdvice extends Component {
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    // console.log(nextProps);
     this.setState({
       data: nextProps.budget,
     });
@@ -26,7 +26,7 @@ export default class BudgetAdvice extends Component {
     if (isNaN(percentage)) {
       return 0;
     }
-    return percentage;
+    return Math.round(percentage);
   }
 
   getHousingPercentage() {
@@ -35,7 +35,7 @@ export default class BudgetAdvice extends Component {
     if (isNaN(percentage)) {
       return 0;
     }
-    return percentage;
+    return Math.round(percentage);
   }
 
   getOtherPercentage() {
@@ -44,7 +44,7 @@ export default class BudgetAdvice extends Component {
     if (isNaN(percentage)) {
       return 0;
     }
-    return percentage;
+    return Math.round(percentage);
   }
 
   isOverBudget() {
@@ -94,7 +94,7 @@ export default class BudgetAdvice extends Component {
           <div>
             <Alert variant="warning">
               <Alert.Heading>
-                <b>Savings bellow 20%</b>
+                <b>Savings below 20%</b>
               </Alert.Heading>
               <p>
                 <b>FINEX</b> recommends putting at least 20% of your budget into
