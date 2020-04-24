@@ -144,7 +144,11 @@ export default class NavigationBar extends Component {
                     const body = await res.json();
                     console.log(body);
                     console.log(res);
-                    if (body.accepted_warnings) {
+                    console.log(body.accepted_warnings);
+                    if (
+                      body.accepted_warnings === true ||
+                      body.accepted_warnings === "true"
+                    ) {
                       history.push(INVESTMENT_TACTICS_PATH);
                     } else {
                       history.push(ALERT_RISK);
