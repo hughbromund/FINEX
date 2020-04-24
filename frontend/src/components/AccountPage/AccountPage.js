@@ -139,7 +139,7 @@ export default class AccountPage extends Component {
     fetch(LOGOUT_URL, {
       method: "POST",
       // mode: 'no-cors',
-      method: "POST",
+      credentials: "include",
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
