@@ -11,6 +11,7 @@ import {
   GET_OVERALL_BUDGET,
   SPENT_SUMMARY_PATH,
   FINANCE_DOC_PATH,
+  GET_PORTFOLIO_URL,
 } from "../../constants/Constants";
 
 export default class MonthProgress extends Component {
@@ -28,6 +29,7 @@ export default class MonthProgress extends Component {
       spent: 0,
       serverError: false,
       noBudget: true,
+      portfolio: null,
     };
     // console.log(this.state)
 
@@ -38,7 +40,62 @@ export default class MonthProgress extends Component {
 
   componentDidMount() {
     this.getBudgetProgress();
+
+    this.getPortfolio().catch((err) => {
+      console.log(err);
+    });
   }
+
+  /**
+   * Get the portfolio information
+   * via a backend call.
+   */
+  getPortfolio = async () => {
+    console.log(GET_PORTFOLIO_URL);
+    let response;
+    response = await fetch(GET_PORTFOLIO_URL, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+    });
+    const body = await response.json();
+    console.log(body);
+
+    if (response.status === 200) {
+      // console.log("false");
+      this.setState({ portfolio: body });
+    }
+  };
+
+  renderNetChange = () => {
+    if (this.state.portfolio == null) {
+      return null;
+    }
+
+    let change = (
+      this.state.portfolio["wallet"] +
+      this.state.portfolio["investing"] -
+      5000.0
+    ).toFixed(2);
+
+    if (change < 0) {
+      return (
+        <div className={classes.netChange}>
+          <p className={classes.netTitle}>Simulated Stock Loss: </p>
+          <p className={classes.red}>{" $" + Math.abs(change)}</p>
+        </div>
+      );
+    } else if (change > 0) {
+      return (
+        <div className={classes.netChange}>
+          <h3 className={classes.red}>Simulated Stock Gain: </h3>
+          <h3>{"$" + Math.abs(change)}</h3>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  };
 
   getDaysInMonth() {
     // console.log(new Date(this.state.year, this.state.month, 0).getDate());
@@ -128,6 +185,8 @@ export default class MonthProgress extends Component {
           </Button>
         </Alert>
         <div hidden={this.state.serverError || this.state.noBudget}>
+          {this.renderNetChange()}
+          <hr />
           <b>Current Spending:</b> ${this.state.spent} <br />
           <b>Budgeted Spending:</b> ${this.state.budgeted}
           <br />
