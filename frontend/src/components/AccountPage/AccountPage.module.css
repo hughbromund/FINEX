@@ -1,11 +1,13 @@
 .wrapperLight {
   display: flex;
   justify-content: center;
+  padding-bottom: 10px;
 }
 .wrapperDark {
   display: flex;
   justify-content: center;
   background-color: #121212;
+  padding-bottom: 10px;
 }
 .inner {
   width: 50rem;
