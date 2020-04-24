@@ -2,6 +2,16 @@
   display: flex;
   justify-content: center;
 }
+.wrapperLight {
+  display: flex;
+  justify-content: center;
+}
+.wrapperDark {
+  display: flex;
+  justify-content: center;
+  background-color: #121212;
+}
 .inner {
   width: 50rem;
+  justify-content: center;
 }

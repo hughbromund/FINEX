@@ -3,7 +3,7 @@ import { HorizontalBar } from "react-chartjs-2";
 
 export default class BudgetGraph extends Component {
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    // console.log(nextProps);
     var tempData = [
       nextProps.budget.housingBudget,
       nextProps.budget.utilitiesBudget,

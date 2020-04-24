@@ -168,7 +168,6 @@ export default class NavigationBar extends Component {
                 <NavDropdown.Item onClick={() => history.push(ADD_INCOME_ITEM)}>
                   ADD A NEW INCOME
                 </NavDropdown.Item>
-                <NavDropdown.Item>VIEW YOUR BUDGET</NavDropdown.Item>
                 <NavDropdown.Item
                   onClick={() => history.push(CREATE_NEW_BUDGET)}
                 >
