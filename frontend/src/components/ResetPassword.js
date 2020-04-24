@@ -29,6 +29,7 @@ export default class ResetPassword extends Component {
 
     var response = await fetch(PUT_UPDATE_PASSWORD, {
       method: "PUT",
+      credentials: "include",
       body: JSON.stringify({ password: this.state.password }),
       headers: {
         "content-type": "application/json"

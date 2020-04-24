@@ -16,9 +16,20 @@ export const CREATE_NEW_BUDGET = "/newbudget";
 export const RESET_PASSWORD_PATH = "/updatepassword";
 export const CRYPTO_EXTENSION = "/crypto/";
 export const SPENT_SUMMARY_PATH = "/spendingsummary";
+export const FINANCE_DOC_PATH = "/financedoc";
+export const RESET_PROFILE_PICTURE_PATH = "/resetpic";
+export const RISK_MANAGEMENT_PATH = "/riskmanagement";
+export const CATEGORY_SUMMARY_PATH = "/categorysummary";
+export const INVESTMENT_TACTICS_PATH = "/investmenttactics";
+export const ALERT_RISK = "/alertrisk";
+export const STOCKS_PAGE_PATH = "/mystocks";
 
 /* Base URL for Backend */
-export const BASE = "http://localhost:5000";
+export var BASE = "https://backend-dot-finex-purdue.uc.r.appspot.com";
+console.log("NODE_ENV: " + process.env.NODE_ENV);
+if (process.env.NODE_ENV === "development") {
+  BASE = "http://localhost:5000";
+}
 
 /* Paths to Call Backend */
 
@@ -56,6 +67,16 @@ export const GET_RSI = BASE + "/api/stock/rsi/";
 export const GET_EMA = BASE + "/api/stock/ema/";
 export const GET_SMA = BASE + "/api/stock/sma/";
 export const GET_MACD = BASE + "/api/stock/macd/";
+export const CATEGORY_DATA_URL = BASE + "/finance/expense/";
+export const GET_PORTFOLIO_URL = BASE + "/stock/sim/getPortfolio";
+export const CREATE_PORTFOLIO_URL = BASE + "/stock/sim/createPortfolio";
+export const BUY_STOCK_URL = BASE + "/stock/sim/buyStock";
+export const SELL_STOCK_URL = BASE + "/stock/sim/sellStock";
+export const GET_FINANCE_ADVICE = BASE + "/finance/advice";
+export const GET_WARNING_STATUS = BASE + "/user/warningStatus";
+export const SET_WARNING_STATUS = BASE + "/user/acceptWarnings";
+export const GET_PROFILE_IMAGE = BASE + "/user/getProfilePicture";
+export const PUT_PROFILE_IMAGE = BASE + "/user/setProfilePicture";
 
 /* Color Hexes */
 

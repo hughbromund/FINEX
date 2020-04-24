@@ -1,8 +1,15 @@
 .wrapperDark {
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   background-color: #121212;
-  transition: 0.3s;
+  /* transition: 0.3s;
+  min-height: 100vh; */
+  position: fixed;
+  top: 10%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
 }
 .wrapperLight {
   display: flex;

@@ -7,6 +7,12 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import BudgetGraph from "./BudgetGraph";
+import BudgetAdvice from "./BudgetAdvice";
 
 import classes from "./CreateBudget.module.css";
 import { DarkModeContext } from "../contexts/DarkModeContext";
@@ -14,7 +20,12 @@ import { DarkModeContext } from "../contexts/DarkModeContext";
 import { FINANCE_DASHBOARD } from "../constants/Constants";
 import history from "../routing/History";
 
-import { POST_CREATE_BUDGET } from "../constants/Constants";
+import {
+  POST_CREATE_BUDGET,
+  FINANCE_DASHBOARD,
+  GET_CATEGORY_BUDGET,
+  LOGIN_PATH,
+} from "../../constants/Constants";
 
 export default class CreateBudget extends Component {
   constructor(props) {
@@ -85,6 +96,82 @@ export default class CreateBudget extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.getBudgetInfo();
+  }
+
+  getBudgetInfo = async () => {
+    var response = await fetch(GET_CATEGORY_BUDGET, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+      // credentials: 'same-origin'
+    }).catch((err) => {
+      console.error(err);
+    });
+    // console.log(await response.json);
+
+    if (response.status !== 200) {
+      // history.push(LOGIN_PATH);
+      return;
+    }
+
+    var body = await response.json();
+    // console.log(body);
+
+    var temp = {
+      housingBudget: 0,
+      utilitiesBudget: 0,
+      transportationBudget: 0,
+      foodBudget: 0,
+      medicalBudget: 0,
+      savingsBudget: 0,
+      personalBudget: 0,
+      entertainmentBudget: 0,
+      otherBudget: 0,
+    };
+    var tempTotalBudget = 0;
+    body.forEach((element) => {
+      // console.log(element);
+      tempTotalBudget += element.budgeted;
+      switch (element.category) {
+        case "Housing":
+          temp.housingBudget = element.budgeted;
+          break;
+        case "Utilities":
+          temp.utilitiesBudget = element.budgeted;
+          break;
+        case "Transportation":
+          temp.transportationBudget = element.budgeted;
+          break;
+        case "Food":
+          temp.foodBudget = element.budgeted;
+          break;
+        case "Medical":
+          temp.medicalBudget = element.budgeted;
+          break;
+        case "Savings":
+          temp.savingsBudget = element.budgeted;
+          break;
+        case "Personal":
+          temp.personalBudget = element.budgeted;
+          break;
+        case "Entertainment":
+          temp.entertainmentBudget = element.budgeted;
+          break;
+        case "Other":
+          temp.otherBudget = element.budgeted;
+          break;
+        default:
+          console.log("Unknown budget category detected!");
+          console.log(element);
+      }
+    });
+    console.log(temp);
+    this.setState(temp);
+    this.setState({ totalBudget: tempTotalBudget });
+  };
+
   handleSubmit = async () => {
     // console.log("TEST");
 
@@ -99,6 +186,7 @@ export default class CreateBudget extends Component {
 
     var response = await fetch(POST_CREATE_BUDGET, {
       method: "POST",
+      credentials: "include",
       body: JSON.stringify({
         month: Number(monthNumber),
         year: Number(yearNumber),
@@ -295,400 +383,422 @@ export default class CreateBudget extends Component {
 
   render() {
     return (
-      <div>
-        <div
-          className={
-            this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
-          }
-        >
-          <div className={classes.inner}>
-            <Jumbotron className={this.context.isDarkMode ? "bg-dark" : ""}>
-              <h1>Let's Create Your Budget</h1>
-              <p>
-                Using <b>FINEX</b> you can budget your month in categories and
-                then get feedback as the month progresses.
-              </p>
-              <p>
-                You are creating a budget for{" "}
-                <b>
-                  {this.state.currentMonth} {this.state.currentYear}
-                </b>
-              </p>
-            </Jumbotron>
-            <Form>
-              <Form.Group>
-                <Form.Label>
-                  First, How much do you want to spend this month?
-                </Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>$</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="number"
-                    placeholder="ex. 300"
-                    onChange={this.handleTotalBudgetChange}
-                    id="total-budget-input"
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Form>
-            <br />
-            Now, decide how much money you want to spend in each category.
-            <br />
-            You have used <b>${this.getBudgetUsed()}</b> of your{" "}
-            <b>${this.state.totalBudget}</b> budget. (
-            <b>${this.state.totalBudget - this.getBudgetUsed()}</b> left)
-            <ProgressBar
-              max={this.state.totalBudget}
-              now={this.getBudgetUsed()}
-              variant={this.getVariant()}
-            />
-            <Collapse in={this.isOverBudget()}>
+      <div
+        className={
+          this.context.isDarkMode ? classes.wrapperDark : classes.wrapperLight
+        }
+      >
+        <Container fluid>
+          <Row>
+            <Col>
               <div>
-                <br />
-                <Alert variant="danger">
-                  You are <b>Over Budget</b>! Either increase your Total Budget,
-                  or decrease your category spending to fix this error.
-                </Alert>
-              </div>
-            </Collapse>
-            <br />
-            <Form>
-              <Form.Group>
-                <Form.Label>
-                  <b>Housing</b>
-                </Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>$</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="number"
-                    placeholder="ex. 200"
-                    onChange={this.handleHousingBudgetChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Form>
-            <ProgressBar
-              max={this.state.totalBudget}
-              now={this.state.housingBudget}
-              variant={this.getHousingVariant()}
-            />
-            <br />
-            <Form>
-              <Form.Group>
-                <Form.Label>
-                  <b>Utilities</b>
-                </Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>$</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="number"
-                    placeholder="ex. 200"
-                    onChange={this.handleUtilitiesBudgetChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Form>
-            <ProgressBar
-              max={this.state.totalBudget}
-              now={this.state.utilitiesBudget}
-              variant={this.getUtilitiesVariant()}
-            />
-            <br />
-            <Form>
-              <Form.Group>
-                <Form.Label>
-                  <b>Transportation</b>
-                </Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>$</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="number"
-                    placeholder="ex. 200"
-                    onChange={this.handleTransportationBudgetChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Form>
-            <ProgressBar
-              max={this.state.totalBudget}
-              now={this.state.transportationBudget}
-              variant={this.getTransportationVariant()}
-            />
-            <br />
-            <Form>
-              <Form.Group>
-                <Form.Label>
-                  <b>Food</b>
-                </Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>$</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="number"
-                    placeholder="ex. 200"
-                    onChange={this.handleFoodBudgetChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Form>
-            <ProgressBar
-              max={this.state.totalBudget}
-              now={this.state.foodBudget}
-              variant={this.getFoodVariant()}
-            />
-            <br />
-            <Form>
-              <Form.Group>
-                <Form.Label>
-                  <b>Medical</b>
-                </Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>$</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="number"
-                    placeholder="ex. 200"
-                    onChange={this.handleMedicalBudgetChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Form>
-            <ProgressBar
-              max={this.state.totalBudget}
-              now={this.state.medicalBudget}
-              variant={this.getMedicalVariant()}
-            />
-            <br />
-            <Form>
-              <Form.Group>
-                <Form.Label>
-                  <b>Savings</b>
-                </Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>$</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="number"
-                    placeholder="ex. 200"
-                    onChange={this.handleSavingsBudgetChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Form>
-            <ProgressBar
-              max={this.state.totalBudget}
-              now={this.state.savingsBudget}
-              variant={this.getSavingsVariant()}
-            />
-            <br />
-            <Form>
-              <Form.Group>
-                <Form.Label>
-                  <b>Personal</b>
-                </Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>$</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="number"
-                    placeholder="ex. 200"
-                    onChange={this.handlePersonalBudgetChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Form>
-            <ProgressBar
-              max={this.state.totalBudget}
-              now={this.state.personalBudget}
-              variant={this.getPersonalVariant()}
-            />
-            <br />
-            <Form>
-              <Form.Group>
-                <Form.Label>
-                  <b>Entertainment</b>
-                </Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>$</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="number"
-                    placeholder="ex. 200"
-                    onChange={this.handleEntertainmentBudgetChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Form>
-            <ProgressBar
-              max={this.state.totalBudget}
-              now={this.state.entertainmentBudget}
-              variant={this.getEntertainmentVariant()}
-            />
-            <br />
-            <Form>
-              <Form.Group>
-                <Form.Label>
-                  <b>Other</b>
-                </Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>$</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="number"
-                    placeholder="ex. 200"
-                    onChange={this.handleOtherBudgetChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Form>
-            <ProgressBar
-              max={this.state.totalBudget}
-              now={this.state.otherBudget}
-              variant={this.getOtherVariant()}
-            />
-            <br />
-            <Collapse in={this.isOverBudget()}>
-              <div>
-                <br />
-                <Alert variant="danger">
-                  You are <b>Over Budget</b> by{" "}
-                  <b>${this.getBudgetUsed() - this.state.totalBudget}</b>! You
-                  cannot submit while Over Budget. Please either increase your
-                  Total Budget or decrease spending in different categories.
-                </Alert>
-              </div>
-            </Collapse>
-            <Collapse in={!this.isOverBudget() && !this.isMoneyLeftOver()}>
-              <div>
-                <br />
-                <Alert variant="success">
-                  Your budget is looking good! If you are finished setting up
-                  your categories, click Submit below. <br />
-                  Here is a summary of your budget: <br />
-                  <Table>
-                    <thead>
-                      <tr>
-                        <th>Category</th>
-                        <th>Budget</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Housing</td>
-                        <td>{this.state.housingBudget}</td>
-                      </tr>
-                      <tr>
-                        <td>Utilities</td>
-                        <td>{this.state.utilitiesBudget}</td>
-                      </tr>
-                      <tr>
-                        <td>Transportation</td>
-                        <td>{this.state.transportationBudget}</td>
-                      </tr>
-                      <tr>
-                        <td>Food</td>
-                        <td>{this.state.foodBudget}</td>
-                      </tr>
-                      <tr>
-                        <td>Medical</td>
-                        <td>{this.state.medicalBudget}</td>
-                      </tr>
-                      <tr>
-                        <td>Savings</td>
-                        <td>{this.state.savingsBudget}</td>
-                      </tr>
-                      <tr>
-                        <td>Personal</td>
-                        <td>{this.state.personalBudget}</td>
-                      </tr>
-                      <tr>
-                        <td>Entertainment</td>
-                        <td>{this.state.entertainmentBudget}</td>
-                      </tr>
-                      <tr>
-                        <td>Other</td>
-                        <td>{this.state.otherBudget}</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <b>Total</b>
-                        </td>
-                        <td>
-                          <b>{this.state.totalBudget}</b>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Alert>
-              </div>
-            </Collapse>
-            <Collapse in={this.isMoneyLeftOver()}>
-              <div>
-                <br />
-                <Alert variant="warning">
-                  You have not used all of your Total Budget yet. If you Submit,
-                  the leftover{" "}
-                  <b>${this.state.totalBudget - this.getBudgetUsed()}</b> will
-                  go into the <b>Other</b> category.
-                </Alert>
-              </div>
-            </Collapse>
-            <Collapse in={this.state.success}>
-              <div>
-                <Alert variant="success">
-                  <Alert.Heading>Success</Alert.Heading>
-                  <p>Your Budget has been successfully created!</p>
+                <Jumbotron className={this.context.isDarkMode ? "bg-dark" : ""}>
+                  <h1>Let's Create Your Budget</h1>
                   <p>
-                    If you don't need to change it again, you can navigate back
-                    to the Finance Dashboard
+                    Using <b>FINEX</b> you can budget your month in categories
+                    and then get feedback as the month progresses.
                   </p>
-                  <div className="d-flex justify-content-end">
-                    <Button
-                      variant="outline-success"
-                      onClick={() => history.push(FINANCE_DASHBOARD)}
-                    >
-                      Finance Dashboard
-                    </Button>
+                  <p>
+                    You are creating a budget for{" "}
+                    <b>
+                      {this.state.currentMonth} {this.state.currentYear}
+                    </b>
+                  </p>
+                </Jumbotron>
+                <Form>
+                  <Form.Group>
+                    <Form.Label>
+                      First, How much do you want to spend this month?
+                    </Form.Label>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        type="number"
+                        placeholder="ex. 300"
+                        onChange={this.handleTotalBudgetChange}
+                        id="total-budget-input"
+                        value={this.state.totalBudget}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Form>
+                <br />
+                Now, decide how much money you want to spend in each category.
+                <br />
+                You have used <b>${this.getBudgetUsed()}</b> of your{" "}
+                <b>${this.state.totalBudget}</b> budget. (
+                <b>${this.state.totalBudget - this.getBudgetUsed()}</b> left)
+                <ProgressBar
+                  max={this.state.totalBudget}
+                  now={this.getBudgetUsed()}
+                  variant={this.getVariant()}
+                />
+                <Collapse in={this.isOverBudget()}>
+                  <div>
+                    <br />
+                    <Alert variant="danger">
+                      You are <b>Over Budget</b>! Either increase your Total
+                      Budget, or decrease your category spending to fix this
+                      error.
+                    </Alert>
                   </div>
-                </Alert>
+                </Collapse>
+                <br />
+                <Form>
+                  <Form.Group>
+                    <Form.Label>
+                      <b>Housing</b>
+                    </Form.Label>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        type="number"
+                        placeholder="ex. 200"
+                        onChange={this.handleHousingBudgetChange}
+                        value={this.state.housingBudget}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Form>
+                <ProgressBar
+                  max={this.state.totalBudget}
+                  now={this.state.housingBudget}
+                  variant={this.getHousingVariant()}
+                />
+                <br />
+                <Form>
+                  <Form.Group>
+                    <Form.Label>
+                      <b>Utilities</b>
+                    </Form.Label>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        type="number"
+                        placeholder="ex. 200"
+                        onChange={this.handleUtilitiesBudgetChange}
+                        value={this.state.utilitiesBudget}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Form>
+                <ProgressBar
+                  max={this.state.totalBudget}
+                  now={this.state.utilitiesBudget}
+                  variant={this.getUtilitiesVariant()}
+                />
+                <br />
+                <Form>
+                  <Form.Group>
+                    <Form.Label>
+                      <b>Transportation</b>
+                    </Form.Label>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        type="number"
+                        placeholder="ex. 200"
+                        onChange={this.handleTransportationBudgetChange}
+                        value={this.state.transportationBudget}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Form>
+                <ProgressBar
+                  max={this.state.totalBudget}
+                  now={this.state.transportationBudget}
+                  variant={this.getTransportationVariant()}
+                />
+                <br />
+                <Form>
+                  <Form.Group>
+                    <Form.Label>
+                      <b>Food</b>
+                    </Form.Label>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        type="number"
+                        placeholder="ex. 200"
+                        onChange={this.handleFoodBudgetChange}
+                        value={this.state.foodBudget}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Form>
+                <ProgressBar
+                  max={this.state.totalBudget}
+                  now={this.state.foodBudget}
+                  variant={this.getFoodVariant()}
+                />
+                <br />
+                <Form>
+                  <Form.Group>
+                    <Form.Label>
+                      <b>Medical</b>
+                    </Form.Label>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        type="number"
+                        placeholder="ex. 200"
+                        onChange={this.handleMedicalBudgetChange}
+                        value={this.state.medicalBudget}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Form>
+                <ProgressBar
+                  max={this.state.totalBudget}
+                  now={this.state.medicalBudget}
+                  variant={this.getMedicalVariant()}
+                />
+                <br />
+                <Form>
+                  <Form.Group>
+                    <Form.Label>
+                      <b>Savings</b>
+                    </Form.Label>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        type="number"
+                        placeholder="ex. 200"
+                        onChange={this.handleSavingsBudgetChange}
+                        value={this.state.savingsBudget}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Form>
+                <ProgressBar
+                  max={this.state.totalBudget}
+                  now={this.state.savingsBudget}
+                  variant={this.getSavingsVariant()}
+                />
+                <br />
+                <Form>
+                  <Form.Group>
+                    <Form.Label>
+                      <b>Personal</b>
+                    </Form.Label>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        type="number"
+                        placeholder="ex. 200"
+                        onChange={this.handlePersonalBudgetChange}
+                        value={this.state.personalBudget}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Form>
+                <ProgressBar
+                  max={this.state.totalBudget}
+                  now={this.state.personalBudget}
+                  variant={this.getPersonalVariant()}
+                />
+                <br />
+                <Form>
+                  <Form.Group>
+                    <Form.Label>
+                      <b>Entertainment</b>
+                    </Form.Label>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        type="number"
+                        placeholder="ex. 200"
+                        onChange={this.handleEntertainmentBudgetChange}
+                        value={this.state.entertainmentBudget}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Form>
+                <ProgressBar
+                  max={this.state.totalBudget}
+                  now={this.state.entertainmentBudget}
+                  variant={this.getEntertainmentVariant()}
+                />
+                <br />
+                <Form>
+                  <Form.Group>
+                    <Form.Label>
+                      <b>Other</b>
+                    </Form.Label>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        type="number"
+                        placeholder="ex. 200"
+                        onChange={this.handleOtherBudgetChange}
+                        value={this.state.otherBudget}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Form>
+                <ProgressBar
+                  max={this.state.totalBudget}
+                  now={this.state.otherBudget}
+                  variant={this.getOtherVariant()}
+                />
+                <br />
+                <Collapse in={this.isOverBudget()}>
+                  <div>
+                    <br />
+                    <Alert variant="danger">
+                      You are <b>Over Budget</b> by{" "}
+                      <b>${this.getBudgetUsed() - this.state.totalBudget}</b>!
+                      You cannot submit while Over Budget. Please either
+                      increase your Total Budget or decrease spending in
+                      different categories.
+                    </Alert>
+                  </div>
+                </Collapse>
+                <Collapse in={!this.isOverBudget() && !this.isMoneyLeftOver()}>
+                  <div>
+                    <br />
+                    <Alert variant="success">
+                      Your budget is looking good! If you are finished setting
+                      up your categories, click Submit below. <br />
+                      Here is a summary of your budget: <br />
+                      <Table>
+                        <thead>
+                          <tr>
+                            <th>Category</th>
+                            <th>Budget</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Housing</td>
+                            <td>{this.state.housingBudget}</td>
+                          </tr>
+                          <tr>
+                            <td>Utilities</td>
+                            <td>{this.state.utilitiesBudget}</td>
+                          </tr>
+                          <tr>
+                            <td>Transportation</td>
+                            <td>{this.state.transportationBudget}</td>
+                          </tr>
+                          <tr>
+                            <td>Food</td>
+                            <td>{this.state.foodBudget}</td>
+                          </tr>
+                          <tr>
+                            <td>Medical</td>
+                            <td>{this.state.medicalBudget}</td>
+                          </tr>
+                          <tr>
+                            <td>Savings</td>
+                            <td>{this.state.savingsBudget}</td>
+                          </tr>
+                          <tr>
+                            <td>Personal</td>
+                            <td>{this.state.personalBudget}</td>
+                          </tr>
+                          <tr>
+                            <td>Entertainment</td>
+                            <td>{this.state.entertainmentBudget}</td>
+                          </tr>
+                          <tr>
+                            <td>Other</td>
+                            <td>{this.state.otherBudget}</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <b>Total</b>
+                            </td>
+                            <td>
+                              <b>{this.state.totalBudget}</b>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </Alert>
+                  </div>
+                </Collapse>
+                <Collapse in={this.isMoneyLeftOver()}>
+                  <div>
+                    <br />
+                    <Alert variant="warning">
+                      You have not used all of your Total Budget yet. If you
+                      Submit, the leftover{" "}
+                      <b>${this.state.totalBudget - this.getBudgetUsed()}</b>{" "}
+                      will go into the <b>Other</b> category.
+                    </Alert>
+                  </div>
+                </Collapse>
+                <Collapse in={this.state.success}>
+                  <div>
+                    <Alert variant="success">
+                      <Alert.Heading>Success</Alert.Heading>
+                      <p>Your Budget has been successfully created!</p>
+                      <p>
+                        If you don't need to change it again, you can navigate
+                        back to the Finance Dashboard
+                      </p>
+                      <div className="d-flex justify-content-end">
+                        <Button
+                          variant="outline-success"
+                          onClick={() => history.push(FINANCE_DASHBOARD)}
+                        >
+                          Finance Dashboard
+                        </Button>
+                      </div>
+                    </Alert>
+                  </div>
+                </Collapse>
+                <Collapse in={this.state.error}>
+                  <div>
+                    <Alert variant="danger">
+                      <Alert.Heading>Error</Alert.Heading>
+                      <p>
+                        Something went wrong. Please try submiting again. If
+                        this error continues please try checking your internet
+                        connection or try restarting your Web Browser.
+                      </p>
+                    </Alert>
+                  </div>
+                </Collapse>
+                <Button
+                  disabled={this.getButtonActive()}
+                  active={this.getButtonActive()}
+                  variant={this.getVariant()}
+                  onClick={this.handleSubmit}
+                >
+                  Submit
+                </Button>
               </div>
-            </Collapse>
-            <Collapse in={this.state.error}>
-              <div>
-                <Alert variant="danger">
-                  <Alert.Heading>Error</Alert.Heading>
-                  <p>
-                    Something went wrong. Please try submiting again. If this
-                    error continues please try checking your internet connection
-                    or try restarting your Web Browser.
-                  </p>
-                </Alert>
+            </Col>
+            <Col>
+              <div className={classes.stackTop}>
+                <BudgetGraph budget={this.state}></BudgetGraph>
+                <BudgetAdvice budget={this.state}></BudgetAdvice>
               </div>
-            </Collapse>
-            <Button
-              disabled={this.getButtonActive()}
-              active={this.getButtonActive()}
-              variant={this.getVariant()}
-              onClick={this.handleSubmit}
-            >
-              Submit
-            </Button>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

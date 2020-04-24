@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 mongoose.promise = Promise;
+const root = 'https://s3.amazonaws.com/finexprofilepictures';
 
 // Define userSchema
 const userSchema = new Schema({
@@ -19,6 +20,7 @@ const userSchema = new Schema({
   dark_mode: { type: Boolean },
   count: { type: Number, unique: false, required: false},
   lockoutDate: { type: Date, unique: false, required: false},
+  accepted_warnings: {type: Boolean}
 }, { collection: "Users"})
 
 // Define schema methods

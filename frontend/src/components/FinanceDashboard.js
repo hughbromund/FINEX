@@ -5,7 +5,8 @@ import classes from "./FinanceDashboard.module.css";
 import TransactionToast from "./TransactionToast";
 import MonthProgress from "./MonthProgress";
 import CategoryProgress from "./CategoryProgress";
-import history from "../routing/History";
+import Advice from "./Advice";
+import history from "../../routing/History";
 
 import { GET_EXPENSE_LIST } from "../constants/Constants";
 import { LOGIN_PATH } from "../constants/Constants";
@@ -48,7 +49,8 @@ export default class FinanceDashboard extends Component {
     // console.log(GET_INCOME_LIST)
     var response = await fetch(GET_INCOME_LIST, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
+      credentials: "include",
       // credentials: 'same-origin'
     }).catch(err => {
       console.error(err);
@@ -78,7 +80,8 @@ export default class FinanceDashboard extends Component {
   getTransactions = async () => {
     var response = await fetch(GET_EXPENSE_LIST, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
+      credentials: "include",
       // credentials: 'same-origin'
     }).catch(err => {
       console.error(err);
@@ -108,7 +111,8 @@ export default class FinanceDashboard extends Component {
   getBudgetCategories = async () => {
     var response = await fetch(GET_CATEGORY_BUDGET, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
+      credentials: "include",
       // credentials: 'same-origin'
     }).catch(err => {
       console.error(err);
@@ -191,9 +195,9 @@ export default class FinanceDashboard extends Component {
             </Navbar.Brand>
           </Container>
         </Navbar>
-        <Container fluid>
+        <Container className={classes.newMargin} fluid>
           <Row>
-            <Col>
+            <Col sm>
               <Card
                 className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
                 style={{ flex: 1 }}
@@ -220,7 +224,7 @@ export default class FinanceDashboard extends Component {
               </Card>
               {this.state.transactionToasts}
             </Col>
-            <Col>
+            <Col sm>
               <Card
                 className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
                 style={{ flex: 1 }}
@@ -247,7 +251,8 @@ export default class FinanceDashboard extends Component {
               </Card>
               {this.state.incomeToasts}
             </Col>
-            <Col>
+
+            <Col sm>
               <Row>
                 <Card
                   className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
@@ -258,6 +263,22 @@ export default class FinanceDashboard extends Component {
                   </Card.Header>
                   <Card.Body>
                     <MonthProgress onTrack={false}></MonthProgress>
+                  </Card.Body>
+                </Card>
+              </Row>
+              <br />
+              <Row>
+                <Card
+                  className={this.context.isDarkMode ? "bg-dark" : "bg-light"}
+                  style={{ flex: 1 }}
+                >
+                  <Card.Header>
+                    <b>FINEX</b> Advice
+                  </Card.Header>
+                  <Card.Body>
+                    <div>
+                      <Advice></Advice>
+                    </div>
                   </Card.Body>
                 </Card>
               </Row>

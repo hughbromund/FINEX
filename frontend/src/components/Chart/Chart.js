@@ -5,10 +5,12 @@ import {
   getData,
   getCryptoData,
   getCryptoIntradayData,
-  getIntradayData
-} from "./ChartUtils/ChartUtils";
+  getIntradayData,
+} from "./ChartUtils";
 
-import StockChart from "./ChartUtils/StockChart";
+import { Spinner } from "react-bootstrap";
+import StockChart from "./StockChart";
+import classes from "./Chart.module.css";
 /*
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -45,42 +47,50 @@ export default class Chart extends React.Component {
       ticker: this.props.symbol,
       header: "",
       isCrypto: this.props.isCrypto,
-      daily: this.props.isDaily
+      daily: this.props.isDaily,
     });
 
     let myData;
 
     if (this.props.isDaily) {
       if (!this.props.isCrypto) {
-        myData = await getData(this.props.symbol).catch(err => {
+        myData = await getData(this.props.symbol).catch((err) => {
           console.log("Stock not found for chart.");
         });
       } else {
-        myData = await getCryptoData(this.props.symbol).catch(err => {
+        myData = await getCryptoData(this.props.symbol).catch((err) => {
           console.log("Stock not found for chart.");
         });
       }
     } else {
       if (!this.props.isCrypto) {
-        myData = await getIntradayData(this.props.symbol).catch(err => {
+        myData = await getIntradayData(this.props.symbol).catch((err) => {
           console.log("Stock not found for chart.");
         });
       } else {
-        myData = await getCryptoIntradayData(this.props.symbol).catch(err => {
+        myData = await getCryptoIntradayData(this.props.symbol).catch((err) => {
           console.log("Stock not found for chart.");
         });
       }
     }
     console.log(myData);
     this.setState({
-      data: myData
+      data: myData,
     });
   }
   render() {
     if (this.state == null) {
-      return <div>Loading...</div>;
+      return (
+        <div className={classes.spinnerWrapper}>
+          <Spinner animation="border" variant="success" />
+        </div>
+      );
     } else if (this.state.data == null || this.state.data[0]["date"] == null) {
-      return <div>Loading...</div>;
+      return (
+        <div className={classes.spinnerWrapper}>
+          <Spinner animation="border" variant="success" />
+        </div>
+      );
     }
     return (
       <div>

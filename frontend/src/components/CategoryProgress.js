@@ -22,7 +22,7 @@ export default class CategoryProgress extends Component {
       budgetedSpending: props.budgetedSpending,
       month: today.getMonth(),
       day: today.getDate(),
-      year: today.getFullYear()
+      year: today.getFullYear(),
     };
 
     this.getDaysInMonth = this.getDaysInMonth.bind(this);
@@ -35,20 +35,11 @@ export default class CategoryProgress extends Component {
   }
 
   onTrack() {
-    var daysInMonth = this.getDaysInMonth();
-
-    var budgetPerDay = this.state.budgetedSpending / daysInMonth;
-    // console.log(budgetPerDay)
-    // var currentPerDay = this.state.currentSpending / daysInMonth;
-
-    var projectedSpending = budgetPerDay * this.state.day;
-
-    // console.log(projectedSpending)
-
-    if (projectedSpending > this.state.currentSpending) {
-      return true;
-    } else {
+    // console.log(this.state);
+    if (this.state.currentSpending > this.state.budgetedSpending) {
       return false;
+    } else {
+      return true;
     }
   }
 
@@ -64,17 +55,26 @@ export default class CategoryProgress extends Component {
   render() {
     return (
       <div>
-        <b>Category: </b>
-        {this.state.category} <br />
-        <b>Budgeted Spending: </b>${this.state.budgetedSpending}
-        <ProgressBar
-          now={this.state.currentSpending}
-          max={this.state.budgetedSpending}
-          label={"$" + this.state.currentSpending}
-          variant={this.getVarient()}
-        ></ProgressBar>
-        <div hidden={this.onTrack()}>You are overbudget for this month.</div>
-        <div hidden={!this.onTrack()}>Your budget is looking good.</div>
+        <div hidden={this.state.budgetedSpending > 0 ? false : true}>
+          <b>{this.state.category} </b>
+          <br />
+          <ProgressBar
+            now={this.state.currentSpending}
+            max={this.state.budgetedSpending}
+            label={"$" + this.state.currentSpending}
+            variant={this.getVarient()}
+          ></ProgressBar>
+          <div hidden={this.onTrack()}>
+            You are overbudget by{" "}
+            <b>${this.state.currentSpending - this.state.budgetedSpending}</b>!
+          </div>
+          <div hidden={!this.onTrack()}>
+            Your spending in this category is looking good! You have{" "}
+            <b>${this.state.budgetedSpending - this.state.currentSpending}</b>{" "}
+            left for this month.
+          </div>
+          <hr />
+        </div>
       </div>
     );
   }

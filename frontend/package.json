@@ -2,6 +2,7 @@
   "name": "finex-app",
   "version": "0.1.0",
   "private": true,
+  "main": "app.js",
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
@@ -10,13 +11,16 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "chart.js": "^2.9.3",
     "d3-dsv": "^1.2.0",
     "emotion-theming": "^10.0.27",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "history": "^4.10.1",
+    "node-sass": "^4.13.1",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
+    "react-chartjs-2": "^2.9.0",
     "react-color": "^2.18.0",
     "react-datepicker": "^2.14.1",
     "react-dom": "^16.12.0",
@@ -25,13 +29,15 @@
     "react-stockcharts": "^0.7.8",
     "react-test-renderer": "^16.13.1",
     "recharts": "^1.8.5",
+    "serve": "^11.3.0",
     "styled-components": "^5.0.1",
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "local": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test --watchAll=false --silent",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

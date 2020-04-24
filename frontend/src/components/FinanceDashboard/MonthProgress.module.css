@@ -1,0 +1,22 @@
+.docButton {
+  margin-left: 10px;
+}
+
+.netChange {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: -15px;
+}
+
+.green {
+  color: #34c759;
+}
+
+.red {
+  color: #ff3b30;
+}
+
+.netTitle {
+  font-weight: bold;
+  margin-right: 5px;
+}

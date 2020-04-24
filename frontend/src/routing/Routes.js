@@ -9,20 +9,27 @@ import ResetEmail from "../components/ResetEmail";
 import RegistrationPage from "../components/RegistrationPage";
 import SearchStock from "../components/StockSearch/StockSearch";
 // import Chart from "../components/Chart";
-import HomePage from "../components/HomePage";
-import NotFound from "../components/NotFound";
-import AccountPage from "../components/AccountPage";
-import LoginPage from "../components/LoginPage";
-import StockInfo from "../components/StockInfo";
-import ResetName from "../components/ResetName";
-import ResteUsername from "../components/ResetUsername";
-import FinanceDashboard from "../components/FinanceDashboard";
-import BudgetItemForm from "../components/BudgetItemForm";
-import IncomeItemForm from "../components/IncomeItemForm";
-import CreateBudget from "../components/CreateBudget";
-import ForgotPassword from "../components/ForgotPassword";
-import ResetPassword from "../components/ResetPassword";
-import SpentSummary from "../components/SpentSummary";
+import HomePage from "../components/HomePage/HomePage";
+import NotFound from "../components/NotFound/NotFound";
+import AccountPage from "../components/AccountPage/AccountPage";
+import LoginPage from "../components/LoginPage/LoginPage";
+import StockInfo from "../components/StockInfo/StockInfo";
+import ResetName from "../components/ResetName/ResetName";
+import ResteUsername from "../components/ResetUsername/ResetUsername";
+import FinanceDashboard from "../components/FinanceDashboard/FinanceDashboard";
+import BudgetItemForm from "../components/BudgetItemForm/BudgetItemForm";
+import IncomeItemForm from "../components/IncomeItemForm/IncomeItemForm";
+import CreateBudget from "../components/CreateBudget/CreateBudget";
+import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
+import ResetPassword from "../components/ResetPassword/ResetPassword";
+import SpentSummary from "../components/SpentSummary/SpentSummary";
+import FinanceDoc from "../components/FinanceDoc/FinanceDoc";
+import ResetProfilePicture from "../components/ResetProfilePicture/ResetProfilePicture";
+import RiskManagement from "../components/RiskManagement/RiskManagement";
+import CategorySummary from "../components/CategorySummary/CategorySummary";
+import InvestmentTactics from "../components/InvestmentTactics/InvestmentTactics";
+import StocksPage from "../components/StocksPage/StocksPage";
+import AlertRisk from "../components/AlertRisk/AlertRisk";
 
 /* Paths */
 import { RESET_EMAIL_PATH } from "../constants/Constants";
@@ -41,6 +48,13 @@ import { CREATE_NEW_BUDGET } from "../constants/Constants";
 import { FORGOT_PASSWORD_PATH } from "../constants/Constants";
 import { RESET_PASSWORD_PATH } from "../constants/Constants";
 import { SPENT_SUMMARY_PATH } from "../constants/Constants";
+import { FINANCE_DOC_PATH } from "../constants/Constants";
+import { RESET_PROFILE_PICTURE_PATH } from "../constants/Constants";
+import { RISK_MANAGEMENT_PATH } from "../constants/Constants";
+import { CATEGORY_SUMMARY_PATH } from "../constants/Constants";
+import { INVESTMENT_TACTICS_PATH } from "../constants/Constants";
+import { STOCKS_PAGE_PATH } from "../constants/Constants";
+import { ALERT_RISK } from "../constants/Constants";
 
 function Routes() {
   return (
@@ -62,6 +76,16 @@ function Routes() {
         <Route path={FORGOT_PASSWORD_PATH} component={ForgotPassword} />
         <Route path={RESET_PASSWORD_PATH} component={ResetPassword} />
         <Route path={SPENT_SUMMARY_PATH} component={SpentSummary} />
+        <Route path={FINANCE_DOC_PATH} component={FinanceDoc} />
+        <Route
+          path={RESET_PROFILE_PICTURE_PATH}
+          component={ResetProfilePicture}
+        />
+        <Route path={RISK_MANAGEMENT_PATH} component={RiskManagement} />
+        <Route path={INVESTMENT_TACTICS_PATH} component={InvestmentTactics} />
+        <Route path={CATEGORY_SUMMARY_PATH} component={CategorySummary} />
+        <Route path={STOCKS_PAGE_PATH} component={StocksPage} />
+        <Route path={ALERT_RISK} component={AlertRisk} />
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>

@@ -1,0 +1,85 @@
+.toggleGroupWrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.jumboWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  height: 50%;
+}
+
+.chartWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.headerWrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.textWrapper {
+  width: 40vw;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+}
+
+.breakdownDiv {
+  display: flex;
+  flex-direction: row;
+  font-size: 15pt;
+  margin-top: 20px;
+}
+
+.titlesWrapper {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  min-width: 200px;
+  width: 50%;
+}
+
+.amountsWrapper {
+  display: block;
+  text-align: right;
+  margin-left: 10px;
+  width: 40%;
+}
+
+.outerJumbo {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggles {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+@media (max-width: 991px) {
+  .contentWrapper {
+    flex-direction: column;
+  }
+
+  .textWrapper {
+    width: 100vw;
+    justify-content: center;
+  }
+
+  .wrapper {
+    height: 100%;
+    background: #121212;
+  }
+}

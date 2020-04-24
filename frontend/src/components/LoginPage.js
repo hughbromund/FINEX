@@ -54,6 +54,8 @@ export default class LoginPage extends Component {
     fetch(LOGIN_URL, {
       method: "POST",
       // mode: 'no-cors',
+      credentials: "include",
+      withCredentials: true,
       headers: {
         "Content-Type": "application/json"
       },
@@ -61,7 +63,6 @@ export default class LoginPage extends Component {
         username: this.state.username,
         password: this.state.password
       }),
-      withCredentials: true
       // credentials: 'same-origin'
     })
       .then(response => {
@@ -69,6 +70,7 @@ export default class LoginPage extends Component {
         if (response.status === 200) {
           // Success on Login
           // console.log(response)
+          // window.location.reload(false);
           history.push(ACCOUNT_PATH);
         } else {
           // Failure to login
@@ -163,9 +165,7 @@ export default class LoginPage extends Component {
                   onChange={this.handlePasswordChange}
                 />
               </Form.Group>
-              <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Keep me Logged In" />
-              </Form.Group>
+              <hr />
               <Button data-testid="submit" variant="success" type="submit">
                 Log In
               </Button>

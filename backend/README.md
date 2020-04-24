@@ -208,6 +208,88 @@ etc.
 ]
 }
 
+## /stock/sim/createPortfolio
+
+POST
+This represents the first time creation of a Portfolio for simulating investments
+Requirements: logged in
+Returns: 200 if success, 400 if failure
+Status: Working
+Bugs: None
+
+## /stock/sim/getPortfolio
+
+GET
+This represents pulling the users current stock portfolio
+Requirements: logged in
+Returns: 200 if success, 400 if failure, with JSON listed below
+Status: Working
+Bugs: None
+
+JSON Format (Output):
+{
+"status": 200,
+"wallet": 4000,
+"investing": 1000,
+stocks: [
+    {
+    "code": "aapl",
+    "quantity": 4,
+    "price": 250,
+    "value": 1000,
+    "buyPrice": 150,
+    "buyValue": 600
+    },
+    ...
+    ]
+
+}
+
+## /stock/sim/buyStock
+
+POST
+This represents a user buying a stock
+Requirements: logged in, JSON listed below
+Returns: 200 if success with message of cost, 400 if failure, with additional messages if error (ex. not enough money, err processing, etc.)
+Status: Working
+Bugs: None
+
+JSON Format (Input):
+{
+"code" : "aapl",
+"quantity" : 4
+}
+
+JSON Format (Output):
+{
+"status" : "200",
+"message" : "Successfully bought for $1000",
+"cost": 1000
+}
+
+## /stock/sim/sellStock
+
+POST
+This represents a user selling a stock
+Requirements: logged in, JSON listed below
+Returns: 200 if success with message of how much made, 400 if failure, with additional messages if error (ex. don't own that many shares, dont own shares, etc.)
+Status: Working
+Bugs: None
+
+JSON Format (Input):
+{
+"code" : "aapl",
+"quantity" : 4
+}
+
+
+JSON Format (Output):
+{
+"status" : "200",
+"message" : "Successfully sold for $1000",
+"value": 1000
+}
+
 ## Crypto
 
 ### /api/crypto/auto/:input
@@ -433,6 +515,25 @@ or
 "status": "No user logged in."
 }
 
+### /user/acceptWarnings
+
+POST
+This represents accepting warnings on a user account
+Requirements: "accepted_warnings" in JSON
+Returns: Returns 400 and "status": "acceptance status not passed!" JSON if user does not pass a boolean value
+and 200 "acceptance status updated" on success
+Status: Working
+Bugs: none as of now
+
+JSON Format (Input):
+{
+"accepted_warnings": true/false
+}
+or
+{
+"status": "No user logged in."
+}
+
 ### /user/getGoodColor
 
 GET
@@ -445,6 +546,24 @@ Bugs: none as of now
 JSON Format (Output):
 {
 "good_color": "some hash value"
+}
+
+### /user/warningStatus
+
+GET
+This represents getting whether or not a user has accepted warnings
+Requirements: none
+Returns: Returns 200 and the acceptance status on success and an error otherwise
+Status: Working
+Bugs: none as of now
+
+JSON Format (Output):
+{
+"accepted_warnings": "true/false"
+}
+or
+{
+"status": "No user logged in."
 }
 
 ### /user/getBadColor
@@ -464,6 +583,32 @@ or
 {
 "status": "No user logged in."
 }
+
+### /user/setProfilePicture
+
+POST
+This represents adding a user profile picture to the s3 bucket to save for future use
+On success, image will be uploaded to s3 bucket as "<username>"
+Requirements: the image itself
+Status: Working
+Bugs: Only accepting png for right now
+JSON Format (form-data) :
+    "image": <image>
+
+JSON Format (output) :
+{
+    "imageUrl": "url"
+}
+
+### /user/getProfilePicture
+
+GET
+This represents getting a user profile picture from the s3 bucket and returning an image source url
+Requirements: none
+Status: working
+Bugs: None
+Output: url to be used in <Image src="url">
+
 
 ### /auth/updatePassword
 
@@ -592,6 +737,34 @@ or
 "status": "No user logged in."
 }
 
+### /finance/expense/:category
+
+GET  
+This represents obtaining current expenses for the current month in specified category
+Requirements: correct category in place of ":category"
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's expenses in category otherwise  
+Status: Working
+Bugs: ??
+
+JSON Format (Output):
+[
+{
+"username": "shmem",
+"type": "expense",
+"category": "Food",
+"cost": "250",
+"name": "Apples"
+},
+...
+]
+
+or
+
+{
+"status": "No user logged in."
+}
+
+
 ### /finance/total
 
 GET  
@@ -613,6 +786,29 @@ or
 {
 "status": "No user logged in."
 }
+
+
+### /finance/advice
+
+GET  
+This represents obtaining financial advice for the user
+Requirements: None  
+Returns: Returns 400 and "status": "No user logged in." JSON if user not logged in or a JSON list of the user's advice otherwise. Empty if no advice
+Status: Working
+Bugs: ??
+
+JSON Format (Output):
+[
+    {
+    "trigger": "Budgeted savings less than 20%.",
+    "advice": "Save at least 20% of your income for emergencies and large purchases.",
+    "isBudget": true
+    },
+    {},
+    ...
+]
+
+
 
 ### /transaction/newTransaction
 
