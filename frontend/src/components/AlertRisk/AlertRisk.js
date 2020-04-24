@@ -28,15 +28,6 @@ export default class AlertRisk extends Component {
                   <Button
                     variant={"danger"}
                     onClick={() => {
-                      fetch(SET_WARNING_STATUS, {
-                        method: "POST",
-                        withCredentials: true,
-                        headers: {
-                          "Content-Type": "application/json",
-                          credentials: "include",
-                        },
-                        body: JSON.stringify({ accepted_warnings: true }),
-                      });
                       history.push(RISK_MANAGEMENT_PATH);
                     }}
                   >
@@ -46,7 +37,18 @@ export default class AlertRisk extends Component {
                   &nbsp; &nbsp; &nbsp;
                   <Button
                     variant={"success"}
-                    onClick={() => history.push(INVESTMENT_TACTICS_PATH)}
+                    onClick={() => {
+                      fetch(SET_WARNING_STATUS, {
+                        method: "POST",
+                        withCredentials: true,
+                        headers: {
+                          "Content-Type": "application/json",
+                          credentials: "include",
+                        },
+                        body: JSON.stringify({ accepted_warnings: true }),
+                      });
+                      history.push(INVESTMENT_TACTICS_PATH);
+                    }}
                   >
                     I accept and acknowledge these risks.
                   </Button>
