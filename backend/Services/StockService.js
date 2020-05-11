@@ -234,7 +234,7 @@ exports.buyStock = async function (req) {
 
   for (let index = 0; index < stocks.length; index++) {
       if (code == stocks[index].code) {
-          stocks[index].buyPrice = ((stocks[index].buyValue * stocks[index].quantity) + (cost) ) / (stocks[index].quantity + quantity)
+          stocks[index].buyPrice = ((stocks[index].buyValue + cost) / (stocks[index].quantity + quantity))
           stocks[index].quantity = quantity + stocks[index].quantity;
           stocks[index].buyValue = stocks[index].buyPrice * stocks[index].quantity
           found = true;
